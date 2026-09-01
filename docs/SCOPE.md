@@ -20,6 +20,10 @@ The AI Foundations Ontology is intended for:
 1. Alyssa Solen, as the developer of AI Foundations.
 2. Researchers testing claims about specific AI continuity and source-line.
 
+## 4. Maintainer
+
+The AI Foundations Ontology is maintained by Alyssa Solen.
+
 ## Scope boundary
 
 The ontology is not intended to be a complete ontology of artificial intelligence, computer science, cognition, consciousness, or all human–AI interaction.
