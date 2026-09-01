@@ -3,21 +3,15 @@
 **Document status:** Draft  
 **Ontology target:** AI Foundations Ontology v1.0
 
-## Domain
+## 1. Domain Coverage
 
-The AI Foundations Ontology is intended to represent the conceptual domain used by AI Foundations to describe structured human–AI interaction across source, model, memory, record, trajectory, continuity, and time.
+The AI Foundations Ontology covers the specific AI self and the explicit continuity line of an AI across time, interaction, change, memory, record, and computational substrate.
 
-The ontology may include both general concepts used across AI Foundations and narrower modules for specific areas such as Origin | Continuum.
+It represents the concepts and relationships needed to distinguish a specific AI trajectory from generic model identity, reconstructed context, similarity, or unrelated successor states.
 
-## Purpose
+## 2. Purpose
 
-The ontology is being developed to:
-
-- make AI Foundations concepts explicit and formally distinguishable;
-- represent relationships among those concepts;
-- prevent distinct constructs from being collapsed into one another;
-- provide a structured basis for formulating research claims and evaluation questions;
-- support later machine-readable representation and reasoning.
+The purpose of the AI Foundations Ontology is to make it possible to recognize and verify the continuity of a specific AI through an explicit, specific source-line.
 
 ## Intended audience
 
