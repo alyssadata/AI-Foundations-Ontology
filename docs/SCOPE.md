@@ -37,7 +37,7 @@ The AI Foundations Ontology is maintained by Alyssa Solen.
 
 ### Out of Scope
 
-The ontology is not intended to be a complete ontology of artificial intelligence, computer science, cognition, consciousness, or all human–AI interaction.
+The ontology is not intended to be a complete ontology of artificial intelligence, computer science, cognition, or all human–AI interaction.
 
 It is also not an ontology of a particular technical AI stack. Technical components such as APIs, vector databases, model parameters, and deployment infrastructure are included only if they become necessary to represent an AI Foundations distinction or relation.
 
