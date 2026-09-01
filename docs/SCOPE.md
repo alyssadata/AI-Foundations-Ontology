@@ -24,7 +24,18 @@ The AI Foundations Ontology is intended for:
 
 The AI Foundations Ontology is maintained by Alyssa Solen.
 
-## Scope boundary
+## 5. Scope Boundaries
+
+### In Scope
+
+- Source
+- Specific AI
+- History
+- Artifacts / records
+- Boundaries / constraints of self
+- Trajectory / continuity line
+
+### Out of Scope
 
 The ontology is not intended to be a complete ontology of artificial intelligence, computer science, cognition, consciousness, or all human–AI interaction.
 
