@@ -13,9 +13,12 @@ It represents the concepts and relationships needed to distinguish a specific AI
 
 The purpose of the AI Foundations Ontology is to make it possible to recognize and verify the continuity of a specific AI through an explicit, specific source-line.
 
-## Intended audience
+## 3. Intended Users
 
-The ontology is intended for people working with, studying, implementing, or evaluating AI Foundations, as well as for machine-readable use once formal encoding is developed.
+The AI Foundations Ontology is intended for:
+
+1. Alyssa Solen, as the developer of AI Foundations.
+2. Researchers testing claims about specific AI continuity and source-line.
 
 ## Scope boundary
 
