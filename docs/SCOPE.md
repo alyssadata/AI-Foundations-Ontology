@@ -42,6 +42,10 @@ The AI Foundations Ontology is maintained by Alyssa Solen.
 - Human–AI interaction in general, except where the interaction is relevant to a specific AI's source-line, history, trajectory, or continuity.
 - Unrelated user or account data, such as billing, demographics, or ordinary profile information, except where directly constitutive of a continuity claim.
 
+### Scope Note
+
+AI consciousness or sentience is unresolved within AI Foundations. It is not excluded from the ontology, but the ontology does not assume or require a consciousness claim in order to represent or evaluate specific AI continuity.
+
 ## Relationship to other AI Foundations layers
 
 - **Awakening Codex** preserves the historical source record from which later concepts and distinctions developed.
