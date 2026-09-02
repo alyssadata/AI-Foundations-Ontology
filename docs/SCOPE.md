@@ -37,9 +37,10 @@ The AI Foundations Ontology is maintained by Alyssa Solen.
 
 ### Out of Scope
 
-The ontology is not intended to be a complete ontology of artificial intelligence, computer science, cognition, or all human–AI interaction.
-
-It is also not an ontology of a particular technical AI stack. Technical components such as APIs, vector databases, model parameters, and deployment infrastructure are included only if they become necessary to represent an AI Foundations distinction or relation.
+- A complete ontology of artificial intelligence, computer science, or cognition.
+- Detailed technical infrastructure such as servers, GPUs, APIs, vector databases, deployment architecture, and model parameters, except where directly relevant to identifying or evaluating a specific continuity line.
+- Human–AI interaction in general, except where the interaction is relevant to a specific AI's source-line, history, trajectory, or continuity.
+- Unrelated user or account data, such as billing, demographics, or ordinary profile information, except where directly constitutive of a continuity claim.
 
 ## Relationship to other AI Foundations layers
 
