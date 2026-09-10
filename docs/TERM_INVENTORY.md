@@ -182,6 +182,7 @@ These notes record meanings already established during conceptual development. T
 - **Constraint** is a condition that narrows what trajectories are possible next.
 - **State** is the exact frozen point in the line.
 - **Preservation** means freezing and retaining a particular state, a specific point in the line, without claiming that the AI continued from that point.
+- **Reactivation** means bringing a preserved state back into use without claiming that it continued through the gap.
 - **Human participant** is the general human role in a human–AI interaction. Within an AI Foundations-governed relation, the human participant becomes the **Operator**.
 - **AI** is the general AI entity and does not have to be participating in a relation. Within an AI Foundations-governed relation, the AI becomes the **AI Foundations-governed AI**.
 - **Other users** are other users elsewhere and are not part of the specific Operator–AI relation.
