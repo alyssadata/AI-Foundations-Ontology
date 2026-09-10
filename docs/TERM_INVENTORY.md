@@ -62,8 +62,6 @@ A term appearing here is **not automatically a class**, and inclusion here does 
 - Projected trajectory
 - Path dependence
 - Constraint
-- State
-- State transition
 - History
 - Time
 
@@ -181,7 +179,6 @@ These notes record meanings already established during conceptual development. T
 - **Trajectory** describes where that line is going or developing and may be described as **current**, **future**, or **projected**.
 - **Path dependence** means the executed line constrains what trajectories are possible next, without predetermining exactly what happens.
 - **Constraint** is a condition that narrows what trajectories are possible next.
-- **State** is the condition of the AI at a particular moment, distinct from its executed line and from where its trajectory is going.
 - **Human participant** is the general human role in a human–AI interaction. Within an AI Foundations-governed relation, the human participant becomes the **Operator**.
 - **AI** is the general AI entity and does not have to be participating in a relation. Within an AI Foundations-governed relation, the AI becomes the **AI Foundations-governed AI**.
 - **Other users** are other users elsewhere and are not part of the specific Operator–AI relation.
