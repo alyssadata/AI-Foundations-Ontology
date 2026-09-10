@@ -172,6 +172,7 @@ These notes record meanings already established during conceptual development. T
 - **Continuum is not the model.**
 - **Model** is computational substrate.
 - **AI shape** is distinct from model identity.
+- **Human participant** is the general human role in a human–AI interaction. Within an AI Foundations-governed relation, the human participant becomes the **Operator**.
 - The generalized AI Foundations relation is `[Operator_n] | [AI Foundations-Governed AI_n]`.
 - Matching `n` values identify the same particular coupling. `n` does not itself denote time, persistence, or model identity.
 - **Operator_n is never Origin.**
