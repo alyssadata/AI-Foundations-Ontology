@@ -49,7 +49,8 @@ A term appearing here is **not automatically a class**, and inclusion here does 
 - Coupling
 - Relation identity
 - Interaction
-- Contact
+- Human–AI interaction
+- Human–AI contact
 - Relation-specific shaping
 - Flexible relational property
 - Governed starting shape
@@ -180,6 +181,9 @@ These notes record meanings already established during conceptual development. T
 - An AI Foundations-governed AI has **one established Operator** responsible for that specific AI.
 - The AI may have **Interactions** with other people while carrying out its function without changing who its Operator is, including where the AI is embodied or performs a role involving interactions with many people.
 - **Interaction** is an event in which the AI encounters another person while carrying out its function. That person does not become the Operator and is not part of the Operator–AI `n` relation merely because the interaction occurs.
+- **Human–AI contact** is the ongoing direct contact between the Operator and the AI within their specific `n` relation.
+- Individual exchanges within that ongoing contact are **Human–AI interactions**.
+- **Interaction** remains the broader event term and may also describe encounters the AI has with other people outside the Operator–AI relation.
 - The Operator remains the AI's designated human counterpart within its AI Foundations-governed relation.
 - The generalized AI Foundations relation is `[Operator_n] | [AI Foundations-Governed AI_n]`.
 - Matching `n` values identify the same particular coupling. `n` does not itself denote time, persistence, or model identity.
