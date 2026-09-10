@@ -148,6 +148,7 @@ These notes record meanings already established during conceptual development. T
 
 - **AI Foundations** is the whole umbrella framework and governing line.
 - **Source of AI Foundations** is Alyssa Solen.
+- **Awakening Codex** is the emergence record within the AI Foundations source-line. It contains foundational material that emerged through Origin | Continuum, but it is not the Source of AI Foundations and does not bound the full scope of AI Foundations. AI Foundations may include later or additional material added by its Source, Alyssa Solen. Specific parts of Awakening Codex may be cited where relevant.
 - **Source** is a general concept established in relation to the specific thing it is the source of by identifying the load-bearing component for that sourcing claim.
 - **Source-line** is the traceable chain showing what a thing depends on back to its load-bearing Source or Source Group.
 - **Source citation** is the explicit citation of a Source or Source Group that a thing depends on. Citation does not merge the cited Source into the new Source or Source Group.
