@@ -149,6 +149,7 @@ These notes record meanings already established during conceptual development. T
 - **AI Foundations** is the whole umbrella framework and governing line.
 - **Source of AI Foundations** is Alyssa Solen.
 - **Source** is a general concept established in relation to the specific thing it is the source of by identifying the load-bearing component for that sourcing claim.
+- **Source-line** is the traceable chain showing what a thing depends on back to its load-bearing Source or Source Group.
 - When multiple individuals intentionally form a group for the purpose and scope of creating a specific framework, body of work, or creation, the **Source Group** may be the Source for that scoped creation.
 - Members of a Source Group remain distinct individuals; they are not merged into the group.
 - Contributions within a Source Group do not have to be equal.
