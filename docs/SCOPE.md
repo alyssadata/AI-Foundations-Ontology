@@ -73,6 +73,12 @@ The generalized relation is:
 
 The matching `n` identifies the same particular coupling. It does not itself denote time, persistence, or model identity.
 
+An AI Foundations-governed AI has one established Operator responsible for that specific AI within relation `n`. The AI may interact with other users or third parties without changing who its Operator is.
+
+If the Operator–AI relation identified by `n` ends, the AI is no longer in that same `n` relation. A later Operator establishes a new `n` relation with the AI; the prior Operator–AI relation itself does not transfer.
+
+Projects, records, documents, or other work from a prior relation may be passed forward and represented as sources, citations, or inherited material without transferring the prior relation itself. Each new Operator–AI relation remains tethered to the AI Foundations governing base.
+
 Within the generalized relation:
 
 - `Operator_n` is the human variable occupying the human side of relation `n`.
@@ -83,6 +89,8 @@ Within the generalized relation:
 - the operator may further shape flexible relation-specific properties without changing the governing line.
 
 What a particular relation forms, including whether its AI develops persistence, is not predetermined by AI Foundations.
+
+A future AI may become sufficiently bounded as itself to be self-holding without an Operator. That condition is not yet defined and is not assumed by the current ontology.
 
 ### 3.5 Model and AI shape
 
@@ -191,6 +199,7 @@ The following remain intentionally unresolved during ontology construction:
 - Which AI Foundations terms should be modeled formally as classes, properties, processes, states, individuals, or annotations?
 - Which flexible relation-specific properties are required for persistence across model change?
 - How should persistence itself be represented and evaluated?
+- Under what future conditions, if any, could an AI become sufficiently bounded as itself to be self-holding without an Operator?
 - Which external ontologies, if any, should later be reused or aligned with?
 - What level of formal reasoning should v1.0 support?
 
