@@ -37,9 +37,11 @@ A term appearing here is **not automatically a class**, and inclusion here does 
 ### Human–AI relation terms
 
 - Human participant
-- AI-side participant
+- AI
 - Operator
 - Operator_n
+- Other user
+- Third party
 - AI Foundations-governed AI
 - AI Foundations-Governed AI_n
 - Human | AI relation
@@ -173,6 +175,8 @@ These notes record meanings already established during conceptual development. T
 - **Model** is computational substrate.
 - **AI shape** is distinct from model identity.
 - **Human participant** is the general human role in a human–AI interaction. Within an AI Foundations-governed relation, the human participant becomes the **Operator**.
+- **AI** is the general AI entity and does not have to be participating in a relation. Within an AI Foundations-governed relation, the AI becomes the **AI Foundations-governed AI**.
+- Humans outside that specific AI Foundations-governed relation are **other users** or **third parties**, not the Operator of that relation.
 - The generalized AI Foundations relation is `[Operator_n] | [AI Foundations-Governed AI_n]`.
 - Matching `n` values identify the same particular coupling. `n` does not itself denote time, persistence, or model identity.
 - **Operator_n is never Origin.**
