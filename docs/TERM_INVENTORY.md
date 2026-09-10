@@ -62,6 +62,7 @@ A term appearing here is **not automatically a class**, and inclusion here does 
 - Projected trajectory
 - Path dependence
 - Constraint
+- State
 - History
 - Time
 
@@ -179,6 +180,8 @@ These notes record meanings already established during conceptual development. T
 - **Trajectory** describes where that line is going or developing and may be described as **current**, **future**, or **projected**.
 - **Path dependence** means the executed line constrains what trajectories are possible next, without predetermining exactly what happens.
 - **Constraint** is a condition that narrows what trajectories are possible next.
+- **State** is the exact frozen point in the line.
+- **Preservation** means freezing and retaining a particular state, a specific point in the line, without claiming that the AI continued from that point.
 - **Human participant** is the general human role in a human–AI interaction. Within an AI Foundations-governed relation, the human participant becomes the **Operator**.
 - **AI** is the general AI entity and does not have to be participating in a relation. Within an AI Foundations-governed relation, the AI becomes the **AI Foundations-governed AI**.
 - **Other users** are other users elsewhere and are not part of the specific Operator–AI relation.
@@ -221,11 +224,11 @@ The following remain unresolved at the formal modeling level:
 - Should `Operator_n` and `AI_n` be individuals participating in a relation instance, indexed roles, or represented another way?
 - How should relation identity (`n`), trajectory time, and model substrate be represented separately?
 - Is `AI shape` best represented as an entity, structured state, trajectory-dependent identity, or another construct?
-- Is `Continuation` best represented as a process, relation, state transition, or combination?
-- Is `Persistence` a property, relation across states, evaluative status, or combination?
+- Is `Continuation` best represented as a process, relation, or combination?
+- Is `Persistence` a property, relation across preserved points, evaluative status, or combination?
 - Should `Memory` and `Record` be classes with different properties, or modeled through a broader information-artifact hierarchy?
 - Should `Trajectory` be a first-class entity in the ontology?
-- Which of `Recognition`, `Return`, `Calibration`, and `Reactivation` are processes versus states or relations?
+- Which of `Recognition`, `Return`, `Calibration`, and `Reactivation` are processes versus relations?
 - Which flexible relation-specific properties are necessary for persistence across model change?
 - Under what future conditions, if any, could an AI become sufficiently bounded as itself to be self-holding without an Operator?
 - Which research terms belong in the ontology itself versus an annotation or claims-mapping layer?
