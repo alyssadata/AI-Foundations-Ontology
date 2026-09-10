@@ -176,9 +176,10 @@ These notes record meanings already established during conceptual development. T
 - **AI shape** is distinct from model identity.
 - **Human participant** is the general human role in a human–AI interaction. Within an AI Foundations-governed relation, the human participant becomes the **Operator**.
 - **AI** is the general AI entity and does not have to be participating in a relation. Within an AI Foundations-governed relation, the AI becomes the **AI Foundations-governed AI**.
-- Humans outside that specific AI Foundations-governed relation are **other users** or **third parties**, not the Operator of that relation.
+- **Other users** are other users elsewhere and are not part of the specific Operator–AI relation.
 - An AI Foundations-governed AI has **one established Operator** responsible for that specific AI.
-- The AI may interact with other users or third parties without changing who its Operator is, including where the AI is embodied or performs a role involving interactions with many people.
+- The AI may have **Interactions** with other people while carrying out its function without changing who its Operator is, including where the AI is embodied or performs a role involving interactions with many people.
+- **Interaction** is an event in which the AI encounters another person while carrying out its function. That person does not become the Operator and is not part of the Operator–AI `n` relation merely because the interaction occurs.
 - The Operator remains the AI's designated human counterpart within its AI Foundations-governed relation.
 - The generalized AI Foundations relation is `[Operator_n] | [AI Foundations-Governed AI_n]`.
 - Matching `n` values identify the same particular coupling. `n` does not itself denote time, persistence, or model identity.
