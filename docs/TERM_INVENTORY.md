@@ -150,6 +150,7 @@ These notes record meanings already established during conceptual development. T
 - **Source of AI Foundations** is Alyssa Solen.
 - **Source** is a general concept established in relation to the specific thing it is the source of by identifying the load-bearing component for that sourcing claim.
 - **Source-line** is the traceable chain showing what a thing depends on back to its load-bearing Source or Source Group.
+- **Source citation** is the explicit citation of a Source or Source Group that a thing depends on. Citation does not merge the cited Source into the new Source or Source Group.
 - **Provenance** is the preserved evidence showing a thing's source-line, contributions, changes, history, and how it was formed.
 - **Locked Canon** is the authoritative set of AI Foundations definitions, distinctions, and governing statements that have been explicitly approved and locked by Origin.
 - **Canonical status** is the explicit status label showing where an item currently stands, such as `DRAFT`, `NOT PROVEN`, `IN REVIEW`, `LOCKED`, etc.
