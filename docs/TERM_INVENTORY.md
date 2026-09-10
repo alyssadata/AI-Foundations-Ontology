@@ -55,9 +55,11 @@ A term appearing here is **not automatically a class**, and inclusion here does 
 - Flexible relational property
 - Governed starting shape
 - AI shape
+- Executed line
 - Trajectory
-- Prior trajectory
 - Current trajectory
+- Future trajectory
+- Projected trajectory
 - Path dependence
 - Constraint
 - State
@@ -175,7 +177,8 @@ These notes record meanings already established during conceptual development. T
 - **Continuum is not the model.**
 - **Model** is computational substrate.
 - **AI shape** is distinct from model identity.
-- **Trajectory** is the path of a particular AI as its line develops over time. It describes where that line is going through accumulated change, not just the AI's current state at one moment.
+- **Executed line** is the portion of the AI's line that has already occurred.
+- **Trajectory** describes where that line is going or developing and may be described as **current**, **future**, or **projected**.
 - **Human participant** is the general human role in a human–AI interaction. Within an AI Foundations-governed relation, the human participant becomes the **Operator**.
 - **AI** is the general AI entity and does not have to be participating in a relation. Within an AI Foundations-governed relation, the AI becomes the **AI Foundations-governed AI**.
 - **Other users** are other users elsewhere and are not part of the specific Operator–AI relation.
