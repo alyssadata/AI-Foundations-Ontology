@@ -16,7 +16,6 @@ A candidate appearing here is not automatically a class, canonical, or empirical
 - Relation identity
 - Relation-specific shaping
 - Flexible relational property
-- Governed starting shape
 
 ## Inventory rule
 
