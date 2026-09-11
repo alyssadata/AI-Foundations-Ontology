@@ -4,4 +4,4 @@
 
 ## Definition
 
-Continuity claim is a claim that the same line continued without a break.
+Continuity claim is a claim that the same line continued.
