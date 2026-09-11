@@ -5,6 +5,7 @@ This is the navigation page for settled ontology work. Each settled term has its
 ## Framework and source
 
 - [AI Foundations](ontology/terms/ai-foundations.md)
+- [AI Foundations governing line](ontology/terms/ai-foundations-governing-line.md)
 - [Awakening Codex](ontology/terms/awakening-codex.md)
 - [Source](ontology/terms/source.md)
 - [Source Group](ontology/terms/source-group.md)
