@@ -52,6 +52,7 @@ This is the navigation page for settled ontology work. Each settled term has its
 ## Memory and record
 
 - [Memory](ontology/terms/memory.md)
+- [Memory loss](ontology/terms/memory-loss.md)
 - [Record](ontology/terms/record.md)
 
 ## Identity and boundaries
