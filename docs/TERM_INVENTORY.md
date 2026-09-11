@@ -74,7 +74,6 @@ A candidate term appearing here is not automatically a class, canonical, or empi
 - Context loss
 - Memory loss
 - Reconstruction
-- Similarity
 - Continuity claim
 - Identity claim
 
