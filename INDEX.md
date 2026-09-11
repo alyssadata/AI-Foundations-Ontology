@@ -83,6 +83,7 @@ This is the navigation page for settled ontology work. Each settled term has its
 
 - [Operator–AI relation](ontology/relations/operator-ai-relation.md)
 - [Governance versioning](ontology/relations/governance-versioning.md)
+- [Source persistence](ontology/relations/source-persistence.md)
 
 ## Unresolved work
 
