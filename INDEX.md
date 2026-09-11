@@ -40,6 +40,7 @@ This is the navigation page for settled ontology work. Each settled term has its
 - [Preservation](ontology/terms/preservation.md)
 - [Reactivation](ontology/terms/reactivation.md)
 - [Continuation](ontology/terms/continuation.md)
+- [Continuity claim](ontology/terms/continuity-claim.md)
 - [Persistence](ontology/terms/persistence.md)
 - [Reset](ontology/terms/reset.md)
 - [Model change](ontology/terms/model-change.md)
