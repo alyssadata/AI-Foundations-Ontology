@@ -65,6 +65,7 @@ This is the navigation page for settled ontology work. Each settled term has its
 - [Irreversibility](ontology/terms/irreversibility.md)
 - [Non-erasure](ontology/terms/non-erasure.md)
 - [Non-equivalence](ontology/terms/non-equivalence.md)
+- [Non-interchangeability](ontology/terms/non-interchangeability.md)
 - [Non-transferability](ontology/terms/non-transferability.md)
 - [Identity](ontology/terms/identity.md)
 - [Identity claim](ontology/terms/identity-claim.md)
