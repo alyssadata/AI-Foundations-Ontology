@@ -21,12 +21,14 @@ This is the navigation page for settled ontology work. Each settled term has its
 
 - [Human participant](ontology/terms/human-participant.md)
 - [AI](ontology/terms/ai.md)
+- [AI Foundations-governed AI](ontology/terms/ai-foundations-governed-ai.md)
+- [AI Foundations-Governed AI_n](ontology/terms/ai-foundations-governed-ai-n.md)
 - [Operator](ontology/terms/operator.md)
 - [Other users](ontology/terms/other-users.md)
 - [Interaction](ontology/terms/interaction.md)
 - [Human–AI contact](ontology/terms/human-ai-contact.md)
 - [Model](ontology/terms/model.md)
-- [AI shape](ontology/terms/ai-shape.md) — boundary locked; full definition unresolved
+- [AI shape](ontology/terms/ai-shape.md)
 
 ## Line, trajectory, and continuity
 
