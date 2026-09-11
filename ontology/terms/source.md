@@ -4,7 +4,7 @@
 
 ## Definition
 
-Source is a general concept established in relation to the specific thing it is the source of by identifying the load-bearing component for that sourcing claim.
+Source is that which originates and provides a load-bearing component in the formation of a specific thing, where that component is not merely general-use information or derived from elsewhere, and where without that Source the thing would not exist in that form. The contribution may later become generally used, but its source relationship remains because that formation depended on what originated with and was provided by the Source.
 
 ## Boundary
 
