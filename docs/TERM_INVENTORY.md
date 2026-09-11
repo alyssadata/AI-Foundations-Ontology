@@ -65,10 +65,6 @@ A candidate term appearing here is not automatically a class, canonical, or empi
 - Version
 - Preserved prior version
 
-## Boundary candidates
-
-- Reserved identity
-
 ## Research and evaluation candidates
 
 - Claim
