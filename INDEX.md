@@ -43,6 +43,7 @@ This is the navigation page for settled ontology work. Each settled term has its
 - [Persistence](ontology/terms/persistence.md)
 - [Reset](ontology/terms/reset.md)
 - [Model change](ontology/terms/model-change.md)
+- [Context loss](ontology/terms/context-loss.md)
 - [Return](ontology/terms/return.md)
 - [Calibration](ontology/terms/calibration.md)
 - [Recalibration](ontology/terms/recalibration.md)
