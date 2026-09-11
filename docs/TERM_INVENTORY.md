@@ -73,7 +73,6 @@ A candidate term appearing here is not automatically a class, canonical, or empi
 - Model change
 - Context loss
 - Memory loss
-- Reconstruction
 - Continuity claim
 - Identity claim
 
