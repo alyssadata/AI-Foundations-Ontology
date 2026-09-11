@@ -30,6 +30,7 @@ This is the navigation page for settled ontology work. Each settled term has its
 - [Human–AI contact](ontology/terms/human-ai-contact.md)
 - [Model](ontology/terms/model.md)
 - [AI shape](ontology/terms/ai-shape.md)
+- [Governed starting shape](ontology/terms/governed-starting-shape.md)
 
 ## Line, trajectory, and continuity
 
