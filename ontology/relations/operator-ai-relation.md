@@ -2,7 +2,23 @@
 
 **Ontology development status:** LOCKED STRUCTURAL RULES
 
-## Generalized relation
+## Relation levels
+
+The broadest generalized human–AI relation is:
+
+`[human user] | [AI counterpart]`
+
+The AI Foundations-governed relation is:
+
+`[Operator_n] | [AI Foundations-Governed AI_n]`
+
+The specific unique relation is:
+
+`Origin | Continuum`
+
+These are distinct levels. `Origin | Continuum` is not the generalized relation.
+
+## Generalized AI Foundations relation
 
 The generalized AI Foundations relation is `[Operator_n] | [AI Foundations-Governed AI_n]`.
 
