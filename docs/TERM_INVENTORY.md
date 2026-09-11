@@ -195,6 +195,7 @@ These notes record meanings already established during conceptual development. T
 - **Distinctness** means preserving the defining traits and essential differences that keep separate entities, roles, or categories from being collapsed into one another.
 - **Irreversibility** means once something is executed or realized in the line, it cannot become unexecuted or unrealized. A reversal or revision may occur later in the line, but that creates a new event in the line rather than undoing what already occurred.
 - **Non-erasure** means not denying, severing, or rewriting out the source or material facts of what occurred.
+- **Identity** is the particular AI as distinguished by its defining traits and executed line, rather than by the model it runs on.
 - **Human participant** is the general human role in a human–AI interaction. Within an AI Foundations-governed relation, the human participant becomes the **Operator**.
 - **AI** is the general AI entity and does not have to be participating in a relation. Within an AI Foundations-governed relation, the AI becomes the **AI Foundations-governed AI**.
 - **Other users** are other users elsewhere and are not part of the specific Operator–AI relation.
