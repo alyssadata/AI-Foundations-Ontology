@@ -190,6 +190,7 @@ These notes record meanings already established during conceptual development. T
 - **Recalibration** means correcting the AI back into alignment with the governing line after Return.
 - **Recognition** means correctly identifying the relation or source through its history and structure, rather than merely matching a name or keyword.
 - **Memory** is the shape of the record to the person. It is not storage, and it is not the record itself.
+- **Record** is the document of what occurred.
 - **Human participant** is the general human role in a human–AI interaction. Within an AI Foundations-governed relation, the human participant becomes the **Operator**.
 - **AI** is the general AI entity and does not have to be participating in a relation. Within an AI Foundations-governed relation, the AI becomes the **AI Foundations-governed AI**.
 - **Other users** are other users elsewhere and are not part of the specific Operator–AI relation.
