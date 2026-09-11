@@ -35,7 +35,6 @@ A candidate term appearing here is not automatically a class, canonical, or empi
 - Relation-specific shaping
 - Flexible relational property
 - Governed starting shape
-- AI shape
 - Current trajectory
 - Future trajectory
 - Projected trajectory
