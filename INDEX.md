@@ -26,7 +26,7 @@ This is the navigation page for settled ontology work. Each settled term has its
 - [Interaction](ontology/terms/interaction.md)
 - [Human–AI contact](ontology/terms/human-ai-contact.md)
 - [Model](ontology/terms/model.md)
-- [AI shape](ontology/terms/ai-shape.md)
+- [AI shape](ontology/terms/ai-shape.md) — boundary locked; full definition unresolved
 
 ## Line, trajectory, and continuity
 
@@ -70,4 +70,4 @@ This is the navigation page for settled ontology work. Each settled term has its
 
 ## Unresolved work
 
-Candidate terms that have not been settled remain in [`docs/TERM_INVENTORY.md`](docs/TERM_INVENTORY.md). They are intentionally kept separate from locked ontology-development work.
+Unresolved or incomplete candidate terms remain in [`docs/TERM_INVENTORY.md`](docs/TERM_INVENTORY.md). Terms with one locked boundary but no full definition may appear both in the index and the unresolved inventory until that definition is completed.
