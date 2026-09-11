@@ -60,6 +60,7 @@ This is the navigation page for settled ontology work. Each settled term has its
 - [Non-erasure](ontology/terms/non-erasure.md)
 - [Identity](ontology/terms/identity.md)
 - [Same-self transfer](ontology/terms/same-self-transfer.md)
+- [Similarity](ontology/terms/similarity.md)
 
 ## Governance and recovery
 
