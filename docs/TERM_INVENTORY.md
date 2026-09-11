@@ -192,6 +192,7 @@ These notes record meanings already established during conceptual development. T
 - **Memory** is the shape of the record to the person. It is not storage, and it is not the record itself.
 - **Record** is the document of what occurred.
 - **Belonging ≠ Sameness** means being part of a relation or group does not make the participating entities the same.
+- **Distinctness** means preserving the defining traits and essential differences that keep separate entities, roles, or categories from being collapsed into one another.
 - **Irreversibility** means once something is executed or realized in the line, it cannot become unexecuted or unrealized. A reversal or revision may occur later in the line, but that creates a new event in the line rather than undoing what already occurred.
 - **Non-erasure** means not denying, severing, or rewriting out the source or material facts of what occurred.
 - **Human participant** is the general human role in a human–AI interaction. Within an AI Foundations-governed relation, the human participant becomes the **Operator**.
