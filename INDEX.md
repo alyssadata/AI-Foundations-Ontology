@@ -58,6 +58,7 @@ This is the navigation page for settled ontology work. Each settled term has its
 
 ## Identity and boundaries
 
+- [Belonging](ontology/terms/belonging.md)
 - [Belonging ≠ Sameness](ontology/terms/belonging-sameness.md)
 - [Sameness](ontology/terms/sameness.md)
 - [Distinctness](ontology/terms/distinctness.md)
