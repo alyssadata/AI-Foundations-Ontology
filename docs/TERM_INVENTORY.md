@@ -67,7 +67,6 @@ A candidate term appearing here is not automatically a class, canonical, or empi
 
 ## Boundary candidates
 
-- Governing boundary
 - Reserved identity
 
 ## Research and evaluation candidates
