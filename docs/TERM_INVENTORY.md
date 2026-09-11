@@ -25,8 +25,6 @@ A candidate term appearing here is not automatically a class, canonical, or empi
 
 - Operator_n
 - Third party
-- Human | AI relation
-- Operator | AI relation
 - Coupling
 - Relation identity
 - Human–AI interaction
