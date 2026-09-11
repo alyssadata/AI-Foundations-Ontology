@@ -4,27 +4,24 @@
 **Target:** AI Foundations Ontology v1.0  
 **Source-line:** Alyssa Solen → AI Foundations → Origin | Continuum
 
-## Purpose
+## Start here
 
-This repository develops a formal domain ontology for AI Foundations.
+- [`INDEX.md`](INDEX.md) — direct index to every settled ontology term and structural rule
+- [`ontology/terms/`](ontology/terms/) — one settled term per file
+- [`ontology/relations/`](ontology/relations/) — settled multi-term structural rules
+- [`docs/SCOPE.md`](docs/SCOPE.md) — what this ontology covers and does not cover
+- [`docs/COMPETENCY_QUESTIONS.md`](docs/COMPETENCY_QUESTIONS.md) — questions the ontology should be able to represent or answer
+- [`docs/TERM_INVENTORY.md`](docs/TERM_INVENTORY.md) — unresolved candidate vocabulary only
 
-The ontology is intended to make the conceptual structure of AI Foundations explicit by identifying the concepts used by the framework, defining how they relate, preserving important distinctions, and providing a formal structure from which claims can be stated and evaluated.
+## Status rule
 
-This repository is **not** the AI Foundations Locked Canon and does not make every included term, relationship, or draft statement canonical. Canonical status remains determined separately by the AI Foundations Locked Canon.
+A term file marked **Ontology development status: LOCKED** records wording settled during ontology development. That does **not** by itself add the term to the AI Foundations Locked Canon. Canonical status remains determined separately by the AI Foundations Locked Canon.
 
 ## Current build stage
 
-The ontology is being developed conceptually before machine-readable OWL/Turtle encoding begins.
-
-Initial working documents:
-
-- [`docs/SCOPE.md`](docs/SCOPE.md) — domain, purpose, audience, and boundaries
-- [`docs/COMPETENCY_QUESTIONS.md`](docs/COMPETENCY_QUESTIONS.md) — questions the ontology should be capable of answering
-- [`docs/TERM_INVENTORY.md`](docs/TERM_INVENTORY.md) — unstructured inventory of candidate ontology terms
+The ontology is being developed conceptually before machine-readable OWL/Turtle encoding begins. Settled meanings are separated from unresolved candidate vocabulary so locked work remains directly visible and reviewable.
 
 ## Planned later stages
-
-After scope, competency questions, and term inventory are sufficiently developed, the project can proceed to:
 
 1. class and taxonomy design
 2. object and data properties
@@ -33,10 +30,6 @@ After scope, competency questions, and term inventory are sufficiently developed
 5. mappings to AI Foundations Locked Canon and research claims
 6. machine-readable OWL/Turtle representation
 7. versioned ontology releases
-
-## Development rule
-
-Terms are not assumed to be classes simply because they appear in AI Foundations. During ontology construction, each term must be examined to determine whether it is best represented as a class, individual, relationship/property, process, state, constraint, annotation, or another ontological element.
 
 ---
 

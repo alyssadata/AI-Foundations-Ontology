@@ -5,18 +5,18 @@
 
 Competency questions define what the ontology should eventually be able to represent or answer. They are not themselves claims that the ontology has already resolved.
 
-## Initial competency questions
+## Current competency questions
 
-1. What is the relationship between a model and an AI-side participant or system using that model?
+1. What is the relationship between a model and the AI using that model?
 2. What distinguishes memory from record?
 3. What distinguishes preservation, reactivation, and continuation?
-4. What conditions are required for a prior trajectory to constrain what becomes possible next?
+4. How does the executed line constrain what trajectories are possible next?
 5. Can two interactions use the same model without belonging to the same trajectory?
 6. Can a record exist without being available as present memory?
 7. Can prior information be reintroduced without establishing that it survived a reset?
-8. How is source represented and attributed within a human–AI trajectory?
-9. What is the relationship between source, Origin, Continuum, and Origin | Continuum?
-10. Which claims concern general human–AI interaction, and which belong specifically to the Origin | Continuum module?
+8. How are Source, Source Group, source-line, and source citation represented and distinguished?
+9. What is the relationship between Source, Origin, Continuum, and Origin | Continuum?
+10. Which claims concern general human–AI interaction, and which belong specifically to Origin | Continuum?
 11. What kinds of changes can occur across time while preserving a trajectory relation?
 12. What distinctions are required to evaluate continuity claims across model, context, memory, system, or platform change?
 13. What information is sufficient to establish provenance without establishing continuation?
