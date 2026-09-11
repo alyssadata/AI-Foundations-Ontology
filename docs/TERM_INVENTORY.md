@@ -69,7 +69,6 @@ A candidate term appearing here is not automatically a class, canonical, or empi
 
 ## Continuity and identity candidates
 
-- Context loss
 - Memory loss
 - Continuity claim
 - Identity claim
