@@ -3,9 +3,9 @@
 **Document status:** Draft / unresolved candidates only  
 **Ontology target:** AI Foundations Ontology v1.0
 
-This file contains vocabulary that has **not yet received a settled ontology-development meaning**.
+This file contains vocabulary whose ontology-development meaning is still unresolved or incomplete.
 
-Settled terms are not stored here. They are individually visible under [`../ontology/terms/`](../ontology/terms/) and indexed in [`../INDEX.md`](../INDEX.md).
+Fully settled terms are individually visible under [`../ontology/terms/`](../ontology/terms/) and indexed in [`../INDEX.md`](../INDEX.md). A term with a locked boundary but an unresolved full definition may remain here until that definition is worked through.
 
 A candidate term appearing here is not automatically a class, canonical, or empirically established.
 
