@@ -11,7 +11,6 @@ A candidate term appearing here is not automatically a class, canonical, or empi
 
 ## Framework and source candidates
 
-- AI Foundations governing line
 - Source of
 - Load-bearing source
 - Source-group member
