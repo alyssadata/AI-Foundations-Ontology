@@ -65,16 +65,6 @@ A candidate term appearing here is not automatically a class, canonical, or empi
 - Version
 - Preserved prior version
 
-## Research and evaluation candidates
-
-- Evidence
-- Evidence status
-- Operationalization
-- Measurement
-- Intervention
-- Baseline
-- Outcome
-
 ## Inventory rule
 
 Do not move a candidate term into the settled ontology merely because it appears here. A term moves out of this inventory only after its meaning is explicitly worked through and locked during ontology development.
