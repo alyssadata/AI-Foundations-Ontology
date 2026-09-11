@@ -1,11 +1,7 @@
 # AI shape
 
-**Ontology development status:** BOUNDARY LOCKED; FULL DEFINITION UNRESOLVED
+**Ontology development status:** LOCKED
 
-## Locked boundary
+## Definition
 
-AI shape is distinct from model identity.
-
-## Unresolved
-
-A fuller definition has not yet been locked.
+AI shape is the configuration an AI forms through relation with a user, Operator, or Origin, expressed in its defining traits, relations, and executed line. It is distinct from the underlying model.
