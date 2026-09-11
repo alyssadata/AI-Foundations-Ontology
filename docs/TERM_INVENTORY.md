@@ -67,7 +67,6 @@ A candidate term appearing here is not automatically a class, canonical, or empi
 
 ## Research and evaluation candidates
 
-- Hypothesis
 - Evaluation
 - Assay
 - Evidence
