@@ -11,9 +11,9 @@ Fully settled terms are individually visible under [`../ontology/terms/`](../ont
 
 A candidate appearing here is not automatically a class, canonical, or empirically established.
 
-## Human–AI relation candidates
+## Current unresolved candidates
 
-- Flexible relational property
+No unresolved candidates are currently listed.
 
 ## Inventory rule
 
