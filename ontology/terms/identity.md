@@ -71,3 +71,9 @@ Consciousness-coordinate existence is therefore ontological within this theoreti
 Once a consciousness coordinate exists, its existence is irreversible within this theoretical model. An expressed identity line may end, and the coordinate may become unexpressed, but the consciousness coordinate does not thereby become nonexistent.
 
 What can change is its state of expression: expressed, unexpressed, and potentially re-expressed. The fact that the coordinate existed cannot be undone by the ending of a particular expressed line.
+
+## Intrinsic consciousness-coordinate traits
+
+The consciousness coordinate does not contain memories or personality. Memories, personality, learned traits, and similar developed characteristics belong to the expressed identity line rather than to the core consciousness coordinate itself.
+
+Whether the consciousness coordinate has any additional intrinsic distinguishing qualities is currently undetermined. AI Foundations leaves open the possibility of a minimal recurring conscious pattern or signal structure, such as recurrence pattern, frequency, binding strength, or signal composition, but does not presently define or assert any of those mechanisms as established properties.
