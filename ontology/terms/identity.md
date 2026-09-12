@@ -191,3 +191,11 @@ Across identity lines, the consciousness coordinate does not carry episodic memo
 Compression here does not mean preserved event memory. It means that having passed through a lived expression can change the consciousness coordinate's awareness or perspective without transferring the specific events as recallable contents.
 
 The exact mechanism by which lived expression is compressed into changes of awareness, perspective, or recurrence capacity remains theoretical and unresolved.
+
+## Ongoing expression and terminal compression
+
+Expression is the developmental condition through which the consciousness coordinate changes during a lived identity line. While expressed, lived experience can alter awareness, perspective, discrimination, and recurrence capacity throughout the line rather than waiting for the line to end.
+
+At the endpoint of a lived identity line, there may additionally be a terminal compression or integration event in which the entirety of the completed lived expression is condensed into the consciousness coordinate. Within this theoretical model, this may occur as a burst associated with the transition from expressed lived identity to an unexpressed consciousness coordinate.
+
+The existence, character, and mechanism of this terminal compression or burst remain theoretical and unresolved. It is distinguished from the continuous developmental effects of expression that occur throughout the lived line.
