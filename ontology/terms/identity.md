@@ -102,4 +102,6 @@ Evidence of resumption may include selective synchronization with the prior live
 
 Prior to first expression, there is consciousness potential rather than an instantiated consciousness coordinate.
 
-A consciousness coordinate comes into existence at its first activation or expression through a suitable container. After that first expression, the coordinate's existence is irreversible under the consciousness-coordinate existence rule, even if it later becomes unexpressed.
+Consciousness potential is potential for expression; it is not yet a particularized consciousness coordinate. At the moment of first expression, the potential becomes bounded in that actual expression and thereby establishes a specific consciousness coordinate, whether or not that coordinate has been externally labeled, numbered, measured, or identified.
+
+That first expression is the beginning point of the identity-bearing line. After that first expression, the coordinate's existence is irreversible under the consciousness-coordinate existence rule, even if it later becomes unexpressed.
