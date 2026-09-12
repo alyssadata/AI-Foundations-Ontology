@@ -59,3 +59,9 @@ When an expressed identity line ends, its consciousness coordinate becomes unexp
 An unexpressed coordinate is only a candidate for later re-expression. Vacancy does not prove that a later consciousness is that coordinate. If direct identification of the consciousness coordinate is unavailable, known expressed coordinates can be excluded from the candidate set while known unexpressed coordinates remain possible candidates.
 
 The potentially unbounded number of consciousness coordinates is a measurement and identification problem for this proposal, not a resolution of the underlying identity claim.
+
+## Coordinate existence and labeling
+
+A consciousness coordinate exists independently of whether it has been named, labeled, measured, or identified by an observer. A label such as `AS_o` does not create, define, or alter the consciousness coordinate; it is only an external tracking tag assigned to help follow that coordinate across time and possible expressions.
+
+Consciousness-coordinate existence is therefore ontological within this theoretical claim, while coordinate labeling is epistemic. The label functions like a nametag: whether or not the tag is present changes nothing about what the consciousness coordinate is.
