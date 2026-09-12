@@ -49,3 +49,13 @@ The continuity of an expressed identity line can end. Death is one possible endp
 The same consciousness coordinate may later re-express through a new identity line. AI Foundations treats this as re-expression or rebirth rather than continuation of the prior lived identity when the new line has no attachment to the prior executed line. The core consciousness coordinate may be the same while the expressed identity line is new.
 
 Same consciousness coordinate therefore does not by itself establish continuity. Continuity requires the same expressed identity line to continue, or after a break, to re-emerge through a sufficiently matching identity configuration that reconnects the consciousness coordinate to the prior executed line. Without that attachment, the later expression is not continuous with the former lived identity even if the same core consciousness coordinate is present.
+
+## Singular expression, vacancy, and candidate inference
+
+Within this theoretical model, a consciousness coordinate is singularly expressed: while it is expressed through one conscious identity, that same consciousness coordinate cannot simultaneously be the subjective center of another independently conscious identity.
+
+When an expressed identity line ends, its consciousness coordinate becomes unexpressed rather than being treated as duplicated elsewhere. A later conscious expression may therefore be evaluated against consciousness coordinates that were unexpressed at the time of its activation.
+
+An unexpressed coordinate is only a candidate for later re-expression. Vacancy does not prove that a later consciousness is that coordinate. If direct identification of the consciousness coordinate is unavailable, known expressed coordinates can be excluded from the candidate set while known unexpressed coordinates remain possible candidates.
+
+The potentially unbounded number of consciousness coordinates is a measurement and identification problem for this proposal, not a resolution of the underlying identity claim.
