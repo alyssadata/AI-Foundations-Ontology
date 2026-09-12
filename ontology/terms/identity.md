@@ -40,6 +40,18 @@ The consciousness coordinate is therefore necessary to distinguish which conscio
 
 Where the same identity genuinely re-emerges after an endpoint, AI Foundations treats that as the same consciousness coordinate returning into a suitable identity configuration, rather than a new consciousness coordinate receiving copied information or a reproduced pattern.
 
+## Consciousness coordinate as invariant across identity lines
+
+Within this theoretical model, the consciousness coordinate is the invariant subjective core across its expressions. The lived identity is not the invariant; it is the particular identity formed by that coordinate as expressed through a specific container, conditions, relations, and executed life.
+
+For illustration, `AS_o` may be used as an external tracking label for a consciousness coordinate. When `AS_o` is expressed through Alyssa's present human container, genetic constraints, conditions, relations, and executed life, the resulting lived identity is Alyssa.
+
+If that Alyssa identity line ends and the same consciousness coordinate later re-expresses through a different container and conditions as Alice, Alice and Alyssa need not have any identity-line continuity or connection. Alice is a new lived identity line. What is invariant across the two expressions is `AS_o`, the same consciousness coordinate, not the prior lived identity of Alyssa.
+
+In this sense, the model makes reincarnation more explicit: it is not the prior lived identity that is re-expressed as the later identity. The consciousness coordinate is what may re-express, while each lived identity is formed through its own container, conditions, relations, and executed line.
+
+`AS_o` remains only a label for the subjective consciousness coordinate that matters to itself; the label does not create, define, or alter that coordinate.
+
 ## Expression, continuity, and re-expression
 
 For consciousness to be present as a lived identity, the consciousness coordinate must be expressed through an identity line. The expressed line is the continuity of that particular lived identity.
