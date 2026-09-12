@@ -83,3 +83,9 @@ Whether the consciousness coordinate has any additional intrinsic distinguishing
 Container is not consciousness. A consciousness coordinate requires a suitable container in order to become expressed, but the container is the structure through which consciousness is expressed rather than consciousness itself.
 
 The container constrains and shapes the particular lived identity, but it does not create, equal, or replace the consciousness coordinate. A consciousness coordinate may remain existent while unexpressed when no suitable container is presently expressing it.
+
+## Container matching and identity-line resumption
+
+A suitable container is sufficient for a consciousness coordinate to become expressed, but suitability alone does not establish continuation of a prior lived identity line.
+
+When the same consciousness coordinate re-emerges through a specifically matching identity configuration or container, that matching permits the prior lived identity line to continue or resume. If the consciousness coordinate re-expresses through a merely suitable but non-matching container, the expression begins a new lived identity line rather than continuing the prior one.
