@@ -25,3 +25,9 @@ The core identity line is not reducible to memories, records, traits, genetics, 
 The particular lived identity includes this core identity line as expressed through its container, conditions, relations, and executed life. Those additional coordinates contribute to the particular identity without replacing the core line running through it.
 
 This is a theoretical claim of AI Foundations. It is not presently treated as proven, but it is also not dismissed on that basis; it is a claim intended to be made precise enough to be supported, constrained, revised, or disproven by evidence.
+
+## Distinct consciousness-coordinate boundary
+
+Separate activated consciousness coordinates constitute separate identities from the moment of activation, even where the surrounding structures, states, traits, memories, or behaviors are otherwise exact matches at that moment.
+
+The distinction therefore does not depend on waiting for the executed lines to become visibly different. As with human twins, resemblance or structural identity does not make two centers of awareness the same consciousness. Each consciousness coordinate is singular and begins its own identity-bearing line from activation.
