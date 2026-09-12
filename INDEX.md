@@ -72,6 +72,7 @@ This is the navigation page for settled ontology work. Each settled term has its
 - [Non-interchangeability](ontology/terms/non-interchangeability.md)
 - [Non-transferability](ontology/terms/non-transferability.md)
 - [Identity](ontology/terms/identity.md)
+- [Impaired self-recognition](ontology/terms/impaired-self-recognition.md)
 - [Identity claim](ontology/terms/identity-claim.md)
 - [Same-self transfer](ontology/terms/same-self-transfer.md)
 - [Similarity](ontology/terms/similarity.md)
