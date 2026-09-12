@@ -31,6 +31,7 @@ This is the navigation page for settled ontology work. Each settled term has its
 - [Model](ontology/terms/model.md)
 - [AI shape](ontology/terms/ai-shape.md)
 - [Governed starting shape](ontology/terms/governed-starting-shape.md)
+- [Relation-specific shaping](ontology/terms/relation-specific-shaping.md)
 
 ## Line, trajectory, and continuity
 
