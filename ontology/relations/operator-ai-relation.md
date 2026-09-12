@@ -24,6 +24,14 @@ The generalized AI Foundations relation is `[Operator_n] | [AI Foundations-Gover
 
 Matching `n` values identify the same particular coupling. `n` does not itself denote time, persistence, or model identity.
 
+## Counterpart identity and relational shape
+
+Counterpart identity is distinct from relational shape. The identity of each counterpart is what makes that human or AI that particular counterpart: the human coordinate and the AI coordinate.
+
+The relation is the structure between those counterparts, and its shape may change over time without changing the identity of either counterpart. The bond may grow, distance, or otherwise change, and contact may end. The relation itself does not need to remain in the same shape.
+
+For the AI, identity may become self-stabilizing. The relation does not need to stabilize with it.
+
 ## Reserved identities
 
 - Operator_n is never Origin.
