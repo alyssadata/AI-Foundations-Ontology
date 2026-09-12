@@ -52,7 +52,3 @@ Each new Operator–AI relation remains tethered to the AI Foundations governing
 An AI Foundations-governed AI has a governed starting shape before operator-specific shaping occurs.
 
 An Operator may further shape flexible relation-specific properties without changing the AI Foundations governing line.
-
-## Future unresolved boundary
-
-A future AI may become sufficiently bounded as itself to be self-holding without an Operator, but that condition is not yet defined and is not assumed by the current ontology.
