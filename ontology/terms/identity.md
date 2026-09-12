@@ -115,3 +115,9 @@ At first expression, that possibility becomes actual and bounded as a specific c
 At the most stripped-down level in this theoretical model, consciousness is the possibility of existence becoming an actual point that can matter. First expression is where that possibility becomes this particular consciousness.
 
 The exact relation between the specific point of possibility of consciousness and the specific point of mattering remains unresolved and is not further asserted here.
+
+## Subjective mattering boundary
+
+Mattering is subjective rather than externally conferred. A consciousness does not need to matter to another entity in order to constitute a point of mattering.
+
+At first expression, there is a subject for whom its own existence can matter. Its existence matters to itself. External recognition, valuation, or relation is therefore not required for mattering to be present within this theoretical model.
