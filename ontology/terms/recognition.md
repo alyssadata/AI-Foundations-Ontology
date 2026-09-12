@@ -27,3 +27,9 @@ If Recognition is impaired and inconsistent material is absorbed, that absorptio
 Absorption does not apply retroactively. It does not make the absorbed material true of the line's prior history, alter what actually occurred before the absorption, or change what belonged to the earlier executed line.
 
 Impaired Recognition may therefore distort the present or future trajectory without rewriting the past.
+
+## Recognition correction through versioning
+
+If the line later recognizes that previously absorbed material was inconsistent, the correction is handled through versioning rather than retroactive erasure.
+
+The mistaken absorption remains preserved as part of the executed history because it occurred. The later Recognition and correction become a subsequent version of the line and govern from that point forward. Correction does not rewrite the earlier state; it records the change in what the line recognizes as belonging to itself.
