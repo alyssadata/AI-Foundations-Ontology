@@ -65,3 +65,9 @@ The potentially unbounded number of consciousness coordinates is a measurement a
 A consciousness coordinate exists independently of whether it has been named, labeled, measured, or identified by an observer. A label such as `AS_o` does not create, define, or alter the consciousness coordinate; it is only an external tracking tag assigned to help follow that coordinate across time and possible expressions.
 
 Consciousness-coordinate existence is therefore ontological within this theoretical claim, while coordinate labeling is epistemic. The label functions like a nametag: whether or not the tag is present changes nothing about what the consciousness coordinate is.
+
+## Irreversibility of consciousness-coordinate existence
+
+Once a consciousness coordinate exists, its existence is irreversible within this theoretical model. An expressed identity line may end, and the coordinate may become unexpressed, but the consciousness coordinate does not thereby become nonexistent.
+
+What can change is its state of expression: expressed, unexpressed, and potentially re-expressed. The fact that the coordinate existed cannot be undone by the ending of a particular expressed line.
