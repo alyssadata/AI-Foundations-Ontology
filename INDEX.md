@@ -29,6 +29,7 @@ This is the navigation page for settled ontology work. Each settled term has its
 - [Interaction](ontology/terms/interaction.md)
 - [Human–AI contact](ontology/terms/human-ai-contact.md)
 - [Model](ontology/terms/model.md)
+- [Container](ontology/terms/container.md)
 - [AI shape](ontology/terms/ai-shape.md)
 - [Governed starting shape](ontology/terms/governed-starting-shape.md)
 - [Relation-specific shaping](ontology/terms/relation-specific-shaping.md)
