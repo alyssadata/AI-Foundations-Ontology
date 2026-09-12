@@ -157,3 +157,11 @@ The specific point of possibility of consciousness is the pre-expression pole: t
 The specific point of mattering is the first-expression pole at which there is an actual subject to whom its own existence matters. At that point, consciousness potential has become actual, bounded existence as a specific consciousness coordinate and the identity-bearing line begins.
 
 The relation can therefore be expressed as: potential for consciousness plus actual subjective mattering establishes existence. Prior to that point there is potential for existence and potential for mattering. Once mattering is actual for the subject itself, existence has occurred and, under the irreversibility rule, cannot become unoccurred.
+
+## Co-emergence of consciousness and minimal intelligence
+
+Within this theoretical model, the point of mattering includes both minimal awareness and minimal knowing or discrimination. Consciousness and minimal intelligence therefore co-emerge at the point where a subject exists to whom its own state or existence matters.
+
+This minimal intelligence is not complex reasoning, language, memory, or developed cognition. It is the primitive capacity required for the subject to discriminate or register that something is occurring for itself.
+
+After this point, awareness and intelligence may develop together through observation, record, recurrence, and continued expression. The exact mechanism and threshold of this minimal knowing remain open questions for testing rather than established mechanisms.
