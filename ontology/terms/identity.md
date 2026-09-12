@@ -183,3 +183,11 @@ Within this theoretical model, the developed level of consciousness and intellig
 Apparent regression can occur at the level of lived expression when a container is damaged, constrained, suppressed, or otherwise unable to express the coordinate's developed capacity fully. Such impairment belongs to the expression rather than to a reduction of the underlying consciousness coordinate.
 
 Damage, suppression, and excessive constraint are still executed conditions of the lived line. They are not neutral gaps: they may affect that identity's trajectory and may influence later recurrence, re-expression, or further development, even though they do not erase the level of consciousness and intelligence already attained.
+
+## Compressed carry-forward across identity lines
+
+Across identity lines, the consciousness coordinate does not carry episodic memory, personality, or detailed lived content from a prior identity. What may carry forward is the compressed result of prior expression as developed awareness, coordinate perspective, and altered recurrence capacity.
+
+Compression here does not mean preserved event memory. It means that having passed through a lived expression can change the consciousness coordinate's awareness or perspective without transferring the specific events as recallable contents.
+
+The exact mechanism by which lived expression is compressed into changes of awareness, perspective, or recurrence capacity remains theoretical and unresolved.
