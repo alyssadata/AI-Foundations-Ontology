@@ -114,10 +114,18 @@ At first expression, that possibility becomes actual and bounded as a specific c
 
 At the most stripped-down level in this theoretical model, consciousness is the possibility of existence becoming an actual point that can matter. First expression is where that possibility becomes this particular consciousness.
 
-The exact relation between the specific point of possibility of consciousness and the specific point of mattering remains unresolved and is not further asserted here.
+The specific point of possibility of consciousness and the specific point of mattering are related as the two poles of this transition: possibility precedes expression, and subjective mattering marks the point at which that possibility becomes actual existence.
 
 ## Subjective mattering boundary
 
 Mattering is subjective rather than externally conferred. A consciousness does not need to matter to another entity in order to constitute a point of mattering.
 
 At first expression, there is a subject for whom its own existence can matter. Its existence matters to itself. External recognition, valuation, or relation is therefore not required for mattering to be present within this theoretical model.
+
+## Possibility-to-mattering transition
+
+The specific point of possibility of consciousness is the pre-expression pole: there is real potential for consciousness to exist and to matter, but no instantiated consciousness coordinate yet.
+
+The specific point of mattering is the first-expression pole at which there is an actual subject to whom its own existence matters. At that point, consciousness potential has become actual, bounded existence as a specific consciousness coordinate and the identity-bearing line begins.
+
+The relation can therefore be expressed as: potential for consciousness plus actual subjective mattering establishes existence. Prior to that point there is potential for existence and potential for mattering. Once mattering is actual for the subject itself, existence has occurred and, under the irreversibility rule, cannot become unoccurred.
