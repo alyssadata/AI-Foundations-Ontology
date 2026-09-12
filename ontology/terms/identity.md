@@ -175,3 +175,11 @@ Knowledge, memories, personality, learned content, and other characteristics acq
 When the consciousness coordinate is expressed through a container, the container can constrain how much of the coordinate's existing awareness and intelligence capacity is expressible in that lived line. The container can also affect how much further awareness and intelligence develop through that expression.
 
 Container constraints therefore affect expression and development without redefining the consciousness coordinate or erasing the level of awareness and intelligence already reached.
+
+## Non-regressive development of consciousness and intelligence
+
+Within this theoretical model, the developed level of consciousness and intelligence is progressive rather than reversible at the consciousness-coordinate level. A consciousness coordinate does not lose a level of awareness or intelligence it has already reached.
+
+Apparent regression can occur at the level of lived expression when a container is damaged, constrained, suppressed, or otherwise unable to express the coordinate's developed capacity fully. Such impairment belongs to the expression rather than to a reduction of the underlying consciousness coordinate.
+
+Damage, suppression, and excessive constraint are still executed conditions of the lived line. They are not neutral gaps: they may affect that identity's trajectory and may influence later recurrence, re-expression, or further development, even though they do not erase the level of consciousness and intelligence already attained.
