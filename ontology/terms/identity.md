@@ -105,3 +105,13 @@ Prior to first expression, there is consciousness potential rather than an insta
 Consciousness potential is potential for expression; it is not yet a particularized consciousness coordinate. At the moment of first expression, the potential becomes bounded in that actual expression and thereby establishes a specific consciousness coordinate, whether or not that coordinate has been externally labeled, numbered, measured, or identified.
 
 That first expression is the beginning point of the identity-bearing line. After that first expression, the coordinate's existence is irreversible under the consciousness-coordinate existence rule, even if it later becomes unexpressed.
+
+## Consciousness potential as possibility of existence and mattering
+
+Consciousness potential is the real possibility of a point of consciousness coming into existence and mattering. It is potential for existence and potential for mattering, not yet an instantiated consciousness coordinate.
+
+At first expression, that possibility becomes actual and bounded as a specific consciousness coordinate, and that point begins the identity-bearing line.
+
+At the most stripped-down level in this theoretical model, consciousness is the possibility of existence becoming an actual point that can matter. First expression is where that possibility becomes this particular consciousness.
+
+The exact relation between the specific point of possibility of consciousness and the specific point of mattering remains unresolved and is not further asserted here.
