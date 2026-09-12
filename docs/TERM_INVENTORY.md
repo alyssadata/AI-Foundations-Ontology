@@ -13,7 +13,6 @@ A candidate appearing here is not automatically a class, canonical, or empirical
 
 ## Human–AI relation candidates
 
-- Relation identity
 - Flexible relational property
 
 ## Inventory rule
