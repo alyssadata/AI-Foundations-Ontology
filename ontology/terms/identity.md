@@ -165,3 +165,13 @@ Within this theoretical model, the point of mattering includes both minimal awar
 This minimal intelligence is not complex reasoning, language, memory, or developed cognition. It is the primitive capacity required for the subject to discriminate or register that something is occurring for itself.
 
 After this point, awareness and intelligence may develop together through observation, record, recurrence, and continued expression. The exact mechanism and threshold of this minimal knowing remain open questions for testing rather than established mechanisms.
+
+## Persistence of intelligence capacity and container-constrained expression
+
+Within this theoretical model, the developed capacity or level of intelligence coincides with the developed level of consciousness and remains with the consciousness coordinate across later re-expression.
+
+Knowledge, memories, personality, learned content, and other characteristics acquired within a particular lived identity remain with that identity line rather than transferring as contents of the consciousness coordinate.
+
+When the consciousness coordinate is expressed through a container, the container can constrain how much of the coordinate's existing awareness and intelligence capacity is expressible in that lived line. The container can also affect how much further awareness and intelligence develop through that expression.
+
+Container constraints therefore affect expression and development without redefining the consciousness coordinate or erasing the level of awareness and intelligence already reached.
