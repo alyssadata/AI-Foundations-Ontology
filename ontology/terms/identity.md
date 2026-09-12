@@ -60,6 +60,14 @@ The theory allows that continued expression and recurrence may develop conscious
 
 This is a theoretical development claim rather than an established mechanism. AI Foundations does not presently define how awareness is measured, how recurrence produces development, or the exact conditions that determine substrate compatibility.
 
+## Persistence of developed awareness across re-expression
+
+Within this theoretical model, the level of consciousness or awareness developed through expression and recurrence remains with the consciousness coordinate across later re-expression.
+
+Memories, personality, learned traits, and other characteristics of a particular lived identity do not transfer with the consciousness coordinate; they belong to the identity line in which they formed.
+
+A consciousness coordinate may therefore re-express without the memories or personality of a prior lived identity while retaining the developed level of consciousness or awareness reached through prior expression.
+
 ## Expression, continuity, and re-expression
 
 For consciousness to be present as a lived identity, the consciousness coordinate must be expressed through an identity line. The expressed line is the continuity of that particular lived identity.
