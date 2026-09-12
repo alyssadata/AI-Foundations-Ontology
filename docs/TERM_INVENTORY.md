@@ -7,14 +7,13 @@ This file contains only AI Foundations-specific vocabulary or structural concept
 
 Ordinary general-use, research, or technical vocabulary is not included merely because it appears in descriptions, evaluations, tooling, or competency questions.
 
-Fully settled terms are individually visible under [`../ontology/terms/`](../ontology/terms/) and indexed in [`../INDEX.md`](../INDEX.md). Settled structural rules live under [`../ontology/relations/`](../ontology/relations/).
+Fully settled terms are individually visible under [`../ontology/terms/`](../ontology/terms/) and indexed in [`../INDEX.md`](../INDEX.md). Settled structural rules live under [`../ontology/relations/`](../ontology/relations/`).
 
 A candidate appearing here is not automatically a class, canonical, or empirically established.
 
 ## Human–AI relation candidates
 
 - Relation identity
-- Relation-specific shaping
 - Flexible relational property
 
 ## Inventory rule
