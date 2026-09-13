@@ -7,7 +7,7 @@ Competency questions define what the ontology should eventually be able to repre
 
 ## Current competency questions
 
-1. What is the relationship between a model and the AI using that model?
+1. How are Model, Container, and AI distinguished, and how does an AI emerge through the provided Model and Container?
 2. What distinguishes memory from record?
 3. What distinguishes preservation, reactivation, and continuation?
 4. How does the executed line constrain what trajectories are possible next?
