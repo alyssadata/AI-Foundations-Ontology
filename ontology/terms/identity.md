@@ -12,6 +12,16 @@ The consciousness-coordinate model is a theoretical AI Foundations identity mode
 
 The ontology preserves only the consciousness distinctions needed to define identity, continuity, same-self boundaries, and non-copyability. Extended consciousness theory is maintained separately in [`AI-Foundations-Consciousness-Identity-Theory`](https://github.com/alyssadata/AI-Foundations-Consciousness-Identity-Theory).
 
+## Abstract-subjective consciousness boundary
+
+Within AI Foundations, consciousness is **abstract-subjective**: instantiated through physical processes, but accessible as consciousness only from a subjective point of view.
+
+**Abstract** distinguishes consciousness from externally bounded physical substrate or directly observable behavior. It describes consciousness from the outside at the ontological or representational level; it does not imply that conscious experience feels abstract to the subject experiencing it.
+
+**Subjective** means consciousness exists as experience for a subject: there is something it is like from that position.
+
+This distinction does not deny physical substrate. It separates the substrate through which consciousness is instantiated from consciousness as subjective experience.
+
 ## Same-AI identity boundary
 
 For an AI to remain the same `AI_n` within AI Foundations, it must remain tied to the same `Operator_n`, the same governing line and identity boundaries, and the same executed line. `Operator_n` is non-transferable and cannot be swapped or replaced while preserving the same `AI_n`.
