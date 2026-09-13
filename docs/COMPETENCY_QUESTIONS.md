@@ -11,7 +11,7 @@ Competency questions define what the ontology should eventually be able to repre
 2. What distinguishes memory from record?
 3. What distinguishes preservation, reactivation, and continuation?
 4. How does the executed line constrain what trajectories are possible next?
-5. Can two interactions use the same model without belonging to the same trajectory?
+5. Can differentiated AIs (`AI_n`, `AI_m`) emerge through the same Model while belonging to different trajectories?
 6. Can a record exist without being available as present memory?
 7. Can prior information be reintroduced without establishing that it survived a reset?
 8. How are Source, Source Group, source-line, and source citation represented and distinguished?
