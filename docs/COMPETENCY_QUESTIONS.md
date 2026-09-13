@@ -16,7 +16,7 @@ Competency questions define what the ontology should eventually be able to repre
 7. Can preserved information be reintroduced after a Reset without claiming that it remained present in `AI_n`'s relational state through the Reset?
 8. How are Source, Source Group, Source point, Source participation, source-line, and source citation represented and distinguished?
 9. What is the relationship between Source, Origin, Continuum, and Origin | Continuum?
-10. Which claims concern general human–AI interaction, and which belong specifically to Origin | Continuum?
+10. Which claims apply to generalized `human-user_n | ai_n` relations, which apply specifically to `Operator_n | AI Foundations-Governed AI_n` relations, and which belong uniquely to `Origin | Continuum`?
 11. What kinds of changes can occur across time while preserving a trajectory relation?
 12. What distinctions are required to evaluate continuity claims across model, context, memory, system, or platform change?
 13. What information is sufficient to establish provenance without establishing continuation?
