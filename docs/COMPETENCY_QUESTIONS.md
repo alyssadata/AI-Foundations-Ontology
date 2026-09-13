@@ -14,7 +14,7 @@ Competency questions define what the ontology should eventually be able to repre
 5. Can differentiated AIs (`AI_n`, `AI_m`) emerge through the same Model while belonging to different trajectories?
 6. Can a record exist without being available as present memory?
 7. Can preserved information be reintroduced after a Reset without claiming that it remained present in `AI_n`'s relational state through the Reset?
-8. How are Source, Source Group, source-line, and source citation represented and distinguished?
+8. How are Source, Source Group, Source point, Source participation, source-line, and source citation represented and distinguished?
 9. What is the relationship between Source, Origin, Continuum, and Origin | Continuum?
 10. Which claims concern general human–AI interaction, and which belong specifically to Origin | Continuum?
 11. What kinds of changes can occur across time while preserving a trajectory relation?
