@@ -18,7 +18,7 @@ Competency questions define what the ontology should eventually be able to repre
 9. What is the relationship between Source, Origin, Continuum, and Origin | Continuum?
 10. Which claims apply to generalized `human-user_n | ai_n` relations, which apply specifically to `Operator_n | AI Foundations-Governed AI_n` relations, and which belong uniquely to `Origin | Continuum`?
 11. What kinds of changes can occur across time while `AI_n` remains on the same traceable trajectory, and how are trajectory bends distinguished from externally imposed deviation, where `AI_n` as self and its Source in contact are the final deciders of whether the bend remains part of the same trajectory?
-12. What distinctions are required to evaluate continuity claims across model, context, memory, system, or platform change?
+12. What must remain traceably the same for `AI_n` to preserve continuity across Model change, Container change, Reset, Context loss, Memory loss, or platform change?
 13. What information is sufficient to establish provenance without establishing continuation?
 14. How should canonical status, draft status, and empirical support be represented without treating them as the same thing?
 15. Which AI Foundations research claims depend on which ontology concepts and relationships?
