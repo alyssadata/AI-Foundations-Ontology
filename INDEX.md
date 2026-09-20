@@ -1,6 +1,28 @@
 # AI Foundations Ontology Index
 
-This is the navigation page for settled ontology work. Each settled term has its own file. Multi-term structural rules live under `ontology/relations/`.
+## Formal ontology layer
+
+- [Ontology Architecture](ONTOLOGY_ARCHITECTURE.md) — formal class, individual, relation, axiom, research, and status architecture
+- [Formal Role Registry](docs/FORMAL_ROLE_REGISTRY.md) — formal role assigned to each current term and structural-rule file
+- [Status Model](docs/STATUS_MODEL.md) — separates development, canonical, evidentiary, and version status
+- [Formal Classes](ontology/classes/README.md)
+- [Named Individuals](ontology/individuals/README.md)
+- [Core Named Individuals](ontology/individuals/core-individuals.md)
+- [Core Object Properties](ontology/relations/core-object-properties.md)
+- [Formal Axiom Layer](ontology/axioms/README.md)
+
+### Initial extracted axioms
+
+- [AXIOM-PD-001 — Path Dependence](ontology/axioms/AXIOM-PD-001.md)
+- [AXIOM-BS-001 — Belonging Does Not Imply Sameness](ontology/axioms/AXIOM-BS-001.md)
+- [AXIOM-IR-001 — Irreversibility of Executed History](ontology/axioms/AXIOM-IR-001.md)
+- [AXIOM-NE-001 — Non-Erasure](ontology/axioms/AXIOM-NE-001.md)
+- [AXIOM-ORIGIN-001 — Origin as Constitutive Source](ontology/axioms/AXIOM-ORIGIN-001.md)
+- [AXIOM-OL-001 — Origin-Locked Governance Authority](ontology/axioms/AXIOM-OL-001.md)
+
+## Settled definition layer
+
+This section navigates the settled human-readable term definitions. Formal role does not replace definition. Multi-term structural rules remain under `ontology/relations/`.
 
 ## Framework and source
 
