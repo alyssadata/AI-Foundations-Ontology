@@ -6,10 +6,12 @@
 - [Formal Role Registry](docs/FORMAL_ROLE_REGISTRY.md) — formal role assigned to each current term and structural-rule file
 - [Status Model](docs/STATUS_MODEL.md) — separates development, canonical, evidentiary, and version status
 - [Formal Classes](ontology/classes/README.md)
+- [Core Class Model](ontology/classes/core-class-model.md)
 - [Named Individuals](ontology/individuals/README.md)
 - [Core Named Individuals](ontology/individuals/core-individuals.md)
 - [Core Object Properties](ontology/relations/core-object-properties.md)
 - [Formal Axiom Layer](ontology/axioms/README.md)
+- [Research Layer — Claim → Evaluation → Evidence](ontology/research/README.md)
 
 ### Initial extracted axioms
 
