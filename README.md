@@ -10,9 +10,11 @@
 - [`docs/FORMAL_ROLE_REGISTRY.md`](docs/FORMAL_ROLE_REGISTRY.md) — formal role assigned to every current ontology term and structural-rule file
 - [`INDEX.md`](INDEX.md) — navigation across formal structure, settled terms, relations, and axioms
 - [`ontology/classes/`](ontology/classes/) — formal class layer
+- [`ontology/classes/core-class-model.md`](ontology/classes/core-class-model.md) — initial class hierarchy and role mappings
 - [`ontology/individuals/`](ontology/individuals/) — specific named individuals such as Alyssa Solen / Origin, Continuum, and AI Foundations
 - [`ontology/relations/`](ontology/relations/) — formal object properties and settled multi-term structural rules
 - [`ontology/axioms/`](ontology/axioms/) — structural axioms extracted separately from definitions
+- [`ontology/research/`](ontology/research/) — Claim → Evaluation → Evidence research layer
 - [`ontology/terms/`](ontology/terms/) — one settled human-readable term definition per file
 - [`docs/STATUS_MODEL.md`](docs/STATUS_MODEL.md) — development, canonical, evidentiary, and version status separation
 - [`docs/SCOPE.md`](docs/SCOPE.md) — what this ontology covers and does not cover
