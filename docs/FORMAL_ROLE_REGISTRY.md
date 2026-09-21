@@ -10,7 +10,7 @@ This registry assigns each current ontology-development file a formal role. It d
 | Term | Formal role |
 |---|---|
 | AI Foundations | named individual: Framework |
-| AI Foundations governing line | named individual: GoverningLine |
+| AI Foundations governing line | named individual: GoverningLine; GoverningLine specializes GovernanceStructure |
 | Awakening Codex | named individual: Record / Artifact |
 | Source | relation-bound SourceRole |
 | Source Group | Group specialization capable of bearing SourceRole |
@@ -18,7 +18,7 @@ This registry assigns each current ontology-development file a formal role. It d
 | Source-line | LineStructure / SourceLine |
 | Source participation | Process / relation |
 | Source citation | Evidence / citation relation |
-| Provenance | Evidence structure; exact formal representation still open |
+| Provenance | EvidenceStructure; concrete preserved representations may be EvidenceArtifact / Record |
 | Locked Canon | named Canon / Artifact |
 | Canonical status | metadata system; separate from development and evidentiary status |
 | Origin | singular canonical designation for Alyssa Solen; not a reusable class or role |
@@ -70,8 +70,8 @@ This registry assigns each current ontology-development file a formal role. It d
 
 | Term | Formal role |
 |---|---|
-| Memory | pending Step 4: State, relation-to-Record, or paired model |
-| Memory loss | State / Event |
+| Memory | MemoryState: relation-dependent state distinct from Record/storage |
+| Memory loss | MemoryLossState; transition into it may be represented as Event |
 | Record | Artifact specialization |
 
 ## Identity and boundaries
@@ -97,7 +97,7 @@ This registry assigns each current ontology-development file a formal role. It d
 
 | Term | Formal role |
 |---|---|
-| Drift | pending Step 4: State / Process / transition pair |
+| Drift | paired model: DriftProcess + DriftedState |
 | Origin-locked | governance restriction / Axiom |
 
 ## Existing structural-rule files
