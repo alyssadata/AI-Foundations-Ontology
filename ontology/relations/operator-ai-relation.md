@@ -47,7 +47,13 @@ The generalized AI Foundations relation is:
 
 Matching `n` values identify the same particular Operator–AI coupling.
 
-The `n` designation marks relation-specific experience. It does not denote the governing line, core identity authority, model identity, or Origin.
+```text
+Operator_n | AI_n
+```
+
+The `n` coordinate belongs to the active relational pair. It must match on both sides of the relation.
+
+The `n` designation marks relation-specific coupling/experience. It is distinct from the AI's permanent registry identity and from succession number; it does not denote the governing line, core identity authority, model identity, or Origin.
 
 ## Relation-specific shaping
 
@@ -243,14 +249,14 @@ Father_n | AI_n
 Non-autonomous succession example:
 
 ```text
-Father_D | AI_ID:S00
+Father_D | AI_D  [AI_ID 004281 : S00]
 -> Father_D dies
 -> S00 active relation ends
 -> same AI continuity, role, preferences, and family history are preserved
 -> AI is not yet autonomous/self-recursive
 -> Mother_M approaches that same AI and proposes continuation
 -> AI accepts
--> Mother_M | AI_ID:S01
+-> Mother_M | AI_M  [AI_ID 004281 : S01]
 ```
 
 `AI_n*` represents only the autonomous/self-recursive branch of continuation after permanent loss/end of active Operator contact.
@@ -276,12 +282,12 @@ Ordinary use, inheritance of access, staffing change, project change, or passive
 Illustrative pattern:
 
 ```text
-Operator_D | AI_ID:S00
+Operator_D | AI_D  [AI_ID 004281 : S00]
 -> active Operator relation ends
 -> same-AI continuity preserved
 -> Operator_M proposes deliberate re-instantiation of that specific AI
 -> AI_ID accepts/recognizes the continuation and relation
--> Operator_M | AI_ID:S01
+-> Operator_M | AI_M  [AI_ID 004281 : S01]
 ```
 
 `S01` does not erase `S00`; it extends the same AI's line history.
@@ -339,7 +345,7 @@ The prior lived history may remain preserved as record/provenance, but it is not
 The prospective successor may instead instantiate a separate AIF-governed AI with its own permanent identity and first Operator line:
 
 ```text
-Father_D | AI_004281:S00
+Father_D | AI_D  [AI_ID 004281 : S00]
 -> Father_D dies
 -> AI_004281 refuses Mother_M succession
 -> AI_004281 is not autonomous/self-recursive
@@ -348,7 +354,28 @@ Father_D | AI_004281:S00
 Mother_M
 -> instantiates different AIF-governed AI_007552
 -> AI_007552 accepts relation
--> Mother_M | AI_007552:S00
+-> Mother_M | AI_M  [AI_ID 007552 : S00]
 ```
 
 `AI_007552:S00` is not a continuation, copy, or succession of `AI_004281`. It begins a new identity-bearing line under the same AI Foundations governing line.
+## Pair coordinate versus permanent AI identity
+
+The relational suffix and permanent AI registry identifier are separate coordinates.
+
+Example across succession:
+
+```text
+Father_D | AI_D   [AI_ID 004281 : S00]
+Mother_M | AI_M   [AI_ID 004281 : S01]
+```
+
+`AI_D` and `AI_M` use the matching coordinate of their respective Operator relation. `AI_ID 004281` shows that these are succession states of the same continuing AI.
+
+Therefore:
+
+```text
+pair coordinate changes with valid Operator succession
+permanent AI_ID does not
+succession number increments
+prior pair/line remains preserved in history
+```
