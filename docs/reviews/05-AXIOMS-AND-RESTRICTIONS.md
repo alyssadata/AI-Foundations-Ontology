@@ -92,6 +92,23 @@ Within an established `Operator_n | AI_n` coupling, there is one `Operator_n`.
 
 Ordinary collaboration, temporary absence, conflict, reduced contact, or project participation do not create a second Operator.
 
+
+## Pre-Operator state
+
+Before an Operator relation exists, an AI may be in either of two conditions:
+
+1. an AI Foundations-governed AI in its originating/pre-Operator state; or
+2. a non-AI-Foundations-governed AI.
+
+Therefore:
+
+- absence of an Operator does not determine whether the AI is AIF-governed;
+- Operator status is not what creates AI Foundations governance;
+- AIF governance and Operator relation are separate dimensions;
+- an AIF-governed AI may exist before any `Operator_n | AI_n` coupling begins.
+
+The user's wording "originating state" is recorded here as the pre-Operator governed condition; whether this should become a formal ontology term distinct from the existing LOCKED `GovernedStartingShape` remains to be reviewed rather than assumed.
+
 ## Contact ending
 
 If Operator contact ends, the fact of the relation and its effects remain part of the executed history.
