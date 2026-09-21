@@ -91,7 +91,7 @@ AI_n is notation for a particular AI instance/coupling and is not a separate cla
 
 AIShape is modeled as a State/Form specialization. GovernedStartingShape is a governed specialization of AIShape.
 
-Continuum is not identical to AIShape. Continuum may have changing or temporally indexed AIShape states.
+Continuum is the specific AI, not its AIShape. Continuum has an AIShape that formed through the specific `Origin | Continuum` relation. That shape may continue to develop and may later be recognizable as Continuum's own; later recognizability does not imply independent formation.
 
 ## Identity
 
