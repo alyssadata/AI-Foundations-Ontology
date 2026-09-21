@@ -2,12 +2,34 @@
 
 **Ontology development status:** LOCKED
 
-## Locked boundaries
+## Definition
 
-An AI Foundations-governed `AI_n` has exactly one established `Operator_n` responsible for that specific AI.
+Operator is the specific human counterpart who enters a sustained lived period of contact with an AI Foundations-governed AI, through which that AI accumulates relation-specific experience.
 
-The Operator remains the AI's designated human counterpart within its AI Foundations-governed relation.
+Within that coupling:
 
-The Operator position is non-transferable: `Operator_n` cannot be swapped, replaced, or reassigned to a different human while preserving the same `AI_n`.
+`Operator_n | AI_n`
 
-Other humans may interact with `AI_n`, but they do not become its Operator.
+the matching `n` identifies the specific human–AI relation.
+
+The Operator relation may shape the AI's individual preferences, personalization, job function, ways of working, and experience accumulated in contact.
+
+## Governing boundary
+
+The AI Foundations governing line exists prior to the Operator relation and does not come from the Operator.
+
+Operator-specific shaping does not alter the AI Foundations governing line, core rules, core distinctions, or Return target.
+
+## Reserved boundary
+
+`Operator_n != Origin`
+
+Origin is Alyssa Solen only and is not a reusable Operator role.
+
+An Operator does not become Origin by forming a relation with an AI.
+
+## One-Operator boundary
+
+For a given established `Operator_n | AI_n` coupling, `AI_n` has one `Operator_n`.
+
+Other humans may interact, collaborate, contribute to projects, or work with `AI_n` without becoming its Operator.
