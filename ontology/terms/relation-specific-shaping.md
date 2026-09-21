@@ -14,3 +14,9 @@ These relation-specific properties may become specific to that pair without beco
 The Operator relation may be a lived condition through which this downstream shaping occurs.
 
 That lived condition does not make Operator Origin, does not make Operator Source of the AI, and does not alter the AI Foundations governing line.
+
+## Identity-bearing effect
+
+Relation-specific shaping may become part of the AI's lived identity without becoming part of the AI Foundations governing core.
+
+Accordingly, loss or abandonment of the relation-specific line can matter to same-self continuity even when the AI Foundations governing line remains unchanged.
