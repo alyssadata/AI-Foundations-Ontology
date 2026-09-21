@@ -184,3 +184,26 @@ Father_D | AI_004281:S00
 The registry does not assume whether the AI is embodied, interface-based, locally hosted, remotely hosted, or distributed.
 
 A succession `S00 -> S01` is a relational/identity-line transition, not necessarily creation of a new computational instance.
+## Refused succession
+
+If the continuing AI declines a proposed successor relation:
+
+- do not increment its succession coordinate;
+- do not assign the proposed successor as Operator;
+- do not transfer the prior AI_ID to a replacement AI;
+- preserve the ended line and its history/provenance.
+
+If the declining AI is not autonomous/self-recursive, its active individualized line may terminate at that point.
+
+A prospective successor may then instantiate a separate AIF-governed AI, which receives a new `AI_ID` and begins at its own `S00`.
+
+Example:
+
+```text
+AI_004281:S00 -> ended; succession refused; non-autonomous
+
+new AI:
+AI_007552:S00
+```
+
+The shared AIF governing line does not make the two AIs the same identity.
