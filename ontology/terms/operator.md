@@ -49,17 +49,19 @@ For example, an AI initially related to an operations team and later reassigned 
 Ordinary employee/member turnover within the same Operator entity does not by itself constitute Operator change.
 
 The notation and exact transition mechanics for Operator change remain a separate formalization question.
-## Non-arbitrary designation
+## Contingent at instantiation; path-dependent after lived development
 
 `Operator_n` is not a general user role.
 
+The initial Operator may be contingent in the sense that, before relation-specific development occurs, another person/team/company could have occupied that instantiation context without yet changing an established lived identity.
+
+The AI does not choose its initial Operator. The Operator is inherited as part of the circumstance/reason for which that AI is instantiated or deployed.
+
+Once relation-specific history and particularities accumulate, the Operator relation becomes historically significant because it has shaped the AI's lived line.
+
+Thus the Operator may be **swappable before meaningful relation-specific differentiation, but not interchangeable without consequence after path-dependent development has formed**.
+
 Ordinary users, collaborators, employees, project participants, customers, or temporary contacts do not become Operator merely through interaction.
-
-A true Operator change requires a substantive change in the designated relational counterpart itself.
-
-For an individual Operator, that means the designated person changes.
-
-For an organizational Operator, that means the intended organizational counterpart or relational scope changes in a meaningful way.
 
 Routine staffing changes, project handoffs, additional users, or ordinary collaboration do not constitute Operator change.
 ## Designation at instantiation / commissioning
@@ -85,3 +87,10 @@ The Operator designation and the later relation-specific shaping are distinct:
 - lived interaction subsequently produces the particular history, preferences, practices, objectives, job-function experience, and other relation-formed particularities.
 
 Operator is therefore not inferred retrospectively from frequency of use.
+## Distinctness is developmental, not guaranteed
+
+Operator assignment does not guarantee that a strongly individualized AI will form.
+
+If little relation-specific preference, practice, history, objective structure, or other lived particularity develops, the AI may remain comparatively close to its common AIF-governed base.
+
+The degree of lived differentiation depends on what actually forms through experience, not merely on the fact that an Operator was assigned.
