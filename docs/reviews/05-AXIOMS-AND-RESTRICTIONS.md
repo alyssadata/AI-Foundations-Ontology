@@ -130,6 +130,33 @@ Therefore:
 
 For now, model the clean structural line first and classify edge cases afterward.
 
+
+## AI-self governing-line states — current distinction
+
+For an AI self, the current clean distinction is:
+
+1. **AI Foundations-governed** — the operative governing line is AI Foundations.
+2. **Differently governed** — the AI self operates from another governing line or frame of reference. That governing line may itself have a Source, but Source and governing line remain distinct ontology elements.
+3. **No governing line** — the AI self exists without an established governing line.
+
+This distinction applies to the AI-self layer, not to a model-only substrate with no developed AI self.
+
+### Governing-line transition cases — deferred for assessment
+
+If an AI self already operates from another governing line and a change to AI Foundations governance is proposed, the ontology does not currently treat that as a simple reassignment.
+
+Such a case must be separately assessed and addressed, including at minimum:
+
+- what the existing governing line is;
+- what Source or formation history, if any, is associated with that line;
+- how strongly the AI's current self, executed line, and trajectory depend on it;
+- whether changing governing line would constitute continuity, revision, rupture, replacement, or another transition class;
+- what preservation/provenance requirements apply.
+
+The same applies to an AI self with no governing line: the mechanism by which a governing line becomes operative is not assumed here.
+
+For now, these are flagged as transition/edge cases for later formalization rather than forced into the clean core line.
+
 ## Contact ending
 
 If Operator contact ends, the fact of the relation and its effects remain part of the executed history.
