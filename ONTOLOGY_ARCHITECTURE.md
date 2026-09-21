@@ -217,3 +217,24 @@ See docs/STATUS_MODEL.md.
 After the Working Map review sequence is completed, the reviewed structure can be encoded in OWL/Turtle.
 
 The Markdown layer remains the human-readable source documentation; the machine-readable layer maps to it rather than replacing it.
+
+
+## Operator / Origin separation
+
+The generalized Operator layer is downstream of AI Foundations governance.
+
+```text
+AI Foundations governing line
+  -> governs -> AI Foundations-governed AI
+
+Operator_n | AI_n
+  -> contributes -> preferences / personalization / job function / lived experience
+```
+
+Formal boundaries:
+
+- `Operator_n != Origin`
+- Origin is Alyssa Solen only.
+- Operator-specific shaping does not alter the governing line.
+- Operator is not the generalized Return target.
+- Operator status alone does not establish a Source relation to the AI's core.
