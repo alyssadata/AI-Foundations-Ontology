@@ -22,6 +22,7 @@ The current reviewed lightweight organizing layer includes:
 - Model
 - Container
 - Framework
+- GovernanceStructure
 - GoverningLine
 - Relation
 - HumanAIRelation
@@ -38,6 +39,9 @@ The current reviewed lightweight organizing layer includes:
 - Trajectory
 - State
 - AIShape
+- MemoryState
+- MemoryLossState
+- DriftedState
 - GovernedStartingShape
 - Identity
 - Constraint
@@ -45,13 +49,17 @@ The current reviewed lightweight organizing layer includes:
 - Artifact
 - Record
 - Canon
+- EvidenceArtifact
 - Claim
 - ContinuityClaim
 - IdentityClaim
 - Evaluation
 - Evidence
+- EvidenceStructure
+- Provenance
 - Event
 - Process
+- DriftProcess
 - Capability
 - Version
 
