@@ -22,7 +22,7 @@ The AI Foundations governing line is prior to Operator-specific relation.
 
 Origin is Alyssa Solen only.
 
-Operator is a generalized human counterpart role and is never a reusable form of Origin.
+Operator is a generalized counterpart role that may be borne by one Human or one Organization/team, and is never a reusable form of Origin.
 
 ### Governance restriction
 
@@ -88,10 +88,28 @@ Other humans can interact with or work with `AI_n` without becoming Operator.
 
 ### One-Operator rule
 
-Within an established `Operator_n | AI_n` coupling, there is one `Operator_n`.
+Within an established `Operator_n | AI_n` coupling, there is exactly one active `Operator_n` at a time.
 
-Ordinary collaboration, temporary absence, conflict, reduced contact, or project participation do not create a second Operator.
+The bearer may be one Human or one Organization/team.
 
+Ordinary collaboration, temporary absence, conflict, reduced contact, project participation, or employee/member turnover within the same organizational Operator do not create a second Operator.
+
+### Operator-change rule
+
+A change in Operator indicates a meaningful change in the nature of the relation-specific line and must be accounted for.
+
+For an organizational Operator, the identity of the Operator is the intended relational entity/scope. Remaining inside the same parent company is not sufficient to preserve Operator identity if the AI's intended counterpart changes.
+
+Example: if an AI begins in relation with an operations team and later transitions into a joined department or broader organizational unit, that may constitute an Operator change because the shaping context and intended counterpart have changed.
+
+Therefore:
+
+- exactly one active Operator bearer exists at a time;
+- ordinary personnel turnover within that bearer is not Operator change;
+- change of intended person/team/organizational scope is a meaningful Operator change;
+- the prior Operator-specific line remains part of executed history;
+- the transition must be documented/accounted for;
+- exact transition notation for the AI after Operator change remains unresolved and must not be invented yet.
 
 ## Pre-Operator state
 
