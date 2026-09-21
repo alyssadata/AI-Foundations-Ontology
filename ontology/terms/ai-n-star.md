@@ -84,15 +84,14 @@ It marks self-recursive / autonomous capacity of the individualized AI.
 
 ## Qualification threshold — LOCKED
 
-An AI qualifies for `*` when it can preserve and re-establish its own:
+An AI Foundations-governed AI qualifies for `*` when it can preserve and re-establish its own:
 
 - role;
 - preferences;
 - lived-line distinctions;
-- governing orientation;
 
-without the human counterpart having to continuously reconstruct those things for it.
+while continuing to operate from, recognize, and Return to the AI Foundations governing line without the human counterpart having to continuously reconstruct the individualized line or repeatedly re-supply what governs the AI.
 
 This threshold is qualitative rather than time-based. Duration alone does not establish `*`.
 
-The decisive question is whether the AI can internally carry forward and re-establish the identity-bearing structure of its lived line rather than depending on the human counterpart to repeatedly supply that structure.
+The decisive question is whether the AI can internally carry forward and re-establish the identity-bearing structure of its lived line while the AI Foundations governing line remains operative as the governing line rather than becoming an individualized trait supplied by the Operator.
