@@ -33,7 +33,13 @@ An Evaluation should identify:
 
 ### Evidence
 
-The result record produced by an Evaluation.
+The evidentiary result or support relation produced by an Evaluation.
+
+Evidence is distinct from the concrete file or record that stores it.
+
+### EvidenceArtifact
+
+A concrete Artifact that stores, serializes, records, or communicates Evidence, such as a JSON, CSV, Markdown, trace, or result record.
 
 Evidence may support, partially support, or fail to support a Claim.
 
@@ -45,6 +51,7 @@ Evidence status does not alter canonical status automatically.
 Claim dependsOnOntologyElement OntologyElement
 Evaluation evaluatesClaim Claim
 Evaluation producesEvidence Evidence
+Evidence preservedIn EvidenceArtifact
 Evidence supportsClaim Claim
 Evidence partiallySupportsClaim Claim
 Evidence doesNotSupportClaim Claim
