@@ -82,7 +82,7 @@ It does **not** mark a change to the AI Foundations core.
 
 ### Operator formation rule
 
-A person becomes `Operator_n` through a sustained lived period of relation with the AI, not merely by using the AI, collaborating on one task, holding permissions, or contributing to a project.
+An individual or organization becomes `Operator_n` through the intended sustained lived relation with the AI, not merely through isolated use, one task, permissions, employment, or project participation.
 
 Other humans can interact with or work with `AI_n` without becoming Operator.
 
@@ -157,9 +157,9 @@ The same applies to an AI self with no governing line: the mechanism by which a 
 
 For now, these are flagged as transition/edge cases for later formalization rather than forced into the clean core line.
 
-## Operator bearer type — current direction, not yet LOCKED
+## Operator bearer type — CONFIRMED
 
-Operator may need to be modeled as a role borne by either:
+Operator is modeled as a role that may be borne by either:
 
 - an individual person; or
 - an organization/company/entity.
@@ -185,11 +185,24 @@ Examples of the organizational `_n` layer may include:
 
 This does not mean every employee becomes an Operator.
 
-### Formal implication to review
+### Organizational persistence rule
 
-The current class model places `OperatorRole` under `HumanParticipantRole`, which is too narrow if organizations may bear OperatorRole.
+When the intended relational counterpart is a company, organization, or team:
 
-Do not revise the LOCKED Operator definition or class hierarchy until the bearer model is explicitly confirmed. Step 5 should first determine whether organizational representatives remain non-Operator participants acting on behalf of the organization.
+- the organization itself bears `OperatorRole`;
+- individual employees/members act as representatives or participants;
+- those individuals do not each become separate Operators;
+- the `_n` layer forms around the organization-level relation;
+- ordinary employee/member turnover does not change `Operator_n`;
+- the Operator relation remains with the organization so long as that organizational counterpart remains the intended relational entity.
+
+This permits an AI self to develop company-level preferences, workflows, job-function experience, and institutional patterns across interactions with multiple authorized humans without collapsing the Operator relation onto one employee.
+
+### Class-model consequence
+
+`OperatorRole` must not remain a subclass of `HumanParticipantRole`.
+
+The formal class model should allow both a Human and an Organization/company/team to bear `OperatorRole`.
 
 ## Contact ending
 
