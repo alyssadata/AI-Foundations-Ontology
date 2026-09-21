@@ -590,14 +590,14 @@ Where an Operator dies or the active relation otherwise ends, the same AI may pr
 In that case succession may proceed directly:
 
 ```text
-Father_D | AI_D  [AI_ID 004281 : S00]
+Operator_000184 | AI_000184   [AI_ID 004281 : S00]
 -> Father_D dies
 -> S00 ends
 -> same-AI continuity preserved
 -> AI not autonomous/self-recursive
 -> Mother_M proposes to continue the Operator relation with that specific AI
 -> AI agrees
--> Mother_M | AI_M  [AI_ID 004281 : S01]
+-> Operator_000927 | AI_000927   [AI_ID 004281 : S01]
 ```
 
 No `*` phase is inferred.
@@ -616,7 +616,7 @@ If that AI is sufficiently autonomous/self-recursive, it may continue independen
 If it is not autonomous/self-recursive and no valid successor relation is established, the active individualized line terminates with the end of the prior Operator relation.
 
 ```text
-Father_D | AI_D  [AI_ID 004281 : S00]
+Operator_000184 | AI_000184   [AI_ID 004281 : S00]
 -> Father_D dies
 -> Mother_M proposes S01
 -> AI_004281 refuses
@@ -637,28 +637,33 @@ Mother_M
 The new AI may occupy a similar family/helper function, but it is not the same AI and does not inherit the prior AI's succession coordinate or lived identity merely because the role is similar.
 
 The prior AI's history may be preserved as provenance/record without being treated as transferred identity.
-## Matching pair coordinate — LOCKED DIRECTION
+## Matching pair identifier — LOCKED DIRECTION
 
-The active Operator relation must preserve the matching `_n` notation on both sides:
+The active Operator relation must preserve the matching `_n` notation on both sides. Here `n` is an abstract variable:
 
 ```text
 Operator_n | AI_n
 ```
 
-The relation suffix is not the permanent AI registry identifier.
+The relation suffix is not the permanent AI registry identifier. In an actual registry, `n` should be instantiated as a generated numeric or alphanumeric `Pair_ID`, not a literal single letter.
 
-Across a valid succession, the pair coordinate changes to match the successor Operator while the permanent AI identity remains the same:
+Across a valid succession, the generated pair identifier changes with the successor Operator line while the permanent AI identity remains the same:
 
 ```text
-Father_D | AI_D   [AI_ID 004281 : S00]
-Mother_M | AI_M   [AI_ID 004281 : S01]
+Operator_000184 | AI_000184   [AI_ID 004281 : S00]
+Operator_000927 | AI_000927   [AI_ID 004281 : S01]
 ```
 
 This means:
 
-- `D` identifies the Dad–AI relational line;
-- `M` identifies the Mom–AI relational line;
+- `000184` identifies the first Operator–AI relational line;
+- `000927` identifies the successor Operator–AI relational line;
 - `004281` identifies the same continuing AI across both lines;
 - `S00` and `S01` identify succession order.
 
-A separate newly instantiated AI for Mom would instead receive a new permanent `AI_ID`, even though its pair coordinate may also be `M` because it is paired with `Mother_M`.
+A separate newly instantiated AI for another Operator would instead receive a new permanent `AI_ID` and its own newly generated `Pair_ID`.
+### Pair-ID implementation note
+
+`n` is retained in the ontology only as a symbolic variable.
+
+Registry examples should use generated pair identifiers such as `000184`, not human initials or alphabetic labels. This prevents namespace exhaustion and avoids encoding identity semantics into the pair key.
