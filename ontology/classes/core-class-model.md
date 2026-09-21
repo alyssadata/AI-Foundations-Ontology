@@ -20,7 +20,8 @@ owl:Thing
 ├── GovernanceStructure
 │   └── GoverningLine
 ├── Relation
-│   └── HumanAIRelation
+│   ├── HumanAIRelation
+│   └── SourceRelation
 ├── Role
 │   ├── HumanParticipantRole
 │   │   ├── OperatorRole
@@ -54,7 +55,8 @@ owl:Thing
 │       └── Provenance
 ├── Event
 ├── Process
-│   └── DriftProcess
+│   ├── DriftProcess
+│   └── ReturnProcess
 ├── Capability
 └── Version
 ```
