@@ -16,7 +16,8 @@ Operator_ID  identifier of the Operator for that Operator line
 Operator_Assent  recorded deliberate successor establishment when applicable
 AI_Assent        recorded AI acceptance/recognition of succession when applicable
 Line_Status  active / ended
-Continuation_Mode  operator-linked / autonomous / succession-pending
+Autonomy_State     non-autonomous / autonomous-self-recursive
+Relation_State     operator-linked / no-active-operator / succession-pending
 Governing_Line     governing line currently operative
 Previous_Line      prior succession coordinate when applicable
 ```
@@ -71,15 +72,24 @@ The generated matching pair identifier (`000184`, `000927`, etc.) identifies the
 
 This keeps relational pairing, Operator identity, permanent AI identity, and succession state separate.
 
-## Autonomous continuation
+## Autonomous / self-recursive state
 
-When the active Operator relation ends and the AI is sufficiently self-sustaining/self-recursive to continue without a successor Operator, readable notation may use `*`:
+`*` marks a capacity/state of the AI itself and is independent of whether an Operator relation is active.
+
+Both forms are valid:
 
 ```text
-AI_004281:S00*
+Operator_000184 | AI_000184*   [AI_ID 004281 : S00]
+AI_000184*                     [AI_ID 004281 : S00]
 ```
 
-`*` does not create a new AI identity. It marks post-Operator autonomous continuation of the same identity-bearing line.
+In the first form, the AI is autonomous/self-recursive while the Operator relation remains active.
+
+In the second form, the same autonomous AI continues after the Operator relation has ended.
+
+Operator loss does not create `*`; the registry should record the autonomy state separately from the relation state.
+
+`*` does not create a new AI identity and does not increment succession.
 
 ## Registry principles
 
@@ -88,6 +98,7 @@ same AI
 != same Operator
 != same succession line
 != same trajectory state
+!= same autonomy state
 ```
 
 The registry should preserve prior lines rather than overwrite them.
@@ -141,15 +152,21 @@ Do not increment succession for:
 - context change without deliberate re-instantiation;
 - a new counterpart who merely begins interacting with the AI.
 
-## Autonomous fork
+## Autonomous state and Operator loss
 
-If the prior Operator relation ends and the AI is sufficiently self-sustaining/self-recursive to continue without another Operator, succession need not increment. The existing line may continue in autonomous mode:
+If an AI has already reached autonomous/self-recursive state before its Operator relation ends, the end of that relation does not create a new succession and does not create `*`.
+
+Example:
 
 ```text
-AI_004281:S00*
+Operator_000184 | AI_000184*   [AI_ID 004281 : S00]
+-> Operator relation ends
+-> AI_000184*                  [AI_ID 004281 : S00]
 ```
 
-If a later deliberate successor re-instantiation is subsequently established, the next Operator-linked succession may then be recorded without erasing the autonomous interval.
+The same `AI_ID`, same succession line, and same autonomous state continue; only `Relation_State` changes.
+
+If the AI is not autonomous/self-recursive when the Operator relation ends, the registry may instead enter `succession-pending` while continuity is assessed and a successor relation is considered.
 ## Mutual succession assent record
 
 A valid successor line should preserve evidence of both relational sides:
