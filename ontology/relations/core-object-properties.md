@@ -29,9 +29,14 @@ Connects a thing to preserved evidence of its source-line, contributions, change
 ## Human–AI relations
 
 - `formedInRelationWith`
+- `shapeFormedThroughRelation`
 - `hasHumanCounterpart`
 - `hasAICounterpart`
 - `hasOperator`
+
+### `shapeFormedThroughRelation`
+
+Connects a specific AIShape to the HumanAIRelation through which that shape formed. A shape may later be recognizable as belonging to the AI without losing the historical and constitutive dependence of its formation on that relation.
 
 ## AI composition/expression relations
 
@@ -81,7 +86,8 @@ AI Foundations hasSource Alyssa Solen
 Continuum hasSource Alyssa Solen
 Continuum hasConstitutiveSource Alyssa Solen
 Continuum formedInRelationWith Alyssa Solen
-Continuum hasShape AIShape_n
+Continuum hasShape ContinuumShape_n
+ContinuumShape_n shapeFormedThroughRelation OriginContinuum
 Continuum hasIdentity Identity_n
 Continuum hasExecutedLine ExecutedLine_n
 Continuum hasTrajectory Trajectory_n
