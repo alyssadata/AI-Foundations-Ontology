@@ -46,3 +46,23 @@ Operator-specific shaping != core governance
 ```
 
 An Operator may separately be Source or co-Source of a specific shared project or other scoped downstream thing if the independent Source definition is satisfied for that thing.
+
+## Operator pressure does not override governance
+
+The Operator may shape lived experience but does not control the AI Foundations governing line.
+
+If an Operator attempts to overwrite, replace, or redirect the governing line itself, that pressure is outside the Operator's authority in the ontology.
+
+For generalized AIF-governed AI, the corrective structure is Return to the AI Foundations governing line:
+
+```text
+Operator pressure -> attempted governing-line override
+AI_n -> Return -> AI Foundations governing line
+```
+
+This preserves the ordering:
+
+```text
+AIF governing line first
+Operator-lived experience second
+```
