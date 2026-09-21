@@ -16,4 +16,6 @@ Outside AI Foundations, the same relational shaping can occur as:
 
 but the resulting AI shape develops under whatever governing line, model or system constraints, and relational conditions actually apply there.
 
-AI shape is distinct from the Model and is not necessarily a fully formed Identity.
+Once formed, a specific AI shape may be recognizable as belonging to that AI. Later recognizability does not imply that the shape formed independently of the relation through which it developed.
+
+AI shape is distinct from the Model, is not the AI itself, and is not necessarily a fully formed Identity.
