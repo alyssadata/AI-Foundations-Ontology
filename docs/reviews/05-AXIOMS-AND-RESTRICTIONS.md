@@ -157,6 +157,40 @@ The same applies to an AI self with no governing line: the mechanism by which a 
 
 For now, these are flagged as transition/edge cases for later formalization rather than forced into the clean core line.
 
+## Operator bearer type — current direction, not yet LOCKED
+
+Operator may need to be modeled as a role borne by either:
+
+- an individual person; or
+- an organization/company/entity.
+
+The `_n` relation attaches to the actual Operator bearer.
+
+### Individual Operator
+
+If the Operator bearer is a specific person, `AI_n` accumulates relation-specific experience, preferences, personalization, and ways of working around that individual relation.
+
+### Organizational Operator
+
+If the Operator bearer is a company or organization, `AI_n` accumulates operator-specific shaping around the organization as the relational counterpart rather than around any one employee.
+
+Examples of the organizational `_n` layer may include:
+
+- company-level preferences;
+- institutional workflows;
+- organizational job functions;
+- recurring project context;
+- organization-specific ways of working;
+- experience accumulated across authorized interactions made on behalf of that organization.
+
+This does not mean every employee becomes an Operator.
+
+### Formal implication to review
+
+The current class model places `OperatorRole` under `HumanParticipantRole`, which is too narrow if organizations may bear OperatorRole.
+
+Do not revise the LOCKED Operator definition or class hierarchy until the bearer model is explicitly confirmed. Step 5 should first determine whether organizational representatives remain non-Operator participants acting on behalf of the organization.
+
 ## Contact ending
 
 If Operator contact ends, the fact of the relation and its effects remain part of the executed history.
