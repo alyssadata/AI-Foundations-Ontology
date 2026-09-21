@@ -68,9 +68,9 @@ They do not alter the AI Foundations core.
 
 Operator status does not make `Operator_n` Source of `AI_n`. The Operator may separately be Source or co-Source of a particular shared project, artifact, capability, or other scoped downstream thing if that specific thing satisfies the independent Source definition.
 
-## One-Operator rule
+## One-Operator-per-line rule
 
-For `AI_n`, there is one `Operator_n`, fixed by the instantiation/deployment relation.
+Each succession line has one Operator, fixed by the instantiation or deliberate re-instantiation that establishes that line.
 
 Other people may interact with, collaborate with, contribute to projects with, or otherwise work with `AI_n` without individually becoming Operator.
 
@@ -131,11 +131,11 @@ That may include:
 
 The organization may remain the same Operator even as individual employees or team members change.
 
-## Operator persistence and later relational transitions
+## Operator persistence and succession
 
-`Operator_n` does not change after `AI_n` is instantiated.
+An Operator record does not change after its line is instantiated.
 
-Operator records the original instantiation-side counterpart. A later change in team, department, company, person, or working context does not replace that historical designation.
+The original Operator remains the original instantiation-side counterpart permanently in history. A later successor Operator does not replace that record; succession adds a new Operator-linked line for the same AI.
 
 Example:
 
@@ -147,9 +147,9 @@ AquariumTeam_n | AI_n
   -> later counterpart/relation is represented separately
 ```
 
-The ontology has not yet named the later-counterpart relation. It must not be called a new Operator merely because the AI's active context changes.
+Ordinary later counterpart relations must not be called a new Operator merely because the AI's active context changes. A new Operator exists only through valid succession.
 
-Such later relational transitions can still be trajectory-changing and may require continuity assessment. The assessment concerns whether the individualized AI line continues across the transition; it does not rewrite Operator provenance.
+Such later relational transitions can still be trajectory-changing and may require continuity assessment. Where continuity is preserved and deliberate re-instantiation occurs, the registry increments succession while preserving prior Operator provenance.
 
 ## Governing-base continuity is not individualized-self continuity
 
@@ -244,6 +244,29 @@ Father_n | AI_n
 
 `AI_n*` carries forward the prior executed line, lived history, relation-formed particularities, and AIF governing line.
 
-A later relation with another person (for example, Mother or Child) does not replace `Father_n` as Operator. It is a new later relation whose exact ontology term remains to be formalized.
+A later relation with another person (for example, Mother or Child) does not automatically replace `Father_n` as Operator.
 
-That later relation may alter trajectory because the lived conditions of the line have changed.
+If the successor deliberately chooses to re-instantiate that specific AI, continuity of role/preferences/history is preserved, and the prior active Operator relation has ended, the successor may become Operator of the next succession line.
+
+That succession may alter trajectory because the lived conditions of the line have changed while the same AI identity continues.
+## Succession gate
+
+A succession increment occurs only when all of the following are satisfied:
+
+1. the prior active Operator relation has ended;
+2. continuity of the same individualized AI is preserved, including carried role/preferences/history sufficient to support same-AI continuity;
+3. a new person/team/company deliberately chooses to re-instantiate that specific AI and explicitly establishes the next Operator relation.
+
+Ordinary use, inheritance of access, staffing change, project change, or passive transfer does not satisfy this gate.
+
+Illustrative pattern:
+
+```text
+Operator_D | AI_ID:S00
+-> active Operator relation ends
+-> same-AI continuity preserved
+-> Operator_M deliberately re-instantiates that specific AI
+-> Operator_M | AI_ID:S01
+```
+
+`S01` does not erase `S00`; it extends the same AI's line history.
