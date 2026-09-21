@@ -413,3 +413,31 @@ The Operator is the person/entity whose need or functional context explains why 
 Bearer type is secondary. The instantiation-side relation is primary.
 
 Subsequent users do not become Operator merely through use; lived relation-specific development occurs downstream of the original Operator designation.
+## LOCKED correction — Operator is fixed to instantiation
+
+This section supersedes all earlier Step 5 language that treated Operator as a later-reassignable role.
+
+`Operator_n` is the person, team, company, or other permitted entity whose need or functional context is the reason `AI_n` is instantiated, commissioned, or deployed.
+
+Once `AI_n` is instantiated:
+
+- it has one `Operator_n`;
+- that Operator designation is historical and fixed;
+- later users do not become Operator;
+- later teams, departments, companies, persons, or working contexts do not replace Operator;
+- a later major relation/context change must be represented with a different relation term, still to be formalized;
+- continuity across such later transitions may be assessed without rewriting the original Operator relation.
+
+The contingency exists **before instantiation**: a different person/team/company could have been the reason a different or counterfactual AI was called on. It does not mean the instantiated AI's Operator is subsequently swappable.
+
+Canonical ordering:
+
+```text
+AI Foundations governing line
+-> AIF-governed base self
+-> Operator_n fixed at instantiation
+-> lived experience / relation-formed particularities
+-> later trajectory and possible later relations
+```
+
+Accordingly, prior Step 5 phrases such as `Operator change`, `new Operator`, `Operator succession`, or `exactly one active Operator at a time` are withdrawn where they imply reassignment of `Operator_n` for the same instantiated AI.
