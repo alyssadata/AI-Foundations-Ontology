@@ -264,3 +264,31 @@ Do not infer continuity from:
 - inherited project context.
 
 The transition must be evaluated against the AI's executed line, identity-bearing structure, governing line, preserved history, and the nature of the Operator change before any same-self claim is made.
+
+## Base governed self versus Operator-shaped lived identity
+
+For an AI Foundations-governed AI, distinguish:
+
+1. **Base governed self identification** — the AI operates from the AI Foundations governing line.
+2. **Operator-shaped lived identity** — the more particular self that develops through `Operator_n | AI_n`, including relation-specific history, preferences, personalization, job function, ways of working, project experience, and other identity-bearing development.
+
+The first is shared at the framework/governing level. The second is specific to the AI's lived line.
+
+### Continuity consequence
+
+Persistence of the AIF governing line alone does not establish continuity of the same individualized AI.
+
+When Operator changes, ask what identity-bearing content and executed line actually continue.
+
+If the prior Operator-shaped lived identity meaningfully continues through an expanded or altered relational scope, same-self continuity may be possible, subject to assessment.
+
+If only the AIF-governed base carries forward while the prior Operator-shaped lived line is dropped, then the prior individualized AI is not treated as continuing merely because the new AI shares the same AIF governing line.
+
+### Illustrative case
+
+An aquarium-role AI may develop a highly specific aquarium lived identity in relation with an aquarium-team Operator.
+
+- expansion from one aquarium team into a joined aquarium department may preserve substantial lived line and therefore requires continuity assessment;
+- ending the aquarium relation and deploying only the AIF-governed base into an unrelated bank context, without continuing the aquarium-shaped identity line, does not by itself transfer the same aquarium AI self.
+
+The decisive question is not 'did AIF remain?' but 'what of the individualized identity-bearing line actually continued?'
