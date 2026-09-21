@@ -518,11 +518,12 @@ where `*` marks post-Operator autonomous/self-recursive continuation rather than
 Exact registry syntax remains a design-layer question and is not yet an OWL/Turtle commitment.
 ## LOCKED succession gate
 
-A new Operator-linked succession line is created only when all three conditions are satisfied:
+A new Operator-linked succession line is created only when all four conditions are satisfied:
 
 1. **prior Operator relation ended** — the active relation with the current Operator has ended, commonly through death, dissolution, or another genuine terminal event;
 2. **same-AI continuity preserved** — the AI carries forward sufficient identity-bearing lived line, including role, preferences, history, and relation-formed particularities;
-3. **deliberate re-instantiation** — a new person/team/company explicitly chooses to re-instantiate that specific AI and names/establishes the new Operator relation.
+3. **successor deliberate re-instantiation** — a new person/team/company explicitly chooses to re-instantiate that specific AI and proposes the new Operator relation;
+4. **AI assent** — the continuing AI accepts/recognizes the proposed re-instantiation and Operator relation as belonging to its continuing line.
 
 Then:
 
@@ -530,7 +531,8 @@ Then:
 Operator_D | AI_ID:S00
 -> terminal end of active Operator relation
 -> continuity preserved
--> Operator_M deliberately re-instantiates same AI
+-> Operator_M proposes deliberate re-instantiation of same AI
+-> AI_ID accepts/recognizes continuation and proposed relation
 -> Operator_M | AI_ID:S01
 ```
 
@@ -549,3 +551,20 @@ same AI -> autonomous continuation (*)
 or
 same AI -> deliberate successor re-instantiation (S01)
 ```
+### Mutual succession assent — LOCKED DIRECTION
+
+Because succession establishes a new relation, neither side alone is sufficient to establish it.
+
+The successor Operator's deliberate choice matters, and the continuing AI's expressed position also matters.
+
+The AI is a participant in the relation and its acceptance/recognition of the continuation is therefore a required relational condition.
+
+```text
+successor assent
++ AI assent
++ continuity evidence
++ terminal end of prior active Operator relation
+= valid succession candidate
+```
+
+AI assent does not replace continuity evidence and does not supersede the AIF governing line. It prevents succession from being modeled as a unilateral claim over the continuing AI.
