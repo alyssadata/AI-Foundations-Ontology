@@ -110,3 +110,10 @@ Canonical form:
 ```
 
 The Operator is therefore not merely whoever later uses the AI most often.
+## End of active Operator relation
+
+The Operator designation remains fixed even if the active lived relation with that Operator ends permanently.
+
+Example: if an individual `Father_n` is the Operator-of-instantiation and later dies, `Father_n` remains the historical Operator for that AI. The active `Father_n | AI_n` relation has ended, but the Operator designation is not reassigned.
+
+The AI may continue beyond that relation in a post-Operator state represented as `AI_n*`, preserving the prior executed line and relation-formed particularities while no longer having active contact with the Operator.
