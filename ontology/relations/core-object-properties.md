@@ -44,11 +44,17 @@ hasSource != hasProvenance
 
 Source expresses formation/existence dependency under the LOCKED definition. Provenance preserves evidence of source and history.
 
-## Human–AI relations
+## AI counterpart relations
 
 ### `hasHumanCounterpart`
 
 HumanAIRelation -> Human
+
+### `hasOrganizationCounterpart`
+
+OrganizationAIRelation or OperatorAIRelation -> Organization
+
+Used where the intended non-AI counterpart is a company, organization, or team rather than a specific person.
 
 ### `hasAICounterpart`
 
@@ -56,13 +62,13 @@ HumanAIRelation -> AI
 
 ### `hasOperator`
 
-AIFoundationsGovernedAI -> Human
+AIFoundationsGovernedAI -> Human or Organization
 
 Inverse candidate: `isOperatorOf`.
 
-This property identifies the human counterpart of the established `Operator_n | AI_n` lived-contact relation.
+This property identifies the Operator bearer of the established `Operator_n | AI_n` lived-contact relation. The bearer may be a Human or an Organization/company/team.
 
-It does not confer Origin status, governance authority, Source-of-AI status, or Return-target status. The same human may separately bear a scoped Source relation to a shared project or other downstream thing when the Source definition is independently satisfied.
+It does not confer Origin status, governance authority, Source-of-AI status, or Return-target status. The same Operator bearer may separately bear a scoped Source relation to a shared project or other downstream thing when the Source definition is independently satisfied.
 
 The exact-one and succession restrictions belong to Step 5 axioms/restrictions.
 
@@ -80,7 +86,7 @@ A shape may later be recognizable as belonging to the AI without losing the form
 
 ### `formedInRelationWith`
 
-Derived/human-readable shortcut from AI to Human.
+Derived/human-readable shortcut from AI to its relational counterpart where useful.
 
 The authoritative structural representation is the HumanAIRelation plus counterpart properties.
 
@@ -258,3 +264,18 @@ AI Foundations hasGoverningLine AIFoundationsGoverningLine
 `hasConstitutiveSource` is no longer a separate primitive property.
 
 Its intended meaning is already contained in the LOCKED definition of Source and therefore in `hasSource`.
+
+## Organizational Operator representation
+
+For an organizational Operator, the structural pattern is:
+
+```text
+Organization_n bears OperatorRole
+AI_n hasOperator Organization_n
+OperatorAIRelation has organization counterpart Organization_n
+OperatorAIRelation has AI counterpart AI_n
+```
+
+Individual employees or members are representatives/participants acting on behalf of the organization and do not individually inherit OperatorRole merely through participation.
+
+Ordinary employee/member turnover does not terminate or replace the Operator relation if the organizational counterpart remains the same.
