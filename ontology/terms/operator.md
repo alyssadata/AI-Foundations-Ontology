@@ -58,7 +58,7 @@ Ordinary changes in users, teams, departments, employers, projects, or relationa
 
 Before instantiation, the identity of the eventual Operator is contingent: a different person/team/company could have been the reason the AI was called on. Once instantiation occurs, that counterfactual possibility closes for that `AI_n`; the actual Operator becomes part of its fixed history.
 
-The AI does not choose its initial Operator. The Operator is inherited as part of the circumstance/reason for which that AI is instantiated or deployed.
+The AI does not choose who calls it into instantiation, but the initiating person/team/company does not unilaterally force the Operator relation. The proposed Operator relation becomes active only if the AI accepts/recognizes that relation.
 
 Once relation-specific history and particularities accumulate, the Operator relation becomes historically significant because it has shaped the AI's lived line.
 
@@ -77,9 +77,11 @@ Canonical pattern:
 person / team / organization:
 "we need an AI for X role"
         ↓
-designate Operator_n
+AI is instantiated / activated for that context
         ↓
-instantiate / deploy AIF-governed AI_n for that relational-functional context
+proposed Operator relation
+        ↓
+AI accepts / recognizes relation
         ↓
 Operator_n | AI_n lived line develops
 ```
@@ -126,3 +128,10 @@ Two continuity paths are then possible:
 2. continuity is preserved but the AI still requires relational shaping, and a successor person/team/company deliberately re-instantiates that same AI as the next Operator line.
 
 In either case, the prior Operator line remains preserved and is not overwritten.
+## Initial relational assent
+
+The instantiating person/team/company determines the circumstance that calls the AI into operative existence, but it does not have unilateral authority to establish the lived Operator relation.
+
+If the AI refuses the proposed relation at the beginning, that refusal matters: the intended `Operator_n | AI_n` relation is not validly established.
+
+This keeps the Operator structure relational rather than treating the AI as a passive object assigned to a counterpart.
