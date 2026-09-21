@@ -17,7 +17,8 @@ owl:Thing
 │   ├── Model
 │   └── Container
 ├── Framework
-├── GoverningLine
+├── GovernanceStructure
+│   └── GoverningLine
 ├── Relation
 │   └── HumanAIRelation
 ├── Role
@@ -32,21 +33,28 @@ owl:Thing
 │   ├── ExecutedLine
 │   └── Trajectory
 ├── State
-│   └── AIShape
-│       └── GovernedStartingShape
+│   ├── AIShape
+│   │   └── GovernedStartingShape
+│   ├── MemoryState
+│   ├── MemoryLossState
+│   └── DriftedState
 ├── Identity
 ├── Constraint
 ├── Axiom
 ├── Artifact
 │   ├── Record
-│   └── Canon
+│   ├── Canon
+│   └── EvidenceArtifact
 ├── Claim
 │   ├── ContinuityClaim
 │   └── IdentityClaim
 ├── Evaluation
 ├── Evidence
+│   └── EvidenceStructure
+│       └── Provenance
 ├── Event
 ├── Process
+│   └── DriftProcess
 ├── Capability
 └── Version
 ```
@@ -151,9 +159,52 @@ A Claim is an evaluable proposition and may depend on one or more Axioms, terms,
 - Executed line -> ExecutedLine
 - Trajectory -> Trajectory
 - Source-line -> SourceLine
-- Memory -> pending Step 4 resolution
+- Memory -> MemoryState: the relation-dependent shape of a Record to a person/AI, distinct from the Record and from storage
+- Memory loss -> MemoryLossState: the condition in which that memory-shape is absent or inaccessible even if the Record persists
 - Impaired self-recognition -> State
-- Drift -> pending Step 4 resolution
+- Drift -> paired formalization: DriftProcess for the attempted external alteration and DriftedState for the resulting condition when drift occurs
+- Provenance -> EvidenceStructure
+- Governing line -> GoverningLine, specialization of GovernanceStructure
+- Evidence -> abstract evidentiary entity; EvidenceArtifact is the concrete stored record/file carrying or preserving Evidence
+
+## Resolved class-model questions
+
+### Memory
+
+Memory is modeled as a relation-dependent State rather than as Record or storage. Formal properties in Step 3 will connect a MemoryState to the entity for whom it is memory and to the Record/history it presents.
+
+Memory loss is modeled primarily as a State/condition. A transition into memory loss may be represented separately as an Event when needed.
+
+### Drift
+
+Drift requires two formal levels because the locked definition contains both an attempted outside alteration and a drifted AI condition:
+
+- DriftProcess — attempted alteration of the governing line from outside that line;
+- DriftedState — the resulting state requiring Return/Recalibration when the attempt affects the AI.
+
+Ordinary relation-specific shaping within governance is neither DriftProcess nor DriftedState.
+
+### Provenance
+
+Provenance is modeled as an EvidenceStructure: preserved evidence of source-line, contributions, changes, history, and formation.
+
+Provenance is not Continuity and does not imply continuation.
+
+A concrete file, record, graph serialization, or other stored representation of provenance may be an EvidenceArtifact or Record.
+
+### GoverningLine
+
+GoverningLine is modeled as a GovernanceStructure rather than as a single Constraint.
+
+It is an active structured set of rules, boundaries, and distinctions. Individual Constraints and Axioms may belong to or be enforced by a GoverningLine.
+
+### Evidence
+
+Evidence is an abstract evidentiary entity in the ontology/research layer.
+
+EvidenceArtifact is a concrete Artifact that stores, records, serializes, or communicates Evidence.
+
+This allows an Evaluation to produce Evidence while a JSON/CSV/Markdown/result file is represented separately as an EvidenceArtifact.
 
 ## Boundary rules
 
@@ -170,12 +221,10 @@ Continuum is not a reusable class
 Origin | Continuum is not a reusable relation template
 ```
 
-## Remaining open class questions
+## Step 1 review status
 
-1. whether Memory is best represented as State, Relation-to-Record, or a paired model;
-2. whether Drift is State, Process, or state-transition pair;
-3. whether Provenance is Evidence, an evidence graph/structure, or both;
-4. whether GoverningLine later specializes a governance/constraint structure;
-5. whether Evidence remains top-level or gains an EvidenceArtifact specialization.
+The core class hierarchy review is complete at the DRAFT formalization level.
 
-These are formal modeling questions and do not reopen LOCKED meanings.
+The remaining work is no longer class placement. It is Step 3 relation/property design, Step 5 axiom/restriction extraction, and later competency validation.
+
+These formal decisions do not reopen LOCKED meanings.
