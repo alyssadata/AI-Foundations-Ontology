@@ -150,3 +150,10 @@ JoinedDepartment_m | AI_?
 The transition is meaningful because the intended counterpart and therefore the shaping context have changed. The exact post-transition AI notation is not yet fixed here.
 
 By contrast, ordinary turnover of employees or members inside the same Operator entity does not change the Operator.
+## Continuity after Operator change
+
+Operator change is a mandatory continuity-assessment point.
+
+It must not be assumed that the same AI self continues, and it must not be assumed that a different AI self necessarily begins.
+
+Continuity/discontinuity must be assessed and represented explicitly based on the line and transition evidence.
