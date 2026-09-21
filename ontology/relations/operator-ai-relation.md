@@ -200,3 +200,19 @@ Even when continuity of the individualized AI is established, Operator change is
 The new Operator relation changes the lived conditions under which the line develops and may therefore bend the trajectory relative to what it would have been under the prior Operator.
 
 The prior line is not erased; the Operator change becomes part of the executed history that explains the later shape of the AI.
+## Operator change is non-arbitrary
+
+Operator is not equivalent to general user, access-holder, collaborator, or project participant.
+
+Accordingly, `Operator_n` does not change merely because:
+
+- a different employee interacts with the AI;
+- a new project begins;
+- a collaborator joins;
+- staffing changes;
+- the AI is used by additional people;
+- ordinary responsibilities shift within the same intended Operator entity.
+
+A true Operator change occurs only when the designated relational counterpart itself changes in a substantive way.
+
+When such a change actually occurs, it is meaningful and must be accounted for in the line. But the ontology must not manufacture Operator changes from ordinary interaction.
