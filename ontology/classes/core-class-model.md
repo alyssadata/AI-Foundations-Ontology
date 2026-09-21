@@ -11,6 +11,7 @@ This file expresses the reviewed lightweight class hierarchy used to organize th
 owl:Thing
 ├── Agent
 │   ├── Human
+│   ├── Organization
 │   └── AI
 │       └── AIFoundationsGovernedAI
 ├── SystemComponent
@@ -20,11 +21,14 @@ owl:Thing
 ├── GovernanceStructure
 │   └── GoverningLine
 ├── Relation
-│   ├── HumanAIRelation
+│   ├── AIRelation
+│   │   ├── HumanAIRelation
+│   │   ├── OrganizationAIRelation
+│   │   └── OperatorAIRelation
 │   └── SourceRelation
 ├── Role
+│   ├── OperatorRole
 │   ├── HumanParticipantRole
-│   │   ├── OperatorRole
 │   │   └── OtherUserRole
 │   └── SourceRole
 ├── Group
@@ -71,9 +75,13 @@ The locked Human participant definition describes a role in human–AI interacti
 
 ### OperatorRole
 
-OperatorRole specializes HumanParticipantRole within an AI Foundations-governed relation.
+OperatorRole is a relation-bound role within an AI Foundations-governed Operator–AI relation.
 
-The existing one-Operator and non-transferability rules remain constraints on this role.
+It is not restricted to Human because the Operator bearer may be either an individual Human or an Organization/company/team.
+
+The role attaches to the intended relational counterpart. If an Organization bears OperatorRole, its individual members may participate as representatives without each becoming Operator.
+
+The existing one-Operator constraints apply to the Operator bearer, not to the number of people who may act on behalf of an organizational Operator.
 
 ### OtherUserRole
 
@@ -87,7 +95,11 @@ A Human, Group, or other permitted entity may bear SourceRole.
 
 Origin is not a SourceRole class or reusable role; Origin is the singular AI Foundations designation for Alyssa Solen.
 
-## Group model
+## Organization and group model
+
+Organization represents a company, institution, or team capable of bearing relation-bound roles such as OperatorRole.
+
+An organizational Operator may persist as the same counterpart through ordinary membership or employee turnover.
 
 SourceGroup is a specialization of Group.
 
@@ -221,6 +233,7 @@ AIShape != Identity
 Origin is not a reusable class or role
 Continuum is not a reusable class
 Origin | Continuum is not a reusable relation template
+OperatorRole may be borne by Human or Organization
 ```
 
 ## Step 1 review status
