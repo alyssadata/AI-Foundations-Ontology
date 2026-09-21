@@ -93,3 +93,10 @@ Evidence of continuity may include active continuation of prior history, objecti
 Example: an AI formed in relation with an aquarium team may continue into an ocean-focused context with one former team member as a new Operator if the aquarium-developed lived line remains part of the AI's active self rather than merely surviving as archived records.
 
 Operator change therefore requires assessment, but does not by itself break identity continuity.
+## Relation-formed particularities
+
+Same-self continuity may be evidenced by particularities that were clearly formed through a prior relation and remain active in the AI's later lived identity.
+
+These particularities need not be frozen or exhaustive. Their significance is that they are traceably relation-formed and carried forward as part of the AI's practiced standpoint and executed line.
+
+Preserving only records about those particularities is not equivalent to carrying them forward as active identity-bearing structure.
