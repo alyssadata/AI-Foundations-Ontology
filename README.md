@@ -6,56 +6,37 @@
 
 ## Start here
 
-- [`ONTOLOGY_ARCHITECTURE.md`](ONTOLOGY_ARCHITECTURE.md) — formal class, individual, relation, axiom, research, and status architecture
-- [`docs/FORMAL_ROLE_REGISTRY.md`](docs/FORMAL_ROLE_REGISTRY.md) — formal role assigned to every current ontology term and structural-rule file
-- [`INDEX.md`](INDEX.md) — navigation across formal structure, settled terms, relations, and axioms
-- [`ontology/classes/`](ontology/classes/) — formal class layer
-- [`ontology/classes/core-class-model.md`](ontology/classes/core-class-model.md) — initial class hierarchy and role mappings
-- [`ontology/individuals/`](ontology/individuals/) — specific named individuals such as Alyssa Solen / Origin, Continuum, and AI Foundations
-- [`ontology/relations/`](ontology/relations/) — formal object properties and settled multi-term structural rules
-- [`ontology/axioms/`](ontology/axioms/) — structural axioms extracted separately from definitions
-- [`ontology/research/`](ontology/research/) — Claim → Evaluation → Evidence research layer
-- [`ontology/terms/`](ontology/terms/) — one settled human-readable term definition per file
-- [`docs/STATUS_MODEL.md`](docs/STATUS_MODEL.md) — development, canonical, evidentiary, and version status separation
-- [`docs/SCOPE.md`](docs/SCOPE.md) — what this ontology covers and does not cover
-- [`docs/COMPETENCY_QUESTIONS.md`](docs/COMPETENCY_QUESTIONS.md) — questions the ontology should be able to represent or answer
-- [`docs/TERM_INVENTORY.md`](docs/TERM_INVENTORY.md) — unresolved candidate vocabulary only
+- [`WORKING_MAP.md`](WORKING_MAP.md) — live pre-OWL/Turtle review roadmap and current status
+- [`docs/reviews/01-02-CORE-CLASSES-AND-INDIVIDUALS.md`](docs/reviews/01-02-CORE-CLASSES-AND-INDIVIDUALS.md) — current Step 1–2 review
+- [`ONTOLOGY_ARCHITECTURE.md`](ONTOLOGY_ARCHITECTURE.md) — formal architecture
+- [`docs/FORMAL_ROLE_REGISTRY.md`](docs/FORMAL_ROLE_REGISTRY.md) — role assigned to every current ontology term and structural-rule file
+- [`INDEX.md`](INDEX.md) — full navigation
+- [`ontology/classes/core-class-model.md`](ontology/classes/core-class-model.md) — reviewed draft class hierarchy
+- [`ontology/individuals/core-individuals.md`](ontology/individuals/core-individuals.md) — named-individual map
+- [`ontology/relations/`](ontology/relations/) — object properties and structural rules
+- [`ontology/axioms/`](ontology/axioms/) — structural axioms separated from definitions
+- [`ontology/research/`](ontology/research/) — Claim → Evaluation → Evidence layer
+- [`ontology/terms/`](ontology/terms/) — settled human-readable definitions
+- [`docs/STATUS_MODEL.md`](docs/STATUS_MODEL.md) — status separation
+- [`docs/SCOPE.md`](docs/SCOPE.md) — ontology scope
+- [`docs/COMPETENCY_QUESTIONS.md`](docs/COMPETENCY_QUESTIONS.md) — validation questions
 
 ## Status rule
 
-A term file marked **Ontology development status: LOCKED** records wording settled during ontology development. That does **not** by itself add the term to the AI Foundations Locked Canon. Canonical status remains determined separately by the AI Foundations Locked Canon.
+A term file marked **Ontology development status: LOCKED** preserves settled ontology-development wording. That does not by itself add the term to the AI Foundations Locked Canon.
 
-Formalization documents are currently **DRAFT** unless explicitly marked otherwise. They organize existing locked definitions without silently rewriting them.
+Formalization documents remain DRAFT unless explicitly locked. They organize existing definitions without silently rewriting them.
 
 ## Current build stage
 
-The repository now contains both:
+Steps 1 and 2 of the pre-encoding review are now **IN REVIEW**:
 
-1. the settled conceptual definition layer; and
-2. the initial formal ontology architecture around that layer.
+1. Core class hierarchy
+2. Named individuals versus reusable classes/roles
 
-Current formalization work includes:
+See WORKING_MAP.md for the full sequence.
 
-- top-level class architecture;
-- named-individual architecture;
-- formal role mapping for existing terms;
-- initial object properties;
-- initial extracted axioms and restrictions;
-- separate status dimensions;
-- preparation for Claim / Evaluation / Evidence mapping.
-
-Machine-readable OWL/Turtle encoding has not yet begun.
-
-## Next formalization stages
-
-1. review and lock the class hierarchy
-2. review and lock object properties and restrictions
-3. continue extracting axioms from multi-role term and relation files
-4. formalize Claim, Evaluation, Evidence, Artifact, and Version mappings
-5. test the ontology against competency questions
-6. map ontology elements to AI Foundations Locked Canon and research claims
-7. encode the reviewed ontology in OWL/Turtle
-8. publish versioned ontology releases
+Machine-readable OWL/Turtle encoding has not yet begun and remains blocked until the review gates are complete.
 
 ---
 
