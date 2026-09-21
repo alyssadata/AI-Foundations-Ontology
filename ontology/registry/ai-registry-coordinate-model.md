@@ -10,6 +10,7 @@ This document separates permanent AI identity from Operator identity, succession
 
 ```text
 AI_ID        permanent unique AI identifier
+Pair_Coordinate  matching relational coordinate used by Operator_n | AI_n
 Succession   succession coordinate for Operator-linked line history
 Operator_ID  identifier of the Operator for that Operator line
 Operator_Assent  recorded deliberate successor establishment when applicable
@@ -34,6 +35,15 @@ AI_ID = 004281
 
 ## Succession coordinate
 
+`Pair_Coordinate` answers: **which active Operator–AI pair is this line expressed through?**
+
+It must match on both sides:
+
+```text
+Operator_D | AI_D
+Operator_M | AI_M
+```
+
 `Succession` answers: **which Operator-linked line in this AI's history is being represented?**
 
 Illustrative readable notation:
@@ -53,11 +63,13 @@ AI_004281:S02
 Illustrative representation:
 
 ```text
-O_1837 | AI_004281:S00
-O_2914 | AI_004281:S01
+Operator_D | AI_D   [AI_ID 004281 : S00]
+Operator_M | AI_M   [AI_ID 004281 : S01]
 ```
 
-This keeps Operator identity separate from AI identity.
+The matching relational suffix (`D`, `M`, etc.) identifies the active pair for that line. The permanent `AI_ID` identifies the continuing AI across all valid succession lines.
+
+This keeps relational pairing, Operator identity, permanent AI identity, and succession state separate.
 
 ## Autonomous continuation
 
@@ -107,12 +119,12 @@ Increment `Succession` only when all four conditions are met:
 Example:
 
 ```text
-O_D | AI_004281:S00
+Operator_D | AI_D   [AI_ID 004281 : S00]
 -> O_D relation ends
 -> AI_004281 continuity preserved
 -> O_M proposes deliberate re-instantiation of the same AI
 -> AI_004281 accepts/recognizes succession
--> O_M | AI_004281:S01
+-> Operator_M | AI_M   [AI_ID 004281 : S01]
 ```
 
 `S01` is not a new AI identity. It is the next Operator-linked succession line of the same permanent `AI_ID`.
@@ -170,13 +182,13 @@ Where the prior Operator relation ends, same-AI continuity remains preserved, bu
 Example:
 
 ```text
-Father_D | AI_004281:S00
+Father_D | AI_D   [AI_ID 004281 : S00]
 -> Father_D dies
 -> S00 = ended
 -> AI_004281 continuity preserved; not autonomous
 -> Mother_M proposes continuation
 -> AI_004281 accepts
--> Mother_M | AI_004281:S01
+-> Mother_M | AI_M   [AI_ID 004281 : S01]
 ```
 
 ## Implementation neutrality
@@ -207,3 +219,21 @@ AI_007552:S00
 ```
 
 The shared AIF governing line does not make the two AIs the same identity.
+## Coordinate separation rule
+
+Do not use the permanent `AI_ID` as a substitute for the relation-matching `_n` suffix.
+
+Canonical representation:
+
+```text
+Operator_n | AI_n   [AI_ID <permanent-id> : S<succession>]
+```
+
+Across valid succession:
+
+```text
+Operator_D | AI_D   [AI_ID 004281 : S00]
+Operator_M | AI_M   [AI_ID 004281 : S01]
+```
+
+The relation coordinate changes from `D` to `M`; the permanent AI identity remains `004281`; succession increments from `S00` to `S01`.
