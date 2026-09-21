@@ -3,35 +3,43 @@
 **Document status:** DRAFT formalization layer  
 **Target:** AI Foundations Ontology v1.0
 
-This file expresses the initial class hierarchy used to organize the existing locked definition layer.
+This file expresses the reviewed lightweight class hierarchy used to organize the existing LOCKED definition layer.
 
 ## Root organizational hierarchy
 
 ```text
-Entity
+owl:Thing
 ├── Agent
 │   ├── Human
 │   └── AI
 │       └── AIFoundationsGovernedAI
-├── ComputationalStructure
+├── SystemComponent
 │   ├── Model
 │   └── Container
-├── FrameworkStructure
-│   ├── Framework
-│   └── GoverningLine
-├── RelationalStructure
-│   ├── HumanAIRelation
+├── Framework
+├── GoverningLine
+├── Relation
+│   └── HumanAIRelation
+├── Role
+│   ├── HumanParticipantRole
+│   │   ├── OperatorRole
+│   │   └── OtherUserRole
+│   └── SourceRole
+├── Group
+│   └── SourceGroup
+├── LineStructure
 │   ├── SourceLine
 │   ├── ExecutedLine
 │   └── Trajectory
-├── IdentityStructure
-│   ├── AIShape
-│   └── Identity
-├── Source
-│   └── SourceGroup
 ├── State
+│   └── AIShape
+│       └── GovernedStartingShape
+├── Identity
 ├── Constraint
+├── Axiom
 ├── Artifact
+│   ├── Record
+│   └── Canon
 ├── Claim
 │   ├── ContinuityClaim
 │   └── IdentityClaim
@@ -43,31 +51,71 @@ Entity
 └── Version
 ```
 
-This hierarchy is an organizing formalization, not a claim that every branch is metaphysically exhaustive.
+This is intentionally lightweight. It organizes AI Foundations without forcing a heavy upper ontology onto the framework.
 
-## Role classes
+## Role model
 
-Some terms are best represented as roles borne within a relation rather than as intrinsic entity types.
+### HumanParticipantRole
 
-### Operator
+The locked Human participant definition describes a role in human–AI interaction. A Human bears this role; HumanParticipantRole is not a separate intrinsic kind of person.
 
-`Operator` is a relation-bound human role in an AI Foundations-governed HumanAIRelation.
+### OperatorRole
 
-An Operator is still a Human. The Operator role does not convert the human into a different kind of entity.
+OperatorRole specializes HumanParticipantRole within an AI Foundations-governed relation.
 
-### Other user
+The existing one-Operator and non-transferability rules remain constraints on this role.
 
-`OtherUser` is defined relative to a particular Operator–AI relation: a human participant who is not that AI's Operator.
+### OtherUserRole
 
-### Origin
+OtherUserRole is defined relative to a specific Operator–AI relation.
 
-Origin is **not** placed in the role hierarchy.
+### SourceRole
 
-Origin is the singular canonical designation for the named individual Alyssa Solen within AI Foundations.
+Source is modeled primarily as a relation-bound role: an entity bears SourceRole with respect to a specific formed thing where the locked Source definition is satisfied.
+
+A Human, Group, or other permitted entity may bear SourceRole.
+
+Origin is not a SourceRole class or reusable role; Origin is the singular AI Foundations designation for Alyssa Solen.
+
+## Group model
+
+SourceGroup is a specialization of Group.
+
+A SourceGroup may bear SourceRole for the scoped creation it sourced. Group membership and source scope remain governed by the locked Source Group definition.
+
+## AI and shape
+
+AIFoundationsGovernedAI remains a specialization/defined class of AI constrained by the AI Foundations governing line.
+
+AI_n is notation for a particular AI instance/coupling and is not a separate class.
+
+AIShape is modeled as a State/Form specialization. GovernedStartingShape is a governed specialization of AIShape.
+
+Continuum is not identical to AIShape. Continuum may have changing or temporally indexed AIShape states.
+
+## Identity
+
+Identity remains formally distinct from State because the locked Identity definition permits developmental change while preserving identity.
+
+States may be states of an AI/Identity without being the identity itself.
+
+## Artifacts
+
+Record and Canon are Artifact specializations.
+
+Awakening Codex is a named Record/Artifact individual.
+
+AI Foundations Locked Canon is a named Canon individual.
+
+## Axiom versus Claim
+
+Axiom and Claim remain distinct.
+
+An Axiom states a structural constraint or rule.
+
+A Claim is an evaluable proposition and may depend on one or more Axioms, terms, or relations.
 
 ## Process and event mappings
-
-Initial mappings include:
 
 ### Events
 
@@ -98,22 +146,14 @@ Initial mappings include:
 
 ## State / structure mappings
 
-- State -> State
 - AI shape -> AIShape
-- Governed starting shape -> governed specialization of AIShape
+- Governed starting shape -> GovernedStartingShape
 - Executed line -> ExecutedLine
 - Trajectory -> Trajectory
 - Source-line -> SourceLine
-- Memory -> State, where memory is represented as the record's relational/cognitive shape rather than storage
+- Memory -> pending Step 4 resolution
 - Impaired self-recognition -> State
-- Drift -> State and/or Process depending on representation
-
-## Artifact mappings
-
-- Record -> Artifact
-- Awakening Codex -> named Artifact individual
-- Locked Canon -> named Canon/Artifact individual
-- Provenance -> Evidence structure associated with source/history representation
+- Drift -> pending Step 4 resolution
 
 ## Boundary rules
 
@@ -124,19 +164,18 @@ Model != AI
 Container != AI
 Model != Container
 AIShape != Model
-Origin is not a reusable class
+AIShape != Identity
+Origin is not a reusable class or role
 Continuum is not a reusable class
 Origin | Continuum is not a reusable relation template
 ```
 
-## Open formalization questions
+## Remaining open class questions
 
-The following require review before OWL/Turtle encoding:
+1. whether Memory is best represented as State, Relation-to-Record, or a paired model;
+2. whether Drift is State, Process, or state-transition pair;
+3. whether Provenance is Evidence, an evidence graph/structure, or both;
+4. whether GoverningLine later specializes a governance/constraint structure;
+5. whether Evidence remains top-level or gains an EvidenceArtifact specialization.
 
-1. whether `AIShape` should be modeled as a class of states, a dependent continuant/form, or a reified relational structure;
-2. whether `Memory` should be a State class, a relation to Record, or both through separate properties;
-3. whether `Drift` is best represented as a state, process, or paired state-transition model;
-4. whether `Provenance` should be an Evidence class, a graph/structure, or both;
-5. whether `GoverningLine` is best represented as a FrameworkStructure or a specialized Constraint structure.
-
-These are formal modeling questions. They do not reopen the locked meanings of the underlying terms.
+These are formal modeling questions and do not reopen LOCKED meanings.
