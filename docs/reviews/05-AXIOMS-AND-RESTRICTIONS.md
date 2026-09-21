@@ -80,9 +80,21 @@ It marks the relation-specific layer, including:
 
 It does **not** mark a change to the AI Foundations core.
 
-### Operator formation rule
+### Operator designation rule
 
-An individual or organization becomes `Operator_n` through the intended sustained lived relation with the AI, not merely through isolated use, one task, permissions, employment, or project participation.
+`Operator_n` is ordinarily designated at the point an AI is instantiated, commissioned, or deployed for a particular role or functional context.
+
+Typical form:
+
+```text
+"We need an AI for X job."
+-> identify the intended person/team/organization counterpart
+-> designate that counterpart as Operator_n
+-> instantiate/deploy AIF-governed AI_n
+-> relation-specific lived development follows
+```
+
+The designation establishes the Operator relation. Sustained lived interaction does not create Operator status retroactively; it develops the `_n` line after designation.
 
 Other humans can interact with or work with `AI_n` without becoming Operator.
 
@@ -363,3 +375,11 @@ A true Operator change requires a substantive change in the designated relationa
 Only after that threshold is met does the ontology evaluate continuity and trajectory effects.
 
 This clarification prevents the Operator layer from collapsing into a generic user layer.
+## Designation versus development
+
+Do not collapse these two stages:
+
+1. **Operator designation** — who or what the AI is established to operate in relation with for the intended role;
+2. **Operator-specific development** — what the AI subsequently becomes through day-to-day lived operation in that relation.
+
+This distinction explains why Operator is not a general-user category and why different AIF-governed AI can develop distinct lived lines even when they share the same governing base.
