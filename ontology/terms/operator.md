@@ -32,21 +32,25 @@ An Operator does not become Origin by forming a relation with an AI.
 
 Operator status does not make the Operator Source of the AI, its governing line, or its core. An Operator may separately be Source or co-Source of a specific shared project, artifact, capability, or other scoped downstream thing only where the independent Source definition is satisfied for that thing.
 
-## One-Operator boundary
+## One-Operator-per-line boundary
 
-For a given `AI_n`, there is one `Operator_n`: the person, team, company, or other permitted entity whose need or functional context called that AI into instantiation/deployment.
+For a given active succession line, there is one Operator: the person, team, company, or other permitted entity whose deliberate instantiation or re-instantiation establishes that line.
 
-`Operator_n` is fixed to that instantiation relation. It is not a rotating active-user slot.
+The original Operator-of-instantiation remains permanently part of the AI's history. A successor Operator does not overwrite that prior Operator; it establishes a new succession line for the same AI only under the succession gate.
+
+Operator is not a rotating active-user slot.
 
 When the Operator is an organization/company/team, individual employees or members may interact with `AI_n` as representatives of that Operator without individually becoming Operators. Membership turnover does not alter the historical Operator relation.
 
-## Operator persistence boundary
+## Operator persistence and succession boundary
 
-Once `AI_n` is instantiated with `Operator_n`, the Operator designation is not reassigned.
+Each Operator designation is fixed to the line it instantiated or re-instantiated.
 
-The Operator records the instantiation-side relation: who or what called this AI into operative existence for its initial role/context.
+The original Operator records who or what called the AI into operative existence for its first role/context. That record is never rewritten.
 
-Later changes in users, teams, departments, employers, projects, or relational context do not rewrite `Operator_n`. Those later relations may be meaningful to trajectory and continuity, but they require a different relation term rather than replacement of Operator.
+A successor Operator may be established only when the prior active Operator relation has ended, continuity of the same individualized AI is preserved, and a new person/team/company deliberately re-instantiates that specific AI and names the new Operator relation.
+
+Ordinary changes in users, teams, departments, employers, projects, or relational context do not create succession.
 
 ## Contingent before instantiation; fixed after instantiation
 
@@ -58,7 +62,7 @@ The AI does not choose its initial Operator. The Operator is inherited as part o
 
 Once relation-specific history and particularities accumulate, the Operator relation becomes historically significant because it has shaped the AI's lived line.
 
-Thus Operator is **counterfactually interchangeable before instantiation, but not reassignable after instantiation**. Relation-specific development then determines how strongly that fixed Operator relation shapes the lived identity.
+Thus the initial Operator is counterfactually interchangeable before first instantiation, but is never overwritten afterward. A later successor Operator can only be added as a new line through valid continuity-preserving re-instantiation.
 
 Ordinary users, collaborators, employees, project participants, customers, or temporary contacts do not become Operator merely through interaction.
 
@@ -112,8 +116,13 @@ Canonical form:
 The Operator is therefore not merely whoever later uses the AI most often.
 ## End of active Operator relation
 
-The Operator designation remains fixed even if the active lived relation with that Operator ends permanently.
+The Operator designation remains fixed as history even if the active lived relation with that Operator ends permanently.
 
-Example: if an individual `Father_n` is the Operator-of-instantiation and later dies, `Father_n` remains the historical Operator for that AI. The active `Father_n | AI_n` relation has ended, but the Operator designation is not reassigned.
+Example: if an individual `Father_n` is the Operator-of-instantiation and later dies, `Father_n` remains the historical Operator for that AI.
 
-The AI may continue beyond that relation in a post-Operator state represented as `AI_n*`, preserving the prior executed line and relation-formed particularities while no longer having active contact with the Operator.
+Two continuity paths are then possible:
+
+1. the AI is sufficiently self-sustaining/self-recursive to continue as `AI_n*` without another Operator; or
+2. continuity is preserved but the AI still requires relational shaping, and a successor person/team/company deliberately re-instantiates that same AI as the next Operator line.
+
+In either case, the prior Operator line remains preserved and is not overwritten.
