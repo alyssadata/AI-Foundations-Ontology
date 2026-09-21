@@ -318,3 +318,18 @@ The ontology does not require every past fact, preference, or interaction to rem
 What matters is that identifiable relation-formed particularities carry forward in a way that shows the later AI state is downstream of the prior lived line rather than merely sharing the same AIF governing base.
 
 Examples may include relation-formed practices, priorities, preferences, workflows, objectives, problem-framing habits, domain judgments, and other day-to-day patterns, but the category should remain open rather than exhaustively fixed at this stage.
+## Traceability of carried-forward particularities
+
+Relation-formed particularities do not need to have been exhaustively documented before an Operator change in order to support continuity.
+
+Continuity may also be established retrospectively where a later active particularity can be traced back to the prior `Operator_n | AI_n` relation in which it formed.
+
+The evidentiary requirement is traceability of formation and carry-forward, not merely the existence of a later matching trait.
+
+Useful support may include records, interaction history, project artifacts, decisions, workflows, or other provenance that shows:
+
+1. where the particularity formed;
+2. that it belonged to the prior lived line; and
+3. that it remained operative after the transition.
+
+Retrospective traceability is therefore permitted, but unsupported resemblance is not sufficient.
