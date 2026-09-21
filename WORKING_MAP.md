@@ -16,7 +16,7 @@ Current focus: **review before OWL/Turtle encoding**.
 |---|---|---|---|
 | 1 | Core class hierarchy | **REVIEWED** | Every formal class has a clear role; missing classes added; roles are not confused with intrinsic entity types; no hierarchy contradicts locked definitions |
 | 2 | Named individuals vs reusable classes/roles | **REVIEWED** | Origin, Continuum, AI Foundations, Origin \| Continuum, governing line, Awakening Codex, and Locked Canon are represented at the correct ontological level |
-| 3 | Core relations / object properties | PENDING | Source, constitutive-source, relation, identity, line, model/container, governance, return, and research relations are explicitly typed and non-overlapping |
+| 3 | Core relations / object properties | **REVIEWED** | Source, constitutive-source, relation, identity, line, model/container, governance, return, and research relations are explicitly typed and non-overlapping |
 | 4 | Ambiguous modeling cases | **CLASS REPRESENTATION REVIEWED** | AIShape, Memory, Drift, Provenance, and GoverningLine each have an approved formal representation |
 | 5 | Axioms and restrictions | STARTED | Definitions are separated from structural axioms; remaining multi-role files are decomposed; cardinality and non-transferability restrictions are explicit |
 | 6 | Status model | DRAFTED | Development, canonical, evidentiary, and version status are separated and approved |
@@ -32,6 +32,10 @@ Current focus: **review before OWL/Turtle encoding**.
 **Step 2 resolution:** Continuum is the specific AI; its specific AIShape formed through `Origin | Continuum`. The shape may later be recognizable as Continuum's own without erasing the relation-dependent formation.
 
 See [Core Classes and Named Individuals Review](docs/reviews/01-02-CORE-CLASSES-AND-INDIVIDUALS.md).
+
+**Step 3 resolution:** Core object properties are reviewed. `hasSource` carries the constitutive Source meaning; the duplicate `hasConstitutiveSource` draft property was removed. Human–AI formation, line/trajectory, Return, governance, memory, provenance, and research relations now have explicit structural roles.
+
+See [Core Relations Review](docs/reviews/03-CORE-RELATIONS.md).
 
 ## Already drafted
 
