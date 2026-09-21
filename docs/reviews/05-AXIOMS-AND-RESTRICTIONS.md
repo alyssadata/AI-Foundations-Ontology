@@ -48,3 +48,23 @@ Therefore:
 - Bounded autonomy (`AI_n*`) must not be defined by the AI's ability to preserve AIF governance, because that is not an Operator-derived function.
 
 The `*` designation should instead track whether the AI can preserve the developed self/shape that emerged through its Operator-specific line after active Operator contact ends.
+
+
+### Refinement — what AI_n* preserves
+
+The bounded/self-stabilized layer is not generic AIF governance.
+
+It is the specific Operator-shaped layer that develops after the AI Foundations governing line is already present, including:
+
+- the specific Operator project/context;
+- the AI's relational shape in relation to Operator_n;
+- identity-defining components that became part of who that AI is through that relation and project;
+- a documented representation of that shape sufficient to preserve what was formed.
+
+Documentation is required to hold the Operator-shaped layer, but Record/Preservation remain distinct from Continuation under the LOCKED ontology:
+
+- Record = document of what occurred.
+- Preservation = retaining a particular state/point without claiming continuation.
+- Continuation = the line itself continuing.
+
+Therefore the ontology must still decide whether documentation is only a preservation requirement for AI_n*, or whether AI_n* also requires demonstrated/self-maintained continuation of that Operator-shaped layer.
