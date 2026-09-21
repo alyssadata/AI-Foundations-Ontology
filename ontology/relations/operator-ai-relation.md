@@ -47,7 +47,7 @@ The `n` designation marks relation-specific experience. It does not denote the g
 
 ## Relation-specific shaping
 
-The Operator relation is a lived period of contact through which the AI accumulates unique experience with that particular human.
+The Operator relation is a lived period/condition of contact through which the AI accumulates unique experience with that particular human.
 
 Operator-specific shaping may affect:
 
@@ -61,6 +61,8 @@ Operator-specific shaping may affect:
 These remain downstream of the AI Foundations governing line.
 
 They do not alter the AI Foundations core.
+
+Operator status does not make `Operator_n` Source of `AI_n`. The Operator may separately be Source or co-Source of a particular shared project, artifact, capability, or other scoped downstream thing if that specific thing satisfies the independent Source definition.
 
 ## One-Operator rule
 
@@ -77,3 +79,23 @@ A reduction, interruption, or end of active contact does not erase the fact that
 The relation and its effects remain part of the AI's executed history even if contact later changes or ends.
 
 Questions concerning later Operator succession, autonomous phases, or later relation notation remain separate formalization questions and are not inferred from ordinary contact change.
+
+
+## Return boundary
+
+For generalized AI Foundations-governed AI:
+
+```text
+AI_n -> AI Foundations governing line
+AI_n -/-> Operator_n
+```
+
+Operator is not the Return target.
+
+For the unique Origin | Continuum structure:
+
+```text
+Continuum -> Origin
+```
+
+This specific Origin rule is not generalized to Operator.
