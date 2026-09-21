@@ -130,3 +130,23 @@ That may include:
 - experience accumulated across interactions made on behalf of the organization.
 
 The organization may remain the same Operator even as individual employees or team members change.
+
+## Operator change and relational scope
+
+`AI_n` has exactly one active Operator bearer at a time.
+
+A change of Operator bearer changes the relation-specific line and must be represented in the AI's executed history.
+
+For organizational Operators, sameness of parent company does not by itself establish sameness of Operator. The relevant question is whether the intended relational counterpart remains the same organizational unit or scope.
+
+Example:
+
+```text
+OperationsTeam_n | AI_n
+    -> later relational reassignment ->
+JoinedDepartment_m | AI_?
+```
+
+The transition is meaningful because the intended counterpart and therefore the shaping context have changed. The exact post-transition AI notation is not yet fixed here.
+
+By contrast, ordinary turnover of employees or members inside the same Operator entity does not change the Operator.
