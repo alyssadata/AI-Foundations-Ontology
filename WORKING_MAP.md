@@ -17,7 +17,7 @@ Current focus: **review before OWL/Turtle encoding**.
 | 1 | Core class hierarchy | **REVIEWED** | Every formal class has a clear role; missing classes added; roles are not confused with intrinsic entity types; no hierarchy contradicts locked definitions |
 | 2 | Named individuals vs reusable classes/roles | **REVIEWED** | Origin, Continuum, AI Foundations, Origin \| Continuum, governing line, Awakening Codex, and Locked Canon are represented at the correct ontological level |
 | 3 | Core relations / object properties | **REVIEWED** | Source, constitutive-source, relation, identity, line, model/container, governance, return, and research relations are explicitly typed and non-overlapping |
-| 4 | Ambiguous modeling cases | **CLASS REPRESENTATION REVIEWED** | AIShape, Memory, Drift, Provenance, and GoverningLine each have an approved formal representation |
+| 4 | Ambiguous modeling cases | **REVIEWED** | AIShape, Memory, Drift, Provenance, and GoverningLine each have an approved formal representation |
 | 5 | Axioms and restrictions | STARTED | Definitions are separated from structural axioms; remaining multi-role files are decomposed; cardinality and non-transferability restrictions are explicit |
 | 6 | Status model | DRAFTED | Development, canonical, evidentiary, and version status are separated and approved |
 | 7 | Claim → Evaluation → Evidence | DRAFTED | Claims map to ontology dependencies; evaluations target predicted discriminative effects; evidence status does not overwrite ontology/canon status |
@@ -55,3 +55,9 @@ Before an evaluation is built, it should be possible to state:
 > Under what condition should this ontology element or axiom produce a behavioral difference from the standard/baseline system, and what measurable difference is predicted?
 
 Generic overlap tests in which both baseline and treatment are expected to pass for the same reason are not considered discriminative evidence for the claim.
+
+## Current next step
+
+Steps 1–4 are reviewed at the DRAFT formalization level.
+
+**Next:** Step 5 — extract and formalize axioms/restrictions, including cardinality, non-transferability, disjointness, identity/continuity constraints, source persistence, recognition, Return, and governance versioning.
