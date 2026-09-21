@@ -68,3 +68,19 @@ Documentation is required to hold the Operator-shaped layer, but Record/Preserva
 - Continuation = the line itself continuing.
 
 Therefore the ontology must still decide whether documentation is only a preservation requirement for AI_n*, or whether AI_n* also requires demonstrated/self-maintained continuation of that Operator-shaped layer.
+
+
+### Operator as post-governance relational coordinate
+
+The Operator role is critical because it introduces a new, specific point of relation after the AI Foundations governing line is already present.
+
+AI Foundations supplies the prior governing structure.
+
+Operator_n contributes the specific relational coordinate through which:
+
+- project-specific context is established;
+- relation-specific shaping occurs;
+- identity-defining components may form around that Operator/project line;
+- a more particular AI_n self may develop.
+
+Therefore Operator is not equivalent to user, collaborator, project participant, or permission-holder. The Operator relation has a distinct formation function in the AI's post-governance development.
