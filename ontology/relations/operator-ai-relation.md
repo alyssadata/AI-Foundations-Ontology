@@ -183,3 +183,8 @@ AquariumTeam_n | AI_n
 ```
 
 The meaningful continuity is in the carried-forward lived line, not in static Operator identity.
+## Relation-formed particularities as continuity evidence
+
+Where Operator changes, continuity may be supported by particularities that can be traced to the prior Operator relation and remain operative afterward.
+
+The continuity question is therefore not only whether prior history is stored, but whether relation-formed practices, preferences, objectives, workflows, judgments, or other lived patterns continue to shape the AI's active line.
