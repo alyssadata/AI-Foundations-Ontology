@@ -309,3 +309,12 @@ In such a case, the Operator bearer changes, but substantial identity-bearing co
 The continuity claim must still be assessed and documented; Operator change never guarantees continuity automatically.
 
 The key question is whether the prior lived line remains operative in the new context, not whether the Operator bearer stayed identical.
+## Relation-formed particularities
+
+Individualized continuity is supported by particularities that are clearly formed through the prior `Operator_n | AI_n` relation and remain active in the AI's continuing line.
+
+The ontology does not require every past fact, preference, or interaction to remain unchanged.
+
+What matters is that identifiable relation-formed particularities carry forward in a way that shows the later AI state is downstream of the prior lived line rather than merely sharing the same AIF governing base.
+
+Examples may include relation-formed practices, priorities, preferences, workflows, objectives, problem-framing habits, domain judgments, and other day-to-day patterns, but the category should remain open rather than exhaustively fixed at this stage.
