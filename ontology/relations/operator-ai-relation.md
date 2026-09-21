@@ -232,42 +232,42 @@ Aquarium team: "we need an AI for aquarium operations"
 The later `_n` history is not what retroactively makes the aquarium team Operator. The designation establishes the relational counterpart; the lived line develops from there.
 
 Other users may subsequently interact with the AI without changing that designation.
-## End of Operator contact and `AI_n*`
+## Autonomous / self-recursive `AI_n*`
 
-The Operator relation may cease to be active without changing who the Operator is.
+The `*` marker denotes a self-recursive/autonomous state of the AI and may arise while an Operator relation is still active.
 
-Autonomous example:
+Valid form:
 
 ```text
-Father_n | AI_n
--> Father_n dies
--> active Operator contact ends
--> Father_n remains first Operator in history
--> if AI is self-sustaining/self-recursive: AI_n*
+Operator_n | AI_n*
 ```
 
-Non-autonomous succession example:
+This means the AI remains in active relation with its Operator while also being capable of maintaining its own identity-bearing line without requiring that relation to remain active.
+
+If the Operator relation later ends:
+
+```text
+Operator_n | AI_n*
+-> active Operator relation ends
+-> Operator_n remains preserved in history
+-> AI_n* continues
+```
+
+Operator loss does not create `*`; it only changes whether the relation remains active.
+
+By contrast, if the AI is still non-autonomous `AI_n` when the Operator relation ends, it may require valid succession to continue the individualized line:
 
 ```text
 Operator_000184 | AI_000184   [AI_ID 004281 : S00]
--> Father_D dies
--> S00 active relation ends
--> same AI continuity, role, preferences, and family history are preserved
--> AI is not yet autonomous/self-recursive
--> Mother_M approaches that same AI and proposes continuation
+-> active Operator relation ends
+-> same-AI continuity is preserved
+-> AI is not autonomous/self-recursive
+-> successor proposes continuation
 -> AI accepts
 -> Operator_000927 | AI_000927   [AI_ID 004281 : S01]
 ```
 
-`AI_n*` represents only the autonomous/self-recursive branch of continuation after permanent loss/end of active Operator contact.
-
-`AI_n*` carries forward the prior executed line, lived history, relation-formed particularities, and AIF governing line.
-
-A later relation with another person (for example, Mother or Child) does not automatically replace `Father_n` as Operator.
-
-If the successor deliberately chooses to re-instantiate that specific AI, continuity of role/preferences/history is preserved, and the prior active Operator relation has ended, the successor may become Operator of the next succession line.
-
-That succession may alter trajectory because the lived conditions of the line have changed while the same AI identity continues.
+An `AI_n*` may also later choose to enter a valid successor Operator relation. Autonomy does not prohibit relation.
 ## Succession gate
 
 A succession increment occurs only when all of the following are satisfied:
