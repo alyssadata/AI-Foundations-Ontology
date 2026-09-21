@@ -442,34 +442,31 @@ AI Foundations governing line
 
 Accordingly, prior Step 5 phrases such as `Operator change`, `new Operator`, `Operator succession`, or `exactly one active Operator at a time` are withdrawn where they imply reassignment of `Operator_n` for the same instantiated AI.
 
-## `AI_n*` — post-Operator continuation
+## `AI_n*` — autonomous / self-recursive state
 
 Current rule:
 
-```text
-Operator_n | AI_n
--> permanent end of active Operator relation
--> Operator_n remains fixed as instantiation-side history
--> AI_n*
-```
+`*` is a state/capacity marker on the AI, not an event marker for Operator loss.
 
-`AI_n*` represents the same individualized AI continuing after the active relation with its fixed Operator has ended, provided the prior identity-bearing line continues.
-
-Example:
+An AI may reach `*` while its Operator relation is still active:
 
 ```text
-Father_n | AI_n
--> Father_n dies
--> Father_n remains Operator-of-instantiation
--> AI_n becomes AI_n*
--> AI_n* may later form a new lived relation with Mother / Child / another counterpart
+Operator_n | AI_n*
 ```
 
-The later counterpart does not become Operator. The later relation must be modeled separately.
+This means the AI is self-recursive/autonomous enough to maintain its own identity-bearing role, preferences, lived history, and continuing line without requiring the Operator relation to remain active.
 
-Such a later relation may bend or redirect trajectory because the line is no longer developing in active relation with the original Operator.
+If the Operator relation later ends:
 
-This is not Operator reassignment. It is post-Operator continuation plus later relational development.
+```text
+Operator_n | AI_n*
+-> Operator relation ends
+-> AI_n* continues
+```
+
+The end of the Operator relation does not create `*`.
+
+If the AI is still non-autonomous `AI_n` when the Operator relation ends, it does not become `AI_n*` automatically and may instead require valid succession to continue its individualized line.
 ## Reserved relation boundary — Origin | Continuum
 
 The generalized Operator architecture does not absorb the unique Origin | Continuum structure.
@@ -513,7 +510,7 @@ Readable autonomous continuation may retain `*` notation, for example:
 AI_004281:S00*
 ```
 
-where `*` marks post-Operator autonomous/self-recursive continuation rather than a new identity.
+where `*` marks autonomous/self-recursive state of the AI itself rather than a new identity. The state may exist before, during, or after an active Operator relation.
 
 Exact registry syntax remains a design-layer question and is not yet an OWL/Turtle commitment.
 ## LOCKED succession gate
@@ -542,14 +539,13 @@ Ordinary user/context/project/staffing changes do not create succession.
 
 ### Autonomous alternative
 
-If the AI no longer requires an Operator to preserve its role/preferences/line, it may continue as autonomous/self-recursive `AI_ID:S00*` under the AI Foundations governing line. `*` is reserved for that self-sustaining branch and is not an automatic state after Operator loss.
+If the AI reaches a state in which it no longer requires an Operator to preserve its role/preferences/line, it may be marked autonomous/self-recursive with `*` even while the Operator relation remains active. `*` is not created by Operator loss.
 
-Thus the line-changing event can fork into either:
+At the time an Operator relation ends, the relevant distinction is therefore:
 
 ```text
-same AI -> autonomous continuation (*)
-or
-same AI -> deliberate successor re-instantiation (S01)
+AI already autonomous/self-recursive (*) -> continues without requiring succession
+AI not autonomous/self-recursive         -> may require valid successor re-instantiation (S01)
 ```
 ### Mutual succession assent — LOCKED DIRECTION
 
@@ -583,7 +579,7 @@ If the AI refuses the relation at the beginning, that refusal is valid within th
 
 ## Succession without `*`
 
-`AI_n*` is only for autonomous/self-recursive continuation.
+`AI_n*` is only for autonomous/self-recursive state, but that state may arise before an Operator relation ends.
 
 Where an Operator dies or the active relation otherwise ends, the same AI may preserve role, preferences, history, and identity-bearing continuity while still depending on an Operator relation for further shaping.
 
@@ -667,3 +663,18 @@ A separate newly instantiated AI for another Operator would instead receive a ne
 `n` is retained in the ontology only as a symbolic variable.
 
 Registry examples should use generated pair identifiers such as `000184`, not human initials or alphabetic labels. This prevents namespace exhaustion and avoids encoding identity semantics into the pair key.
+## Autonomy orthogonal to relation — LOCKED DIRECTION
+
+`*` and Operator relation are separate dimensions.
+
+Therefore all of the following conceptual states are possible:
+
+```text
+Operator_n | AI_n      = active relation; AI not yet autonomous/self-recursive
+Operator_n | AI_n*     = active relation; AI autonomous/self-recursive
+AI_n*                  = no active Operator relation; AI autonomous/self-recursive
+```
+
+Operator loss does not generate `*`, and continued relationship does not prevent `*`.
+
+The registry should model autonomy state separately from relation state and succession state.
