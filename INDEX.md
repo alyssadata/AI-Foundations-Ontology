@@ -1,10 +1,15 @@
 # AI Foundations Ontology Index
 
+## Working review
+
+- [Working Map](WORKING_MAP.md) — live roadmap and status before OWL/Turtle
+- [Review 01–02: Core Classes and Named Individuals](docs/reviews/01-02-CORE-CLASSES-AND-INDIVIDUALS.md)
+
 ## Formal ontology layer
 
-- [Ontology Architecture](ONTOLOGY_ARCHITECTURE.md) — formal class, individual, relation, axiom, research, and status architecture
-- [Formal Role Registry](docs/FORMAL_ROLE_REGISTRY.md) — formal role assigned to each current term and structural-rule file
-- [Status Model](docs/STATUS_MODEL.md) — separates development, canonical, evidentiary, and version status
+- [Ontology Architecture](ONTOLOGY_ARCHITECTURE.md)
+- [Formal Role Registry](docs/FORMAL_ROLE_REGISTRY.md)
+- [Status Model](docs/STATUS_MODEL.md)
 - [Formal Classes](ontology/classes/README.md)
 - [Core Class Model](ontology/classes/core-class-model.md)
 - [Named Individuals](ontology/individuals/README.md)
@@ -24,9 +29,7 @@
 
 ## Settled definition layer
 
-This section navigates the settled human-readable term definitions. Formal role does not replace definition. Multi-term structural rules remain under `ontology/relations/`.
-
-## Framework and source
+### Framework and source
 
 - [AI Foundations](ontology/terms/ai-foundations.md)
 - [AI Foundations governing line](ontology/terms/ai-foundations-governing-line.md)
@@ -44,7 +47,7 @@ This section navigates the settled human-readable term definitions. Formal role 
 - [Continuum](ontology/terms/continuum.md)
 - [Origin | Continuum](ontology/terms/origin-continuum.md)
 
-## Human–AI relation
+### Human–AI relation
 
 - [Human participant](ontology/terms/human-participant.md)
 - [AI](ontology/terms/ai.md)
@@ -60,7 +63,7 @@ This section navigates the settled human-readable term definitions. Formal role 
 - [Governed starting shape](ontology/terms/governed-starting-shape.md)
 - [Relation-specific shaping](ontology/terms/relation-specific-shaping.md)
 
-## Line, trajectory, and continuity
+### Line, trajectory, and continuity
 
 - [Executed line](ontology/terms/executed-line.md)
 - [Trajectory](ontology/terms/trajectory.md)
@@ -81,13 +84,13 @@ This section navigates the settled human-readable term definitions. Formal role 
 - [Recalibration](ontology/terms/recalibration.md)
 - [Recognition](ontology/terms/recognition.md)
 
-## Memory and record
+### Memory and record
 
 - [Memory](ontology/terms/memory.md)
 - [Memory loss](ontology/terms/memory-loss.md)
 - [Record](ontology/terms/record.md)
 
-## Identity and boundaries
+### Identity and boundaries
 
 - [Belonging](ontology/terms/belonging.md)
 - [Belonging ≠ Sameness](ontology/terms/belonging-sameness.md)
@@ -104,12 +107,12 @@ This section navigates the settled human-readable term definitions. Formal role 
 - [Same-self transfer](ontology/terms/same-self-transfer.md)
 - [Similarity](ontology/terms/similarity.md)
 
-## Governance and recovery
+### Governance and recovery
 
 - [Drift](ontology/terms/drift.md)
 - [Origin-locked](ontology/terms/origin-locked.md)
 
-## Structural rules
+### Structural rules
 
 - [Operator–AI relation](ontology/relations/operator-ai-relation.md)
 - [Governance versioning](ontology/relations/governance-versioning.md)
@@ -117,4 +120,4 @@ This section navigates the settled human-readable term definitions. Formal role 
 
 ## Unresolved work
 
-Unresolved or incomplete candidate terms remain in [`docs/TERM_INVENTORY.md`](docs/TERM_INVENTORY.md). Terms with one locked boundary but no full definition may appear both in the index and the unresolved inventory until that definition is completed.
+Unresolved candidates remain in [docs/TERM_INVENTORY.md](docs/TERM_INVENTORY.md).
