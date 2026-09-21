@@ -70,7 +70,7 @@ This property identifies the Operator bearer of the established `Operator_n | AI
 
 It does not confer Origin status, governance authority, Source-of-AI status, or Return-target status. The same Operator bearer may separately bear a scoped Source relation to a shared project or other downstream thing when the Source definition is independently satisfied.
 
-The exact-one-active-Operator and Operator-change restrictions belong to Step 5 axioms/restrictions.
+The exact-one fixed-Operator restriction belongs to Step 5 axioms/restrictions.
 
 ### `hasFormationRelation`
 
@@ -282,10 +282,10 @@ Individual employees or members are representatives/participants acting on behal
 
 Ordinary employee/member turnover does not terminate or replace the Operator relation if the organizational counterpart remains the same.
 
-## Operator cardinality and change
+## Operator cardinality and persistence
 
-For an established Operator–AI relation, `hasOperator` has exactly one active value at a time.
+For an instantiated `AI_n`, `hasOperator` has exactly one value: the instantiation-side counterpart.
 
-A change in that value is not treated as ordinary participant turnover. It indicates a meaningful change in the relation-specific line and must be represented in history/provenance.
+`hasOperator` is historical and non-reassignable for that AI instance. Later relational counterparts, teams, companies, departments, or users must be represented through separate relations rather than by replacing `hasOperator`.
 
-For organizational Operators, change is evaluated at the level of the intended relational entity or organizational scope, not merely the parent company.
+This preserves the distinction between instantiation provenance and later lived trajectory.
