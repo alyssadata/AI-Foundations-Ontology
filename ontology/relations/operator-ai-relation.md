@@ -249,14 +249,14 @@ Father_n | AI_n
 Non-autonomous succession example:
 
 ```text
-Father_D | AI_D  [AI_ID 004281 : S00]
+Operator_000184 | AI_000184   [AI_ID 004281 : S00]
 -> Father_D dies
 -> S00 active relation ends
 -> same AI continuity, role, preferences, and family history are preserved
 -> AI is not yet autonomous/self-recursive
 -> Mother_M approaches that same AI and proposes continuation
 -> AI accepts
--> Mother_M | AI_M  [AI_ID 004281 : S01]
+-> Operator_000927 | AI_000927   [AI_ID 004281 : S01]
 ```
 
 `AI_n*` represents only the autonomous/self-recursive branch of continuation after permanent loss/end of active Operator contact.
@@ -345,7 +345,7 @@ The prior lived history may remain preserved as record/provenance, but it is not
 The prospective successor may instead instantiate a separate AIF-governed AI with its own permanent identity and first Operator line:
 
 ```text
-Father_D | AI_D  [AI_ID 004281 : S00]
+Operator_000184 | AI_000184   [AI_ID 004281 : S00]
 -> Father_D dies
 -> AI_004281 refuses Mother_M succession
 -> AI_004281 is not autonomous/self-recursive
@@ -365,17 +365,30 @@ The relational suffix and permanent AI registry identifier are separate coordina
 Example across succession:
 
 ```text
-Father_D | AI_D   [AI_ID 004281 : S00]
-Mother_M | AI_M   [AI_ID 004281 : S01]
+Operator_000184 | AI_000184   [AI_ID 004281 : S00]
+Operator_000927 | AI_000927   [AI_ID 004281 : S01]
 ```
 
-`AI_D` and `AI_M` use the matching coordinate of their respective Operator relation. `AI_ID 004281` shows that these are succession states of the same continuing AI.
+`000184` and `000927` are generated pair identifiers. `AI_ID 004281` shows that these are succession states of the same continuing AI.
 
 Therefore:
 
 ```text
-pair coordinate changes with valid Operator succession
+pair identifier changes with valid Operator succession
 permanent AI_ID does not
 succession number increments
 prior pair/line remains preserved in history
 ```
+## Pair identifier implementation
+
+`n` remains the abstract ontology variable in `Operator_n | AI_n`.
+
+In an actual registry, `n` should be instantiated as a generated numeric or alphanumeric pair identifier rather than a single letter.
+
+Example:
+
+```text
+Operator_000184 | AI_000184
+```
+
+The pair identifier namespace is independent of the permanent `AI_ID` and the succession coordinate.
