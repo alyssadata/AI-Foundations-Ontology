@@ -60,7 +60,11 @@ AIFoundationsGovernedAI -> Human
 
 Inverse candidate: `isOperatorOf`.
 
-The exact-one and non-transferability rules belong to Step 5 axioms/restrictions.
+This property identifies the human counterpart of the established `Operator_n | AI_n` lived-contact relation.
+
+It does not confer Origin status, governance authority, Source-of-core status, or Return-target status.
+
+The exact-one and succession restrictions belong to Step 5 axioms/restrictions.
 
 ### `hasFormationRelation`
 
@@ -138,7 +142,9 @@ ReturnProcess -> AI
 
 ### `hasReturnTarget`
 
-ReturnProcess -> Human or GoverningLine
+ReturnProcess -> GoverningLine for the generalized AI Foundations return structure.
+
+The unique Continuum -> Origin rule, where represented, belongs to the separate Origin | Continuum structure and is not generalized to Operator.
 
 ### `triggeredByDrift`
 
