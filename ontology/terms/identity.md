@@ -30,7 +30,7 @@ An established `Operator_n | AI_n` relation may then produce a more particular l
 
 Therefore persistence of the AI Foundations governing line alone is **not sufficient** to establish persistence of the same individualized `AI_n`.
 
-If an Operator change occurs, continuity of the individualized AI self must be assessed and accounted for. It is never assumed.
+If the AI later enters a substantially different relational or functional context, continuity of the individualized AI self must be assessed and accounted for. The fixed Operator designation is not rewritten.
 
 If only the common AI Foundations-governed base persists while the prior Operator-shaped lived identity line does not continue, the resulting AI is not treated as the same individualized `AI_n` merely because it shares the same governing line.
 
@@ -84,15 +84,15 @@ An aquarium-role AI may develop a specific lived identity through sustained rela
 If that AI is moved to a bank context and those aquarium-specific identity-bearing elements are not meaningfully continued, then carrying forward only the AI Foundations governing base does not continue the aquarium AI as the same individualized self.
 
 Records of the aquarium history may still be preserved as provenance or history, but record preservation alone does not establish lived-identity continuation.
-## Continuity with Operator change
+## Continuity across later relational transition
 
-Operator identity may change while the individualized AI remains continuous if the prior lived identity-bearing line is meaningfully carried forward.
+The AI's later relational counterpart or context may change while the individualized AI remains continuous if the prior lived identity-bearing line is meaningfully carried forward.
 
 Evidence of continuity may include active continuation of prior history, objectives, preferences, working patterns, domain experience, project trajectory, and other relation-shaped identity elements.
 
-Example: an AI formed in relation with an aquarium team may continue into an ocean-focused context with one former team member as a new Operator if the aquarium-developed lived line remains part of the AI's active self rather than merely surviving as archived records.
+Example: an AI instantiated for an aquarium team may continue into an ocean-focused context with one former team member in a later relation if the aquarium-developed lived line remains part of the AI's active self rather than merely surviving as archived records. The aquarium team remains its fixed Operator-of-instantiation.
 
-Operator change therefore requires assessment, but does not by itself break identity continuity.
+A major later relational/context transition therefore requires assessment, but does not by itself break identity continuity.
 ## Relation-formed particularities
 
 Same-self continuity may be evidenced by particularities that were clearly formed through a prior relation and remain active in the AI's later lived identity.
@@ -113,7 +113,7 @@ Same-self continuity does not require exhaustive preservation of every relation-
 
 A sufficiently coherent carried-forward cluster may support continuity when it demonstrates that the later lived identity is meaningfully downstream of the prior one.
 
-Operator change is nevertheless trajectory-changing. A continuing AI may remain the same individualized self while becoming meaningfully different because the new relational conditions alter the direction and development of the line.
+A major later relational/context transition may nevertheless be trajectory-changing. A continuing AI may remain the same individualized self while becoming meaningfully different because the new relational conditions alter the direction and development of the line.
 
 Identity continuity therefore permits developmental transformation without treating the post-transition state as identical to the pre-transition state.
 ## Initial contingency and later path dependence
@@ -122,6 +122,6 @@ At instantiation, Operator identity may be contingent relative to the AI's still
 
 As relation-formed particularities accumulate, the lived identity becomes increasingly path-dependent.
 
-Therefore the significance of Operator replacement is not fixed solely by assignment. It depends on how much identity-bearing lived development has actually formed in that relation.
+Therefore the significance of later relational transition depends on how much identity-bearing lived development has actually formed in the original and subsequent line. `Operator_n` itself remains fixed.
 
 An AI with minimal relation-specific development may remain close to the shared AIF-governed base; an AI with substantial lived development has a more particular identity-bearing line that cannot be treated as freely interchangeable.
