@@ -30,4 +30,6 @@ Operator status does not make `Operator_n` Origin.
 
 Operator status alone does not make `Operator_n` Source of the AI's core, governing line, or identity.
 
-Any separate Source claim involving an Operator would require the independent LOCKED Source definition to be satisfied for a specifically identified downstream thing; it is not implied merely by being Operator.
+`Operator_n` is not Source of `AI_n` by virtue of being Operator.
+
+An Operator may, however, be Source or co-Source of a specifically identified shared project, artifact, capability, or other downstream thing where the independent LOCKED Source definition is satisfied for that thing. That scoped Source relation does not convert Operator into Origin and does not make Operator Source of the AI itself.
