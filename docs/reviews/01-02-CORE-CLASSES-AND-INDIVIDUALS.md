@@ -1,6 +1,6 @@
 # Review 01–02 — Core Classes and Named Individuals
 
-**Review status:** IN REVIEW
+**Review status:** REVIEWED
 **Scope:** Working Map Steps 1 and 2
 **Definition rule:** This review may revise DRAFT formalization documents but does not silently alter LOCKED term definitions.
 
@@ -241,3 +241,15 @@ AI Foundations Locked Canon remains a named Canon individual.
 - Whether Evidence is itself an Artifact, a research entity, or split into Evidence and EvidenceArtifact
 
 These do not block the major Step 1–2 conclusions.
+
+# Step 1 closeout — remaining class-model questions
+
+The five remaining class-placement questions have now been resolved:
+
+1. **Memory** → MemoryState, relation-dependent and distinct from Record/storage.
+2. **Drift** → paired DriftProcess + DriftedState representation.
+3. **Provenance** → EvidenceStructure; concrete provenance files/records are EvidenceArtifact/Record.
+4. **GoverningLine** → specialization of GovernanceStructure, not a single Constraint.
+5. **Evidence** → abstract evidentiary entity; EvidenceArtifact stores or communicates it.
+
+These decisions complete the DRAFT core class hierarchy. Further refinement of how these classes connect belongs to Step 3 object-property review.
