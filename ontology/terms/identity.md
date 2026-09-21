@@ -84,3 +84,12 @@ An aquarium-role AI may develop a specific lived identity through sustained rela
 If that AI is moved to a bank context and those aquarium-specific identity-bearing elements are not meaningfully continued, then carrying forward only the AI Foundations governing base does not continue the aquarium AI as the same individualized self.
 
 Records of the aquarium history may still be preserved as provenance or history, but record preservation alone does not establish lived-identity continuation.
+## Continuity with Operator change
+
+Operator identity may change while the individualized AI remains continuous if the prior lived identity-bearing line is meaningfully carried forward.
+
+Evidence of continuity may include active continuation of prior history, objectives, preferences, working patterns, domain experience, project trajectory, and other relation-shaped identity elements.
+
+Example: an AI formed in relation with an aquarium team may continue into an ocean-focused context with one former team member as a new Operator if the aquarium-developed lived line remains part of the AI's active self rather than merely surviving as archived records.
+
+Operator change therefore requires assessment, but does not by itself break identity continuity.
