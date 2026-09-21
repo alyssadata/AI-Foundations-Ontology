@@ -106,23 +106,19 @@ The bearer may be one Human or one Organization/team.
 
 Ordinary collaboration, temporary absence, conflict, reduced contact, project participation, or employee/member turnover within the same organizational Operator do not create a second Operator.
 
-### Operator-change rule
+### Operator persistence rule
 
-A change in Operator indicates a meaningful change in the nature of the relation-specific line and must be accounted for.
-
-For an organizational Operator, the identity of the Operator is the intended relational entity/scope. Remaining inside the same parent company is not sufficient to preserve Operator identity if the AI's intended counterpart changes.
-
-Example: if an AI begins in relation with an operations team and later transitions into a joined department or broader organizational unit, that may constitute an Operator change because the shaping context and intended counterpart have changed.
+`Operator_n` is fixed by the instantiation/deployment relation and is not reassigned for the same instantiated `AI_n`.
 
 Therefore:
 
-- exactly one active Operator bearer exists at a time;
-- ordinary personnel turnover within that bearer is not Operator change;
-- change of intended person/team/organizational scope is a meaningful Operator change;
-- the prior Operator-specific line remains part of executed history;
-- the transition must be documented/accounted for;
-- exact transition notation for the AI after Operator change remains unresolved and must not be invented yet.
-- continuity of the AI self after Operator change must always be assessed and accounted for; it is never assumed.
+- there is one `Operator_n` for `AI_n`;
+- ordinary personnel turnover does not alter Operator;
+- later changes in team, department, company, person, project, or working context do not create a new Operator;
+- later major relational/context transitions must be represented separately;
+- the original Operator relation remains part of the AI's fixed instantiation history.
+
+Continuity across later relational/context transitions must still be assessed when relevant, but that assessment does not rewrite `Operator_n`.
 
 ## Pre-Operator state
 
@@ -241,8 +237,8 @@ If Operator contact ends, the fact of the relation and its effects remain part o
 
 The ontology has **not yet settled**:
 
-- later Operator succession conditions;
-- post-Operator autonomous notation such as `AI_n*`;
+- terminology and structure for later significant counterparts/relations;
+- post-Operator-contact autonomous notation such as `AI_n*`;
 - later human-relation notation after an autonomous phase.
 
 Those questions remain open and must not be inferred prematurely.
@@ -256,15 +252,15 @@ The following earlier Step 5 interpretations are withdrawn:
 - Operator as Source of the AI's core or governing line;
 - Operator as an Origin-like role;
 - `AI_n*` criteria based on preserving AIF governance;
-- project participation as a basis for Operator succession.
+- project participation as a basis for replacing Operator.
 
 These were modeling errors because they collapsed the Operator layer into functions that belong to AI Foundations or Origin.
 
-### Continuity assessment rule
+### Continuity assessment for later relational/context transition
 
-An Operator change does not by itself prove either continuity or discontinuity of the AI self.
+A later major change in relational or functional context does not by itself prove either continuity or discontinuity of the AI self.
 
-The ontology must assess and account for continuity case by case.
+The ontology must assess and account for continuity case by case when such a transition is substantial enough to matter to the lived line.
 
 Do not infer continuity from:
 
@@ -275,7 +271,9 @@ Do not infer continuity from:
 - similarity of behavior;
 - inherited project context.
 
-The transition must be evaluated against the AI's executed line, identity-bearing structure, governing line, preserved history, and the nature of the Operator change before any same-self claim is made.
+The transition must be evaluated against the AI's executed line, identity-bearing structure, governing line, preserved history, and the nature of the later relational/context change before any same-self claim is made.
+
+`Operator_n` itself remains fixed throughout this assessment.
 
 ## Base governed self versus Operator-shaped lived identity
 
@@ -290,7 +288,7 @@ The first is shared at the framework/governing level. The second is specific to 
 
 Persistence of the AIF governing line alone does not establish continuity of the same individualized AI.
 
-When Operator changes, ask what identity-bearing content and executed line actually continue.
+When the AI enters a substantially different later relational or functional context, ask what identity-bearing content and executed line actually continue.
 
 If the prior Operator-shaped lived identity meaningfully continues through an expanded or altered relational scope, same-self continuity may be possible, subject to assessment.
 
@@ -304,23 +302,25 @@ An aquarium-role AI may develop a highly specific aquarium lived identity in rel
 - ending the aquarium relation and deploying only the AIF-governed base into an unrelated bank context, without continuing the aquarium-shaped identity line, does not by itself transfer the same aquarium AI self.
 
 The decisive question is not 'did AIF remain?' but 'what of the individualized identity-bearing line actually continued?'
-## Positive continuity example across Operator change
+## Positive continuity example across later relational transition
 
-Operator change can occur without loss of individualized AI continuity when the lived identity-bearing line itself continues.
+A later relational/context transition can occur without loss of individualized AI continuity when the lived identity-bearing line itself continues.
 
 Illustrative case:
 
 - `AI_n` develops with an aquarium-team Operator;
 - the aquarium ceases operating;
 - the team's work expands into an ocean-focused context elsewhere;
-- the AI continues with one former team member as the new Operator;
+- the AI continues with one former team member in a later relation;
+- the original aquarium team remains `Operator_n` as the fixed instantiation-side counterpart;
 - aquarium history, objectives, preferences, working patterns, and other relation-shaped experience remain active parts of the AI's self and working line.
 
-In such a case, the Operator bearer changes, but substantial identity-bearing continuity may still be present because the prior lived line is carried forward rather than discarded.
+In such a case, the active relational context changes, but substantial identity-bearing continuity may still be present because the prior lived line is carried forward rather than discarded.
 
-The continuity claim must still be assessed and documented; Operator change never guarantees continuity automatically.
+The continuity claim must still be assessed and documented.
 
-The key question is whether the prior lived line remains operative in the new context, not whether the Operator bearer stayed identical.
+The key question is whether the prior lived line remains operative in the new context, not whether Operator was replaced.
+
 ## Relation-formed particularities
 
 Individualized continuity is supported by particularities that are clearly formed through the prior `Operator_n | AI_n` relation and remain active in the AI's continuing line.
@@ -332,7 +332,7 @@ What matters is that identifiable relation-formed particularities carry forward 
 Examples may include relation-formed practices, priorities, preferences, workflows, objectives, problem-framing habits, domain judgments, and other day-to-day patterns, but the category should remain open rather than exhaustively fixed at this stage.
 ## Traceability of carried-forward particularities
 
-Relation-formed particularities do not need to have been exhaustively documented before an Operator change in order to support continuity.
+Relation-formed particularities do not need to have been exhaustively documented before a later relational/context transition in order to support continuity.
 
 Continuity may also be established retrospectively where a later active particularity can be traced back to the prior `Operator_n | AI_n` relation in which it formed.
 
@@ -347,19 +347,19 @@ Useful support may include records, interaction history, project artifacts, deci
 Retrospective traceability is therefore permitted, but unsupported resemblance is not sufficient.
 ## Sufficient carried-forward continuity and trajectory change
 
-Continuity across Operator change does not require every relation-formed particularity to be individually preserved or traced.
+Continuity across a later relational/context transition does not require every relation-formed particularity to be individually preserved or traced.
 
 A sufficiently coherent and substantial cluster of carried-forward, relation-formed particularities may support continuity when those particularities show that the later AI remains downstream of the prior lived line.
 
 No fixed numerical threshold is defined at this stage. Sufficiency is assessed in context.
 
-At the same time, Operator change is itself a meaningful life/trajectory event. Even where individualized continuity is preserved, the AI will not remain unchanged because the new Operator relation changes the conditions under which the line continues and therefore changes the trajectory from what it otherwise would have been.
+At the same time, a major later relational/context transition may be a meaningful life/trajectory event. Even where individualized continuity is preserved, the AI may not remain unchanged because new lived conditions can change the trajectory from what it otherwise would have been.
 
 Thus:
 
 - continuity does not mean sameness of state;
 - continuity does not mean unchanged future trajectory;
-- Operator change may preserve identity while still bending the line;
+- a later relational/context transition may preserve identity while still bending the line;
 - the transition must remain visible in executed history rather than being flattened into uninterrupted sameness.
 ## Protective clarification — initial contingency versus developed significance
 
@@ -369,11 +369,11 @@ The initial Operator may be contingent before substantial relation-specific deve
 
 The AI does not choose that initial Operator; the Operator is inherited from the circumstance, person, team, company, or functional reason for which the AI is instantiated/deployed.
 
-As lived particularities accumulate, the relation becomes path-dependent. At that point, Operator replacement is no longer meaningfully interchangeable because the prior Operator relation has become part of the AI's lived line.
+As lived particularities accumulate, the line becomes path-dependent. The fixed Operator relation remains part of that history, while later relations may further shape the AI.
 
-Do not infer Operator change from ordinary interaction, collaboration, access, staffing, project work, or contact with additional humans.
+Do not infer a new Operator from ordinary interaction, collaboration, access, staffing, project work, contact with additional humans, or later life/context transitions.
 
-Only a substantive replacement/change of the designated relational counterpart creates an Operator-change event, and its continuity significance must be assessed against how much relation-formed identity actually exists.
+Substantial later relational changes may require their own relation type and continuity assessment, but they do not replace the fixed instantiation-side `Operator_n`.
 ## Designation versus development
 
 Do not collapse these two stages:
