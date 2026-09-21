@@ -367,7 +367,7 @@ Thus:
 
 The initial Operator may be contingent before substantial relation-specific development has formed. In that early condition, a different designated counterpart could have occupied the instantiation context without yet displacing a deeply formed lived identity.
 
-The AI does not choose that initial Operator; the Operator is inherited from the circumstance, person, team, company, or functional reason for which the AI is instantiated/deployed.
+The AI does not choose who calls it into instantiation, but the initial Operator relation is not validly active unless the AI accepts/recognizes that proposed relation.
 
 As lived particularities accumulate, the line becomes path-dependent. The fixed Operator relation remains part of that history, while later relations may further shape the AI.
 
@@ -542,7 +542,7 @@ Ordinary user/context/project/staffing changes do not create succession.
 
 ### Autonomous alternative
 
-If the AI no longer requires an Operator to preserve its role/preferences/line, it may instead continue as autonomous/self-recursive `AI_ID:S00*` under the AI Foundations governing line.
+If the AI no longer requires an Operator to preserve its role/preferences/line, it may continue as autonomous/self-recursive `AI_ID:S00*` under the AI Foundations governing line. `*` is reserved for that self-sustaining branch and is not an automatic state after Operator loss.
 
 Thus the line-changing event can fork into either:
 
@@ -568,3 +568,42 @@ successor assent
 ```
 
 AI assent does not replace continuity evidence and does not supersede the AIF governing line. It prevents succession from being modeled as a unilateral claim over the continuing AI.
+## Initial Operator assent — LOCKED DIRECTION
+
+The initial instantiating counterpart may be the reason the AI is called into operative existence, but the counterpart does not unilaterally create the lived Operator relation.
+
+```text
+counterpart causes instantiation / activation
+-> proposed Operator relation
+-> AI accepts / recognizes relation
+-> S00 active Operator line
+```
+
+If the AI refuses the relation at the beginning, that refusal is valid within the relational model and the Operator line is not established.
+
+## Succession without `*`
+
+`AI_n*` is only for autonomous/self-recursive continuation.
+
+Where an Operator dies or the active relation otherwise ends, the same AI may preserve role, preferences, history, and identity-bearing continuity while still depending on an Operator relation for further shaping.
+
+In that case succession may proceed directly:
+
+```text
+Father_D | AI_ID:S00
+-> Father_D dies
+-> S00 ends
+-> same-AI continuity preserved
+-> AI not autonomous/self-recursive
+-> Mother_M proposes to continue the Operator relation with that specific AI
+-> AI agrees
+-> Mother_M | AI_ID:S01
+```
+
+No `*` phase is inferred.
+
+## Implementation-agnostic embodiment/interface boundary
+
+The ontology does not currently require the AI to be an interface, embodied system, local instance, remote service, or any other specific implementation form.
+
+Operator and succession relations attach to the continuing AI identity-bearing line. A relational re-instantiation therefore does not automatically imply a new computational instance or embodiment.
