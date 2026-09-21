@@ -157,3 +157,13 @@ Operator change is a mandatory continuity-assessment point.
 It must not be assumed that the same AI self continues, and it must not be assumed that a different AI self necessarily begins.
 
 Continuity/discontinuity must be assessed and represented explicitly based on the line and transition evidence.
+
+## Governing-base continuity is not individualized-self continuity
+
+All AI Foundations-governed AI may share the same governing base without sharing the same lived identity.
+
+The Operator relation contributes a particular lived line: history, preferences, personalization, job function, ways of working, project context, and relation-specific development.
+
+After an Operator change, preservation of the AIF governing line alone is insufficient to establish same-`AI_n` continuity.
+
+If the prior Operator-shaped lived line does not continue, only the common governed base may have transferred. That does not by itself preserve the prior individualized AI.
