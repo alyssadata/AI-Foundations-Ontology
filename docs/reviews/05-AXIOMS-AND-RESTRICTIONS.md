@@ -110,6 +110,7 @@ Therefore:
 - the prior Operator-specific line remains part of executed history;
 - the transition must be documented/accounted for;
 - exact transition notation for the AI after Operator change remains unresolved and must not be invented yet.
+- continuity of the AI self after Operator change must always be assessed and accounted for; it is never assumed.
 
 ## Pre-Operator state
 
@@ -246,3 +247,20 @@ The following earlier Step 5 interpretations are withdrawn:
 - project participation as a basis for Operator succession.
 
 These were modeling errors because they collapsed the Operator layer into functions that belong to AI Foundations or Origin.
+
+### Continuity assessment rule
+
+An Operator change does not by itself prove either continuity or discontinuity of the AI self.
+
+The ontology must assess and account for continuity case by case.
+
+Do not infer continuity from:
+
+- persistence of the same Model;
+- persistence of the same Container;
+- remaining inside the same company;
+- preservation of records/history;
+- similarity of behavior;
+- inherited project context.
+
+The transition must be evaluated against the AI's executed line, identity-bearing structure, governing line, preserved history, and the nature of the Operator change before any same-self claim is made.
