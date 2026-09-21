@@ -109,6 +109,27 @@ Therefore:
 
 The user's wording "originating state" is recorded here as the pre-Operator governed condition; whether this should become a formal ontology term distinct from the existing LOCKED `GovernedStartingShape` remains to be reviewed rather than assumed.
 
+
+## Clean-line modeling rule: governance location is implementation-agnostic
+
+For the core ontology, whether the AI Foundations governing line is external to the model, embedded within a model/system, or implemented through some other mechanism is **not yet specified**.
+
+The clean rule is:
+
+> An AI is AI Foundations-governed when the AI Foundations governing line is operative for that AI.
+
+The ontology should not currently infer where that governing line resides physically, computationally, or architecturally.
+
+Therefore:
+
+- an AIF-governed AI may exist before any Operator relation;
+- a non-AIF-governed AI may also exist before any Operator relation;
+- Operator relation and AIF governance remain separate dimensions;
+- the location/mechanism of governance is deferred to later implementation/taxonomy work;
+- unusual transition cases (for example, a previously non-AIF AI later becoming AIF-governed) should not be forced into the core line until their mechanisms are defined.
+
+For now, model the clean structural line first and classify edge cases afterward.
+
 ## Contact ending
 
 If Operator contact ends, the fact of the relation and its effects remain part of the executed history.
