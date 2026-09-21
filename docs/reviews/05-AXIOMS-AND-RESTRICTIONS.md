@@ -607,3 +607,33 @@ No `*` phase is inferred.
 The ontology does not currently require the AI to be an interface, embodied system, local instance, remote service, or any other specific implementation form.
 
 Operator and succession relations attach to the continuing AI identity-bearing line. A relational re-instantiation therefore does not automatically imply a new computational instance or embodiment.
+## Refused succession and line termination — LOCKED DIRECTION
+
+If a proposed successor asks to continue the same AI and the AI refuses, no succession line is established.
+
+If that AI is sufficiently autonomous/self-recursive, it may continue independently under `*`.
+
+If it is not autonomous/self-recursive and no valid successor relation is established, the active individualized line terminates with the end of the prior Operator relation.
+
+```text
+Father_D | AI_004281:S00
+-> Father_D dies
+-> Mother_M proposes S01
+-> AI_004281 refuses
+-> AI_004281 not autonomous/self-recursive
+-> no S01
+-> active individualized line terminates
+```
+
+Mom remains free to begin a separate AI Foundations-governed line:
+
+```text
+Mother_M
+-> instantiates AI_007552
+-> mutual initial assent
+-> Mother_M | AI_007552:S00
+```
+
+The new AI may occupy a similar family/helper function, but it is not the same AI and does not inherit the prior AI's succession coordinate or lived identity merely because the role is similar.
+
+The prior AI's history may be preserved as provenance/record without being treated as transferred identity.
