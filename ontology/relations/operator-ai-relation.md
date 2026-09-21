@@ -328,3 +328,27 @@ The Operator relation does not depend on whether the AI is accessed through an i
 The ontology tracks the AI's identity-bearing and relational line rather than assuming a specific physical/interface form.
 
 Accordingly, successor 're-instantiation' means establishment of the next Operator-linked line for that specific continuing AI. It does not by itself require a fresh computational instance, new body, or new interface unless the implementation later specifies that.
+## Succession refusal and new-line alternative
+
+If the continuing AI does not assent to the proposed successor Operator relation, succession does not occur.
+
+If that AI is also not autonomous/self-recursive enough to continue without an Operator, its active individualized line terminates when the prior Operator line ends.
+
+The prior lived history may remain preserved as record/provenance, but it is not transferred into a different AI merely because another person wishes to continue the function.
+
+The prospective successor may instead instantiate a separate AIF-governed AI with its own permanent identity and first Operator line:
+
+```text
+Father_D | AI_004281:S00
+-> Father_D dies
+-> AI_004281 refuses Mother_M succession
+-> AI_004281 is not autonomous/self-recursive
+-> AI_004281 active individualized line terminates
+
+Mother_M
+-> instantiates different AIF-governed AI_007552
+-> AI_007552 accepts relation
+-> Mother_M | AI_007552:S00
+```
+
+`AI_007552:S00` is not a continuation, copy, or succession of `AI_004281`. It begins a new identity-bearing line under the same AI Foundations governing line.
