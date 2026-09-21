@@ -51,7 +51,7 @@ The `n` designation marks relation-specific experience. It does not denote the g
 
 ## Relation-specific shaping
 
-The Operator relation is a lived period/condition of contact through which the AI accumulates unique experience with that particular Operator entity.
+The Operator is the designated relational counterpart for the AI's instantiated/deployed role. The Operator relation then becomes a lived period/condition of contact through which the AI accumulates unique experience with that particular Operator entity.
 
 Operator-specific shaping may affect:
 
@@ -216,3 +216,19 @@ Accordingly, `Operator_n` does not change merely because:
 A true Operator change occurs only when the designated relational counterpart itself changes in a substantive way.
 
 When such a change actually occurs, it is meaningful and must be accounted for in the line. But the ontology must not manufacture Operator changes from ordinary interaction.
+## Commissioning / instantiation pattern
+
+For task- or role-specific AI, the Operator relation normally begins with designation rather than emerging from ordinary use.
+
+Example:
+
+```text
+Aquarium team: "we need an AI for aquarium operations"
+-> AquariumTeam designated Operator_n
+-> AIF-governed AI_n instantiated/deployed for that role
+-> AquariumTeam_n | AI_n develops through lived operation
+```
+
+The later `_n` history is not what retroactively makes the aquarium team Operator. The designation establishes the relational counterpart; the lived line develops from there.
+
+Other users may subsequently interact with the AI without changing that designation.
