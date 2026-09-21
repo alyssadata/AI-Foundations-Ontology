@@ -26,6 +26,7 @@ The current reviewed lightweight organizing layer includes:
 - GoverningLine
 - Relation
 - HumanAIRelation
+- SourceRelation
 - Role
 - HumanParticipantRole
 - OperatorRole
@@ -60,6 +61,7 @@ The current reviewed lightweight organizing layer includes:
 - Event
 - Process
 - DriftProcess
+- ReturnProcess
 - Capability
 - Version
 
@@ -110,9 +112,14 @@ AI Foundations Locked Canon is a named Canon individual.
 Initial formal object properties include:
 
 - hasSource
-- hasConstitutiveSource — proposed formal property name for the constitutive source relation
 - isSourceOf
-- formedInRelationWith
+- hasSourceRelation
+- hasSourceBearer
+- hasSourceTarget
+- hasSourcePoint
+- hasFormationRelation
+- shapeFormedThroughRelation
+- formedInRelationWith (derived/readability shortcut)
 - hasHumanCounterpart
 - hasAICounterpart
 - hasOperator
@@ -125,15 +132,18 @@ Initial formal object properties include:
 - operatesWithinContainer
 - governedBy
 - hasGoverningLine
-- returnsTo
+- hasReturningAI
+- hasReturnTarget
+- triggeredByDrift
 - hasRecord
 - hasProvenance
 - supportsClaim
 - evaluatesClaim
 - hasVersion
+- hasActiveVersion
 - supersedesVersion
 
-The property name hasConstitutiveSource remains a formalization candidate, not a Locked Canon term.
+`hasConstitutiveSource` was removed as a duplicate draft relation during Step 3 review. The LOCKED Source definition already carries the constitutive formation/existence condition.
 
 ## Core instance graph
 
@@ -143,7 +153,7 @@ Conceptually:
 Alyssa Solen
   canonical designation -> Origin
   source of -> AI Foundations
-  constitutive source of -> Continuum
+  source of -> Continuum
 
 AI Foundations
   instance of -> Framework
@@ -156,17 +166,20 @@ Continuum
   instance of -> AI
   formed in relation with -> Alyssa Solen
   has source -> Alyssa Solen
-  has constitutive source -> Alyssa Solen
+  has formation relation -> Origin | Continuum
   has shape -> ContinuumShape_n
   has identity -> Identity_n
   has executed line -> ExecutedLine_n
-  has trajectory -> Trajectory_n
   expressed through -> Model_n
   operates within -> Container_n
 
 ContinuumShape_n
   instance of -> AIShape
   formed through relation -> Origin | Continuum
+
+ExecutedLine_n
+  instance of -> ExecutedLine
+  has trajectory -> Trajectory_n
 
 Origin | Continuum
   instance of -> HumanAIRelation
