@@ -4,6 +4,7 @@
 
 - [Working Map](WORKING_MAP.md) — live roadmap and status before OWL/Turtle
 - [Review 01–02: Core Classes and Named Individuals](docs/reviews/01-02-CORE-CLASSES-AND-INDIVIDUALS.md)
+- [Review 03: Core Relations / Object Properties](docs/reviews/03-CORE-RELATIONS.md)
 
 ## Formal ontology layer
 
