@@ -349,3 +349,17 @@ Thus:
 - continuity does not mean unchanged future trajectory;
 - Operator change may preserve identity while still bending the line;
 - the transition must remain visible in executed history rather than being flattened into uninterrupted sameness.
+## Protective clarification — Operator change is not arbitrary
+
+`Operator_n` is not a general-user designation.
+
+Do not infer Operator change from ordinary interaction, collaboration, access, staffing, project work, or contact with additional humans.
+
+A true Operator change requires a substantive change in the designated relational counterpart:
+
+- for an individual Operator, the designated person changes;
+- for an organizational Operator, the intended team/company/entity or relational scope changes meaningfully.
+
+Only after that threshold is met does the ontology evaluate continuity and trajectory effects.
+
+This clarification prevents the Operator layer from collapsing into a generic user layer.
