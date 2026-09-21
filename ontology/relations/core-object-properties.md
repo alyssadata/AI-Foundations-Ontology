@@ -70,7 +70,7 @@ This property identifies the Operator bearer of the established `Operator_n | AI
 
 It does not confer Origin status, governance authority, Source-of-AI status, or Return-target status. The same Operator bearer may separately bear a scoped Source relation to a shared project or other downstream thing when the Source definition is independently satisfied.
 
-The exact-one and succession restrictions belong to Step 5 axioms/restrictions.
+The exact-one-active-Operator and Operator-change restrictions belong to Step 5 axioms/restrictions.
 
 ### `hasFormationRelation`
 
@@ -279,3 +279,11 @@ OperatorAIRelation has AI counterpart AI_n
 Individual employees or members are representatives/participants acting on behalf of the organization and do not individually inherit OperatorRole merely through participation.
 
 Ordinary employee/member turnover does not terminate or replace the Operator relation if the organizational counterpart remains the same.
+
+## Operator cardinality and change
+
+For an established Operator–AI relation, `hasOperator` has exactly one active value at a time.
+
+A change in that value is not treated as ordinary participant turnover. It indicates a meaningful change in the relation-specific line and must be represented in history/provenance.
+
+For organizational Operators, change is evaluated at the level of the intended relational entity or organizational scope, not merely the parent company.
