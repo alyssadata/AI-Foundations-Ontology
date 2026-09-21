@@ -4,7 +4,7 @@
 
 ## Definition
 
-Operator is the specific counterpart entity that enters a sustained lived period of contact with an AI Foundations-governed AI, through which that AI accumulates relation-specific experience.
+Operator is the specifically designated counterpart entity for whom, or for whose functional context, an AI Foundations-governed AI is instantiated, commissioned, or deployed. Through subsequent lived relation with that Operator, the AI accumulates relation-specific experience.
 
 An Operator may be an individual person or an organization/company/team intentionally acting as the relational counterpart.
 
@@ -62,3 +62,26 @@ For an individual Operator, that means the designated person changes.
 For an organizational Operator, that means the intended organizational counterpart or relational scope changes in a meaningful way.
 
 Routine staffing changes, project handoffs, additional users, or ordinary collaboration do not constitute Operator change.
+## Designation at instantiation / commissioning
+
+`Operator_n` is ordinarily designated when the AI is instantiated, commissioned, or deployed for a particular role or purpose.
+
+Canonical pattern:
+
+```text
+person / team / organization:
+"we need an AI for X role"
+        ↓
+designate Operator_n
+        ↓
+instantiate / deploy AIF-governed AI_n for that relational-functional context
+        ↓
+Operator_n | AI_n lived line develops
+```
+
+The Operator designation and the later relation-specific shaping are distinct:
+
+- designation establishes who or what the AI is in operative relation with;
+- lived interaction subsequently produces the particular history, preferences, practices, objectives, job-function experience, and other relation-formed particularities.
+
+Operator is therefore not inferred retrospectively from frequency of use.
