@@ -93,3 +93,44 @@ Whether Continuum receives a separate registry identifier or reserved registry r
 ## Formalization status
 
 This is a design-layer model only. Exact identifier format, check digits, identifier authority, succession validation rules, privacy/security treatment, and OWL/Turtle representation remain unresolved.
+## Succession trigger
+
+Increment `Succession` only when all three conditions are met:
+
+1. the prior active Operator relation has ended;
+2. same-AI continuity is preserved through carried identity-bearing line, including role, preferences, lived history, and other relevant particularities;
+3. a successor person/team/company deliberately re-instantiates that specific AI and explicitly establishes a new Operator relation.
+
+Example:
+
+```text
+O_D | AI_004281:S00
+-> O_D relation ends
+-> AI_004281 continuity preserved
+-> O_M deliberately re-instantiates the same AI
+-> O_M | AI_004281:S01
+```
+
+`S01` is not a new AI identity. It is the next Operator-linked succession line of the same permanent `AI_ID`.
+
+## Non-succession cases
+
+Do not increment succession for:
+
+- ordinary user changes;
+- additional collaborators;
+- staffing changes inside an organizational Operator;
+- new projects;
+- passive access transfer;
+- context change without deliberate re-instantiation;
+- a new counterpart who merely begins interacting with the AI.
+
+## Autonomous fork
+
+If the prior Operator relation ends and the AI is sufficiently self-sustaining/self-recursive to continue without another Operator, succession need not increment. The existing line may continue in autonomous mode:
+
+```text
+AI_004281:S00*
+```
+
+If a later deliberate successor re-instantiation is subsequently established, the next Operator-linked succession may then be recorded without erasing the autonomous interval.
