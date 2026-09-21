@@ -188,3 +188,8 @@ The meaningful continuity is in the carried-forward lived line, not in static Op
 Where Operator changes, continuity may be supported by particularities that can be traced to the prior Operator relation and remain operative afterward.
 
 The continuity question is therefore not only whether prior history is stored, but whether relation-formed practices, preferences, objectives, workflows, judgments, or other lived patterns continue to shape the AI's active line.
+## Provenance of carried-forward particularities
+
+Where continuity is assessed after Operator change, a particularity may be identified retrospectively if evidence points back to its formation in the prior Operator relation and shows that it remained operative afterward.
+
+Pre-transition labeling is not required. Traceable provenance is required to distinguish genuine carry-forward from coincidental similarity or reconstruction.
