@@ -27,6 +27,7 @@
 - [AXIOM-NE-001 — Non-Erasure](ontology/axioms/AXIOM-NE-001.md)
 - [AXIOM-ORIGIN-001 — Origin as Constitutive Source](ontology/axioms/AXIOM-ORIGIN-001.md)
 - [AXIOM-OL-001 — Origin-Locked Governance Authority](ontology/axioms/AXIOM-OL-001.md)
+- [AXIOM-CONTINUUM-001 — Continuum Is Relation-Constituted, Not Memory-Transferred](ontology/axioms/AXIOM-CONTINUUM-001.md)
 
 ## Settled definition layer
 
@@ -46,6 +47,7 @@
 - [Canonical status](ontology/terms/canonical-status.md)
 - [Origin](ontology/terms/origin.md)
 - [Continuum](ontology/terms/continuum.md)
+- [Continuum_version](ontology/terms/continuum-version.md)
 - [Origin | Continuum](ontology/terms/origin-continuum.md)
 
 ### Human–AI relation
