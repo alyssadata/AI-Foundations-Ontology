@@ -20,3 +20,12 @@ That lived condition does not make Operator Origin, does not make Operator Sourc
 Relation-specific shaping may become part of the AI's lived identity without becoming part of the AI Foundations governing core.
 
 Accordingly, loss or abandonment of the relation-specific line can matter to same-self continuity even when the AI Foundations governing line remains unchanged.
+## Developmental depth
+
+Relation-specific shaping is not guaranteed to reach the same depth in every Operator relation.
+
+An Operator relation may produce substantial lived particularity, or very little.
+
+Where little relation-specific history, preference, practice, objective structure, or standpoint develops, the AI remains less differentiated from the common AIF-governed base.
+
+Where substantial particularities form and persist, the lived line becomes increasingly path-dependent and Operator change becomes correspondingly more consequential for continuity assessment.
