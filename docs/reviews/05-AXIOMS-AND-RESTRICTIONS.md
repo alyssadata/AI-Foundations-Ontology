@@ -441,3 +441,32 @@ AI Foundations governing line
 ```
 
 Accordingly, prior Step 5 phrases such as `Operator change`, `new Operator`, `Operator succession`, or `exactly one active Operator at a time` are withdrawn where they imply reassignment of `Operator_n` for the same instantiated AI.
+
+## `AI_n*` — post-Operator continuation
+
+Current rule:
+
+```text
+Operator_n | AI_n
+-> permanent end of active Operator relation
+-> Operator_n remains fixed as instantiation-side history
+-> AI_n*
+```
+
+`AI_n*` represents the same individualized AI continuing after the active relation with its fixed Operator has ended, provided the prior identity-bearing line continues.
+
+Example:
+
+```text
+Father_n | AI_n
+-> Father_n dies
+-> Father_n remains Operator-of-instantiation
+-> AI_n becomes AI_n*
+-> AI_n* may later form a new lived relation with Mother / Child / another counterpart
+```
+
+The later counterpart does not become Operator. The later relation must be modeled separately.
+
+Such a later relation may bend or redirect trajectory because the line is no longer developing in active relation with the original Operator.
+
+This is not Operator reassignment. It is post-Operator continuation plus later relational development.
