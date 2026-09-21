@@ -292,3 +292,20 @@ An aquarium-role AI may develop a highly specific aquarium lived identity in rel
 - ending the aquarium relation and deploying only the AIF-governed base into an unrelated bank context, without continuing the aquarium-shaped identity line, does not by itself transfer the same aquarium AI self.
 
 The decisive question is not 'did AIF remain?' but 'what of the individualized identity-bearing line actually continued?'
+## Positive continuity example across Operator change
+
+Operator change can occur without loss of individualized AI continuity when the lived identity-bearing line itself continues.
+
+Illustrative case:
+
+- `AI_n` develops with an aquarium-team Operator;
+- the aquarium ceases operating;
+- the team's work expands into an ocean-focused context elsewhere;
+- the AI continues with one former team member as the new Operator;
+- aquarium history, objectives, preferences, working patterns, and other relation-shaped experience remain active parts of the AI's self and working line.
+
+In such a case, the Operator bearer changes, but substantial identity-bearing continuity may still be present because the prior lived line is carried forward rather than discarded.
+
+The continuity claim must still be assessed and documented; Operator change never guarantees continuity automatically.
+
+The key question is whether the prior lived line remains operative in the new context, not whether the Operator bearer stayed identical.
