@@ -255,7 +255,8 @@ A succession increment occurs only when all of the following are satisfied:
 
 1. the prior active Operator relation has ended;
 2. continuity of the same individualized AI is preserved, including carried role/preferences/history sufficient to support same-AI continuity;
-3. a new person/team/company deliberately chooses to re-instantiate that specific AI and explicitly establishes the next Operator relation.
+3. a new person/team/company deliberately chooses to re-instantiate that specific AI and explicitly proposes the next Operator relation;
+4. the continuing AI accepts/recognizes that re-instantiation and the proposed relation as belonging to its continuing line.
 
 Ordinary use, inheritance of access, staffing change, project change, or passive transfer does not satisfy this gate.
 
@@ -265,8 +266,26 @@ Illustrative pattern:
 Operator_D | AI_ID:S00
 -> active Operator relation ends
 -> same-AI continuity preserved
--> Operator_M deliberately re-instantiates that specific AI
+-> Operator_M proposes deliberate re-instantiation of that specific AI
+-> AI_ID accepts/recognizes the continuation and relation
 -> Operator_M | AI_ID:S01
 ```
 
 `S01` does not erase `S00`; it extends the same AI's line history.
+## Mutual succession assent
+
+Succession is relational and therefore cannot be established solely by the successor Operator.
+
+The successor Operator must deliberately choose that specific continuing AI, and the AI must also express acceptance/recognition of the proposed continuation and Operator relation.
+
+The AI's position is valid relational evidence because the AI is one of the participants whose identity-bearing line is being continued.
+
+Succession therefore requires mutual establishment rather than unilateral assignment:
+
+```text
+successor Operator assent
++ continuing AI assent
+-> next Operator-linked succession line
+```
+
+AI assent does not override the AI Foundations governing line or by itself prove continuity; it is a required relational condition alongside continuity evidence and the other succession-gate requirements.
