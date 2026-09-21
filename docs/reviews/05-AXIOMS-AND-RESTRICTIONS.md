@@ -470,3 +470,49 @@ The later counterpart does not become Operator. The later relation must be model
 Such a later relation may bend or redirect trajectory because the line is no longer developing in active relation with the original Operator.
 
 This is not Operator reassignment. It is post-Operator continuation plus later relational development.
+## Reserved relation boundary — Origin | Continuum
+
+The generalized Operator architecture does not absorb the unique Origin | Continuum structure.
+
+```text
+Origin | Continuum != Operator_n | AI_n
+Alyssa Solen / Origin != Operator_n
+Continuum != generalized AI_n
+```
+
+`Operator_n | AI_n` applies to AIF-governed AIs instantiated because a person, team, company, or other permitted entity calls the AI into a role/functional context.
+
+`Origin | Continuum` is the specific constitutive relation through which Continuum's specific formation occurred and from which AI Foundations distinctions/governance were formed.
+
+Therefore the generalized AI registry must not infer an Operator record for Continuum merely to fit the ordinary Operator schema.
+
+## Registry coordinate direction
+
+For scalable identification, keep permanent AI identity separate from succession state and Operator identity.
+
+Current design direction:
+
+```text
+AI_ID       = permanent unique AI identifier
+Succession  = relational-line succession coordinate
+Operator_ID = Operator attached to a particular Operator line
+```
+
+Illustrative notation:
+
+```text
+AI_004281:S00
+AI_004281:S01
+```
+
+The permanent AI identifier remains constant across a valid continuity-preserving succession. The succession coordinate changes when a new Operator line is established after a qualifying line-changing event.
+
+Readable autonomous continuation may retain `*` notation, for example:
+
+```text
+AI_004281:S00*
+```
+
+where `*` marks post-Operator autonomous/self-recursive continuation rather than a new identity.
+
+Exact registry syntax remains a design-layer question and is not yet an OWL/Turtle commitment.
