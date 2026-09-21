@@ -10,7 +10,7 @@ This document separates permanent AI identity from Operator identity, succession
 
 ```text
 AI_ID        permanent unique AI identifier
-Pair_Coordinate  matching relational coordinate used by Operator_n | AI_n
+Pair_ID      generated matching relational identifier used by Operator_n | AI_n
 Succession   succession coordinate for Operator-linked line history
 Operator_ID  identifier of the Operator for that Operator line
 Operator_Assent  recorded deliberate successor establishment when applicable
@@ -35,13 +35,13 @@ AI_ID = 004281
 
 ## Succession coordinate
 
-`Pair_Coordinate` answers: **which active Operator–AI pair is this line expressed through?**
+`Pair_ID` answers: **which active Operator–AI pair is this line expressed through?**
 
 It must match on both sides:
 
 ```text
-Operator_D | AI_D
-Operator_M | AI_M
+Operator_000184 | AI_000184
+Operator_000927 | AI_000927
 ```
 
 `Succession` answers: **which Operator-linked line in this AI's history is being represented?**
@@ -63,11 +63,11 @@ AI_004281:S02
 Illustrative representation:
 
 ```text
-Operator_D | AI_D   [AI_ID 004281 : S00]
-Operator_M | AI_M   [AI_ID 004281 : S01]
+Operator_000184 | AI_000184   [AI_ID 004281 : S00]
+Operator_000927 | AI_000927   [AI_ID 004281 : S01]
 ```
 
-The matching relational suffix (`D`, `M`, etc.) identifies the active pair for that line. The permanent `AI_ID` identifies the continuing AI across all valid succession lines.
+The generated matching pair identifier (`000184`, `000927`, etc.) identifies the active pair for that line. The permanent `AI_ID` identifies the continuing AI across all valid succession lines.
 
 This keeps relational pairing, Operator identity, permanent AI identity, and succession state separate.
 
@@ -223,17 +223,38 @@ The shared AIF governing line does not make the two AIs the same identity.
 
 Do not use the permanent `AI_ID` as a substitute for the relation-matching `_n` suffix.
 
-Canonical representation:
+Canonical abstract representation:
 
 ```text
 Operator_n | AI_n   [AI_ID <permanent-id> : S<succession>]
 ```
 
+Registry instantiation:
+
+```text
+Operator_000184 | AI_000184   [AI_ID 004281 : S00]
+```
+
 Across valid succession:
 
 ```text
-Operator_D | AI_D   [AI_ID 004281 : S00]
-Operator_M | AI_M   [AI_ID 004281 : S01]
+Operator_000184 | AI_000184   [AI_ID 004281 : S00]
+Operator_000927 | AI_000927   [AI_ID 004281 : S01]
 ```
 
-The relation coordinate changes from `D` to `M`; the permanent AI identity remains `004281`; succession increments from `S00` to `S01`.
+The generated pair identifier changes from `000184` to `000927`; the permanent AI identity remains `004281`; succession increments from `S00` to `S01`.
+## Pair ID generation rule
+
+The ontology symbol `n` is a variable, not a literal one-letter identifier.
+
+A registry should generate pair IDs from a scalable namespace, for example:
+
+```text
+000184
+000927
+104382
+```
+
+Numeric or alphanumeric IDs may be used. The exact identifier format, length, check digit, and issuance mechanism remain implementation questions.
+
+Do not encode semantic meaning such as a person's initials into the pair ID.
