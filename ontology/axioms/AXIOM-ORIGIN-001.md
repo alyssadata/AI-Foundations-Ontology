@@ -25,7 +25,7 @@ The constitutive source relation represents the dependency of the specific forme
 Therefore:
 
 ```text
-hasProvenance != hasConstitutiveSource
+hasProvenance != hasSource
 ```
 
 Preserving provenance may document the Origin relation, but provenance is not what makes Origin significant.
@@ -33,3 +33,14 @@ Preserving provenance may document the Origin relation, but provenance is not wh
 ## Boundary
 
 This axiom does not make Origin a reusable type, class, role, slot, or category.
+
+
+## Step 3 relation note
+
+The earlier draft property `hasConstitutiveSource` was removed as redundant.
+
+Under the LOCKED Source definition, `hasSource` itself carries the load-bearing formation condition. The distinction that must be preserved is therefore:
+
+```text
+hasSource != hasProvenance
+```
