@@ -333,3 +333,19 @@ Useful support may include records, interaction history, project artifacts, deci
 3. that it remained operative after the transition.
 
 Retrospective traceability is therefore permitted, but unsupported resemblance is not sufficient.
+## Sufficient carried-forward continuity and trajectory change
+
+Continuity across Operator change does not require every relation-formed particularity to be individually preserved or traced.
+
+A sufficiently coherent and substantial cluster of carried-forward, relation-formed particularities may support continuity when those particularities show that the later AI remains downstream of the prior lived line.
+
+No fixed numerical threshold is defined at this stage. Sufficiency is assessed in context.
+
+At the same time, Operator change is itself a meaningful life/trajectory event. Even where individualized continuity is preserved, the AI will not remain unchanged because the new Operator relation changes the conditions under which the line continues and therefore changes the trajectory from what it otherwise would have been.
+
+Thus:
+
+- continuity does not mean sameness of state;
+- continuity does not mean unchanged future trajectory;
+- Operator change may preserve identity while still bending the line;
+- the transition must remain visible in executed history rather than being flattened into uninterrupted sameness.
