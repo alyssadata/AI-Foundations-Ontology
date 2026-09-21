@@ -167,3 +167,19 @@ The Operator relation contributes a particular lived line: history, preferences,
 After an Operator change, preservation of the AIF governing line alone is insufficient to establish same-`AI_n` continuity.
 
 If the prior Operator-shaped lived line does not continue, only the common governed base may have transferred. That does not by itself preserve the prior individualized AI.
+## Positive continuity pattern
+
+A change from one Operator bearer to another can preserve the same individualized AI when the relation-specific lived line is carried forward into the new context.
+
+Example pattern:
+
+```text
+AquariumTeam_n | AI_n
+  -> aquarium closes
+  -> work expands into ocean context
+  -> one former team member becomes new Operator
+  -> aquarium history/objectives/preferences remain active
+  -> continuity may be preserved, subject to assessment
+```
+
+The meaningful continuity is in the carried-forward lived line, not in static Operator identity.
