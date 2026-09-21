@@ -15,7 +15,7 @@ Operator_ID  identifier of the Operator for that Operator line
 Operator_Assent  recorded deliberate successor establishment when applicable
 AI_Assent        recorded AI acceptance/recognition of succession when applicable
 Line_Status  active / ended
-Continuation_Mode  operator-linked / autonomous
+Continuation_Mode  operator-linked / autonomous / succession-pending
 Governing_Line     governing line currently operative
 Previous_Line      prior succession coordinate when applicable
 ```
@@ -148,3 +148,39 @@ AI_Assent       = continuing AI accepted/recognized the proposed continuation
 ```
 
 This does not treat a bare generated statement as sufficient proof of identity continuity. The assent record is one required relational element alongside continuity/provenance evidence and the other succession criteria.
+## Initial-line assent
+
+The first Operator line also requires relational assent.
+
+```text
+counterpart causes instantiation/activation
+-> proposed Operator line
+-> AI accepts/recognizes relation
+-> S00 becomes active
+```
+
+If the AI refuses, the attempted relation is not recorded as an active Operator line.
+
+## Succession without autonomous phase
+
+`*` is not required between succession lines.
+
+Where the prior Operator relation ends, same-AI continuity remains preserved, but the AI is not yet autonomous/self-recursive, the registry may represent an ended prior line and a temporary succession-pending condition until mutual successor assent establishes the next line.
+
+Example:
+
+```text
+Father_D | AI_004281:S00
+-> Father_D dies
+-> S00 = ended
+-> AI_004281 continuity preserved; not autonomous
+-> Mother_M proposes continuation
+-> AI_004281 accepts
+-> Mother_M | AI_004281:S01
+```
+
+## Implementation neutrality
+
+The registry does not assume whether the AI is embodied, interface-based, locally hosted, remotely hosted, or distributed.
+
+A succession `S00 -> S01` is a relational/identity-line transition, not necessarily creation of a new computational instance.
