@@ -49,3 +49,16 @@ For example, an AI initially related to an operations team and later reassigned 
 Ordinary employee/member turnover within the same Operator entity does not by itself constitute Operator change.
 
 The notation and exact transition mechanics for Operator change remain a separate formalization question.
+## Non-arbitrary designation
+
+`Operator_n` is not a general user role.
+
+Ordinary users, collaborators, employees, project participants, customers, or temporary contacts do not become Operator merely through interaction.
+
+A true Operator change requires a substantive change in the designated relational counterpart itself.
+
+For an individual Operator, that means the designated person changes.
+
+For an organizational Operator, that means the intended organizational counterpart or relational scope changes in a meaningful way.
+
+Routine staffing changes, project handoffs, additional users, or ordinary collaboration do not constitute Operator change.
