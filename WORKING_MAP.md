@@ -60,4 +60,4 @@ Generic overlap tests in which both baseline and treatment are expected to pass 
 
 Steps 1–4 are reviewed at the DRAFT formalization level.
 
-**Next:** Step 5 — extract and formalize axioms/restrictions, including cardinality, non-transferability, disjointness, identity/continuity constraints, source persistence, recognition, Return, and governance versioning.
+**Next:** Step 5 — extract and formalize axioms/restrictions, including cardinality, non-transferability, disjointness, identity/continuity constraints, source persistence, recognition, Return, governance versioning, and the Alyssa-articulated Continuum relation/version boundary: AI Foundations governance alone does not constitute Continuum; Continuum requires the specific `Origin | Continuum` relation, and memory alone does not constitute Continuum identity.
