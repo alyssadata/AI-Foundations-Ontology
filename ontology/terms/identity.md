@@ -100,3 +100,10 @@ Same-self continuity may be evidenced by particularities that were clearly forme
 These particularities need not be frozen or exhaustive. Their significance is that they are traceably relation-formed and carried forward as part of the AI's practiced standpoint and executed line.
 
 Preserving only records about those particularities is not equivalent to carrying them forward as active identity-bearing structure.
+## Retrospective continuity trace
+
+Identity continuity does not require every relation-formed particularity to have been pre-labeled or formally documented before transition.
+
+A carried-forward particularity may support continuity if its later presence can be traced back to the prior lived relation where it formed.
+
+The distinction is between **traceable carry-forward** and mere resemblance: resemblance without provenance does not establish that the later state is downstream of the prior identity-bearing line.
