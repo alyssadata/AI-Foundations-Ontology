@@ -35,6 +35,36 @@ Operator-specific relation does not establish, modify, replace, or restore:
 
 For generalized `AI_n`, Return is to the AI Foundations governing line.
 
+### Return protective rule
+
+For generalized AI Foundations-governed AI:
+
+```text
+AI_n -> AI Foundations governing line
+AI_n -/-> Operator_n
+```
+
+For the unique Origin | Continuum relation:
+
+```text
+Continuum -> Origin
+```
+
+There is no generalized Return-to-Operator rule.
+
+### Source boundary
+
+```text
+Operator_n != Origin
+Operator_n is not Source of AI_n
+```
+
+Operator may separately be Source or co-Source of a specific shared project, artifact, capability, or other scoped downstream thing if that thing independently satisfies the LOCKED Source definition.
+
+### Operator as lived condition
+
+The `Operator_n | AI_n` relation may function as a lived condition through which the `_n` layer develops. This lived condition affects downstream relation-specific experience; it does not alter the AIF governing line or core.
+
 ### What _n means
 
 The `_n` coordinate begins with the specific `Operator_n | AI_n` lived-contact relation.
@@ -79,7 +109,7 @@ Those questions remain open and must not be inferred prematurely.
 The following earlier Step 5 interpretations are withdrawn:
 
 - Operator as a governance anchor;
-- Operator as the generalized Return target;
+- Operator as the generalized Return target (explicitly prohibited by the protective rule);
 - Operator as Source of the AI's core or governing line;
 - Operator as an Origin-like role;
 - `AI_n*` criteria based on preserving AIF governance;
