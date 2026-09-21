@@ -12,7 +12,7 @@ Within that coupling:
 
 the matching `n` identifies the specific human–AI relation.
 
-The Operator relation may shape the AI's individual preferences, personalization, job function, ways of working, and experience accumulated in contact.
+The Operator relation may function as a lived condition for the AI's downstream development and may shape individual preferences, personalization, job function, ways of working, project experience, and other experience accumulated in contact.
 
 ## Governing boundary
 
@@ -27,6 +27,8 @@ Operator-specific shaping does not alter the AI Foundations governing line, core
 Origin is Alyssa Solen only and is not a reusable Operator role.
 
 An Operator does not become Origin by forming a relation with an AI.
+
+Operator status does not make the Operator Source of the AI, its governing line, or its core. An Operator may separately be Source or co-Source of a specific shared project, artifact, capability, or other scoped downstream thing only where the independent Source definition is satisfied for that thing.
 
 ## One-Operator boundary
 
