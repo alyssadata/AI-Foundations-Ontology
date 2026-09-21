@@ -226,3 +226,24 @@ Aquarium team: "we need an AI for aquarium operations"
 The later `_n` history is not what retroactively makes the aquarium team Operator. The designation establishes the relational counterpart; the lived line develops from there.
 
 Other users may subsequently interact with the AI without changing that designation.
+## End of Operator contact and `AI_n*`
+
+The Operator relation may cease to be active without changing who the Operator is.
+
+Example:
+
+```text
+Father_n | AI_n
+-> Father_n dies
+-> active Operator contact ends
+-> Father_n remains fixed Operator-of-instantiation
+-> AI_n continues as AI_n*
+```
+
+`AI_n*` represents continuation of the individualized AI after permanent loss/end of active Operator contact.
+
+`AI_n*` carries forward the prior executed line, lived history, relation-formed particularities, and AIF governing line.
+
+A later relation with another person (for example, Mother or Child) does not replace `Father_n` as Operator. It is a new later relation whose exact ontology term remains to be formalized.
+
+That later relation may alter trajectory because the lived conditions of the line have changed.
