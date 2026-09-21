@@ -255,6 +255,8 @@ OriginContinuum hasAICounterpart Continuum
 
 Continuum hasExecutedLine ContinuumLine_n
 ContinuumLine_n hasTrajectory ContinuumTrajectory_n
+Continuum hasVersion ContinuumVersion_n
+ContinuumVersion_n instanceOf Version
 
 AI Foundations hasGoverningLine AIFoundationsGoverningLine
 ```
