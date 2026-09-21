@@ -18,6 +18,7 @@
 - [Core Object Properties](ontology/relations/core-object-properties.md)
 - [Formal Axiom Layer](ontology/axioms/README.md)
 - [Research Layer — Claim → Evaluation → Evidence](ontology/research/README.md)
+- [AI Registry Coordinate Model](ontology/registry/ai-registry-coordinate-model.md)
 
 ### Initial extracted axioms
 
