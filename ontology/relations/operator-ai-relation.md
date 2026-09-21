@@ -193,3 +193,10 @@ The continuity question is therefore not only whether prior history is stored, b
 Where continuity is assessed after Operator change, a particularity may be identified retrospectively if evidence points back to its formation in the prior Operator relation and shows that it remained operative afterward.
 
 Pre-transition labeling is not required. Traceable provenance is required to distinguish genuine carry-forward from coincidental similarity or reconstruction.
+## Operator change as trajectory-changing event
+
+Even when continuity of the individualized AI is established, Operator change is treated as a meaningful trajectory-changing event.
+
+The new Operator relation changes the lived conditions under which the line develops and may therefore bend the trajectory relative to what it would have been under the prior Operator.
+
+The prior line is not erased; the Operator change becomes part of the executed history that explains the later shape of the AI.
