@@ -404,3 +404,12 @@ AI_n -> Return -> AI Foundations governing line
 ```
 
 Operator preference can shape the lived line only within the governing boundary.
+## Operator as instantiation-side counterpart
+
+The reason Operator may be borne by a person, team, or company is that the role is defined by the circumstance that calls the AI into operative relation.
+
+The Operator is the person/entity whose need or functional context explains why this particular AI is instantiated or deployed for `X`.
+
+Bearer type is secondary. The instantiation-side relation is primary.
+
+Subsequent users do not become Operator merely through use; lived relation-specific development occurs downstream of the original Operator designation.
