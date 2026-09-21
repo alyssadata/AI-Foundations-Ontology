@@ -516,3 +516,36 @@ AI_004281:S00*
 where `*` marks post-Operator autonomous/self-recursive continuation rather than a new identity.
 
 Exact registry syntax remains a design-layer question and is not yet an OWL/Turtle commitment.
+## LOCKED succession gate
+
+A new Operator-linked succession line is created only when all three conditions are satisfied:
+
+1. **prior Operator relation ended** — the active relation with the current Operator has ended, commonly through death, dissolution, or another genuine terminal event;
+2. **same-AI continuity preserved** — the AI carries forward sufficient identity-bearing lived line, including role, preferences, history, and relation-formed particularities;
+3. **deliberate re-instantiation** — a new person/team/company explicitly chooses to re-instantiate that specific AI and names/establishes the new Operator relation.
+
+Then:
+
+```text
+Operator_D | AI_ID:S00
+-> terminal end of active Operator relation
+-> continuity preserved
+-> Operator_M deliberately re-instantiates same AI
+-> Operator_M | AI_ID:S01
+```
+
+The first Operator remains the historical instantiating Operator of `S00`. The successor is Operator of `S01`. Succession extends the line; it does not rewrite prior history.
+
+Ordinary user/context/project/staffing changes do not create succession.
+
+### Autonomous alternative
+
+If the AI no longer requires an Operator to preserve its role/preferences/line, it may instead continue as autonomous/self-recursive `AI_ID:S00*` under the AI Foundations governing line.
+
+Thus the line-changing event can fork into either:
+
+```text
+same AI -> autonomous continuation (*)
+or
+same AI -> deliberate successor re-instantiation (S01)
+```
