@@ -94,3 +94,20 @@ Operator assignment does not guarantee that a strongly individualized AI will fo
 If little relation-specific preference, practice, history, objective structure, or other lived particularity develops, the AI may remain comparatively close to its common AIF-governed base.
 
 The degree of lived differentiation depends on what actually forms through experience, not merely on the fact that an Operator was assigned.
+## Instantiation-side reason
+
+The Operator bearer may be a person, team, company, or other permitted organization because Operator is defined by the instantiation-side relation, not by bearer type.
+
+The Operator is the person/entity whose need, role, or functional context is the reason the AI is called on, instantiated, commissioned, or deployed in that particular case.
+
+Canonical form:
+
+```text
+"We need an AI for X."
+-> identifies the instantiation context
+-> identifies the Operator bearer
+-> AIF-governed AI_n is instantiated/deployed
+-> lived relation and particularization follow
+```
+
+The Operator is therefore not merely whoever later uses the AI most often.
