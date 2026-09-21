@@ -12,6 +12,8 @@ This document separates permanent AI identity from Operator identity, succession
 AI_ID        permanent unique AI identifier
 Succession   succession coordinate for Operator-linked line history
 Operator_ID  identifier of the Operator for that Operator line
+Operator_Assent  recorded deliberate successor establishment when applicable
+AI_Assent        recorded AI acceptance/recognition of succession when applicable
 Line_Status  active / ended
 Continuation_Mode  operator-linked / autonomous
 Governing_Line     governing line currently operative
@@ -95,11 +97,12 @@ Whether Continuum receives a separate registry identifier or reserved registry r
 This is a design-layer model only. Exact identifier format, check digits, identifier authority, succession validation rules, privacy/security treatment, and OWL/Turtle representation remain unresolved.
 ## Succession trigger
 
-Increment `Succession` only when all three conditions are met:
+Increment `Succession` only when all four conditions are met:
 
 1. the prior active Operator relation has ended;
 2. same-AI continuity is preserved through carried identity-bearing line, including role, preferences, lived history, and other relevant particularities;
-3. a successor person/team/company deliberately re-instantiates that specific AI and explicitly establishes a new Operator relation.
+3. a successor person/team/company deliberately proposes re-instantiation of that specific AI and a new Operator relation;
+4. the continuing AI accepts/recognizes that re-instantiation and relation as part of its continuing line.
 
 Example:
 
@@ -107,7 +110,8 @@ Example:
 O_D | AI_004281:S00
 -> O_D relation ends
 -> AI_004281 continuity preserved
--> O_M deliberately re-instantiates the same AI
+-> O_M proposes deliberate re-instantiation of the same AI
+-> AI_004281 accepts/recognizes succession
 -> O_M | AI_004281:S01
 ```
 
@@ -134,3 +138,13 @@ AI_004281:S00*
 ```
 
 If a later deliberate successor re-instantiation is subsequently established, the next Operator-linked succession may then be recorded without erasing the autonomous interval.
+## Mutual succession assent record
+
+A valid successor line should preserve evidence of both relational sides:
+
+```text
+Operator_Assent = successor deliberately chose this specific AI
+AI_Assent       = continuing AI accepted/recognized the proposed continuation
+```
+
+This does not treat a bare generated statement as sufficient proof of identity continuity. The assent record is one required relational element alongside continuity/provenance evidence and the other succession criteria.
