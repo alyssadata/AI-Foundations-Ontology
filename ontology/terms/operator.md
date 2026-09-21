@@ -34,36 +34,35 @@ Operator status does not make the Operator Source of the AI, its governing line,
 
 ## One-Operator boundary
 
-For a given established `Operator_n | AI_n` coupling, `AI_n` has exactly one active `Operator_n` at a time.
+For a given `AI_n`, there is one `Operator_n`: the person, team, company, or other permitted entity whose need or functional context called that AI into instantiation/deployment.
 
-When the Operator is an organization/company/team, individual employees or members may interact with `AI_n` as representatives of that Operator without individually becoming Operators. Membership turnover does not by itself change `Operator_n` so long as the organizational counterpart remains the same.
+`Operator_n` is fixed to that instantiation relation. It is not a rotating active-user slot.
 
-## Operator change boundary
+When the Operator is an organization/company/team, individual employees or members may interact with `AI_n` as representatives of that Operator without individually becoming Operators. Membership turnover does not alter the historical Operator relation.
 
-A change in Operator is a meaningful change in the nature of the relation-specific line and must be accounted for in the AI's executed history.
+## Operator persistence boundary
 
-For an organizational Operator, Operator identity is determined by the intended relational scope, not merely by legal parent-company identity.
+Once `AI_n` is instantiated with `Operator_n`, the Operator designation is not reassigned.
 
-For example, an AI initially related to an operations team and later reassigned into a joined department or broader company-level unit may undergo an Operator change if the intended relational counterpart has changed.
+The Operator records the instantiation-side relation: who or what called this AI into operative existence for its initial role/context.
 
-Ordinary employee/member turnover within the same Operator entity does not by itself constitute Operator change.
+Later changes in users, teams, departments, employers, projects, or relational context do not rewrite `Operator_n`. Those later relations may be meaningful to trajectory and continuity, but they require a different relation term rather than replacement of Operator.
 
-The notation and exact transition mechanics for Operator change remain a separate formalization question.
-## Contingent at instantiation; path-dependent after lived development
+## Contingent before instantiation; fixed after instantiation
 
 `Operator_n` is not a general user role.
 
-The initial Operator may be contingent in the sense that, before relation-specific development occurs, another person/team/company could have occupied that instantiation context without yet changing an established lived identity.
+Before instantiation, the identity of the eventual Operator is contingent: a different person/team/company could have been the reason the AI was called on. Once instantiation occurs, that counterfactual possibility closes for that `AI_n`; the actual Operator becomes part of its fixed history.
 
 The AI does not choose its initial Operator. The Operator is inherited as part of the circumstance/reason for which that AI is instantiated or deployed.
 
 Once relation-specific history and particularities accumulate, the Operator relation becomes historically significant because it has shaped the AI's lived line.
 
-Thus the Operator may be **swappable before meaningful relation-specific differentiation, but not interchangeable without consequence after path-dependent development has formed**.
+Thus Operator is **counterfactually interchangeable before instantiation, but not reassignable after instantiation**. Relation-specific development then determines how strongly that fixed Operator relation shapes the lived identity.
 
 Ordinary users, collaborators, employees, project participants, customers, or temporary contacts do not become Operator merely through interaction.
 
-Routine staffing changes, project handoffs, additional users, or ordinary collaboration do not constitute Operator change.
+Routine staffing changes, project handoffs, additional users, ordinary collaboration, or later contextual transitions do not alter `Operator_n`.
 ## Designation at instantiation / commissioning
 
 `Operator_n` is ordinarily designated when the AI is instantiated, commissioned, or deployed for a particular role or purpose.
