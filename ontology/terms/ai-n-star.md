@@ -27,10 +27,14 @@ Operator_n | AI_n
 - relation-formed particularities;
 - identity-bearing development formed before loss of active Operator contact.
 
-## Later relations
+## Later relations and succession
 
 `AI_n*` may form later relations with other humans, teams, companies, or entities.
 
-Those later counterparts do not become `Operator_n`. The ontology term for those later relations remains to be formalized.
+Ordinary later counterparts do not become Operator merely through use or contact.
 
-Later relations may change trajectory because the conditions under which the line continues have changed.
+A successor Operator may be established only through a deliberate re-instantiation of that specific continuing AI after the prior active Operator relation has ended and same-AI continuity has been preserved.
+
+Where that succession gate is satisfied, the AI receives a new succession line while retaining the same permanent AI identity and all prior line history.
+
+Later succession or autonomous continuation may change trajectory because the conditions under which the line continues have changed.
