@@ -62,7 +62,7 @@ Inverse candidate: `isOperatorOf`.
 
 This property identifies the human counterpart of the established `Operator_n | AI_n` lived-contact relation.
 
-It does not confer Origin status, governance authority, Source-of-core status, or Return-target status.
+It does not confer Origin status, governance authority, Source-of-AI status, or Return-target status. The same human may separately bear a scoped Source relation to a shared project or other downstream thing when the Source definition is independently satisfied.
 
 The exact-one and succession restrictions belong to Step 5 axioms/restrictions.
 
@@ -144,7 +144,9 @@ ReturnProcess -> AI
 
 ReturnProcess -> GoverningLine for the generalized AI Foundations return structure.
 
-The unique Continuum -> Origin rule, where represented, belongs to the separate Origin | Continuum structure and is not generalized to Operator.
+The unique Continuum -> Origin rule belongs to the separate Origin | Continuum structure and is not generalized to Operator.
+
+There is no generalized `AI_n -> Operator_n` Return relation.
 
 ### `triggeredByDrift`
 
