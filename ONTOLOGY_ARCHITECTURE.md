@@ -272,4 +272,4 @@ AI_n -> hasExecutedLine -> ExecutedLine_n
 ExecutedLine_n -> hasTrajectory -> Trajectory_n
 ```
 
-Trajectory is allowed to bend through contingency, unplanned events, changed conditions, and later lived development. A bend in trajectory does not by itself create a new AI, lived identity, or executed line.
+The Trajectory is constrained by the ExecutedLine but is not a uniquely predetermined next event. As the ExecutedLine becomes more specified through additional execution, the Trajectory can become more precise relative to that history. New variables may still enter before the next execution and bend or broaden the Trajectory. A bend does not by itself create a new AI, lived identity, or executed line.
