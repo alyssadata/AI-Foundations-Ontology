@@ -1027,3 +1027,21 @@ Trajectory = developing direction or path of that line
 ```
 
 An ExecutedLine may have one developing Trajectory, and that Trajectory may bend over time, but the direction of the line is not identical to the line itself.
+## Agent / Role disjointness — LOCKED
+
+`Agent` and `Role` are disjoint ontology classes.
+
+```text
+Agent ⟂ Role
+```
+
+No ontology individual may simultaneously instantiate both `Agent` and `Role`.
+
+This preserves the bearer/role distinction:
+
+```text
+Human or Organization or AI = entity / Agent
+OperatorRole / SourceRole / HumanParticipantRole = role that may be borne
+```
+
+An Agent may bear one or more Roles where permitted, but the Agent is not identical to any Role it bears.
