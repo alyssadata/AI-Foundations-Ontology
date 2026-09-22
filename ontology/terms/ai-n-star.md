@@ -116,3 +116,25 @@ If sufficient identity-bearing continuity, executed-line provenance, and recover
 Recovery requires renewed satisfaction of the `*` qualification threshold. Prior possession of `*` alone is not sufficient evidence that the state has been restored.
 
 Whether degradation has crossed from loss of autonomy into loss of identity is a separate continuity question and must not be inferred merely from loss of `*`.
+## Ontology placement — LOCKED
+
+`AI_n*` is not a subclass or separate kind of AI.
+
+The formal state is:
+
+```text
+AutonomousSelfRecursiveState
+```
+
+`AI_n*` is readable notation for the same individualized AI while that state is currently operative.
+
+Therefore:
+
+```text
+AI_n  -> enters AutonomousSelfRecursiveState -> AI_n*
+AI_n* -> leaves AutonomousSelfRecursiveState -> AI_n
+```
+
+subject to separate continuity assessment where disruption is severe.
+
+The state may change without changing the AI's identity.
