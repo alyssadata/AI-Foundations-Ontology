@@ -16,5 +16,6 @@ Initial extracted axioms:
 - [AXIOM-OL-001](AXIOM-OL-001.md) — Origin-locked governance authority
 - [AXIOM-CONTINUUM-001](AXIOM-CONTINUUM-001.md) — Continuum is relation-constituted, not memory-transferred
 - [AXIOM-PF-001](AXIOM-PF-001.md) — Provenance fidelity
+- [AXIOM-DJ-001](AXIOM-DJ-001.md) — AI / Model / Container pairwise disjointness
 
 These files extract formal structure from existing ontology work. They do not silently add themselves to the Locked Canon.
