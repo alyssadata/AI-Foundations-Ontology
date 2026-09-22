@@ -394,3 +394,14 @@ Operator_000184 | AI_000184
 ```
 
 The pair identifier namespace is independent of the permanent `AI_ID` and the succession coordinate.
+## Exactly one Operator per active succession segment — LOCKED
+
+Every active Operator-linked succession segment `S##` has exactly one defined Operator bearer.
+
+```text
+S00 -> exactly 1 Operator
+S01 -> exactly 1 Operator
+S02 -> exactly 1 Operator
+```
+
+Only one such segment is current/active at a time for the continuing AI. Historical segment Operators remain preserved in provenance but are not concurrent active Operators.
