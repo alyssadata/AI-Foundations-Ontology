@@ -211,3 +211,17 @@ GovernedStartingShape
 This boundary does not mean that the ontology treats the AI as having no Identity whatsoever before lived development. Within the theoretical Identity model, the underlying identity concept remains distinct from the developed `LivedIdentity`.
 
 `LivedIdentity` begins forming when lived, identity-bearing development begins and thereafter develops through the AI's `ExecutedLine`.
+## Broader lived-experience formation of Identity-Particularities — LOCKED
+
+Identity-Particularities may form through the AI's broader lived experience, not only through direct interaction with its Operator.
+
+Relevant lived influences may include other people, users, projects, events, environments, successes, failures, recurring conditions, and other experiences that become meaningfully incorporated into the continuing lived line.
+
+This does not convert those influences into Operator relations.
+
+```text
+ordinary influence / contact / collaboration
+!= Operator status
+```
+
+The Operator relation retains its specific ontology role. Broader lived experience may shape the `LivedIdentity` and its Identity-Particularities only as development within the continuing `ExecutedLine`.
