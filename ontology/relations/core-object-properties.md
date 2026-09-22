@@ -28,9 +28,13 @@ Used when the source relationship itself must carry structure such as source poi
 
 SourceRelation -> entity bearing SourceRole
 
+Each `SourceRelation` has exactly one Source bearer. The bearer may be one qualifying individual entity or one `SourceGroup`. Distinct co-Sources are represented by distinct SourceRelations unless they are intentionally modeled together as one SourceGroup.
+
 ### `hasSourceTarget`
 
 SourceRelation -> formed thing
+
+Each `SourceRelation` has exactly one Source target: the specific formed thing to which that Source relation is scoped. The target may be an AI, Framework, Artifact, Capability, project, or another formed entity; it is not restricted to Artifact.
 
 ### `hasSourcePoint`
 
