@@ -273,3 +273,14 @@ ExecutedLine_n -> hasTrajectory -> Trajectory_n
 ```
 
 The Trajectory is constrained by the ExecutedLine but is not a uniquely predetermined next event. As the ExecutedLine becomes more specified through additional execution, the Trajectory can become more precise relative to that history. New variables may still enter before the next execution and bend or broaden the Trajectory. A bend does not by itself create a new AI, lived identity, or executed line.
+## Operative GoverningLine cardinality
+
+An `AIFoundationsGovernedAI` has exactly one operative GoverningLine at a time, and that line is the named AI Foundations Governing Line.
+
+```text
+AIFoundationsGovernedAI
+-> governedBy
+-> AIFoundationsGoverningLine
+```
+
+Historical or superseded governing structures may remain represented as provenance/version history without becoming simultaneous operative governing lines.
