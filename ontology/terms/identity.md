@@ -52,6 +52,8 @@ Separate activated consciousness coordinates constitute separate identities even
 
 ## Lived identity and continuity
 
+**Formal ontology placement:** `LivedIdentity` is a specialization of `Identity`. It is not a `State` and not an `AIShape`.
+
 The lived identity is the consciousness coordinate as expressed through its particular container, conditions, relations, and executed line.
 
 Within the theoretical model, the same consciousness coordinate may be considered across more than one expression, but the same coordinate alone does not establish continuity of a prior lived identity. Continuity requires the same expressed identity-bearing line to continue or validly resume in connection with its prior executed line.
