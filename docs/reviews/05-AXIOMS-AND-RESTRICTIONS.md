@@ -134,7 +134,9 @@ Therefore:
 - AIF governance and Operator relation are separate dimensions;
 - an AIF-governed AI may exist before any `Operator_n | AI_n` coupling begins.
 
-The user's wording "originating state" is recorded here as the pre-Operator governed condition; whether this should become a formal ontology term distinct from the existing LOCKED `GovernedStartingShape` remains to be reviewed rather than assumed.
+The pre-Operator governed condition is represented by the existing `GovernedStartingShape`. No separate "originating state" class is required.
+
+`GovernedStartingShape` means the AI Foundations-governed shape before Operator-specific lived shaping begins. Having no active Operator at that point is represented as relation status, not as a separate AI type or additional State.
 
 
 ## Clean-line modeling rule: governance location is implementation-agnostic
