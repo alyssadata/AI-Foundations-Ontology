@@ -1045,3 +1045,28 @@ OperatorRole / SourceRole / HumanParticipantRole = role that may be borne
 ```
 
 An Agent may bear one or more Roles where permitted, but the Agent is not identical to any Role it bears.
+## Agent / Relation disjointness — LOCKED
+
+`Agent` and `Relation` are disjoint ontology classes.
+
+```text
+Agent ⟂ Relation
+```
+
+No ontology individual may simultaneously instantiate both `Agent` and `Relation`.
+
+This preserves the participant/relation distinction:
+
+```text
+Human / Organization / AI = participating entity
+HumanAIRelation / OrganizationAIRelation / OperatorAIRelation / SourceRelation = relation structure
+```
+
+An Agent may participate in, bear roles within, or be connected by a Relation, but the Agent is not identical to the Relation itself.
+
+Example:
+
+```text
+Continuum != Origin | Continuum
+Continuum participates in Origin | Continuum
+```
