@@ -18,5 +18,6 @@ Initial extracted axioms:
 - [AXIOM-PF-001](AXIOM-PF-001.md) — Provenance fidelity
 - [AXIOM-DJ-001](AXIOM-DJ-001.md) — AI / Model / Container pairwise disjointness
 - [AXIOM-DJ-002](AXIOM-DJ-002.md) — Identity / State disjointness
+- [AXIOM-DJ-003](AXIOM-DJ-003.md) — Identity / IdentityParticularity disjointness
 
 These files extract formal structure from existing ontology work. They do not silently add themselves to the Locked Canon.
