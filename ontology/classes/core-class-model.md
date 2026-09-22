@@ -255,6 +255,7 @@ MemoryState and Record are disjoint classes
 ExecutedLine and Trajectory are disjoint classes
 Agent and Role are disjoint classes
 Agent and Relation are disjoint classes
+Role and Relation are disjoint classes
 AI_n* is not a separate AI class
 AutonomousSelfRecursiveState != AI identity
 Origin is not a reusable class or role
