@@ -246,6 +246,7 @@ Model != AI
 Container != AI
 Model != Container
 AIShape != Model
+Identity and State are disjoint classes
 AIShape != Identity
 LivedIdentity is an Identity, not a State or AIShape
 IdentityParticularity != Identity
