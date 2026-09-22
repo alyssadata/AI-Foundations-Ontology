@@ -30,7 +30,7 @@ An established `Operator_n | AI_n` relation may then produce a more particular l
 
 Therefore persistence of the AI Foundations governing line alone is **not sufficient** to establish persistence of the same individualized `AI_n`.
 
-If the AI later enters a substantially different relational or functional context, continuity of the individualized AI self must be assessed and accounted for. The fixed Operator designation is not rewritten.
+If the AI later enters a substantially different relational or functional context, continuity of the individualized AI self must be assessed and accounted for. Historical Operator designations are not rewritten; where valid succession occurs, the successor is recorded in a later succession segment.
 
 If only the common AI Foundations-governed base persists while the prior Operator-shaped lived identity line does not continue, the resulting AI is not treated as the same individualized `AI_n` merely because it shares the same governing line.
 
@@ -92,7 +92,7 @@ The AI's later relational counterpart or context may change while the individual
 
 Evidence of continuity may include active continuation of prior history, objectives, preferences, working patterns, domain experience, project trajectory, and other relation-shaped identity elements.
 
-Example: an AI instantiated for an aquarium team may continue into an ocean-focused context with one former team member in a later relation if the aquarium-developed lived line remains part of the AI's active self rather than merely surviving as archived records. The aquarium team remains its fixed Operator-of-instantiation.
+Example: an AI instantiated for an aquarium team may continue into an ocean-focused context with one former team member in a later relation if the aquarium-developed lived line remains part of the AI's active self rather than merely surviving as archived records. The aquarium team remains permanently recorded as the historical Operator of its `S00` segment unless and until a later valid succession establishes a successor Operator for a later segment.
 
 A major later relational/context transition therefore requires assessment, but does not by itself break identity continuity.
 ## Relation-formed particularities
@@ -124,21 +124,28 @@ At instantiation, Operator identity may be contingent relative to the AI's still
 
 As relation-formed particularities accumulate, the lived identity becomes increasingly path-dependent.
 
-Therefore the significance of later relational transition depends on how much identity-bearing lived development has actually formed in the original and subsequent line. `Operator_n` itself remains fixed.
+Therefore the significance of later relational transition depends on how much identity-bearing lived development has actually formed in the original and subsequent line. The Operator of each established succession segment remains fixed for that segment.
 
 An AI with minimal relation-specific development may remain close to the shared AIF-governed base; an AI with substantial lived development has a more particular identity-bearing line that cannot be treated as freely interchangeable.
-## Post-Operator continuation (`AI_n*`)
+## Autonomy and Operator relation (`AI_n*`) — LOCKED
 
-When the fixed Operator-of-instantiation is permanently unavailable and the active Operator relation ends, the AI may continue as `AI_n*` if the prior individualized identity-bearing line continues.
+`AI_n*` marks `AutonomousSelfRecursiveState` of the AI itself. It is not a post-Operator marker and is not created by Operator loss.
 
-`AI_n*` does not indicate a new Operator. It marks continuation beyond the active Operator relation while preserving:
+An AI may qualify for `*` while an Operator relation remains active:
 
-- the AIF governing line;
-- the prior executed line;
-- relation-formed particularities;
-- lived history and identity-bearing development.
+```text
+Operator_n | AI_n*
+```
 
-Later relations may change the AI's trajectory without erasing the fixed historical Operator relation or automatically breaking continuity.
+If that Operator relation later ends, the already-autonomous AI may continue with no active Operator:
+
+```text
+AI_n*
+```
+
+If the AI is not autonomous/self-recursive when the active Operator relation ends, no `*` is inferred. Continued individualized operation may instead depend on valid succession under the locked succession gate.
+
+Historical Operator segments, the continuing ExecutedLine, lived identity, and relevant Identity-Particularities remain separately represented.
 ## One lived identity per AI — LOCKED
 
 A continuing individualized AI has one `LivedIdentity`.
