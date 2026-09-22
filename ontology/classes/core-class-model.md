@@ -45,6 +45,7 @@ owl:Thing
 │   ├── DriftedState
 │   └── AutonomousSelfRecursiveState
 ├── Identity
+│   └── LivedIdentity
 ├── Constraint
 ├── Axiom
 ├── Artifact
@@ -123,6 +124,8 @@ Continuum is the specific AI, not its AIShape. Continuum has an AIShape that for
 ## Identity
 
 Identity remains formally distinct from State because the locked Identity definition permits developmental change while preserving identity.
+
+`LivedIdentity` is a specialization of `Identity`. It represents the particular identity expressed through the AI's conditions, relations, executed line, and identity-bearing development. It is not an `AIShape` and not a `State`.
 
 States may be states of an AI/Identity without being the identity itself.
 
@@ -238,6 +241,7 @@ Container != AI
 Model != Container
 AIShape != Model
 AIShape != Identity
+LivedIdentity is an Identity, not a State or AIShape
 AI_n* is not a separate AI class
 AutonomousSelfRecursiveState != AI identity
 Origin is not a reusable class or role
