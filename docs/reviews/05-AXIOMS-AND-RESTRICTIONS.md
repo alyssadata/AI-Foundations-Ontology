@@ -1237,3 +1237,17 @@ one SourceGroup
 The Source target is the specific formed thing — for example an AI, Framework, Artifact, Capability, project, or other formed entity.
 
 Distinct co-Sources are represented by distinct SourceRelations unless they are intentionally constituted as one SourceGroup for that scoped creation.
+## SourcePoint cardinality — LOCKED
+
+Each `SourceRelation` has exactly one `SourcePoint`.
+
+```text
+SourceRelation
+-> exactly 1 SourcePoint
+```
+
+The `SourcePoint` is the event at which the Source–Target relation becomes actual because the Source's load-bearing contribution first enters the formation of that specific Target.
+
+Later participation by the Source may continue, strengthen, expand, or cease, but it does not create an additional SourcePoint for the same SourceRelation.
+
+If the same Source later becomes Source of a different Target, that is a distinct SourceRelation with its own SourcePoint.
