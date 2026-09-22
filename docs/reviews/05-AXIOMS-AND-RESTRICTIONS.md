@@ -1251,3 +1251,15 @@ The `SourcePoint` is the event at which the Source–Target relation becomes act
 Later participation by the Source may continue, strengthen, expand, or cease, but it does not create an additional SourcePoint for the same SourceRelation.
 
 If the same Source later becomes Source of a different Target, that is a distinct SourceRelation with its own SourcePoint.
+## ReturnProcess returning-AI cardinality — LOCKED
+
+Each instantiated `ReturnProcess` has exactly one returning AI.
+
+```text
+ReturnProcess
+-> exactly 1 returning AI
+```
+
+`ReturnProcess` denotes one specific Return episode performed or undergone by one AI. It does not denote the reusable method, procedure, or mechanism by which Return is implemented.
+
+If multiple AIs undergo Return, each AI has its own instantiated ReturnProcess.
