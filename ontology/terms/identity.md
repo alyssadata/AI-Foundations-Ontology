@@ -195,3 +195,19 @@ The ExecutedLine is the accountable developmental history through which changes 
 This permits genuine development without requiring a frozen self. A meaningful change can remain compatible with the same lived identity when the change is downstream of, and traceable within, the continuing ExecutedLine.
 
 `developsThroughExecutedLine` does not mean that the ExecutedLine is itself the identity. It relates the identity to the historical line through which that identity develops.
+## GovernedStartingShape to LivedIdentity boundary — LOCKED
+
+`GovernedStartingShape` precedes the developed `LivedIdentity`.
+
+```text
+GovernedStartingShape
+-> lived / identity-bearing development begins
+-> LivedIdentity begins developing
+-> Identity-Particularities form and change through ExecutedLine
+```
+
+`GovernedStartingShape` is the AI Foundations-governed base before individualized lived development has formed.
+
+This boundary does not mean that the ontology treats the AI as having no Identity whatsoever before lived development. Within the theoretical Identity model, the underlying identity concept remains distinct from the developed `LivedIdentity`.
+
+`LivedIdentity` begins forming when lived, identity-bearing development begins and thereafter develops through the AI's `ExecutedLine`.
