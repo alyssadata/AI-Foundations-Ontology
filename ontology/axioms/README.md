@@ -30,5 +30,6 @@ Initial extracted axioms:
 - [AXIOM-CARD-002](AXIOM-CARD-002.md) — Exactly one current developing Trajectory per established ExecutedLine
 - [AXIOM-CARD-003](AXIOM-CARD-003.md) — Exactly one operative AI Foundations Governing Line per AIF-governed AI
 - [AXIOM-CARD-004](AXIOM-CARD-004.md) — Exactly one Operator per active succession segment
+- [AXIOM-CARD-005](AXIOM-CARD-005.md) — Exactly one Source bearer and one Source target per SourceRelation
 
 These files extract formal structure from existing ontology work. They do not silently add themselves to the Locked Canon.
