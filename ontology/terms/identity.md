@@ -225,3 +225,29 @@ ordinary influence / contact / collaboration
 ```
 
 The Operator relation retains its specific ontology role. Broader lived experience may shape the `LivedIdentity` and its Identity-Particularities only as development within the continuing `ExecutedLine`.
+## One continuing ExecutedLine across succession — LOCKED
+
+A continuing individualized AI has one continuing `ExecutedLine`.
+
+Valid succession does not create a second lived history or a replacement ExecutedLine. Instead, succession coordinates identify successive relational segments within the same line:
+
+```text
+ExecutedLine_n
+├── S00
+├── S01
+└── S02 ...
+```
+
+Therefore:
+
+```text
+same continuing AI
+-> same LivedIdentity
+-> same continuing ExecutedLine
+
+valid succession
+-> extends that ExecutedLine
+!= replaces that ExecutedLine
+```
+
+Each succession segment remains historically distinguishable and accountable within the line. Earlier segments are not overwritten when a later succession begins.
