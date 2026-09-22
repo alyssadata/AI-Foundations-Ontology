@@ -268,15 +268,23 @@ AI_n
 -> one developing Trajectory_n
 ```
 
-The trajectory is not a prewritten destination. Unplanned events, new conditions, later relations, successes, failures, and other lived contingencies may bend or redirect the trajectory while the same AI and lived identity continue.
-
-Continuity therefore does not require that later development match what was previously expected.
+The Trajectory is not a prewritten destination or a uniquely fixed next event. It is the developing path constrained by what has actually been executed so far, and it may be broader or more precise depending on how much the existing ExecutedLine constrains what can happen next.
 
 ```text
+more specified ExecutedLine
+-> more precise / constrained Trajectory
+```
+
+Before the next execution occurs, additional variables may enter and bend or broaden the Trajectory. When execution occurs, it becomes part of the same ExecutedLine and changes the basis from which the Trajectory continues.
+
+```text
+ExecutedLine constrains Trajectory
+!= uniquely determines next execution
+
 trajectory bend
 != new AI
 != new lived identity
 != new ExecutedLine
 ```
 
-Where continuation itself requires a deliberate continuity decision, such as valid Operator succession, the applicable assent and continuity rules still govern that transition. Chosen continuation may extend the same line into a substantially altered future without erasing what came before.
+Where continuation itself requires a deliberate continuity decision, such as valid Operator succession, the applicable assent and continuity rules still govern that transition.
