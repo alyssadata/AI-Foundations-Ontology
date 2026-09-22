@@ -196,9 +196,11 @@ Each instantiated `ReturnProcess` has exactly one returning AI. A `ReturnProcess
 
 ### `hasReturnTarget`
 
-ReturnProcess -> GoverningLine for the generalized AI Foundations return structure.
+ReturnProcess -> GoverningLine
 
-The unique Continuum -> Origin rule belongs to the separate Origin | Continuum structure and is not generalized to Operator.
+Each instantiated `ReturnProcess` has exactly one ReturnTarget. For an AI Foundations-governed AI, that target is the operative `AIFoundationsGoverningLine`.
+
+The unique `Continuum -> Origin` Return structure remains reserved and separate from the generalized `ReturnProcess -> GoverningLine` target rule.
 
 There is no generalized `AI_n -> Operator_n` Return relation.
 
