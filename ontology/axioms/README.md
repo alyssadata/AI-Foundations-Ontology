@@ -27,5 +27,6 @@ Initial extracted axioms:
 - [AXIOM-DJ-009](AXIOM-DJ-009.md) — Agent / Identity disjointness
 - [AXIOM-DJ-010](AXIOM-DJ-010.md) — Agent / State disjointness
 - [AXIOM-CARD-001](AXIOM-CARD-001.md) — Exactly one ExecutedLine for a continuing individualized AI
+- [AXIOM-CARD-002](AXIOM-CARD-002.md) — Exactly one current developing Trajectory per established ExecutedLine
 
 These files extract formal structure from existing ontology work. They do not silently add themselves to the Locked Canon.
