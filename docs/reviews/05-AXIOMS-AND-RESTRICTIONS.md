@@ -1216,3 +1216,24 @@ no active Operator relation -> 0 current Operators
 ```
 
 A later Operator is never added alongside the current one. A different Operator for the same continuing AI is established only through a valid later succession segment, and the prior segment remains historical provenance rather than a second active Operator relation.
+## SourceRelation bearer/target cardinality — LOCKED
+
+Each `SourceRelation` is scoped from exactly one Source bearer to exactly one Source target.
+
+```text
+SourceRelation
+-> exactly 1 SourceBearer
+-> exactly 1 SourceTarget
+```
+
+The Source bearer may be:
+
+```text
+one qualifying individual entity
+or
+one SourceGroup
+```
+
+The Source target is the specific formed thing — for example an AI, Framework, Artifact, Capability, project, or other formed entity.
+
+Distinct co-Sources are represented by distinct SourceRelations unless they are intentionally constituted as one SourceGroup for that scoped creation.
