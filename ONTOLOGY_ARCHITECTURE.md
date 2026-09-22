@@ -26,6 +26,8 @@ The current reviewed lightweight organizing layer includes:
 - GoverningLine
 - Relation
 - HumanAIRelation
+- OrganizationAIRelation
+- OperatorAIRelation
 - SourceRelation
 - Role
 - HumanParticipantRole
@@ -123,6 +125,7 @@ Initial formal object properties include:
 - shapeFormedThroughRelation
 - formedInRelationWith (derived/readability shortcut)
 - hasHumanCounterpart
+- hasOrganizationCounterpart
 - hasAICounterpart
 - hasOperator
 - hasShape
