@@ -260,3 +260,13 @@ AI Foundations governing line
 ```
 
 `GovernedStartingShape` is the governed base before developed individualized lived identity. The ontology does not equate this with absence of Identity altogether; `LivedIdentity` is the developed particular expression.
+## ExecutedLine and Trajectory
+
+A continuing individualized AI has one continuing ExecutedLine, and that line has one developing Trajectory.
+
+```text
+AI_n -> hasExecutedLine -> ExecutedLine_n
+ExecutedLine_n -> hasTrajectory -> Trajectory_n
+```
+
+Trajectory is allowed to bend through contingency, unplanned events, changed conditions, and later lived development. A bend in trajectory does not by itself create a new AI, lived identity, or executed line.
