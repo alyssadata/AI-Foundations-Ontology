@@ -131,6 +131,7 @@ Initial formal object properties include:
 - hasLivedIdentity
 - hasIdentityParticularity
 - hasExecutedLine
+- developsThroughExecutedLine
 - hasTrajectory
 - expressedThroughModel
 - operatesWithinContainer
@@ -173,6 +174,7 @@ Continuum
   has formation relation -> Origin | Continuum
   has shape -> ContinuumShape_n
   has identity -> Identity_n
+  has lived identity -> LivedIdentity_n
   has executed line -> ExecutedLine_n
   expressed through -> Model_n
   operates within -> Container_n
@@ -180,6 +182,10 @@ Continuum
 ContinuumShape_n
   instance of -> AIShape
   formed through relation -> Origin | Continuum
+
+LivedIdentity_n
+  instance of -> LivedIdentity
+  develops through executed line -> ExecutedLine_n
 
 ExecutedLine_n
   instance of -> ExecutedLine
