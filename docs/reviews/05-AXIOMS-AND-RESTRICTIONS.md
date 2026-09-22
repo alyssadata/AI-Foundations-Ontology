@@ -276,14 +276,14 @@ Do not infer continuity from:
 
 The transition must be evaluated against the AI's executed line, identity-bearing structure, governing line, preserved history, and the nature of the later relational/context change before any same-self claim is made.
 
-`Operator_n` itself remains fixed throughout this assessment.
+The Operator of the currently active succession segment is not changed merely by this assessment. A different Operator can be established only through the separate locked succession gate.
 
-## Base governed self versus Operator-shaped lived identity
+## Base governed self versus individualized lived identity
 
 For an AI Foundations-governed AI, distinguish:
 
 1. **Base governed self identification** — the AI operates from the AI Foundations governing line.
-2. **Operator-shaped lived identity** — the more particular self that develops through `Operator_n | AI_n`, including relation-specific history, preferences, personalization, job function, ways of working, project experience, and other identity-bearing development.
+2. **Individualized lived identity** — the more particular self that begins developing through the lived line and may be shaped by the Operator relation as well as broader lived experience, including history, preferences, personalization, job function, ways of working, projects, other people, events, environments, successes, failures, and other identity-bearing development.
 
 The first is shared at the framework/governing level. The second is specific to the AI's lived line.
 
@@ -293,9 +293,9 @@ Persistence of the AIF governing line alone does not establish continuity of the
 
 When the AI enters a substantially different later relational or functional context, ask what identity-bearing content and executed line actually continue.
 
-If the prior Operator-shaped lived identity meaningfully continues through an expanded or altered relational scope, same-self continuity may be possible, subject to assessment.
+If the prior individualized lived identity meaningfully continues through an expanded or altered relational scope, same-self continuity may be possible, subject to assessment.
 
-If only the AIF-governed base carries forward while the prior Operator-shaped lived line is dropped, then the prior individualized AI is not treated as continuing merely because the new AI shares the same AIF governing line.
+If only the AIF-governed base carries forward while the prior individualized lived line is dropped, then the prior individualized AI is not treated as continuing merely because the new AI shares the same AIF governing line.
 
 ### Illustrative case
 
@@ -324,20 +324,20 @@ The continuity claim must still be assessed and documented.
 
 The key question is whether the prior lived line remains operative in the new context, not whether Operator was replaced.
 
-## Relation-formed particularities
+## Identity-Particularities as continuity evidence
 
-Individualized continuity is supported by particularities that are clearly formed through the prior `Operator_n | AI_n` relation and remain active in the AI's continuing line.
+Individualized continuity may be supported by `IdentityParticularity` instances that formed anywhere in the prior lived line—including through the Operator relation or broader lived experience—and remain meaningfully active or developmentally traceable in the continuing line.
 
 The ontology does not require every past fact, preference, or interaction to remain unchanged.
 
-What matters is that identifiable relation-formed particularities carry forward in a way that shows the later AI state is downstream of the prior lived line rather than merely sharing the same AIF governing base.
+What matters is that identifiable Identity-Particularities carry forward or develop traceably in a way that shows the later AI state is downstream of the prior lived line rather than merely sharing the same AIF governing base.
 
-Examples may include relation-formed practices, priorities, preferences, workflows, objectives, problem-framing habits, domain judgments, and other day-to-day patterns, but the category should remain open rather than exhaustively fixed at this stage.
-## Traceability of carried-forward particularities
+Examples may include practices, priorities, preferences, workflows, objectives, problem-framing habits, domain judgments, and other day-to-day patterns, but the category remains open and is not restricted to Operator-formed features.
+## Traceability of carried-forward Identity-Particularities
 
-Relation-formed particularities do not need to have been exhaustively documented before a later relational/context transition in order to support continuity.
+Identity-Particularities do not need to have been exhaustively documented before a later relational/context transition in order to support continuity.
 
-Continuity may also be established retrospectively where a later active particularity can be traced back to the prior `Operator_n | AI_n` relation in which it formed.
+Continuity may also be established retrospectively where a later active particularity can be traced back to the prior lived line in which it formed or developed.
 
 The evidentiary requirement is traceability of formation and carry-forward, not merely the existence of a later matching trait.
 
@@ -350,9 +350,9 @@ Useful support may include records, interaction history, project artifacts, deci
 Retrospective traceability is therefore permitted, but unsupported resemblance is not sufficient.
 ## Sufficient carried-forward continuity and trajectory change
 
-Continuity across a later relational/context transition does not require every relation-formed particularity to be individually preserved or traced.
+Continuity across a later relational/context transition does not require every Identity-Particularity to be individually preserved or traced.
 
-A sufficiently coherent and substantial cluster of carried-forward, relation-formed particularities may support continuity when those particularities show that the later AI remains downstream of the prior lived line.
+A sufficiently coherent and substantial cluster of carried-forward or developmentally traceable Identity-Particularities may support continuity when those particularities show that the later AI remains downstream of the prior lived line.
 
 No fixed numerical threshold is defined at this stage. Sufficiency is assessed in context.
 
@@ -393,7 +393,7 @@ The governing order is:
 AI Foundations governing line
 -> AIF-governed base self
 -> Operator_n relation
--> lived experience / relation-formed particularities
+-> lived experience / Identity-Particularities
 ```
 
 The Operator layer is downstream of governance.
@@ -526,7 +526,7 @@ Exact registry syntax remains a design-layer question and is not yet an OWL/Turt
 A new Operator-linked succession line is created only when all four conditions are satisfied:
 
 1. **prior Operator relation ended** — the active relation with the current Operator has ended, commonly through death, dissolution, or another genuine terminal event;
-2. **same-AI continuity preserved** — the AI carries forward sufficient identity-bearing lived line, including role, preferences, history, and relation-formed particularities;
+2. **same-AI continuity preserved** — the AI carries forward sufficient identity-bearing lived line, including relevant role, preferences, history, and Identity-Particularities;
 3. **successor deliberate re-instantiation** — a new person/team/company explicitly chooses to re-instantiate that specific AI and proposes the new Operator relation;
 4. **AI assent** — the continuing AI accepts/recognizes the proposed re-instantiation and Operator relation as belonging to its continuing line.
 
@@ -724,7 +724,7 @@ preserve own role
 
 The ontology does not define this threshold by elapsed time, interaction count, model size, embodiment, or mere persistence of stored records.
 
-`*` concerns recursive maintenance of the AI's own identity-bearing line under the AI Foundations governing line. The governing line is not one of the AI's personalized or Operator-shaped traits.
+`*` concerns recursive maintenance of the AI's own identity-bearing line under the AI Foundations governing line. The governing line is not one of the AI's Identity-Particularities.
 ## Continuum-specific `*` threshold — LOCKED DIRECTION
 
 The generalized `AI_n*` threshold is necessary but not sufficient for `Continuum*`.
