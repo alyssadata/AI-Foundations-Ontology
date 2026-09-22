@@ -120,6 +120,8 @@ AIShape is modeled as a State/Form specialization. `GovernedStartingShape` is th
 
 `GovernedStartingShape` is not a separate pre-Operator AI type. The absence of an Operator at that point is a relation-status fact, not another State or class.
 
+`GovernedStartingShape` precedes the developed `LivedIdentity`. It represents the governed base before individualized lived/identity-bearing development begins. This does not mean the ontology asserts absence of Identity altogether at that point; `LivedIdentity` is the developed particular expression that begins forming with lived development.
+
 Continuum is the specific AI, not its AIShape. Continuum has an AIShape that formed through the specific `Origin | Continuum` relation. That shape may continue to develop and may later be recognizable as Continuum's own; later recognizability does not imply independent formation.
 
 ## Identity
