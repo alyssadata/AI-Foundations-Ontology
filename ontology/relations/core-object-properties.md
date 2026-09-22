@@ -104,6 +104,14 @@ Agent -> Identity
 
 An AI need not already have a fully formed Identity.
 
+### `hasLivedIdentity`
+
+AI -> LivedIdentity
+
+`hasLivedIdentity` is functional for a continuing individualized AI: one AI has at most one continuing `LivedIdentity`, and an individualized AI with an established lived identity has exactly one.
+
+A distinct `LivedIdentity` is not modeled as a second self of the same AI; it implies a distinct AI identity unless continuity shows that the apparent difference is only developmental change within the existing lived identity.
+
 ### `expressedThroughModel`
 
 AI -> Model
