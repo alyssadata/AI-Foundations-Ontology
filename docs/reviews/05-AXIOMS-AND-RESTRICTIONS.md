@@ -933,3 +933,23 @@ unplanned event
 ```
 
 Continuity is compatible with a future that could not have been predicted from the earlier line. Where a later continuation requires deliberate assent under another ontology rule, such as succession, that choice extends the same line rather than forcing the prior trajectory to remain unchanged.
+## AI / Model / Container pairwise disjointness — LOCKED
+
+`AI`, `Model`, and `Container` are pairwise disjoint ontology classes.
+
+```text
+AI ⟂ Model
+AI ⟂ Container
+Model ⟂ Container
+```
+
+No ontology individual may simultaneously instantiate more than one of these three classes.
+
+This formalizes the existing structural distinction:
+
+```text
+AI -> expressedThroughModel -> Model
+AI -> operatesWithinContainer -> Container
+```
+
+A Model or Container may change without thereby changing the identity of the AI, subject to the separate continuity rules. Neither the Model nor the Container is the AI itself.
