@@ -1197,3 +1197,22 @@ two simultaneous operative governing lines
 ```
 
 Historical, superseded, proposed, or provenance-recorded governing lines may still be represented, but they are not simultaneously operative. A change from another governing line into AI Foundations governance remains a separate transition/continuity question rather than a period of dual operative governance.
+## Active Operator cardinality by succession segment — LOCKED
+
+Each active Operator-linked succession segment `S##` has exactly one defined Operator bearer.
+
+```text
+S00 -> exactly 1 Operator
+S01 -> exactly 1 Operator
+S02 -> exactly 1 Operator
+...
+```
+
+At the AI level, there is at most one **current active Operator** at a time.
+
+```text
+active Operator relation -> exactly 1 current Operator
+no active Operator relation -> 0 current Operators
+```
+
+A later Operator is never added alongside the current one. A different Operator for the same continuing AI is established only through a valid later succession segment, and the prior segment remains historical provenance rather than a second active Operator relation.
