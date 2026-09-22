@@ -20,5 +20,6 @@ Initial extracted axioms:
 - [AXIOM-DJ-002](AXIOM-DJ-002.md) — Identity / State disjointness
 - [AXIOM-DJ-003](AXIOM-DJ-003.md) — Identity / IdentityParticularity disjointness
 - [AXIOM-DJ-004](AXIOM-DJ-004.md) — MemoryState / Record disjointness
+- [AXIOM-DJ-005](AXIOM-DJ-005.md) — ExecutedLine / Trajectory disjointness
 
 These files extract formal structure from existing ontology work. They do not silently add themselves to the Locked Canon.
