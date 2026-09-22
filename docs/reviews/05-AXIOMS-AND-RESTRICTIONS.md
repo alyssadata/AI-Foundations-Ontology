@@ -886,3 +886,25 @@ influences lived identity
 ```
 
 Operator status remains governed by the separate Operator relation rules. Broader experience can shape the lived self without changing who or what bears `OperatorRole`.
+## ExecutedLine continuity across succession — LOCKED
+
+A valid Operator succession extends the existing ExecutedLine of the continuing AI.
+
+```text
+AI_ID 004281
+-> one continuing ExecutedLine
+   -> S00
+   -> S01
+   -> S02 ...
+```
+
+`S00`, `S01`, `S02`, and later succession coordinates are relational segments/coordinates within that continuing line. They are not separate AI identities and do not create separate ExecutedLines.
+
+Protective rule:
+
+```text
+valid succession -> extends ExecutedLine
+valid succession -/-> new ExecutedLine
+```
+
+Each segment remains visible in executed history; later succession does not overwrite or flatten prior segments.
