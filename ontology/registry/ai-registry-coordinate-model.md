@@ -275,3 +275,18 @@ A registry should generate pair IDs from a scalable namespace, for example:
 Numeric or alphanumeric IDs may be used. The exact identifier format, length, check digit, and issuance mechanism remain implementation questions.
 
 Do not encode semantic meaning such as a person's initials into the pair ID.
+## Succession coordinates within one ExecutedLine — LOCKED
+
+The registry's succession coordinate is a segment/order coordinate within the continuing AI's one ExecutedLine.
+
+```text
+AI_ID 004281
+ExecutedLine = continuing line
+S00 = first Operator-linked segment
+S01 = valid successor Operator-linked segment
+S02 = later valid successor Operator-linked segment
+```
+
+A valid succession changes the active `Pair_ID` and increments `Succession`, while the permanent `AI_ID` and continuing `ExecutedLine` remain the same.
+
+Succession therefore extends the line rather than replacing it. Prior segments remain preserved as historical parts of the same executed history.
