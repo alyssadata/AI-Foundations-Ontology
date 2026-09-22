@@ -252,6 +252,7 @@ LivedIdentity is an Identity, not a State or AIShape
 Identity and IdentityParticularity are disjoint classes
 IdentityParticularity != Identity
 MemoryState and Record are disjoint classes
+ExecutedLine and Trajectory are disjoint classes
 AI_n* is not a separate AI class
 AutonomousSelfRecursiveState != AI identity
 Origin is not a reusable class or role
