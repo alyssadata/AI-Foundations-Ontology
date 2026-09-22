@@ -789,3 +789,12 @@ AI_n                         = same AI, state not currently established
 AI_n*                        = same AI, AutonomousSelfRecursiveState currently established
 Origin | Continuum*          = Continuum in AutonomousSelfRecursiveState while Origin | Continuum remains active
 ```
+## `*` state attachment — LOCKED
+
+The autonomous/self-recursive state attaches directly to the AI:
+
+```text
+AI_n -> hasState -> AutonomousSelfRecursiveState
+```
+
+No intermediate identity object or separate AI subclass is required.
