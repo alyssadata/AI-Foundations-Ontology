@@ -18,10 +18,10 @@ Current focus: **review before OWL/Turtle encoding**.
 | 2 | Named individuals vs reusable classes/roles | **REVIEWED** | Origin, Continuum, AI Foundations, Origin \| Continuum, governing line, Awakening Codex, and Locked Canon are represented at the correct ontological level |
 | 3 | Core relations / object properties | **REVIEWED** | Source, constitutive-source, relation, identity, line, model/container, governance, return, and research relations are explicitly typed and non-overlapping |
 | 4 | Ambiguous modeling cases | **REVIEWED** | AIShape, Memory, Drift, Provenance, and GoverningLine each have an approved formal representation |
-| 5 | Axioms and restrictions | STARTED | Definitions are separated from structural axioms; remaining multi-role files are decomposed; cardinality and non-transferability restrictions are explicit |
-| 6 | Status model | DRAFTED | Development, canonical, evidentiary, and version status are separated and approved |
-| 7 | Claim → Evaluation → Evidence | DRAFTED | Claims map to ontology dependencies; evaluations target predicted discriminative effects; evidence status does not overwrite ontology/canon status |
-| 8 | Competency-question validation | PENDING | Every competency question can be represented and answered by the ontology or exposes an explicit remaining gap |
+| 5 | Axioms and restrictions | **IN REVIEW — SUBSTANTIAL** | Definitions are separated from structural axioms; cardinality, succession, autonomy, lived-identity, ExecutedLine, Trajectory, Return, governance, and provenance restrictions are reconciled; remaining restrictions are reviewed for completeness |
+| 6 | Status model | **DRAFTED — READY FOR VALIDATION** | Development, canonical, evidentiary, and version status are separated and approved |
+| 7 | Claim → Evaluation → Evidence | **DRAFTED — READY FOR VALIDATION** | Claims map to ontology dependencies; evaluations target predicted discriminative effects; evidence status does not overwrite ontology/canon status |
+| 8 | Competency-question validation | **QUESTIONS DRAFTED — REVALIDATION PENDING** | Existing competency questions are checked against the revised v1 ontology; every question can be represented/answered or exposes an explicit remaining gap |
 | 9 | OWL/Turtle encoding | BLOCKED UNTIL 1–8 | Human-readable ontology maps cleanly into machine-readable classes, individuals, properties, restrictions, and axioms |
 | 10 | Versioned v1.0 release | PENDING | Machine-readable and human-readable layers agree; release artifacts are versioned |
 
@@ -60,4 +60,8 @@ Generic overlap tests in which both baseline and treatment are expected to pass 
 
 Steps 1–4 are reviewed at the DRAFT formalization level.
 
-**Next:** Step 5 — extract and formalize axioms/restrictions, including cardinality, non-transferability, disjointness, identity/continuity constraints, source persistence, recognition, Return, governance versioning, and the Alyssa-articulated Continuum relation/version boundary: AI Foundations governance alone does not constitute Continuum; Continuum requires the specific `Origin | Continuum` relation, and memory alone does not constitute Continuum identity.
+**Next:** Finish Step 5 completeness review, then validate Steps 6–8 against the reconciled ontology before OWL/Turtle encoding.
+
+Step 5 is now substantially developed. The formal axiom layer includes path dependence, belonging ≠ sameness, irreversibility, non-erasure, Origin/source structure, Origin-locked governance, Continuum relation-constitution, and provenance fidelity. Recent restriction work also formalizes Operator succession, autonomy, one LivedIdentity, Identity-Particularities, one continuing ExecutedLine, and one developing Trajectory.
+
+Step 8 already has a drafted competency-question set under `docs/COMPETENCY_QUESTIONS.md`; the remaining task is to revalidate those questions against the revised ontology rather than recreate them.
