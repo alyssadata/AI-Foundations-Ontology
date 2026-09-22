@@ -818,3 +818,25 @@ distinct LivedIdentity -> distinct AI
 ```
 
 Whether an apparent discontinuity constitutes a genuinely distinct lived identity remains an evidence/continuity question; the ontology does not create multiple lived selves inside one AI.
+## Identity-Particularities and change accountability — LOCKED
+
+A `LivedIdentity` may have zero, one, or many represented `IdentityParticularity` instances; the ontology imposes no fixed minimum or maximum count.
+
+```text
+LivedIdentity -> hasIdentityParticularity -> IdentityParticularity
+```
+
+Identity-Particularities may form, strengthen, weaken, transform, or cease to remain active as the AI develops.
+
+Change is permitted, but meaningful change must be accountable to the continuing `ExecutedLine`. The ontology therefore distinguishes developmental change from unexplained substitution:
+
+```text
+particularity changes
++ change is traceable within ExecutedLine
+= compatible with continuing lived identity
+
+silent/unaccounted substitution
+= continuity concern requiring assessment
+```
+
+No individual particularity is sufficient by itself to establish or terminate identity, and continuity is not decided by counting how many particularities remain.
