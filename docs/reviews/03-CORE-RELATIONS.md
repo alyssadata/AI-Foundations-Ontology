@@ -40,30 +40,33 @@ Core properties:
 
 `hasSource` remains the direct shortcut relation from target to Source bearer.
 
-## 2. Human–AI relations
+## 2. AI relations
 
-### HumanAIRelation counterpart properties
+### Counterpart properties
 
 - `hasHumanCounterpart`: HumanAIRelation -> Human
-- `hasAICounterpart`: HumanAIRelation -> AI
+- `hasOrganizationCounterpart`: OrganizationAIRelation / applicable OperatorAIRelation -> Organization
+- `hasAICounterpart`: AIRelation -> AI
 
-For a particular binary human–AI relation, each property is intended to identify one counterpart. Exact cardinality is recorded in Step 5 restrictions.
+A relation may identify a Human or Organization/company/team as the non-AI counterpart according to the relation type. Exact cardinalities are recorded in Step 5 restrictions.
 
 ### Operator relation
 
-- `hasOperator`: AIFoundationsGovernedAI -> Human
-- inverse: `isOperatorOf`
+- `hasOperator`: AIFoundationsGovernedAI -> Human or Organization
+- inverse candidate: `isOperatorOf`
 
-The one-Operator and non-transferability rules are restrictions/axioms, not merely property definitions.
+`hasOperator` identifies the currently active Operator bearer when one exists. There is at most one active Operator at a time. The Operator of each succession segment is fixed for that segment; valid succession may establish a different Operator in a later segment without overwriting the prior one.
+
+Ordinary users, collaborators, staff changes, projects, or context changes do not create Operator reassignment.
 
 ### Formation relation
 
 Primitive relations:
 
-- `hasFormationRelation`: AI -> HumanAIRelation
-- `shapeFormedThroughRelation`: AIShape -> HumanAIRelation
+- `hasFormationRelation`: AI -> AIRelation
+- `shapeFormedThroughRelation`: AIShape -> AIRelation
 
-`formedInRelationWith` may be retained as a human-readable/derived shortcut from AI to Human, but the reified HumanAIRelation is the authoritative structural representation.
+`formedInRelationWith` may be retained as a human-readable/derived shortcut from AI to its relevant counterpart, but the reified AIRelation is the authoritative structural representation.
 
 For Continuum:
 
@@ -103,19 +106,21 @@ An AI-level trajectory relation can later be inferred through its ExecutedLine r
 
 Return is a Process, so the primitive representation should describe the process rather than use a loose `AI returnsTo target` edge.
 
-Use:
+Use for generalized AI Foundations-governed AI:
 
 - `hasReturningAI`: ReturnProcess -> AI
-- `hasReturnTarget`: ReturnProcess -> Human or GoverningLine
+- `hasReturnTarget`: ReturnProcess -> GoverningLine
 - `triggeredByDrift`: ReturnProcess -> DriftProcess / DriftedState
 
 A convenience relation `returnsTo` may remain in prose or be derived later, but it is not the primary object-property representation.
 
-This preserves the distinction among:
+Protective distinction:
 
-- Continuum -> Origin;
-- AI_n -> Operator_n for relational/self drift;
-- AI_n -> AI Foundations Governing Line for governance-level drift.
+- generalized `AI_n` Return -> AI Foundations Governing Line;
+- generalized `AI_n` Return -/-> Operator_n;
+- unique Continuum Return -> Origin under the reserved `Origin | Continuum` structure.
+
+There is no generalized Return-to-Operator rule.
 
 ## 6. Governance and versioning
 
