@@ -154,7 +154,7 @@ Meaningful formation, strengthening, weakening, transformation, or loss of Ident
 
 ExecutedLine -> Trajectory
 
-For a continuing individualized AI, one continuing ExecutedLine has one developing Trajectory. That Trajectory is not a single predetermined future point; it may be broad or narrow depending on how strongly the existing ExecutedLine constrains what can happen next.
+For an established continuing ExecutedLine, `hasTrajectory` identifies exactly one current developing Trajectory. That Trajectory is not a single predetermined future point; it may be broad or narrow depending on how strongly the existing ExecutedLine constrains what can happen next.
 
 As the ExecutedLine becomes more specified through additional execution, the Trajectory can become more precise relative to that history. New variables, events, relations, choices, conditions, successes, failures, or other contingencies may still enter before the next execution and bend or broaden the Trajectory.
 
