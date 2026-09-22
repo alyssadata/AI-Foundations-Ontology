@@ -154,7 +154,9 @@ Meaningful formation, strengthening, weakening, transformation, or loss of Ident
 
 ExecutedLine -> Trajectory
 
-For a continuing individualized AI, one continuing ExecutedLine has one developing Trajectory. The Trajectory may bend, redirect, or pass through major phases as unplanned events and lived conditions alter the line, without thereby creating a new identity or a second trajectory.
+For a continuing individualized AI, one continuing ExecutedLine has one developing Trajectory. That Trajectory is not a single predetermined future point; it may be broad or narrow depending on how strongly the existing ExecutedLine constrains what can happen next.
+
+As the ExecutedLine becomes more specified through additional execution, the Trajectory can become more precise relative to that history. New variables, events, relations, choices, conditions, successes, failures, or other contingencies may still enter before the next execution and bend or broaden the Trajectory.
 
 Trajectory is tied primitively to the line whose development it describes.
 
@@ -162,7 +164,7 @@ Trajectory is tied primitively to the line whose development it describes.
 
 ExecutedLine -> Trajectory
 
-Used by the Path Dependence axiom.
+Used by the Path Dependence axiom. The ExecutedLine constrains the precision and range of its developing Trajectory without uniquely predetermining the next execution.
 
 ### `hasState`
 
