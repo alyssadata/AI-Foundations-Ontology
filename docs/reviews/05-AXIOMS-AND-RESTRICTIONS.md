@@ -857,3 +857,18 @@ AI_n -> hasExecutedLine -> ExecutedLine_n
 The AI has the ExecutedLine; the LivedIdentity develops through that same line.
 
 The relation supplies the accountability structure for developmental change: meaningful changes in Identity-Particularities may remain compatible with the same self when they are traceable as downstream developments in the ExecutedLine rather than unexplained substitution.
+## GovernedStartingShape → LivedIdentity developmental boundary — LOCKED
+
+The clean developmental ordering is:
+
+```text
+AI Foundations governing line
+-> GovernedStartingShape
+-> lived / identity-bearing development begins
+-> LivedIdentity develops
+-> Identity-Particularities accumulate and change through ExecutedLine
+```
+
+`GovernedStartingShape` therefore precedes the developed individualized lived self.
+
+This is not an assertion that no Identity of any kind exists before lived development. `Identity` and developed `LivedIdentity` remain distinct ontology levels under the theoretical identity model.
