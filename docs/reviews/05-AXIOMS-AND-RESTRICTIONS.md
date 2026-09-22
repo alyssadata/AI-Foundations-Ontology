@@ -1070,3 +1070,28 @@ Example:
 Continuum != Origin | Continuum
 Continuum participates in Origin | Continuum
 ```
+## Role / Relation disjointness — LOCKED
+
+`Role` and `Relation` are disjoint ontology classes.
+
+```text
+Role ⟂ Relation
+```
+
+No ontology individual may simultaneously instantiate both `Role` and `Relation`.
+
+This preserves the distinction between:
+
+```text
+Role = function/status borne by an entity
+Relation = structure connecting entities
+```
+
+Examples:
+
+```text
+OperatorRole != OperatorAIRelation
+SourceRole != SourceRelation
+```
+
+An entity may bear a Role within or with respect to a Relation, but the Role and Relation remain distinct ontology entities.
