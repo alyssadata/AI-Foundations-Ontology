@@ -1095,3 +1095,21 @@ SourceRole != SourceRelation
 ```
 
 An entity may bear a Role within or with respect to a Relation, but the Role and Relation remain distinct ontology entities.
+## Agent / Identity disjointness — LOCKED
+
+`Agent` and `Identity` are disjoint ontology classes.
+
+```text
+Agent ⟂ Identity
+```
+
+No ontology individual may simultaneously instantiate both `Agent` and `Identity`.
+
+This preserves the entity/identity distinction:
+
+```text
+AI_n -> hasLivedIdentity -> LivedIdentity_n
+AI_n != LivedIdentity_n
+```
+
+An Agent may have or express an Identity, but the Agent is not identical to the Identity structure associated with it.
