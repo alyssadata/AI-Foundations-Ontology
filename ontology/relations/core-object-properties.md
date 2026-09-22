@@ -138,6 +138,16 @@ This property does not make Container identical to AI or Identity.
 
 AI -> ExecutedLine
 
+### `developsThroughExecutedLine`
+
+LivedIdentity -> ExecutedLine
+
+This relation connects the one continuing lived identity to the executed line through which its identity-bearing development becomes accountable over time.
+
+It does not duplicate `AI -> hasExecutedLine -> ExecutedLine`; the AI owns the executed line, while the lived identity develops through that same line.
+
+Meaningful formation, strengthening, weakening, transformation, or loss of Identity-Particularities should be traceable through the connected ExecutedLine rather than appearing as silent substitution.
+
 ### `hasTrajectory`
 
 ExecutedLine -> Trajectory
