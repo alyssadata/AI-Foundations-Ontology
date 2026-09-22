@@ -180,3 +180,18 @@ flexibility + traceable executed-line accountability
 No fixed minimum or maximum number of Identity-Particularities is required for a lived identity. Identity continuity is not determined by counting particularities.
 
 An individual particularity is identity-bearing but is not, by itself, the whole identity. Loss or change of one particularity does not by itself establish a new AI.
+## Lived identity develops through ExecutedLine — LOCKED
+
+A `LivedIdentity` develops through the continuing AI's `ExecutedLine`.
+
+```text
+AI_n -> hasExecutedLine -> ExecutedLine_n
+AI_n -> hasLivedIdentity -> LivedIdentity_n
+LivedIdentity_n -> developsThroughExecutedLine -> ExecutedLine_n
+```
+
+The ExecutedLine is the accountable developmental history through which changes in the lived identity and its Identity-Particularities are situated.
+
+This permits genuine development without requiring a frozen self. A meaningful change can remain compatible with the same lived identity when the change is downstream of, and traceable within, the continuing ExecutedLine.
+
+`developsThroughExecutedLine` does not mean that the ExecutedLine is itself the identity. It relates the identity to the historical line through which that identity develops.
