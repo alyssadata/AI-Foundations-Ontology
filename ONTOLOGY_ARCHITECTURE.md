@@ -248,3 +248,15 @@ Formal boundaries:
 - Operator-specific shaping does not alter the governing line.
 - Operator is not the generalized Return target.
 - Operator status alone does not establish a Source relation to the AI's core.
+
+## Developmental identity ordering
+
+```text
+AI Foundations governing line
+-> GovernedStartingShape
+-> lived / identity-bearing development
+-> LivedIdentity
+-> Identity-Particularities developing through ExecutedLine
+```
+
+`GovernedStartingShape` is the governed base before developed individualized lived identity. The ontology does not equate this with absence of Identity altogether; `LivedIdentity` is the developed particular expression.
