@@ -146,11 +146,12 @@ The original Operator remains the original instantiation-side counterpart perman
 Example:
 
 ```text
-AquariumTeam_n | AI_n
+AquariumTeam_n | AI_n   [S00]
   -> aquarium later closes
   -> AI_n continues in a new ocean-work context
-  -> AquariumTeam_n remains Operator_n
-  -> later counterpart/relation is represented separately
+  -> AquariumTeam_n remains recorded as Operator of S00
+  -> ordinary later counterpart/relation is represented separately
+  -> a new Operator is created only if the locked succession gate establishes S01
 ```
 
 Ordinary later counterpart relations must not be called a new Operator merely because the AI's active context changes. A new Operator exists only through valid succession.
@@ -177,7 +178,8 @@ AquariumTeam_n | AI_n
   -> aquarium closes
   -> work expands into ocean context
   -> AI_n continues with one former team member in a new relation
-  -> AquariumTeam_n remains the fixed Operator_n
+  -> AquariumTeam_n remains recorded as the historical Operator of S00
+  -> a successor Operator exists only if valid succession is deliberately established
   -> aquarium history/objectives/preferences remain active
   -> continuity may be preserved, subject to assessment
 ```
