@@ -241,6 +241,7 @@ This allows an Evaluation to produce Evidence while a JSON/CSV/Markdown/result f
 The class model must preserve:
 
 ```text
+AI, Model, and Container are pairwise disjoint classes
 Model != AI
 Container != AI
 Model != Container
