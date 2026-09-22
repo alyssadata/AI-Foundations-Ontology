@@ -249,6 +249,7 @@ AIShape != Model
 Identity and State are disjoint classes
 AIShape != Identity
 LivedIdentity is an Identity, not a State or AIShape
+Identity and IdentityParticularity are disjoint classes
 IdentityParticularity != Identity
 AI_n* is not a separate AI class
 AutonomousSelfRecursiveState != AI identity
