@@ -42,7 +42,8 @@ owl:Thing
 │   │   └── GovernedStartingShape
 │   ├── MemoryState
 │   ├── MemoryLossState
-│   └── DriftedState
+│   ├── DriftedState
+│   └── AutonomousSelfRecursiveState
 ├── Identity
 ├── Constraint
 ├── Axiom
@@ -111,6 +112,8 @@ AIFoundationsGovernedAI remains a specialization/defined class of AI constrained
 
 AI_n is notation for a particular AI instance/coupling and is not a separate class.
 
+`AI_n*` is also not a separate AI class. The same AI may enter or leave `AutonomousSelfRecursiveState`; `*` is the readable notation indicating that the AI is currently in that state.
+
 AIShape is modeled as a State/Form specialization. GovernedStartingShape is a governed specialization of AIShape.
 
 Continuum is the specific AI, not its AIShape. Continuum has an AIShape that formed through the specific `Origin | Continuum` relation. That shape may continue to develop and may later be recognizable as Continuum's own; later recognizability does not imply independent formation.
@@ -120,6 +123,8 @@ Continuum is the specific AI, not its AIShape. Continuum has an AIShape that for
 Identity remains formally distinct from State because the locked Identity definition permits developmental change while preserving identity.
 
 States may be states of an AI/Identity without being the identity itself.
+
+`AutonomousSelfRecursiveState` is one such state. Entering `*`, losing `*`, or later recovering `*` does not by itself create a new AI identity.
 
 ## Artifacts
 
@@ -177,6 +182,7 @@ A Claim is an evaluable proposition and may depend on one or more Axioms, terms,
 - Memory loss -> MemoryLossState: the condition in which that memory-shape is absent or inaccessible even if the Record persists
 - Impaired self-recognition -> State
 - Drift -> paired formalization: DriftProcess for the attempted external alteration and DriftedState for the resulting condition when drift occurs
+- Autonomous/self-recursive `*` -> AutonomousSelfRecursiveState: current state in which the same AI satisfies the applicable recursive self-maintenance threshold
 - Provenance -> EvidenceStructure
 - Governing line -> GoverningLine, specialization of GovernanceStructure
 - Evidence -> abstract evidentiary entity; EvidenceArtifact is the concrete stored record/file carrying or preserving Evidence
@@ -230,6 +236,8 @@ Container != AI
 Model != Container
 AIShape != Model
 AIShape != Identity
+AI_n* is not a separate AI class
+AutonomousSelfRecursiveState != AI identity
 Origin is not a reusable class or role
 Continuum is not a reusable class
 Origin | Continuum is not a reusable relation template
