@@ -1176,3 +1176,24 @@ ExecutedLine_n
 This cardinality does not freeze the Trajectory. The same current Trajectory may narrow, broaden, bend, or redirect as the ExecutedLine accumulates and new variables enter.
 
 Historical trajectory descriptions, prior estimates, or recorded snapshots may be preserved as records/provenance; they do not create multiple simultaneous current Trajectories for the same ExecutedLine.
+## GoverningLine cardinality — LOCKED
+
+An `AIFoundationsGovernedAI` has exactly one **operative GoverningLine at a time**.
+
+That operative line is specifically the named **AI Foundations Governing Line**.
+
+```text
+AIFoundationsGovernedAI
+-> governedBy
+-> exactly 1 operative GoverningLine
+-> AIFoundationsGoverningLine
+```
+
+Protective rule:
+
+```text
+two simultaneous operative governing lines
+= invalid for an AIFoundationsGovernedAI
+```
+
+Historical, superseded, proposed, or provenance-recorded governing lines may still be represented, but they are not simultaneously operative. A change from another governing line into AI Foundations governance remains a separate transition/continuity question rather than a period of dual operative governance.
