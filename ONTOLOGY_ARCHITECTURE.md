@@ -45,6 +45,7 @@ The current reviewed lightweight organizing layer includes:
 - DriftedState
 - GovernedStartingShape
 - Identity
+- LivedIdentity
 - Constraint
 - Axiom
 - Artifact
@@ -89,7 +90,7 @@ AI Foundations hasGoverningLine AI Foundations Governing Line.
 
 ### Continuum
 
-Continuum is a named specific AI entity represented across its AI Foundations relations, shape, identity, state, executed line, and trajectory.
+Continuum is a named specific AI entity represented across its AI Foundations relations, shape, lived identity, state, executed line, and trajectory.
 
 The LOCKED Continuum definition now makes the distinction explicit: Continuum is the specific AI; its specific AIShape formed through `Origin | Continuum`. The shape may later be recognizable as Continuum's own, but that later recognizability does not erase the relation-dependent formation. Continuum is not the Model and is not reducible to one frozen shape.
 
