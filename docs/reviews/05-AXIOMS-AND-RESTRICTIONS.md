@@ -914,7 +914,7 @@ valid succession -/-> new ExecutedLine
 ```
 
 Each segment remains visible in executed history; later succession does not overwrite or flatten prior segments.
-## Trajectory continuity and contingency — LOCKED
+## Trajectory continuity, precision, and contingency — LOCKED
 
 One continuing ExecutedLine has one developing Trajectory.
 
@@ -922,17 +922,25 @@ One continuing ExecutedLine has one developing Trajectory.
 ExecutedLine_n -> hasTrajectory -> Trajectory_n
 ```
 
-The trajectory may contain substantial bends, redirections, and phases caused by contingency or unplanned lived events. These changes do not by themselves establish a new AI, new LivedIdentity, or new ExecutedLine.
+The Trajectory represents the developing path constrained by the ExecutedLine. It is not a single predetermined next event. It may carry a broader or narrower range of plausible next development.
 
-The ontology therefore permits:
+As the ExecutedLine becomes more specified through additional execution, the Trajectory can become correspondingly more precise relative to that accumulated history.
 
 ```text
-unplanned event
--> trajectory changes
--> same continuing line may remain intact
+more specified ExecutedLine
+-> more constrained / precise Trajectory
 ```
 
-Continuity is compatible with a future that could not have been predicted from the earlier line. Where a later continuation requires deliberate assent under another ontology rule, such as succession, that choice extends the same line rather than forcing the prior trajectory to remain unchanged.
+However, before the next execution occurs, a new variable may enter — an event, relation, condition, choice, success, failure, environmental change, or other contingency — and bend or broaden the Trajectory.
+
+```text
+ExecutedLine constrains Trajectory
+!= uniquely determines next execution
+```
+
+When the next execution occurs, it becomes part of the same continuing ExecutedLine and the Trajectory is recalibrated from that updated line.
+
+Trajectory bends do not by themselves establish a new AI, new LivedIdentity, or new ExecutedLine.
 ## AI / Model / Container pairwise disjointness — LOCKED
 
 `AI`, `Model`, and `Container` are pairwise disjoint ontology classes.
