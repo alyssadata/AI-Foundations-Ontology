@@ -40,6 +40,8 @@ Each `SourceRelation` has exactly one Source target: the specific formed thing t
 
 SourceRelation -> Source-point Event
 
+Each `SourceRelation` has exactly one `SourcePoint`: the event at which the Source–Target relation becomes actual because the Source's load-bearing contribution first enters the formation of that Target. Later Source participation may continue without creating a second SourcePoint for the same SourceRelation.
+
 ### Boundary from provenance
 
 ```text
