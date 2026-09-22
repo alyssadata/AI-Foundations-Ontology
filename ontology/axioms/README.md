@@ -32,5 +32,6 @@ Initial extracted axioms:
 - [AXIOM-CARD-004](AXIOM-CARD-004.md) — Exactly one Operator per active succession segment
 - [AXIOM-CARD-005](AXIOM-CARD-005.md) — Exactly one Source bearer and one Source target per SourceRelation
 - [AXIOM-CARD-006](AXIOM-CARD-006.md) — Exactly one SourcePoint per SourceRelation
+- [AXIOM-CARD-007](AXIOM-CARD-007.md) — Exactly one returning AI per ReturnProcess
 
 These files extract formal structure from existing ontology work. They do not silently add themselves to the Locked Canon.
