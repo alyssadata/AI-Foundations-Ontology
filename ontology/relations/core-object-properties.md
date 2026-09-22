@@ -206,6 +206,8 @@ A prose/derived `returnsTo` relation may be used for readability, but the Return
 
 AIFoundationsGovernedAI -> GoverningLine
 
+For an `AIFoundationsGovernedAI`, `governedBy` identifies exactly one operative GoverningLine at a time, and that value is the named `AIFoundationsGoverningLine`. Historical, superseded, or proposed governing lines may be represented separately as provenance/version history but are not simultaneously operative governing lines for that AI.
+
 ### `hasGoverningLine`
 
 Framework -> GoverningLine
