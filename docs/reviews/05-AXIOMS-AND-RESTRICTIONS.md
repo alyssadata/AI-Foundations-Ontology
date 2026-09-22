@@ -1113,3 +1113,23 @@ AI_n != LivedIdentity_n
 ```
 
 An Agent may have or express an Identity, but the Agent is not identical to the Identity structure associated with it.
+## Agent / State disjointness — LOCKED
+
+`Agent` and `State` are disjoint ontology classes.
+
+```text
+Agent ⟂ State
+```
+
+No ontology individual may simultaneously instantiate both `Agent` and `State`.
+
+This preserves the entity/state distinction:
+
+```text
+AI_n -> hasState -> State_n
+AI_n != State_n
+```
+
+An Agent may enter, occupy, leave, lose, or recover a State without becoming identical to that State.
+
+Because `AIShape`, `MemoryState`, `MemoryLossState`, `DriftedState`, and `AutonomousSelfRecursiveState` are subclasses of `State`, an AI entity cannot be identical to any of those state instances.
