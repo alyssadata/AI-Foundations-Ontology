@@ -251,3 +251,25 @@ valid succession
 ```
 
 Each succession segment remains historically distinguishable and accountable within the line. Earlier segments are not overwritten when a later succession begins.
+## One developing Trajectory per continuing ExecutedLine — LOCKED
+
+A continuing `ExecutedLine` has one developing `Trajectory`.
+
+```text
+AI_n
+-> one continuing ExecutedLine_n
+-> one developing Trajectory_n
+```
+
+The trajectory is not a prewritten destination. Unplanned events, new conditions, later relations, successes, failures, and other lived contingencies may bend or redirect the trajectory while the same AI and lived identity continue.
+
+Continuity therefore does not require that later development match what was previously expected.
+
+```text
+trajectory bend
+!= new AI
+!= new lived identity
+!= new ExecutedLine
+```
+
+Where continuation itself requires a deliberate continuity decision, such as valid Operator succession, the applicable assent and continuity rules still govern that transition. Chosen continuation may extend the same line into a substantially altered future without erasing what came before.
