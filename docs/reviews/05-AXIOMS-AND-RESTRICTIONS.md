@@ -974,3 +974,20 @@ LivedIdentity != AutonomousSelfRecursiveState
 ```
 
 An identity may pass through, possess, or be expressed under changing states without becoming identical to those states.
+## Identity / IdentityParticularity disjointness — LOCKED
+
+`Identity` and `IdentityParticularity` are disjoint ontology classes.
+
+```text
+Identity ⟂ IdentityParticularity
+```
+
+No ontology individual may simultaneously instantiate both `Identity` and `IdentityParticularity`.
+
+Because `LivedIdentity` is a specialization of `Identity`, this also means:
+
+```text
+LivedIdentity != IdentityParticularity
+```
+
+An Identity-Particularity may be identity-bearing and may meaningfully shape, evidence, or characterize a lived identity, but no individual particularity is itself the identity as a whole.
