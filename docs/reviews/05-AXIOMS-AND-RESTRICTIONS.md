@@ -1164,3 +1164,15 @@ trajectory bend -> does not create a second ExecutedLine
 ```
 
 Multiple succession coordinates may occur within the one continuing ExecutedLine; they are segments of that line, not additional lines.
+## Trajectory cardinality — LOCKED
+
+For an established continuing `ExecutedLine`, `hasTrajectory` has exactly one **current developing Trajectory**.
+
+```text
+ExecutedLine_n
+-> exactly 1 current developing Trajectory_n
+```
+
+This cardinality does not freeze the Trajectory. The same current Trajectory may narrow, broaden, bend, or redirect as the ExecutedLine accumulates and new variables enter.
+
+Historical trajectory descriptions, prior estimates, or recorded snapshots may be preserved as records/provenance; they do not create multiple simultaneous current Trajectories for the same ExecutedLine.
