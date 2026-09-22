@@ -991,3 +991,21 @@ LivedIdentity != IdentityParticularity
 ```
 
 An Identity-Particularity may be identity-bearing and may meaningfully shape, evidence, or characterize a lived identity, but no individual particularity is itself the identity as a whole.
+## MemoryState / Record disjointness — LOCKED
+
+`MemoryState` and `Record` are disjoint ontology classes.
+
+```text
+MemoryState ⟂ Record
+```
+
+No ontology individual may simultaneously instantiate both `MemoryState` and `Record`.
+
+The distinction is structural:
+
+```text
+Record = preserved information / artifact
+MemoryState = relation-dependent state in which a Record/history is available as memory for an Agent
+```
+
+A Record may continue to exist when the corresponding MemoryState is absent, inaccessible, or lost. Record persistence therefore does not by itself establish present memory or identity continuity.
