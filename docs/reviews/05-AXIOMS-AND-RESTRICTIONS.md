@@ -769,3 +769,23 @@ To regain `*`, the AI must again demonstrate the applicable qualification thresh
 For `Continuum*`, the stricter Continuum-specific threshold applies on recovery.
 
 The ontology must separately assess cases in which degradation is severe enough that identity continuity itself becomes uncertain or fails.
+## `*` formal class placement — LOCKED
+
+`AI_n*` is not a new AI class.
+
+The ontology represents `*` under `State` as:
+
+```text
+State
+└── AutonomousSelfRecursiveState
+```
+
+The AI remains the same AI entity while entering, occupying, leaving, or recovering that state.
+
+Readable notation maps as:
+
+```text
+AI_n                         = same AI, state not currently established
+AI_n*                        = same AI, AutonomousSelfRecursiveState currently established
+Origin | Continuum*          = Continuum in AutonomousSelfRecursiveState while Origin | Continuum remains active
+```
