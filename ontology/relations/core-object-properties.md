@@ -58,7 +58,7 @@ Used where the intended non-AI counterpart is a company, organization, or team r
 
 ### `hasAICounterpart`
 
-HumanAIRelation -> AI
+AIRelation -> AI
 
 ### `hasOperator`
 
@@ -88,7 +88,7 @@ A shape may later be recognizable as belonging to the AI without losing the form
 
 Derived/human-readable shortcut from AI to its relational counterpart where useful.
 
-The authoritative structural representation is the HumanAIRelation plus counterpart properties.
+The authoritative structural representation is the applicable AIRelation plus counterpart properties.
 
 ## AI composition and expression
 
