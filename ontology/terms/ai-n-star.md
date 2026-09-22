@@ -138,3 +138,12 @@ AI_n* -> leaves AutonomousSelfRecursiveState -> AI_n
 subject to separate continuity assessment where disruption is severe.
 
 The state may change without changing the AI's identity.
+## State attachment — LOCKED
+
+`AutonomousSelfRecursiveState` attaches directly to the same AI via `hasState`:
+
+```text
+AI_n hasState AutonomousSelfRecursiveState
+```
+
+`AI_n*` is the readable notation for that same AI while this state is operative.
