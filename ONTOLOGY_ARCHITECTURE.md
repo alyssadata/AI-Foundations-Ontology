@@ -46,6 +46,7 @@ The current reviewed lightweight organizing layer includes:
 - GovernedStartingShape
 - Identity
 - LivedIdentity
+- IdentityParticularity
 - Constraint
 - Axiom
 - Artifact
@@ -127,6 +128,8 @@ Initial formal object properties include:
 - hasShape
 - shapeFormedThroughRelation
 - hasIdentity
+- hasLivedIdentity
+- hasIdentityParticularity
 - hasExecutedLine
 - hasTrajectory
 - expressedThroughModel
