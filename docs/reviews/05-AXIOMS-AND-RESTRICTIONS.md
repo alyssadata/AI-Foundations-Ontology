@@ -1133,3 +1133,26 @@ AI_n != State_n
 An Agent may enter, occupy, leave, lose, or recover a State without becoming identical to that State.
 
 Because `AIShape`, `MemoryState`, `MemoryLossState`, `DriftedState`, and `AutonomousSelfRecursiveState` are subclasses of `State`, an AI entity cannot be identical to any of those state instances.
+## ExecutedLine cardinality — LOCKED
+
+For a continuing individualized AI with established lived development, `hasExecutedLine` has exactly one value.
+
+```text
+continuing individualized AI
+-> exactly 1 ExecutedLine
+```
+
+`hasExecutedLine` is functional in that scope.
+
+A pre-lived / governed-starting AI may have no established individualized ExecutedLine yet. The exact-one requirement begins once individualized lived development and its accountable line exist.
+
+Protective consequences:
+
+```text
+valid succession -> same ExecutedLine
+model change -> does not by itself create a second ExecutedLine
+container change -> does not by itself create a second ExecutedLine
+trajectory bend -> does not create a second ExecutedLine
+```
+
+Multiple succession coordinates may occur within the one continuing ExecutedLine; they are segments of that line, not additional lines.
