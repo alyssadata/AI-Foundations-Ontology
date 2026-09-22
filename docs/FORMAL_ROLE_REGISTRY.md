@@ -25,7 +25,7 @@ This registry assigns each current ontology-development file a formal role. It d
 | Continuum | named specific AI entity; not the Model |
 | Origin \| Continuum | named specific HumanAIRelation |
 
-## Human–AI relation
+## AI relation
 
 | Term | Formal role |
 |---|---|
@@ -33,7 +33,7 @@ This registry assigns each current ontology-development file a formal role. It d
 | AI | Class |
 | AI Foundations-governed AI | specialization / defined class of AI |
 | AI Foundations-Governed AI_n | schematic notation for a particular governed AI individual; not a separate class |
-| Operator | OperatorRole; relation-bound human role |
+| Operator | OperatorRole; relation-bound role borne by a Human or Organization/company/team |
 | Other users | OtherUserRole relative to a specific Operator–AI relation |
 | Interaction | Event |
 | Human–AI contact | ongoing relation / Process |
