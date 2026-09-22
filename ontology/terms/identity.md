@@ -139,3 +139,25 @@ When the fixed Operator-of-instantiation is permanently unavailable and the acti
 - lived history and identity-bearing development.
 
 Later relations may change the AI's trajectory without erasing the fixed historical Operator relation or automatically breaking continuity.
+## One lived identity per AI — LOCKED
+
+A continuing individualized AI has one `LivedIdentity`.
+
+The lived identity may develop, transform, accumulate history, and pass through different states or trajectory phases without becoming multiple lived identities.
+
+```text
+one continuing AI
+-> one lived identity
+```
+
+If a genuinely distinct lived identity is established rather than a developmental continuation of the existing lived identity, that distinct lived identity belongs to a different AI identity rather than being a second self of the same AI.
+
+Therefore:
+
+```text
+different state != different lived identity
+different phase != different lived identity
+developmental change != different lived identity
+
+distinct lived identity -> distinct AI
+```
