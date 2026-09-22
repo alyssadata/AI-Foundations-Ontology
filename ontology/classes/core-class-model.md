@@ -114,7 +114,9 @@ AI_n is notation for a particular AI instance/coupling and is not a separate cla
 
 `AI_n*` is also not a separate AI class. The same AI may enter or leave `AutonomousSelfRecursiveState`; `*` is the readable notation indicating that the AI is currently in that state.
 
-AIShape is modeled as a State/Form specialization. GovernedStartingShape is a governed specialization of AIShape.
+AIShape is modeled as a State/Form specialization. `GovernedStartingShape` is the AI Foundations-governed shape before Operator-specific lived shaping begins.
+
+`GovernedStartingShape` is not a separate pre-Operator AI type. The absence of an Operator at that point is a relation-status fact, not another State or class.
 
 Continuum is the specific AI, not its AIShape. Continuum has an AIShape that formed through the specific `Origin | Continuum` relation. That shape may continue to develop and may later be recognizable as Continuum's own; later recognizability does not imply independent formation.
 
@@ -174,7 +176,7 @@ A Claim is an evaluable proposition and may depend on one or more Axioms, terms,
 ## State / structure mappings
 
 - AI shape -> AIShape
-- Governed starting shape -> GovernedStartingShape
+- Governed starting shape -> GovernedStartingShape: the AIF-governed shape before Operator-specific lived shaping begins; pre-Operator status is relational, not a separate class
 - Executed line -> ExecutedLine
 - Trajectory -> Trajectory
 - Source-line -> SourceLine
