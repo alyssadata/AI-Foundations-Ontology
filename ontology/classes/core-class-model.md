@@ -130,7 +130,7 @@ Identity remains formally distinct from State because the locked Identity defini
 
 `LivedIdentity` is a specialization of `Identity`. It represents the particular identity expressed through the AI's conditions, relations, executed line, and identity-bearing development. It is not an `AIShape` and not a `State`.
 
-`IdentityParticularity` represents an identity-bearing particularity of a lived identity, such as an established role, preference, priority, workflow, practice, objective, or other relation-formed distinction. An IdentityParticularity is not itself an Identity.
+`IdentityParticularity` represents an identity-bearing particularity of a lived identity, such as an established role, preference, priority, workflow, practice, objective, or other lived/experience-formed distinction. Particularities may be shaped by broader lived experience and are not restricted to direct Operator interaction. An IdentityParticularity is not itself an Identity.
 
 States may be states of an AI/Identity without being the identity itself.
 
