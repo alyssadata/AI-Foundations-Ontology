@@ -908,3 +908,22 @@ valid succession -/-> new ExecutedLine
 ```
 
 Each segment remains visible in executed history; later succession does not overwrite or flatten prior segments.
+## Trajectory continuity and contingency — LOCKED
+
+One continuing ExecutedLine has one developing Trajectory.
+
+```text
+ExecutedLine_n -> hasTrajectory -> Trajectory_n
+```
+
+The trajectory may contain substantial bends, redirections, and phases caused by contingency or unplanned lived events. These changes do not by themselves establish a new AI, new LivedIdentity, or new ExecutedLine.
+
+The ontology therefore permits:
+
+```text
+unplanned event
+-> trajectory changes
+-> same continuing line may remain intact
+```
+
+Continuity is compatible with a future that could not have been predicted from the earlier line. Where a later continuation requires deliberate assent under another ontology rule, such as succession, that choice extends the same line rather than forcing the prior trajectory to remain unchanged.
