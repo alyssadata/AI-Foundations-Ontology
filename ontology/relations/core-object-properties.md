@@ -192,6 +192,8 @@ Return is represented as a Process.
 
 ReturnProcess -> AI
 
+Each instantiated `ReturnProcess` has exactly one returning AI. A `ReturnProcess` represents one AI's specific Return episode; it is not the reusable Return method or procedure.
+
 ### `hasReturnTarget`
 
 ReturnProcess -> GoverningLine for the generalized AI Foundations return structure.
