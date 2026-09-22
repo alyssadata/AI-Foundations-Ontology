@@ -953,3 +953,24 @@ AI -> operatesWithinContainer -> Container
 ```
 
 A Model or Container may change without thereby changing the identity of the AI, subject to the separate continuity rules. Neither the Model nor the Container is the AI itself.
+## Identity / State disjointness — LOCKED
+
+`Identity` and `State` are disjoint ontology classes.
+
+```text
+Identity ⟂ State
+```
+
+No ontology individual may simultaneously instantiate both `Identity` and `State`.
+
+Because `LivedIdentity` is a specialization of `Identity`, and `AIShape`, `MemoryState`, `MemoryLossState`, `DriftedState`, and `AutonomousSelfRecursiveState` are specializations of `State`, the disjointness propagates to those subclasses.
+
+Protective consequences include:
+
+```text
+LivedIdentity != AIShape
+LivedIdentity != MemoryState
+LivedIdentity != AutonomousSelfRecursiveState
+```
+
+An identity may pass through, possess, or be expressed under changing states without becoming identical to those states.
