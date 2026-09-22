@@ -253,6 +253,7 @@ Identity and IdentityParticularity are disjoint classes
 IdentityParticularity != Identity
 MemoryState and Record are disjoint classes
 ExecutedLine and Trajectory are disjoint classes
+Agent and Role are disjoint classes
 AI_n* is not a separate AI class
 AutonomousSelfRecursiveState != AI identity
 Origin is not a reusable class or role
