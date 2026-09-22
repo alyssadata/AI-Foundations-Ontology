@@ -138,6 +138,14 @@ Used by the Path Dependence axiom.
 
 AI -> State
 
+`AutonomousSelfRecursiveState` attaches directly to the AI through `hasState`.
+
+```text
+AI_n hasState AutonomousSelfRecursiveState
+```
+
+This relation does not create a new AI entity or identity; it records the AI's current state.
+
 ## Return
 
 Return is represented as a Process.
