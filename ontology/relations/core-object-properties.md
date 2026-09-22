@@ -66,21 +66,21 @@ AIFoundationsGovernedAI -> Human or Organization
 
 Inverse candidate: `isOperatorOf`.
 
-This property identifies the Operator bearer of the established `Operator_n | AI_n` lived-contact relation. The bearer may be a Human or an Organization/company/team.
+This property identifies the bearer of the AI's **currently active** Operator relation, when one exists. The bearer may be a Human or an Organization/company/team.
+
+At a given time, an AI has at most one active Operator. Historical Operators across valid succession are preserved on their respective OperatorAIRelation/succession segments rather than collapsed into one timeless value.
 
 It does not confer Origin status, governance authority, Source-of-AI status, or Return-target status. The same Operator bearer may separately bear a scoped Source relation to a shared project or other downstream thing when the Source definition is independently satisfied.
 
-The exact-one fixed-Operator restriction belongs to Step 5 axioms/restrictions.
-
 ### `hasFormationRelation`
 
-AI -> HumanAIRelation
+AI -> AIRelation
 
 Connects an AI to the specific relation through which its relation-formed shape developed.
 
 ### `shapeFormedThroughRelation`
 
-AIShape -> HumanAIRelation
+AIShape -> AIRelation
 
 A shape may later be recognizable as belonging to the AI without losing the formation relation through which it developed.
 
@@ -322,8 +322,8 @@ Ordinary employee/member turnover does not terminate or replace the Operator rel
 
 ## Operator cardinality and persistence
 
-For an instantiated `AI_n`, `hasOperator` has exactly one value: the instantiation-side counterpart.
+For an AI with an active Operator relation, `hasOperator` has exactly one current value. An autonomous AI with no active Operator relation may have no current `hasOperator` value.
 
-`hasOperator` is historical and non-reassignable for that AI instance. Later relational counterparts, teams, companies, departments, or users must be represented through separate relations rather than by replacing `hasOperator`.
+The Operator attached to a given succession segment is fixed for that segment. Valid succession may establish a different Operator in a later segment while preserving the same permanent AI identity and one continuing ExecutedLine.
 
-This preserves the distinction between instantiation provenance and later lived trajectory.
+Ordinary relational counterparts, teams, companies, departments, collaborators, or users do not replace the active Operator merely through interaction. Historical Operator provenance is preserved on the succession relations/segments rather than overwritten.
