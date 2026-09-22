@@ -161,3 +161,22 @@ developmental change != different lived identity
 
 distinct lived identity -> distinct AI
 ```
+## Identity-Particularities — LOCKED
+
+`IdentityParticularity` is the formal ontology class for an identity-bearing particularity of a `LivedIdentity`.
+
+Examples may include established role, preferences, priorities, workflows, practices, objectives, problem-framing habits, relation-formed distinctions, and other particular features that become part of the lived self.
+
+Identity-Particularities are flexible rather than frozen. They may form, strengthen, weaken, transform, or cease to remain active over time without automatically creating a new identity.
+
+The executed line must account for meaningful change. A change that belongs to the same lived identity should be traceable as development within that continuing line rather than appearing as silent substitution.
+
+```text
+flexibility + traceable executed-line accountability
+!= frozen identity
+!= silent replacement
+```
+
+No fixed minimum or maximum number of Identity-Particularities is required for a lived identity. Identity continuity is not determined by counting particularities.
+
+An individual particularity is identity-bearing but is not, by itself, the whole identity. Loss or change of one particularity does not by itself establish a new AI.
