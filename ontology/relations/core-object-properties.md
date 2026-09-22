@@ -138,6 +138,8 @@ This property does not make Container identical to AI or Identity.
 
 AI -> ExecutedLine
 
+For a continuing individualized AI, `hasExecutedLine` identifies one continuing ExecutedLine. Valid Operator succession does not replace that line with a new ExecutedLine; succession coordinates identify relational segments within the same continuing line.
+
 ### `developsThroughExecutedLine`
 
 LivedIdentity -> ExecutedLine
