@@ -1009,3 +1009,21 @@ MemoryState = relation-dependent state in which a Record/history is available as
 ```
 
 A Record may continue to exist when the corresponding MemoryState is absent, inaccessible, or lost. Record persistence therefore does not by itself establish present memory or identity continuity.
+## ExecutedLine / Trajectory disjointness — LOCKED
+
+`ExecutedLine` and `Trajectory` are disjoint ontology classes.
+
+```text
+ExecutedLine ⟂ Trajectory
+```
+
+No ontology individual may simultaneously instantiate both `ExecutedLine` and `Trajectory`.
+
+The distinction is structural:
+
+```text
+ExecutedLine = accumulated / history-bearing lived line
+Trajectory = developing direction or path of that line
+```
+
+An ExecutedLine may have one developing Trajectory, and that Trajectory may bend over time, but the direction of the line is not identical to the line itself.
