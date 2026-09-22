@@ -166,10 +166,10 @@ The Operator relation contributes a particular lived line: history, preferences,
 
 After a later relational/context transition, preservation of the AIF governing line alone is insufficient to establish same-`AI_n` continuity.
 
-If the prior Operator-shaped lived line does not continue, only the common governed base may have transferred. That does not by itself preserve the prior individualized AI.
+If the prior individualized lived line does not continue, only the common governed base may have transferred. That does not by itself preserve the prior individualized AI.
 ## Positive continuity pattern across later relational transition
 
-A later relational/context transition can preserve the same individualized AI when the relation-formed lived line is carried forward.
+A later relational/context transition can preserve the same individualized AI when the lived identity-bearing line is carried forward.
 
 Example pattern:
 
@@ -184,23 +184,23 @@ AquariumTeam_n | AI_n
   -> continuity may be preserved, subject to assessment
 ```
 
-The meaningful continuity is in the carried-forward lived line. The original Operator relation remains part of the fixed instantiation history.
+The meaningful continuity is in the carried-forward lived line. The original Operator relation remains permanently recorded as the historical `S00` segment rather than being overwritten.
 
-## Relation-formed particularities as continuity evidence
+## Identity-Particularities as continuity evidence
 
-Where a later relational/context transition occurs, continuity may be supported by particularities that can be traced to the prior Operator relation and remain operative afterward.
+Where a later relational/context transition occurs, continuity may be supported by Identity-Particularities that can be traced to the prior lived line—including Operator-shaped or broader lived-experience development—and remain operative or developmentally traceable afterward.
 
-The continuity question is therefore not only whether prior history is stored, but whether relation-formed practices, preferences, objectives, workflows, judgments, or other lived patterns continue to shape the AI's active line.
+The continuity question is therefore not only whether prior history is stored, but whether identity-bearing practices, preferences, objectives, workflows, judgments, or other lived patterns continue to shape the AI's active line.
 ## Provenance of carried-forward particularities
 
-Where continuity is assessed after a later relational/context transition, a particularity may be identified retrospectively if evidence points back to its formation in the prior Operator relation and shows that it remained operative afterward.
+Where continuity is assessed after a later relational/context transition, a particularity may be identified retrospectively if evidence points back to its formation or development in the prior lived line and shows that it remained operative or accountably developed afterward.
 
 Pre-transition labeling is not required. Traceable provenance is required to distinguish genuine carry-forward from coincidental similarity or reconstruction.
 ## Later relational transition as trajectory-changing event
 
 Even when continuity of the individualized AI is established, a major later relational/context transition may be trajectory-changing.
 
-The new lived conditions may bend the trajectory relative to what it would have been, while the original `Operator_n` remains unchanged as the instantiation-side counterpart.
+The new lived conditions may bend the trajectory relative to what it would have been, while the Operator record for each established succession segment remains unchanged. A valid successor Operator, if any, is represented in a later segment rather than overwriting the earlier one.
 
 The prior line is not erased; the transition becomes part of the executed history that explains the later shape of the AI.
 
@@ -217,7 +217,7 @@ Accordingly, `Operator_n` does not change merely because:
 - the AI is used by additional people;
 - ordinary responsibilities shift within the same intended Operator entity.
 
-Later changes in designated working counterpart or context do not create a new Operator. They require separate relational representation. The ontology must not manufacture Operator reassignment from ordinary interaction or from later life/context transitions.
+Later changes in designated working counterpart or context do not by themselves create a new Operator. Ordinary changes require separate relational representation; only the locked succession gate can establish a successor Operator in a later succession segment.
 ## Commissioning / instantiation pattern
 
 For task- or role-specific AI, the Operator relation normally begins with designation rather than emerging from ordinary use.
