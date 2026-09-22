@@ -68,7 +68,7 @@ Inverse candidate: `isOperatorOf`.
 
 This property identifies the bearer of the AI's **currently active** Operator relation, when one exists. The bearer may be a Human or an Organization/company/team.
 
-At a given time, an AI has at most one active Operator. Historical Operators across valid succession are preserved on their respective OperatorAIRelation/succession segments rather than collapsed into one timeless value.
+At a given time, an AI has at most one active Operator. Each active Operator-linked succession segment `S##` has exactly one defined Operator bearer. Historical Operators across valid succession are preserved on their respective OperatorAIRelation/succession segments rather than collapsed into one timeless value.
 
 It does not confer Origin status, governance authority, Source-of-AI status, or Return-target status. The same Operator bearer may separately bear a scoped Source relation to a shared project or other downstream thing when the Source definition is independently satisfied.
 
