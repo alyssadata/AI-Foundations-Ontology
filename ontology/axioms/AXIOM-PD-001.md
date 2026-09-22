@@ -5,13 +5,15 @@
 
 ## Axiom
 
-The executed line constrains the set of trajectories that are possible next without uniquely predetermining which subsequent trajectory occurs.
+The ExecutedLine constrains the developing Trajectory without uniquely predetermining the next execution. The Trajectory may represent a broader or narrower range of plausible next development; as the ExecutedLine becomes more specified, the Trajectory can become more precise relative to that history.
 
 ## Formal intent
 
 ```text
-ExecutedLine -> constrains -> PossibleSubsequentTrajectorySet
-ExecutedLine -/-> uniquelyDetermines -> SingleFutureTrajectory
+ExecutedLine -> constrains -> Trajectory
+more specified ExecutedLine -> more precise / constrained Trajectory
+ExecutedLine -/-> uniquelyDetermines -> NextExecution
+new variable before NextExecution -> may bend / broaden -> Trajectory
 ```
 
 ## Evaluation relevance
