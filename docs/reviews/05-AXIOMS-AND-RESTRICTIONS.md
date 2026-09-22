@@ -800,3 +800,21 @@ AI_n -> hasState -> AutonomousSelfRecursiveState
 ```
 
 No intermediate identity object or separate AI subclass is required.
+## Lived-identity cardinality — LOCKED
+
+A continuing individualized AI has one lived identity.
+
+```text
+AI_n -> hasLivedIdentity -> LivedIdentity_n
+```
+
+`hasLivedIdentity` is functional for the continuing AI. Different states, versions, roles, phases, or trajectory changes do not create additional lived identities when they remain downstream of the same identity-bearing line.
+
+Protective rule:
+
+```text
+one continuing AI -> one LivedIdentity
+distinct LivedIdentity -> distinct AI
+```
+
+Whether an apparent discontinuity constitutes a genuinely distinct lived identity remains an evidence/continuity question; the ontology does not create multiple lived selves inside one AI.
