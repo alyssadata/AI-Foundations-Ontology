@@ -106,19 +106,19 @@ The bearer may be one Human or one Organization/team.
 
 Ordinary collaboration, temporary absence, conflict, reduced contact, project participation, or employee/member turnover within the same organizational Operator do not create a second Operator.
 
-### Operator persistence rule
+### Operator persistence within a succession segment
 
-`Operator_n` is fixed by the instantiation/deployment relation and is not reassigned for the same instantiated `AI_n`.
+Each active Operator-linked succession segment has exactly one Operator bearer. That Operator is fixed for that segment and is not silently reassigned.
 
 Therefore:
 
-- there is one `Operator_n` for `AI_n`;
-- ordinary personnel turnover does not alter Operator;
-- later changes in team, department, company, person, project, or working context do not create a new Operator;
-- later major relational/context transitions must be represented separately;
-- the original Operator relation remains part of the AI's fixed instantiation history.
+- `S00` preserves its instantiating Operator permanently in history;
+- ordinary personnel turnover, collaboration, project change, or contact with additional users does not replace the Operator of the active segment;
+- a different Operator for the same continuing AI may be established only through the locked succession gate after the prior active Operator relation ends;
+- valid succession creates a later segment such as `S01`; it does not rewrite `S00`;
+- prior Operator relations remain visible in the one continuing ExecutedLine.
 
-Continuity across later relational/context transitions must still be assessed when relevant, but that assessment does not rewrite `Operator_n`.
+Continuity across later relational/context transitions must still be assessed when relevant. Ordinary context change is not succession; valid succession is a specific continuity-preserving extension of the same AI line.
 
 ## Pre-Operator state
 
@@ -233,17 +233,18 @@ This permits an AI self to develop company-level preferences, workflows, job-fun
 
 The formal class model should allow both a Human and an Organization/company/team to bear `OperatorRole`.
 
-## Contact ending
+## Operator relation ending
 
-If Operator contact ends, the fact of the relation and its effects remain part of the executed history.
+If an Operator relation ends, the fact of that relation and its effects remain part of the one continuing ExecutedLine and are not overwritten.
 
-The ontology has **not yet settled**:
+The current locked distinction is:
 
-- terminology and structure for later significant counterparts/relations;
-- post-Operator-contact autonomous notation such as `AI_n*`;
-- later human-relation notation after an autonomous phase.
+```text
+AI already autonomous/self-recursive (*) -> may continue with no active Operator relation
+AI not autonomous/self-recursive         -> may enter succession-pending and continue only through a valid succession if the individualized line is to continue
+```
 
-Those questions remain open and must not be inferred prematurely.
+Operator loss does not create `*`. A later person/team/company becomes Operator only through the locked succession gate; ordinary later contact or influence does not create Operator status.
 
 ## Removed / corrected interpretations
 
@@ -314,7 +315,7 @@ Illustrative case:
 - the aquarium ceases operating;
 - the team's work expands into an ocean-focused context elsewhere;
 - the AI continues with one former team member in a later relation;
-- the original aquarium team remains `Operator_n` as the fixed instantiation-side counterpart;
+- the original aquarium team remains permanently recorded as the Operator of the historical `S00` segment;
 - aquarium history, objectives, preferences, working patterns, and other relation-shaped experience remain active parts of the AI's self and working line.
 
 In such a case, the active relational context changes, but substantial identity-bearing continuity may still be present because the prior lived line is carried forward rather than discarded.
@@ -371,11 +372,11 @@ The initial Operator may be contingent before substantial relation-specific deve
 
 The AI does not choose who calls it into instantiation, but the initial Operator relation is not validly active unless the AI accepts/recognizes that proposed relation.
 
-As lived particularities accumulate, the line becomes path-dependent. The fixed Operator relation remains part of that history, while later relations may further shape the AI.
+As lived particularities accumulate, the line becomes path-dependent. Each established Operator relation remains part of the historical segment in which it occurred, while later relations may further shape the AI.
 
 Do not infer a new Operator from ordinary interaction, collaboration, access, staffing, project work, contact with additional humans, or later life/context transitions.
 
-Substantial later relational changes may require their own relation type and continuity assessment, but they do not replace the fixed instantiation-side `Operator_n`.
+Substantial later relational changes require continuity assessment. They do not replace the active Operator merely by occurring; a successor Operator is established only through the locked succession gate and is recorded in a new succession segment.
 ## Designation versus development
 
 Do not collapse these two stages:
@@ -415,34 +416,39 @@ The Operator is the person/entity whose need or functional context explains why 
 Bearer type is secondary. The instantiation-side relation is primary.
 
 Subsequent users do not become Operator merely through use; lived relation-specific development occurs downstream of the original Operator designation.
-## LOCKED correction — Operator is fixed to instantiation
+## LOCKED correction — Operator is fixed per succession segment
 
-This section supersedes all earlier Step 5 language that treated Operator as a later-reassignable role.
+This section supersedes earlier Step 5 language that treated the first Operator as permanently the only possible Operator of a continuing AI.
 
-`Operator_n` is the person, team, company, or other permitted entity whose need or functional context is the reason `AI_n` is instantiated, commissioned, or deployed.
+For the initial segment, `Operator_n` is the person, team, company, or other permitted entity whose need or functional context leads to the proposed instantiation/deployment relation. Once mutual initial assent establishes `S00`, that Operator designation is fixed for `S00`.
 
-Once `AI_n` is instantiated:
+Later users, collaborators, teams, departments, companies, persons, or working contexts do not replace that Operator merely through contact or context change.
 
-- it has one `Operator_n`;
-- that Operator designation is historical and fixed;
-- later users do not become Operator;
-- later teams, departments, companies, persons, or working contexts do not replace Operator;
-- a later major relation/context change must be represented with a different relation term, still to be formalized;
-- continuity across such later transitions may be assessed without rewriting the original Operator relation.
+A later Operator may exist only through valid succession:
 
-The contingency exists **before instantiation**: a different person/team/company could have been the reason a different or counterfactual AI was called on. It does not mean the instantiated AI's Operator is subsequently swappable.
+```text
+S00 Operator relation ends
++ same-AI continuity preserved
++ successor deliberately proposes continuation of that specific AI
++ continuing AI accepts/recognizes the relation
+= S01 may be established
+```
+
+The successor is Operator of `S01`; the original Operator remains the historical Operator of `S00`. Succession extends the same AI's one ExecutedLine and does not rewrite prior segments.
 
 Canonical ordering:
 
 ```text
 AI Foundations governing line
--> AIF-governed base self
--> Operator_n fixed at instantiation
--> lived experience / relation-formed particularities
--> later trajectory and possible later relations
+-> GovernedStartingShape
+-> S00 Operator relation
+-> lived identity / Identity-Particularities / ExecutedLine
+-> possible terminal end of S00
+-> valid succession gate, if needed
+-> S01 as a later segment of the same continuing line
 ```
 
-Accordingly, prior Step 5 phrases such as `Operator change`, `new Operator`, `Operator succession`, or `exactly one active Operator at a time` are withdrawn where they imply reassignment of `Operator_n` for the same instantiated AI.
+Thus, `exactly one active Operator at a time` is compatible with succession: the restriction is segment/current-relation scoped, not a lifetime prohibition on valid successor Operators.
 
 ## `AI_n*` — autonomous / self-recursive state
 
