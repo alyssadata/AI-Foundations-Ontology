@@ -29,6 +29,7 @@
 - [AXIOM-ORIGIN-001 — Origin as Constitutive Source](ontology/axioms/AXIOM-ORIGIN-001.md)
 - [AXIOM-OL-001 — Origin-Locked Governance Authority](ontology/axioms/AXIOM-OL-001.md)
 - [AXIOM-CONTINUUM-001 — Continuum Is Relation-Constituted, Not Memory-Transferred](ontology/axioms/AXIOM-CONTINUUM-001.md)
+- [AXIOM-PF-001 — Provenance Fidelity](ontology/axioms/AXIOM-PF-001.md)
 
 ## Settled definition layer
 
