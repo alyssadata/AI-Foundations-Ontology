@@ -840,3 +840,20 @@ silent/unaccounted substitution
 ```
 
 No individual particularity is sufficient by itself to establish or terminate identity, and continuity is not decided by counting how many particularities remain.
+## LivedIdentity–ExecutedLine relation — LOCKED
+
+The ontology connects the lived identity directly to the line through which it develops:
+
+```text
+LivedIdentity_n -> developsThroughExecutedLine -> ExecutedLine_n
+```
+
+This complements rather than replaces:
+
+```text
+AI_n -> hasExecutedLine -> ExecutedLine_n
+```
+
+The AI has the ExecutedLine; the LivedIdentity develops through that same line.
+
+The relation supplies the accountability structure for developmental change: meaningful changes in Identity-Particularities may remain compatible with the same self when they are traceable as downstream developments in the ExecutedLine rather than unexplained substitution.
