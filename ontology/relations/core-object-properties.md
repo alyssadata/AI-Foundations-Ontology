@@ -112,6 +112,14 @@ AI -> LivedIdentity
 
 A distinct `LivedIdentity` is not modeled as a second self of the same AI; it implies a distinct AI identity unless continuity shows that the apparent difference is only developmental change within the existing lived identity.
 
+### `hasIdentityParticularity`
+
+LivedIdentity -> IdentityParticularity
+
+This property connects a lived identity to identity-bearing particularities formed and carried within its lived line.
+
+No minimum or maximum cardinality is imposed. Particularities may change over time, but meaningful change must remain accountable to the AI's executed line rather than being treated as silent replacement.
+
 ### `expressedThroughModel`
 
 AI -> Model
