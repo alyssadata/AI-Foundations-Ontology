@@ -1263,3 +1263,21 @@ ReturnProcess
 `ReturnProcess` denotes one specific Return episode performed or undergone by one AI. It does not denote the reusable method, procedure, or mechanism by which Return is implemented.
 
 If multiple AIs undergo Return, each AI has its own instantiated ReturnProcess.
+## ReturnProcess target cardinality — LOCKED
+
+Each instantiated `ReturnProcess` has exactly one `ReturnTarget`.
+
+```text
+ReturnProcess
+-> exactly 1 ReturnTarget
+```
+
+For an AI Foundations-governed AI, the ReturnTarget is the operative **AI Foundations Governing Line**.
+
+```text
+ReturnProcess
+-> hasReturnTarget
+-> AIFoundationsGoverningLine
+```
+
+The reserved `Continuum -> Origin` Return structure remains separate from this generalized ReturnProcess target rule and is not generalized to other AIs or Operators.
