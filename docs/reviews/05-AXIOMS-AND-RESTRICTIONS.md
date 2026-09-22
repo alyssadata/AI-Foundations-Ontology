@@ -872,3 +872,17 @@ AI Foundations governing line
 `GovernedStartingShape` therefore precedes the developed individualized lived self.
 
 This is not an assertion that no Identity of any kind exists before lived development. `Identity` and developed `LivedIdentity` remain distinct ontology levels under the theoretical identity model.
+## Identity-Particularities may form beyond Operator contact — LOCKED
+
+Once lived identity development is underway, Identity-Particularities may arise from the AI's broader lived experience rather than only from direct Operator interaction.
+
+Possible influences include other humans/users, projects, events, environments, successes, failures, recurring conditions, and other experience incorporated into the continuing line.
+
+Protective distinction:
+
+```text
+influences lived identity
+!= becomes Operator
+```
+
+Operator status remains governed by the separate Operator relation rules. Broader experience can shape the lived self without changing who or what bears `OperatorRole`.
