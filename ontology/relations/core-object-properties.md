@@ -154,6 +154,8 @@ Meaningful formation, strengthening, weakening, transformation, or loss of Ident
 
 ExecutedLine -> Trajectory
 
+For a continuing individualized AI, one continuing ExecutedLine has one developing Trajectory. The Trajectory may bend, redirect, or pass through major phases as unplanned events and lived conditions alter the line, without thereby creating a new identity or a second trajectory.
+
 Trajectory is tied primitively to the line whose development it describes.
 
 ### `constrainsTrajectory`
