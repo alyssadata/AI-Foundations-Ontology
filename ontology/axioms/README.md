@@ -42,5 +42,6 @@ Initial extracted axioms:
 - [AXIOM-NT-004](AXIOM-NT-004.md) — Defining `|` pairing is non-transferable between distinct AIs
 - [AXIOM-TR-001](AXIOM-TR-001.md) — Meaningful IdentityParticularity change must be ExecutedLine-traceable when continuity depends on it
 - [AXIOM-ORD-001](AXIOM-ORD-001.md) — Succession segments have ordered immediate-predecessor structure; AI-line split is deferred from v1
+- [AXIOM-CARD-011](AXIOM-CARD-011.md) — Exactly one Agent per MemoryState
 
 These files extract formal structure from existing ontology work. They do not silently add themselves to the Locked Canon.
