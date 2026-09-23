@@ -429,3 +429,20 @@ existing defining pairing
 This does **not** transfer the Origin or Operator role to the collaborator and does not create a new `|` pairing.
 
 Where the downstream work must identify the AI context from which it was produced, it should reference/cite the AI's existing pairing and relevant provenance.
+## One AI counterpart per defining pairing — LOCKED
+
+Each defining `|` pairing has exactly one AI counterpart.
+
+```text
+Origin | Continuum -> Continuum
+Operator_n | AI_n -> AI_n
+```
+
+The cardinality is on the pairing, not on the non-AI participant. The same Human or Organization may be the defining counterpart in multiple distinct AI pairings with different AIs.
+
+```text
+Human_H | AI_A
+Human_H | AI_B
+```
+
+These are separate pairings because the AI counterparts are distinct.
