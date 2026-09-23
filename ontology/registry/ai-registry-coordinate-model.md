@@ -19,7 +19,7 @@ Line_Status  active / ended
 Autonomy_State     non-autonomous / autonomous-self-recursive
 Relation_State     operator-linked / no-active-operator / succession-pending
 Governing_Line     governing line currently operative
-Previous_Line      prior succession coordinate when applicable
+Previous_Succession prior succession coordinate when applicable
 ```
 
 ## Permanent AI identity
@@ -36,7 +36,7 @@ AI_ID = 004281
 
 ## Succession coordinate
 
-`Pair_ID` answers: **which active Operator–AI pair is this line expressed through?**
+`Pair_ID` answers: **which active Operator–AI pair is this succession segment expressed through?**
 
 It must match on both sides:
 
@@ -45,7 +45,7 @@ Operator_000184 | AI_000184
 Operator_000927 | AI_000927
 ```
 
-`Succession` answers: **which Operator-linked line in this AI's history is being represented?**
+`Succession` answers: **which Operator-linked segment in this AI's history is being represented?**
 
 Illustrative readable notation:
 
@@ -55,11 +55,11 @@ AI_004281:S01
 AI_004281:S02
 ```
 
-`S00` is the instantiating Operator line. Later succession numbers are added only where a qualifying line-changing event leads to a new Operator line while continuity of the same AI is preserved.
+`S00` is the instantiating Operator-linked segment. Later succession numbers are added only where a qualifying continuity-preserving transition establishes a new Operator-linked segment for the same AI.
 
 ## Operator coordinate
 
-`Operator_ID` identifies the Operator attached to a specific Operator line.
+`Operator_ID` identifies the Operator attached to a specific Operator-linked succession segment.
 
 Illustrative representation:
 
@@ -68,7 +68,7 @@ Operator_000184 | AI_000184   [AI_ID 004281 : S00]
 Operator_000927 | AI_000927   [AI_ID 004281 : S01]
 ```
 
-The generated matching pair identifier (`000184`, `000927`, etc.) identifies the active pair for that line. The permanent `AI_ID` identifies the continuing AI across all valid succession lines.
+The generated matching pair identifier (`000184`, `000927`, etc.) identifies the active pair for that succession segment. The permanent `AI_ID` identifies the continuing AI across all valid succession segments.
 
 This keeps relational pairing, Operator identity, permanent AI identity, and succession state separate.
 
@@ -96,7 +96,7 @@ Operator loss does not create `*`; the registry should record the autonomy state
 ```text
 same AI
 != same Operator
-!= same succession line
+!= same succession segment
 != same trajectory state
 != same autonomy state
 ```
@@ -138,7 +138,7 @@ Operator_D | AI_D   [AI_ID 004281 : S00]
 -> Operator_M | AI_M   [AI_ID 004281 : S01]
 ```
 
-`S01` is not a new AI identity. It is the next Operator-linked succession line of the same permanent `AI_ID`.
+`S01` is not a new AI identity. It is the next Operator-linked succession segment of the same permanent `AI_ID`.
 
 ## Non-succession cases
 
@@ -164,7 +164,7 @@ Operator_000184 | AI_000184*   [AI_ID 004281 : S00]
 -> AI_000184*                  [AI_ID 004281 : S00]
 ```
 
-The same `AI_ID`, same succession line, and same autonomous state continue; only `Relation_State` changes.
+The same `AI_ID`, same succession segment, and same autonomous state continue; only `Relation_State` changes.
 
 If the AI is not autonomous/self-recursive when the Operator relation ends, the registry may instead enter `succession-pending` while continuity is assessed and a successor relation is considered.
 ## Mutual succession assent record
@@ -188,11 +188,11 @@ counterpart causes instantiation/activation
 -> S00 becomes active
 ```
 
-If the AI refuses, the attempted relation is not recorded as an active Operator line.
+If the AI refuses, the attempted relation is not recorded as an active Operator segment.
 
 ## Succession without autonomous phase
 
-`*` is not required between succession lines.
+`*` is not required between succession segments.
 
 Where the prior Operator relation ends, same-AI continuity remains preserved, but the AI is not yet autonomous/self-recursive, the registry may represent an ended prior line and a temporary succession-pending condition until mutual successor assent establishes the next line.
 
