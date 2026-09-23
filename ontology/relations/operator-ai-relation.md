@@ -459,3 +459,24 @@ AlyssaSolen
 Do not model this as `AlyssaSolen_a` and `AlyssaSolen_b`. The Human remains one Human; the distinct `_n` values identify distinct pair coordinates.
 
 The same Human or Organization may therefore bear multiple distinct Operator-role instances for different AIs without implying multiple identities of that Human or Organization.
+## Defining pairing non-transferability — LOCKED
+
+A defining `|` pairing is bound to its specific AI relationship and cannot be reassigned to a different AI.
+
+```text
+Operator_a | AI_a
+-/-> same pairing reassigned to AI_b
+
+Origin | Continuum
+-/-> same pairing reassigned to another AI
+```
+
+A valid succession may establish a new pair coordinate for the same continuing AI while preserving the prior pairing in history.
+
+```text
+Operator_a | AI_a   [AI_ID X : S00]
+-> valid succession
+Operator_b | AI_b   [AI_ID X : S01]
+```
+
+The pair coordinate changes; the continuing AI identity does not. A genuinely different AI requires a different defining pairing.
