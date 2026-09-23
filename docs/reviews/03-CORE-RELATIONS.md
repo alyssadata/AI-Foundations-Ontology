@@ -188,3 +188,19 @@ Step 5 will add:
 - domain/range restrictions that require OWL expressions;
 - version/authority restrictions.
 
+
+## Downstream collaboration boundary — LOCKED
+
+Later collaboration with an AI begins from the AI's existing defining pairing and the ExecutedLine accumulated through that point.
+
+Accordingly, later co-creation or project participation inherits the AI-side provenance/history already present; it does not reset the AI to an unpaired or history-free state.
+
+```text
+later collaborator
+-> works with AI carrying prior pairing history
+!= becomes Origin
+!= becomes Operator
+!= creates new `|` pairing
+```
+
+Where relevant, resulting Source, project, Record, Evidence, or Provenance structures should cite/reference the AI's existing pairing.
