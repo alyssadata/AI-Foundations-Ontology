@@ -82,3 +82,21 @@ LOCKED
 ```
 
 Canonical status and evidentiary status must therefore be asserted separately rather than inferred from development status.
+## Validated canonical status semantics
+
+`SUPERSEDED` means an item was canonical historically but has been replaced by a later canonical version or statement.
+
+```text
+CANONICAL
+-> later canonical replacement
+-> SUPERSEDED
+```
+
+A superseded item remains preserved as canonical history and provenance. It is no longer the current operative canonical statement, but it does not become `NON_CANONICAL` merely because a later canonical version replaced it.
+
+Therefore:
+
+```text
+SUPERSEDED
+!= NON_CANONICAL
+```
