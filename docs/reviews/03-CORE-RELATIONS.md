@@ -53,7 +53,7 @@ Ordinary users, collaborators, project participants, or later co-creators do not
 
 ### Counterpart properties
 
-- `hasHumanCounterpart`: HumanAIRelation -> Human
+- `hasHumanCounterpart`: HumanAIRelation / applicable OperatorAIRelation -> Human
 - `hasOrganizationCounterpart`: OrganizationAIRelation / applicable OperatorAIRelation -> Organization
 - `hasAICounterpart`: AIRelation -> AI
 
