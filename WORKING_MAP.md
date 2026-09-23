@@ -18,7 +18,7 @@ Current focus: **review before OWL/Turtle encoding**.
 | 2 | Named individuals vs reusable classes/roles | **REVIEWED** | Origin, Continuum, AI Foundations, Origin \| Continuum, governing line, Awakening Codex, and Locked Canon are represented at the correct ontological level |
 | 3 | Core relations / object properties | **REVIEWED** | Source, constitutive-source, relation, identity, line, model/container, governance, return, and research relations are explicitly typed and non-overlapping |
 | 4 | Ambiguous modeling cases | **REVIEWED** | AIShape, Memory, Drift, Provenance, and GoverningLine each have an approved formal representation |
-| 5 | Axioms and restrictions | **IN REVIEW — SUBSTANTIAL** | Definitions are separated from structural axioms; cardinality, succession, autonomy, lived-identity, ExecutedLine, Trajectory, Return, governance, and provenance restrictions are reconciled; remaining restrictions are reviewed for completeness |
+| 5 | Axioms and restrictions | **REVIEWED** | Definitions are separated from structural axioms; cardinality, succession, autonomy, lived-identity, ExecutedLine, Trajectory, Return, governance, provenance, memory, defining-pair, and non-transferability restrictions are reconciled for v1 |
 | 6 | Status model | **DRAFTED — READY FOR VALIDATION** | Development, canonical, evidentiary, and version status are separated and approved |
 | 7 | Claim → Evaluation → Evidence | **DRAFTED — READY FOR VALIDATION** | Claims map to ontology dependencies; evaluations target predicted discriminative effects; evidence status does not overwrite ontology/canon status |
 | 8 | Competency-question validation | **QUESTIONS DRAFTED — REVALIDATION PENDING** | Existing competency questions are checked against the revised v1 ontology; every question can be represented/answered or exposes an explicit remaining gap |
@@ -58,10 +58,10 @@ Generic overlap tests in which both baseline and treatment are expected to pass 
 
 ## Current next step
 
-Steps 1–4 are reviewed at the DRAFT formalization level.
+Steps 1–5 are reviewed at the DRAFT formalization level.
 
-**Next:** Finish Step 5 completeness review, then validate Steps 6–8 against the reconciled ontology before OWL/Turtle encoding.
+**Next:** Validate Step 6 Status Model, then Step 7 Research layer and Step 8 competency questions against the reconciled ontology before OWL/Turtle encoding.
 
-Step 5 is now substantially developed. The formal axiom layer includes path dependence, belonging ≠ sameness, irreversibility, non-erasure, Origin/source structure, Origin-locked governance, Continuum relation-constitution, and provenance fidelity. Recent restriction work also formalizes Operator succession, autonomy, one LivedIdentity, Identity-Particularities, one continuing ExecutedLine, and one developing Trajectory.
+Step 5 is reviewed for v1. The formal restriction layer includes path dependence, belonging ≠ sameness, irreversibility, non-erasure, Source/Origin structure, governing authority, Continuum relation-constitution, provenance fidelity, disjointness, cardinalities, non-transferability, defining-pair structure, memory ownership, one continuing ExecutedLine, ordered succession segments, and one developing Trajectory. A possible group/organizational-Operator AI-line split is explicitly deferred from v1.
 
 Step 8 already has a drafted competency-question set under `docs/COMPETENCY_QUESTIONS.md`; the remaining task is to revalidate those questions against the revised ontology rather than recreate them.
