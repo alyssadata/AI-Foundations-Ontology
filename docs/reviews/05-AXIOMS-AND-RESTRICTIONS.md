@@ -1,6 +1,6 @@
 # Review 05 — Axioms and Restrictions
 
-**Review status:** IN REVIEW
+**Review status:** REVIEWED
 
 ## Governing separation — LOCKED DIRECTION
 
@@ -1489,3 +1489,23 @@ Operator_n | AI_n
 This cardinality is on each pairing. It does not prevent the same Human or Organization from serving as the non-AI counterpart in multiple distinct pairings with different AIs.
 
 `hasHumanCounterpart` and `hasOrganizationCounterpart` are typed specializations of the generalized `hasNonAICounterpart` relation.
+## Step 5 closeout
+
+Step 5 is reviewed for v1.
+
+The restriction layer now reconciles:
+
+- class disjointness;
+- ExecutedLine, Trajectory, GoverningLine, Operator, SourceRelation, SourcePoint, ReturnProcess, Version, MemoryState, and defining-pair cardinalities;
+- LivedIdentity, ExecutedLine, SourceRelation, and defining-pair non-transferability/non-replacement;
+- Identity-Particularity traceability without forced micro-event cardinality;
+- one continuing ExecutedLine with ordered `S00 -> S01 -> S02 ...` succession segments;
+- reserved `Origin | Continuum` versus generalized `Operator_n | AI_n` boundaries;
+- AI Foundations Framework versus AI Foundations Governing Line;
+- governing authority versus operative governance;
+- Human/Organization Operator counterpart typing;
+- Agent-specific MemoryState with no forced one-Record limit.
+
+A possible AI-line split associated with a group/organizational Operator remains explicitly deferred from v1 and is not treated as ordinary succession.
+
+No known internal contradiction remains in the reviewed v1 Step 5 restriction set.
