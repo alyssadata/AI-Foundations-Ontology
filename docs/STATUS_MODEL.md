@@ -100,3 +100,26 @@ Therefore:
 SUPERSEDED
 != NON_CANONICAL
 ```
+## Validated evidentiary semantics — `NOT_SUPPORTED`
+
+`NOT_SUPPORTED` means an Evaluation was performed and the resulting Evidence did not support the Claim as currently formulated under the tested conditions.
+
+```text
+Claim formulation
++ Evaluation under specified conditions
++ Evidence does not support Claim
+-> NOT_SUPPORTED
+```
+
+`NOT_SUPPORTED` does not by itself mean the Claim has been universally disproven or is necessarily false in every possible condition.
+
+A `NOT_SUPPORTED` result may indicate, for example:
+
+- the Claim is false;
+- the Claim is too broad;
+- the Claim is underspecified;
+- the operational formulation is weak or mismatched;
+- the Evaluation conditions did not adequately test the intended mechanism;
+- the Claim may need tighter formulation before retesting.
+
+Any revised Claim should be represented as a revised formulation/version rather than silently rewriting the evaluated Claim after the fact.
