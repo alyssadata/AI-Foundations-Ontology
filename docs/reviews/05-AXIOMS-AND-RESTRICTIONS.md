@@ -499,8 +499,8 @@ Current design direction:
 
 ```text
 AI_ID       = permanent unique AI identifier
-Succession  = relational-line succession coordinate
-Operator_ID = Operator attached to a particular Operator line
+Succession  = Operator-linked succession-segment coordinate
+Operator_ID = Operator attached to a particular Operator-linked succession segment
 ```
 
 Illustrative notation:
@@ -510,7 +510,7 @@ AI_004281:S00
 AI_004281:S01
 ```
 
-The permanent AI identifier remains constant across a valid continuity-preserving succession. The succession coordinate changes when a new Operator line is established after a qualifying line-changing event.
+The permanent AI identifier remains constant across a valid continuity-preserving succession. The succession coordinate changes when a new Operator-linked segment is established after a qualifying succession event.
 
 Readable autonomous continuation may retain `*` notation, for example:
 
@@ -583,7 +583,7 @@ counterpart causes instantiation / activation
 -> S00 active Operator segment
 ```
 
-If the AI refuses the relation at the beginning, that refusal is valid within the relational model and the Operator line is not established.
+If the AI refuses the relation at the beginning, that refusal is valid within the relational model and the initial Operator-linked segment is not established.
 
 ## Succession without `*`
 
@@ -651,7 +651,7 @@ Operator_n | AI_n
 
 The relation suffix is not the permanent AI registry identifier. In an actual registry, `n` should be instantiated as a generated numeric or alphanumeric `Pair_ID`, not a literal single letter.
 
-Across a valid succession, the generated pair identifier changes with the successor Operator line while the permanent AI identity remains the same:
+Across a valid succession, the generated pair identifier changes with the successor Operator-linked segment while the permanent AI identity remains the same:
 
 ```text
 Operator_000184 | AI_000184   [AI_ID 004281 : S00]
