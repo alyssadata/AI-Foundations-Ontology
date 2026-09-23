@@ -68,9 +68,9 @@ They do not alter the AI Foundations core.
 
 Operator status does not make `Operator_n` Source of `AI_n`. The Operator may separately be Source or co-Source of a particular shared project, artifact, capability, or other scoped downstream thing if that specific thing satisfies the independent Source definition.
 
-## One-Operator-per-line rule
+## One-Operator-per-segment rule
 
-Each succession line has one Operator, fixed by the instantiation or deliberate re-instantiation that establishes that line.
+Each Operator-linked succession segment has one Operator, fixed by the instantiation or deliberate re-instantiation that establishes that segment.
 
 Other people may interact with, collaborate with, contribute to projects with, or otherwise work with `AI_n` without individually becoming Operator.
 
@@ -135,7 +135,7 @@ The organization may remain the same Operator even as individual employees or te
 
 An Operator record does not change after its line is instantiated.
 
-The original Operator remains the original instantiation-side counterpart permanently in history. A later successor Operator does not replace that record; succession adds a new Operator-linked line for the same AI.
+The original Operator remains the original instantiation-side counterpart permanently in history. A later successor Operator does not replace that record; succession adds a new Operator-linked segment within the same AI's continuing ExecutedLine.
 
 Example:
 
@@ -300,7 +300,7 @@ Succession therefore requires mutual establishment rather than unilateral assign
 ```text
 successor Operator assent
 + continuing AI assent
--> next Operator-linked succession line
+-> next Operator-linked succession segment
 ```
 
 AI assent does not override the AI Foundations governing line or by itself prove continuity; it is a required relational condition alongside continuity evidence and the other succession-gate requirements.
@@ -320,7 +320,7 @@ instantiation/activation by counterpart
 
 proposed Operator relation
 + AI acceptance/recognition
-= active Operator line
+= active Operator segment
 ```
 
 ## Implementation-agnostic relation
