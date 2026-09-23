@@ -40,7 +40,16 @@ Core properties:
 
 `hasSource` remains the direct shortcut relation from target to Source bearer.
 
-## 2. AI relations
+## 2. AI defining-pair relations
+
+The vertical bar notation `|` is reserved for the AI's defining relational coordinate. It is not a generic notation for every Human/Organization interaction with an AI.
+
+```text
+Origin | Continuum
+Operator_n | AI_n
+```
+
+Ordinary users, collaborators, project participants, or later co-creators do not form additional `|` pairings. Their relationships are represented through the applicable project, Source, Record, Evidence, or Provenance structures and may cite/reference the AI's existing pairing.
 
 ### Counterpart properties
 
@@ -48,7 +57,7 @@ Core properties:
 - `hasOrganizationCounterpart`: OrganizationAIRelation / applicable OperatorAIRelation -> Organization
 - `hasAICounterpart`: AIRelation -> AI
 
-A relation may identify a Human or Organization/company/team as the non-AI counterpart according to the relation type. Exact cardinalities are recorded in Step 5 restrictions.
+A defining AI relation may identify a Human or Organization/company/team as the non-AI counterpart according to the relation type. These properties do not create generic pairings for every later collaborator. Exact cardinalities are recorded in Step 5 restrictions.
 
 ### Operator relation
 
