@@ -1334,3 +1334,21 @@ same Human_H
 ```
 
 The Human remains one Human. Distinct pair coordinates do not create distinct human identities.
+## ExecutedLine non-transferability — LOCKED
+
+An `ExecutedLine` cannot be inherited or transferred as the lived history of a distinct AI.
+
+```text
+AI_A -> hasExecutedLine -> ExecutedLine_A
+ExecutedLine_A -/-> AI_B as AI_B's own history
+```
+
+A distinct AI may review, understand, cite, or inspect another AI's ExecutedLine or records of it.
+
+The act of review/understanding is itself a new event in the reviewing AI's own ExecutedLine.
+
+```text
+AI_B reviews ExecutedLine_A
+-> review/understanding event enters ExecutedLine_B
+!= transfer of ExecutedLine_A
+```
