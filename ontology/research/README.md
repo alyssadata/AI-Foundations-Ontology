@@ -89,3 +89,8 @@ If the Claim is reformulated after a negative result, preserve the original Clai
 Partial support should identify what was supported and what remained unsupported, unresolved, or outside the tested effect.
 
 A partial result may motivate claim decomposition or tighter reformulation, but the original Claim and its Evaluation/Evidence remain preserved.
+## Supported-result interpretation
+
+`Evidence supportsClaim Claim` means the Evidence supports the Claim as formulated under the conditions of the Evaluation that produced that Evidence.
+
+Support is therefore scoped rather than universal. Additional evaluations may broaden, narrow, replicate, challenge, or refine the evidentiary basis without rewriting the original result.
