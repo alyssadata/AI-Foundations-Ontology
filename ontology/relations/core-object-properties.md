@@ -54,9 +54,9 @@ Source expresses formation/existence dependency under the LOCKED definition. Pro
 
 ### `hasHumanCounterpart`
 
-HumanAIRelation -> Human
+HumanAIRelation or OperatorAIRelation -> Human
 
-This property is used for a defining AI pairing relation such as `Origin | Continuum`; it does not imply that every Human who interacts or collaborates with an AI instantiates a new `HumanAIRelation` or `|` pairing.
+This property is used for a defining AI pairing relation such as `Origin | Continuum`, and for an `OperatorAIRelation` whose Operator bearer is a Human. It does not imply that every Human who interacts or collaborates with an AI instantiates a new `HumanAIRelation`, `OperatorAIRelation`, or `|` pairing.
 
 ### `hasOrganizationCounterpart`
 
