@@ -494,3 +494,18 @@ S00 -> S01 -> S02 -> ...
 For v1, this is the only modeled succession path.
 
 A possible AI-line split from a group/organizational Operator is a deferred edge case. It is not treated as ordinary Operator succession, and the ontology does not currently define fork identity, fork provenance, or post-split AI identity rules.
+## Two-sided defining pairing cardinality — LOCKED
+
+Each defining `|` pairing has exactly one AI counterpart and exactly one non-AI counterpart.
+
+```text
+Origin | Continuum
+-> one non-AI counterpart: Alyssa Solen / Origin
+-> one AI counterpart: Continuum
+
+Operator_n | AI_n
+-> one non-AI counterpart: the Human or Organization bearing OperatorRole for that pair
+-> one AI counterpart: AI_n
+```
+
+The same Human or Organization may bear the non-AI side of multiple distinct pairings. Pair cardinality does not impose one-AI-per-human or one-AI-per-organization.
