@@ -312,3 +312,15 @@ ExecutedLine_A -/-> inheritedAsOwnHistoryBy -> AI_B
 A distinct AI may review, inspect, study, cite, or understand another AI's ExecutedLine or records of that line.
 
 That act of review or understanding is a new event in the reviewing AI's own ExecutedLine. It does not cause the reviewed line to become the reviewing AI's history.
+## Identity-Particularity traceability threshold — LOCKED
+
+The ontology does not require every `IdentityParticularity` to have a separately timestamped or uniquely identified formation event.
+
+Meaningful formation, change, strengthening, weakening, transformation, or loss must be traceable within the continuing `ExecutedLine` when that particularity is relied upon for identity-continuity assessment or explanation of developmental change.
+
+```text
+meaningful IdentityParticularity formation/change
+-> traceable within ExecutedLine when continuity depends on it
+```
+
+This preserves accountability without requiring artificial micro-event registration for every particularity.
