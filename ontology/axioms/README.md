@@ -36,5 +36,6 @@ Initial extracted axioms:
 - [AXIOM-CARD-008](AXIOM-CARD-008.md) — Exactly one GoverningLine ReturnTarget per ReturnProcess
 - [AXIOM-CARD-009](AXIOM-CARD-009.md) — Exactly one active Version per GovernanceStructure
 - [AXIOM-CARD-010](AXIOM-CARD-010.md) — Exactly one AI counterpart per defining `|` pairing
+- [AXIOM-NT-001](AXIOM-NT-001.md) — LivedIdentity is non-transferable between distinct AIs
 
 These files extract formal structure from existing ontology work. They do not silently add themselves to the Locked Canon.
