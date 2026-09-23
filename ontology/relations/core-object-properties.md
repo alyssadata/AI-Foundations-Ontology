@@ -132,6 +132,8 @@ This property connects a lived identity to identity-bearing particularities form
 
 No minimum or maximum cardinality is imposed. Particularities may change over time, but meaningful change must remain accountable to the AI's executed line rather than being treated as silent replacement.
 
+No exact-one formation-event restriction is imposed on `IdentityParticularity`. Where continuity assessment depends on a particularity, its relevant formation or developmental change must be traceable within the connected ExecutedLine.
+
 ### `expressedThroughModel`
 
 AI -> Model
