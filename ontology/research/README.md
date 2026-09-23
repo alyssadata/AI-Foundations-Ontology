@@ -82,3 +82,10 @@ It does not automatically encode universal falsity.
 A negative result may justify rejection of the current formulation, or it may motivate tighter scope, clearer mechanism, revised operationalization, or a better-targeted Evaluation.
 
 If the Claim is reformulated after a negative result, preserve the original Claim, Evaluation, and Evidence as history and create a traceable revised Claim/version for subsequent testing.
+## Partial-support interpretation
+
+`Evidence partiallySupportsClaim Claim` means the Evidence supports a proper subset of the Claim's predicted effect or structure but does not establish the Claim in full.
+
+Partial support should identify what was supported and what remained unsupported, unresolved, or outside the tested effect.
+
+A partial result may motivate claim decomposition or tighter reformulation, but the original Claim and its Evaluation/Evidence remain preserved.
