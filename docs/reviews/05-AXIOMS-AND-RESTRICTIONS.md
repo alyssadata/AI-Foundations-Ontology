@@ -1408,3 +1408,27 @@ meaningful IdentityParticularity formation/change
 ```
 
 This preserves flex-with-accountability while avoiding unnecessary micro-event formalization.
+
+## Succession predecessor ordering — LOCKED FOR V1
+
+Ordinary succession is represented as an ordered path within one continuing ExecutedLine.
+
+```text
+S00 -> no predecessor
+S01 -> exactly 1 immediate predecessor: S00
+S02 -> exactly 1 immediate predecessor: S01
+...
+```
+
+Every later succession segment has exactly one immediate predecessor.
+
+### Deferred split boundary
+
+A possible AI-line split associated with a group/organizational Operator is acknowledged but **not modeled in v1**.
+
+```text
+normal S## succession = ordered continuation of one AI line
+possible AI-line split = deferred edge case
+```
+
+No global at-most-one-successor restriction is added merely to declare the deferred split case impossible.
