@@ -72,3 +72,13 @@ ontology inclusion != canonical status != empirical support
 ```
 
 A Claim can be represented before it is canonical or supported. An Evaluation can test a noncanonical or theoretical Claim. Evidence can be preserved regardless of whether it supports the Claim.
+
+## Negative-result interpretation
+
+`Evidence doesNotSupportClaim Claim` records a negative evidentiary result for the Claim as formulated and tested.
+
+It does not automatically encode universal falsity.
+
+A negative result may justify rejection of the current formulation, or it may motivate tighter scope, clearer mechanism, revised operationalization, or a better-targeted Evaluation.
+
+If the Claim is reformulated after a negative result, preserve the original Claim, Evaluation, and Evidence as history and create a traceable revised Claim/version for subsequent testing.
