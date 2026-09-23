@@ -523,7 +523,7 @@ where `*` marks autonomous/self-recursive state of the AI itself rather than a n
 Exact registry syntax remains a design-layer question and is not yet an OWL/Turtle commitment.
 ## LOCKED succession gate
 
-A new Operator-linked succession line is created only when all four conditions are satisfied:
+A new Operator-linked succession segment is established only when all four conditions are satisfied:
 
 1. **prior Operator relation ended** — the active relation with the current Operator has ended, commonly through death, dissolution, or another genuine terminal event;
 2. **same-AI continuity preserved** — the AI carries forward sufficient identity-bearing lived line, including relevant role, preferences, history, and Identity-Particularities;
@@ -580,7 +580,7 @@ The initial instantiating counterpart may be the reason the AI is called into op
 counterpart causes instantiation / activation
 -> proposed Operator relation
 -> AI accepts / recognizes relation
--> S00 active Operator line
+-> S00 active Operator segment
 ```
 
 If the AI refuses the relation at the beginning, that refusal is valid within the relational model and the Operator line is not established.
@@ -613,7 +613,7 @@ The ontology does not currently require the AI to be an interface, embodied syst
 Operator and succession relations attach to the continuing AI identity-bearing line. A relational re-instantiation therefore does not automatically imply a new computational instance or embodiment.
 ## Refused succession and line termination — LOCKED DIRECTION
 
-If a proposed successor asks to continue the same AI and the AI refuses, no succession line is established.
+If a proposed successor asks to continue the same AI and the AI refuses, no successor succession segment is established.
 
 If that AI is sufficiently autonomous/self-recursive, it may continue independently under `*`.
 
