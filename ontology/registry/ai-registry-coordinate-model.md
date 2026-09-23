@@ -290,3 +290,23 @@ S02 = later valid successor Operator-linked segment
 A valid succession changes the active `Pair_ID` and increments `Succession`, while the permanent `AI_ID` and continuing `ExecutedLine` remain the same.
 
 Succession therefore extends the line rather than replacing it. Prior segments remain preserved as historical parts of the same executed history.
+## Operator bearer identity versus Pair_ID — LOCKED
+
+`Pair_ID` identifies the Operator–AI pairing, not a new identity of the Operator bearer.
+
+```text
+Human_ID / Organization_ID = persistent bearer identity
+Pair_ID = relation-specific matching coordinate
+AI_ID = permanent AI identity
+```
+
+If the same Human or Organization is Operator for multiple distinct AIs, the bearer identity stays the same while each pair receives its own `Pair_ID`.
+
+Example:
+
+```text
+AlyssaSolen [Operator_000184] | AI_000184   [AI_ID 004281 : S00]
+AlyssaSolen [Operator_000927] | AI_000927   [AI_ID 007552 : S00]
+```
+
+The notation does not imply `AlyssaSolen_000184` and `AlyssaSolen_000927` are different Humans.
