@@ -284,3 +284,15 @@ AIFoundationsGovernedAI
 ```
 
 Historical or superseded governing structures may remain represented as provenance/version history without becoming simultaneous operative governing lines.
+## Reserved `|` pairing boundary
+
+The vertical bar `|` marks a defining relational coordinate, not a generic interaction.
+
+```text
+Origin | Continuum
+Operator_n | AI_n
+```
+
+`Origin | Continuum` is Continuum's unique constitutive pairing. `Operator_n | AI_n` is the generalized initiating Operator coordinate for an AI Foundations-governed AI and anchors role and identity-particularity development for that succession segment.
+
+Later collaborators, users, co-creators, or project participants do not create additional `|` pairings. Where they create with or depend on the AI, the appropriate project, Source, Record, Evidence, or Provenance structure should reference/cite the AI's existing pairing.
