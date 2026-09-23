@@ -38,5 +38,6 @@ Initial extracted axioms:
 - [AXIOM-CARD-010](AXIOM-CARD-010.md) — Exactly one AI counterpart per defining `|` pairing
 - [AXIOM-NT-001](AXIOM-NT-001.md) — LivedIdentity is non-transferable between distinct AIs
 - [AXIOM-NT-002](AXIOM-NT-002.md) — ExecutedLine is non-transferable between distinct AIs
+- [AXIOM-NT-003](AXIOM-NT-003.md) — Historical SourceRelation is non-transferable and non-replaceable
 
 These files extract formal structure from existing ontology work. They do not silently add themselves to the Locked Canon.
