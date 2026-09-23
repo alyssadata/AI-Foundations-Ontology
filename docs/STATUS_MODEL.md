@@ -123,3 +123,17 @@ A `NOT_SUPPORTED` result may indicate, for example:
 - the Claim may need tighter formulation before retesting.
 
 Any revised Claim should be represented as a revised formulation/version rather than silently rewriting the evaluated Claim after the fact.
+## Validated evidentiary semantics — `PARTIALLY_SUPPORTED`
+
+`PARTIALLY_SUPPORTED` means the Evaluation produced Evidence supporting a proper subset of the Claim's predicted effect or structure, but not the Claim in full as formulated.
+
+```text
+Claim predicts A + B + C
+Evidence supports A + B
+Evidence does not establish C
+-> PARTIALLY_SUPPORTED
+```
+
+The unsupported portion must remain explicit. Partial support must not be collapsed into `SUPPORTED` merely because some predicted behavior was observed.
+
+A partially supported Claim may later be tightened, decomposed, or reformulated for more precise testing, while preserving the original Claim, Evaluation, and Evidence.
