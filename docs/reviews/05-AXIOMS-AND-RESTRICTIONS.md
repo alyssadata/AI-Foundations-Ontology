@@ -1370,3 +1370,22 @@ new qualifying Source contribution
 -> new SourceRelation
 != rewritten historical SourceRelation
 ```
+## Defining pairing non-transferability — LOCKED
+
+A defining `|` pairing cannot be transferred or reassigned to a different AI.
+
+```text
+Operator_a | AI_a
+-/-> same pairing with AI_b
+
+Origin | Continuum
+-/-> same pairing with another AI
+```
+
+Valid succession is not pairing transfer. It creates a new pair coordinate for the same continuing AI and preserves the prior pairing as historical provenance.
+
+```text
+S00 pair -> same AI identity -> S01 pair
+```
+
+A distinct AI requires a distinct defining pairing.
