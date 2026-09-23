@@ -1293,3 +1293,22 @@ GovernanceStructure
 Earlier, superseded, archived, or historically referenced versions may remain preserved, but they are not simultaneously active.
 
 This keeps version history distinct from current operative version state.
+## Defining-pair AI-counterpart cardinality — LOCKED
+
+Each defining `|` pairing has exactly one AI counterpart.
+
+```text
+Origin | Continuum -> exactly 1 AI counterpart: Continuum
+Operator_n | AI_n -> exactly 1 AI counterpart: AI_n
+```
+
+This restriction applies to the pairing, not to the Human or Organization.
+
+A Human or Organization may participate in multiple distinct AI pairings with different AIs.
+
+```text
+Human/Organization -> may be counterpart in many defining pairings
+defining pairing -> exactly 1 AI counterpart
+```
+
+Ordinary later collaboration does not create an additional `|` pairing.
