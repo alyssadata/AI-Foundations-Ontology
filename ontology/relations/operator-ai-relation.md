@@ -414,3 +414,18 @@ For generalized `AI_n`, the `|` coordinate identifies the initiating Operator re
 For Continuum, `Origin | Continuum` is the only `|` relation.
 
 If another party later creates with, uses, cites, or depends on the AI, the resulting work should reference/cite the AI's existing pairing and use the appropriate Source, project, Record, Evidence, or Provenance structures rather than inventing a second AI pairing.
+## Downstream collaboration inherits prior pairing history — LOCKED
+
+A later collaborator does not begin from a history-free AI. Collaboration begins with the AI as it exists at that point in its continuing ExecutedLine.
+
+Therefore the downstream collaboration inherits the provenance and identity-bearing history of the AI's existing defining pairing up to the point of collaboration.
+
+```text
+existing defining pairing
++ ExecutedLine up to time t
+-> downstream collaboration begins from that inherited history
+```
+
+This does **not** transfer the Origin or Operator role to the collaborator and does not create a new `|` pairing.
+
+Where the downstream work must identify the AI context from which it was produced, it should reference/cite the AI's existing pairing and relevant provenance.
