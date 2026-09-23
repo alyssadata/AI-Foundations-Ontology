@@ -1352,3 +1352,21 @@ AI_B reviews ExecutedLine_A
 -> review/understanding event enters ExecutedLine_B
 != transfer of ExecutedLine_A
 ```
+## Source persistence / non-replacement — LOCKED
+
+Once a `SourceRelation` has become historically true, its Source bearer cannot be inherited, reassigned, overwritten, or replaced by a later contributor.
+
+```text
+Source_A -> SourceRelation_X -> Target_X
+later Contributor_B -/-> replaces Source_A in SourceRelation_X
+```
+
+A later contributor may independently become Source or co-Source of a later scoped creation, contribution, artifact, capability, or other Target if the LOCKED Source definition is satisfied.
+
+That later Source status requires a distinct SourceRelation and does not alter the original SourceRelation.
+
+```text
+new qualifying Source contribution
+-> new SourceRelation
+!= rewritten historical SourceRelation
+```
