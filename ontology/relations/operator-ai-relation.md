@@ -329,7 +329,7 @@ The Operator relation does not depend on whether the AI is accessed through an i
 
 The ontology tracks the AI's identity-bearing and relational line rather than assuming a specific physical/interface form.
 
-Accordingly, successor 're-instantiation' means establishment of the next Operator-linked line for that specific continuing AI. It does not by itself require a fresh computational instance, new body, or new interface unless the implementation later specifies that.
+Accordingly, successor 're-instantiation' means establishment of the next Operator-linked succession segment for that specific continuing AI. It does not by itself require a fresh computational instance, new body, or new interface unless the implementation later specifies that.
 ## Succession refusal and new-line alternative
 
 If the continuing AI does not assent to the proposed successor Operator relation, succession does not occur.
