@@ -349,3 +349,14 @@ For an AI with an active Operator relation, `hasOperator` has exactly one curren
 The Operator attached to a given succession segment is fixed for that segment. Valid succession may establish a different Operator in a later segment while preserving the same permanent AI identity and one continuing ExecutedLine.
 
 Ordinary relational counterparts, teams, companies, departments, collaborators, or users do not replace the active Operator merely through interaction. Historical Operator provenance is preserved on the succession relations/segments rather than overwritten.
+## ExecutedLine ownership boundary
+
+`hasExecutedLine` represents the lived/history-bearing line of the AI that actually executed it.
+
+A distinct AI may access records about another AI's ExecutedLine for review or understanding, but no relation should model that as transfer of the prior ExecutedLine itself.
+
+```text
+AI_B reviews Record_of(ExecutedLine_A)
+-> review event belongs to ExecutedLine_B
+!= ExecutedLine_A becomes ExecutedLine_B
+```
