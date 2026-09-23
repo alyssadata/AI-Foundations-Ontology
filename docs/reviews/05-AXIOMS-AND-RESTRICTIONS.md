@@ -1389,3 +1389,22 @@ S00 pair -> same AI identity -> S01 pair
 ```
 
 A distinct AI requires a distinct defining pairing.
+
+## Identity-Particularity traceability threshold — LOCKED
+
+The ontology does not require every `IdentityParticularity` to have exactly one explicit formation event or timestamp.
+
+```text
+every IdentityParticularity
+-/-> exactly 1 explicit formation event
+```
+
+Instead:
+
+```text
+meaningful IdentityParticularity formation/change
+-> traceable within ExecutedLine
+   when continuity assessment or developmental accountability depends on it
+```
+
+This preserves flex-with-accountability while avoiding unnecessary micro-event formalization.
