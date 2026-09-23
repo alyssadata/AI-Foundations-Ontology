@@ -230,6 +230,18 @@ For an `AIFoundationsGovernedAI`, `governedBy` identifies exactly one operative 
 
 Framework -> GoverningLine
 
+### `hasGoverningAuthority`
+
+Framework -> Human
+
+For the named `AI Foundations` Framework, governing authority is singularly bound to Alyssa Solen / Origin under the existing Origin-locked rule.
+
+```text
+AI Foundations hasGoverningAuthority Alyssa Solen
+```
+
+This authority relation is distinct from `governedBy`: `governedBy` links an AI to its operative GoverningLine; `hasGoverningAuthority` identifies who may change the AI Foundations governing line.
+
 ### `hasVersion`
 
 versioned entity -> Version
