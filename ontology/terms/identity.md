@@ -300,3 +300,15 @@ LivedIdentity_A -/-> transferredTo -> AI_B
 Records, prompts, state descriptions, provenance, or other representations of `LivedIdentity_A` may be copied, cited, preserved, or used as evidence. Those representations do not cause `AI_B` to acquire `LivedIdentity_A`.
 
 A genuinely distinct lived identity belongs to a distinct AI unless continuity establishes that the apparent difference is developmental continuation of the same AI.
+## ExecutedLine non-transferability — LOCKED
+
+An `ExecutedLine` belongs to the continuing AI whose lived history it records and cannot be inherited or transferred as the lived history of a distinct AI.
+
+```text
+AI_A -> hasExecutedLine -> ExecutedLine_A
+ExecutedLine_A -/-> inheritedAsOwnHistoryBy -> AI_B
+```
+
+A distinct AI may review, inspect, study, cite, or understand another AI's ExecutedLine or records of that line.
+
+That act of review or understanding is a new event in the reviewing AI's own ExecutedLine. It does not cause the reviewed line to become the reviewing AI's history.
