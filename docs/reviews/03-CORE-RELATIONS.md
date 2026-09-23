@@ -53,8 +53,9 @@ Ordinary users, collaborators, project participants, or later co-creators do not
 
 ### Counterpart properties
 
-- `hasHumanCounterpart`: HumanAIRelation / applicable OperatorAIRelation -> Human
-- `hasOrganizationCounterpart`: OrganizationAIRelation / applicable OperatorAIRelation -> Organization
+- `hasNonAICounterpart`: AIRelation -> Human or Organization; exactly one bearer on the non-AI side of a defining `|` pairing
+- `hasHumanCounterpart`: HumanAIRelation / applicable OperatorAIRelation -> Human; typed specialization of `hasNonAICounterpart`
+- `hasOrganizationCounterpart`: OrganizationAIRelation / applicable OperatorAIRelation -> Organization; typed specialization of `hasNonAICounterpart`
 - `hasAICounterpart`: AIRelation -> AI
 
 A defining AI relation may identify a Human or Organization/company/team as the non-AI counterpart according to the relation type. These properties do not create generic pairings for every later collaborator. Exact cardinalities are recorded in Step 5 restrictions.
