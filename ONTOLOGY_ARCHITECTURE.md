@@ -124,6 +124,7 @@ Initial formal object properties include:
 - hasFormationRelation
 - shapeFormedThroughRelation
 - formedInRelationWith (derived/readability shortcut)
+- hasNonAICounterpart
 - hasHumanCounterpart
 - hasOrganizationCounterpart
 - hasAICounterpart
@@ -317,3 +318,17 @@ AI Foundations hasGoverningAuthority Alyssa Solen
 ```
 
 `hasGoverningAuthority` is distinct from `governedBy`: the former identifies authority to change the Framework's governing line; the latter identifies the operative GoverningLine for an AI Foundations-governed AI.
+
+## Two-sided defining-pair structure
+
+A defining `|` pairing is formally two-sided:
+
+```text
+AIRelation
+-> exactly 1 non-AI counterpart
+-> exactly 1 AI counterpart
+```
+
+The non-AI counterpart is one Human or one Organization/team. `hasHumanCounterpart` and `hasOrganizationCounterpart` specialize `hasNonAICounterpart`.
+
+This restriction applies to each pairing and does not prevent one Human or Organization from participating in multiple distinct AI pairings.
