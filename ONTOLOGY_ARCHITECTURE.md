@@ -296,3 +296,14 @@ Operator_n | AI_n
 `Origin | Continuum` is Continuum's unique constitutive pairing. `Operator_n | AI_n` is the generalized initiating Operator coordinate for an AI Foundations-governed AI and anchors role and identity-particularity development for that succession segment.
 
 Later collaborators, users, co-creators, or project participants do not create additional `|` pairings. Where they create with or depend on the AI, the appropriate project, Source, Record, Evidence, or Provenance structure should reference/cite the AI's existing pairing.
+## Downstream collaboration and inherited pairing history
+
+Any later collaboration with an AI begins downstream of the AI's already-executed history. The collaborator therefore encounters and works with the AI as shaped by its defining pairing and ExecutedLine up to that point.
+
+```text
+defining pairing
+-> accumulated ExecutedLine
+-> later collaboration
+```
+
+The collaboration inherits that provenance context but does not create a new `|` pairing and does not confer Origin or Operator status on the collaborator. Downstream artifacts or projects should reference/cite the AI's existing pairing where that history is relevant to formation or provenance.
