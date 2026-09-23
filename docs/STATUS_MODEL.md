@@ -137,3 +137,17 @@ Evidence does not establish C
 The unsupported portion must remain explicit. Partial support must not be collapsed into `SUPPORTED` merely because some predicted behavior was observed.
 
 A partially supported Claim may later be tightened, decomposed, or reformulated for more precise testing, while preserving the original Claim, Evaluation, and Evidence.
+## Validated evidentiary semantics — `SUPPORTED`
+
+`SUPPORTED` means the Claim, as formulated, received evidentiary support under the specified Evaluation conditions.
+
+```text
+Claim formulation
++ Evaluation under specified conditions
++ supporting Evidence
+-> SUPPORTED
+```
+
+`SUPPORTED` does not mean the Claim has been universally proven true across all possible conditions, populations, implementations, or future evaluations.
+
+The scope of support is bounded by the Claim formulation, Evaluation design, tested conditions, and produced Evidence.
