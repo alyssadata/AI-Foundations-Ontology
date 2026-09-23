@@ -254,6 +254,10 @@ MemoryState -> Record
 
 MemoryState -> Agent
 
+Each `MemoryState` is memory for exactly one `Agent`. The same `Record` may be available to multiple Agents, but each Agent's relation to that Record is represented through its own MemoryState rather than a shared MemoryState.
+
+No exactly-one cardinality is imposed here on `memoryOfRecord`; a MemoryState may relate to one or more relevant Records depending on implementation and scope.
+
 Memory remains distinct from Record and storage.
 
 ## Provenance
