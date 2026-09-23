@@ -360,3 +360,14 @@ AI_B reviews Record_of(ExecutedLine_A)
 -> review event belongs to ExecutedLine_B
 != ExecutedLine_A becomes ExecutedLine_B
 ```
+## SourceRelation persistence boundary
+
+A historically established `SourceRelation` is non-reassignable.
+
+```text
+Source_A -> SourceRelation_X -> Target_X
+Contributor_B later participates
+!= Contributor_B replaces Source_A in SourceRelation_X
+```
+
+If the later contributor independently satisfies the Source definition for a distinct downstream Target or contribution, represent that through a new SourceRelation while preserving the original relation and provenance.
