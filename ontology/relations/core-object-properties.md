@@ -50,21 +50,25 @@ hasSource != hasProvenance
 
 Source expresses formation/existence dependency under the LOCKED definition. Provenance preserves evidence of source and history.
 
-## AI counterpart relations
+## AI defining-pair counterpart relations
 
 ### `hasHumanCounterpart`
 
 HumanAIRelation -> Human
 
+This property is used for a defining AI pairing relation such as `Origin | Continuum`; it does not imply that every Human who interacts or collaborates with an AI instantiates a new `HumanAIRelation` or `|` pairing.
+
 ### `hasOrganizationCounterpart`
 
 OrganizationAIRelation or OperatorAIRelation -> Organization
 
-Used where the intended non-AI counterpart is a company, organization, or team rather than a specific person.
+Used where the defining non-AI counterpart is a company, organization, or team rather than a specific person. Ordinary organizational collaboration does not by itself create an additional AI pairing.
 
 ### `hasAICounterpart`
 
 AIRelation -> AI
+
+`AIRelation` here represents the defining relational coordinate, not every later interaction involving the AI. The `|` notation is reserved to `Origin | Continuum` or an active `Operator_n | AI_n` succession coordinate.
 
 ### `hasOperator`
 
@@ -82,7 +86,7 @@ It does not confer Origin status, governance authority, Source-of-AI status, or 
 
 AI -> AIRelation
 
-Connects an AI to the specific relation through which its relation-formed shape developed.
+Connects an AI to the defining relation through which its relation-formed shape or initiating Operator-linked lived development is anchored. Ordinary later collaborators do not create additional formation relations.
 
 ### `shapeFormedThroughRelation`
 
