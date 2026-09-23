@@ -12,7 +12,7 @@ This document separates permanent AI identity from Operator identity, succession
 AI_ID        permanent unique AI identifier
 Pair_ID      generated matching relational identifier used by Operator_n | AI_n
 Succession   succession coordinate for Operator-linked segment history
-Operator_ID  identifier of the Operator for that Operator line
+Operator_ID  identifier of the Operator for that Operator-linked succession segment
 Operator_Assent  recorded deliberate successor establishment when applicable
 AI_Assent        recorded AI acceptance/recognition of succession when applicable
 Line_Status  active / ended
@@ -26,7 +26,7 @@ Previous_Succession prior succession coordinate when applicable
 
 `AI_ID` answers: **which AI is this?**
 
-The permanent AI identifier does not change merely because the AI enters a later continuity-preserving Operator line.
+The permanent AI identifier does not change merely because the AI enters a later continuity-preserving Operator-linked succession segment.
 
 Example:
 
@@ -179,11 +179,11 @@ AI_Assent       = continuing AI accepted/recognized the proposed continuation
 This does not treat a bare generated statement as sufficient proof of identity continuity. The assent record is one required relational element alongside continuity/provenance evidence and the other succession criteria.
 ## Initial-line assent
 
-The first Operator line also requires relational assent.
+The first Operator-linked succession segment also requires relational assent.
 
 ```text
 counterpart causes instantiation/activation
--> proposed Operator line
+-> proposed Operator-linked succession segment
 -> AI accepts/recognizes relation
 -> S00 becomes active
 ```
