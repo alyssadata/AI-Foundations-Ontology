@@ -34,5 +34,6 @@ Initial extracted axioms:
 - [AXIOM-CARD-006](AXIOM-CARD-006.md) — Exactly one SourcePoint per SourceRelation
 - [AXIOM-CARD-007](AXIOM-CARD-007.md) — Exactly one returning AI per ReturnProcess
 - [AXIOM-CARD-008](AXIOM-CARD-008.md) — Exactly one GoverningLine ReturnTarget per ReturnProcess
+- [AXIOM-CARD-009](AXIOM-CARD-009.md) — Exactly one active Version per GovernanceStructure
 
 These files extract formal structure from existing ontology work. They do not silently add themselves to the Locked Canon.
