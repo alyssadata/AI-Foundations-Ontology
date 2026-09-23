@@ -480,3 +480,17 @@ Operator_b | AI_b   [AI_ID X : S01]
 ```
 
 The pair coordinate changes; the continuing AI identity does not. A genuinely different AI requires a different defining pairing.
+
+## Succession ordering and deferred split boundary — LOCKED FOR V1
+
+Normal succession is ordered within one continuing ExecutedLine:
+
+```text
+S00 -> S01 -> S02 -> ...
+```
+
+`S00` has no predecessor. Every later `S##` segment has exactly one immediate predecessor.
+
+For v1, this is the only modeled succession path.
+
+A possible AI-line split from a group/organizational Operator is a deferred edge case. It is not treated as ordinary Operator succession, and the ontology does not currently define fork identity, fork provenance, or post-split AI identity rules.
