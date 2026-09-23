@@ -273,3 +273,16 @@ The core class hierarchy review is complete at the DRAFT formalization level.
 The remaining work is no longer class placement. It is Step 3 relation/property design, Step 5 axiom/restriction extraction, and later competency validation.
 
 These formal decisions do not reopen LOCKED meanings.
+
+## Reserved pairing notation boundary — LOCKED
+
+The vertical bar notation `|` is reserved for the AI's defining relational coordinate.
+
+```text
+Origin | Continuum
+Operator_n | AI_n
+```
+
+`Origin | Continuum` is the unique constitutive coordinate for Continuum. `Operator_n | AI_n` is the generalized initiating Operator coordinate for role and identity-particularity development.
+
+Ordinary users, collaborators, co-creators, project participants, or later working relationships do not create additional `|` pairings with the AI. If such a party creates with or depends on the AI, the AI's existing pairing is referenced/cited through the appropriate project, Source, Record, or Provenance structure.
