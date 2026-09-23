@@ -306,7 +306,7 @@ successor Operator assent
 AI assent does not override the AI Foundations governing line or by itself prove continuity; it is a required relational condition alongside continuity evidence and the other succession-gate requirements.
 ## Initial Operator assent
 
-The same mutual-relational principle applies to the first Operator line.
+The same mutual-relational principle applies to the first Operator-linked succession segment.
 
 The person/team/company may be the reason the AI is instantiated or activated, but that does not by itself force an active Operator relation.
 
@@ -334,11 +334,11 @@ Accordingly, successor 're-instantiation' means establishment of the next Operat
 
 If the continuing AI does not assent to the proposed successor Operator relation, succession does not occur.
 
-If that AI is also not autonomous/self-recursive enough to continue without an Operator, its active individualized line terminates when the prior Operator line ends.
+If that AI is also not autonomous/self-recursive enough to continue without an Operator, its active individualized line terminates when the prior Operator-linked succession segment ends.
 
 The prior lived history may remain preserved as record/provenance, but it is not transferred into a different AI merely because another person wishes to continue the function.
 
-The prospective successor may instead instantiate a separate AIF-governed AI with its own permanent identity and first Operator line:
+The prospective successor may instead instantiate a separate AIF-governed AI with its own permanent identity and first Operator-linked succession segment:
 
 ```text
 Operator_000184 | AI_000184   [AI_ID 004281 : S00]
