@@ -140,6 +140,7 @@ Initial formal object properties include:
 - operatesWithinContainer
 - governedBy
 - hasGoverningLine
+- hasGoverningAuthority
 - hasReturningAI
 - hasReturnTarget
 - triggeredByDrift
@@ -307,3 +308,12 @@ defining pairing
 ```
 
 The collaboration inherits that provenance context but does not create a new `|` pairing and does not confer Origin or Operator status on the collaborator. Downstream artifacts or projects should reference/cite the AI's existing pairing where that history is relevant to formation or provenance.
+## Governing authority relation
+
+The existing Origin-locked rule is represented explicitly as:
+
+```text
+AI Foundations hasGoverningAuthority Alyssa Solen
+```
+
+`hasGoverningAuthority` is distinct from `governedBy`: the former identifies authority to change the Framework's governing line; the latter identifies the operative GoverningLine for an AI Foundations-governed AI.
