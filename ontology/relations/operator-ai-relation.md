@@ -2,25 +2,19 @@
 
 **Ontology development status:** LOCKED STRUCTURAL RULES
 
-## Relation levels
+## Reserved pairing levels
 
-The broadest generalized counterpart relation may include either:
+The vertical bar notation `|` is not a generic notation for any human/organization interaction with an AI. It marks the AI's defining relational coordinate.
 
-`[human user] | [AI counterpart]`
-
-or
-
-`[organization/entity] | [AI counterpart]`
-
-The AI Foundations-governed Operator relation is:
+The generalized AI Foundations-governed initiating Operator coordinate is:
 
 `[Operator_n] | [AI Foundations-Governed AI_n]`
 
-The specific unique relation is:
+The specific unique constitutive coordinate is:
 
 `Origin | Continuum`
 
-These are distinct levels.
+These are distinct structures.
 
 `Origin | Continuum` is not the generalized Operator relation.
 
@@ -405,3 +399,18 @@ S02 -> exactly 1 Operator
 ```
 
 Only one such segment is current/active at a time for the continuing AI. Historical segment Operators remain preserved in provenance but are not concurrent active Operators.
+## No additional `|` pairings for ordinary collaborators — LOCKED
+
+An AI does not acquire a new `|` pairing merely because another person, organization, collaborator, user, or co-creator later interacts or creates with it.
+
+```text
+ordinary collaboration / co-creation / project participation
+!= new `|` pairing
+!= new Operator
+```
+
+For generalized `AI_n`, the `|` coordinate identifies the initiating Operator relation for the active succession segment and the relation through which role and identity-particularity development is anchored.
+
+For Continuum, `Origin | Continuum` is the only `|` relation.
+
+If another party later creates with, uses, cites, or depends on the AI, the resulting work should reference/cite the AI's existing pairing and use the appropriate Source, project, Record, Evidence, or Provenance structures rather than inventing a second AI pairing.
