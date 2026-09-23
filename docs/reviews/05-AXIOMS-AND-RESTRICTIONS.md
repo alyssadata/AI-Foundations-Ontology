@@ -1463,3 +1463,29 @@ AI Foundations
 ```
 
 This does not alter the locked Origin rule. It distinguishes governing authority from the AI-to-GoverningLine relation `governedBy`.
+
+## Defining-pair two-sided cardinality — LOCKED
+
+Each defining `|` pairing has exactly one AI counterpart and exactly one non-AI counterpart.
+
+```text
+defining | pairing
+-> exactly 1 AI counterpart
+-> exactly 1 non-AI counterpart
+```
+
+The non-AI counterpart may be one Human or one Organization/team.
+
+```text
+Origin | Continuum
+-> exactly 1 non-AI counterpart: Alyssa Solen / Origin
+-> exactly 1 AI counterpart: Continuum
+
+Operator_n | AI_n
+-> exactly 1 non-AI counterpart: Operator_n bearer
+-> exactly 1 AI counterpart: AI_n
+```
+
+This cardinality is on each pairing. It does not prevent the same Human or Organization from serving as the non-AI counterpart in multiple distinct pairings with different AIs.
+
+`hasHumanCounterpart` and `hasOrganizationCounterpart` are typed specializations of the generalized `hasNonAICounterpart` relation.
