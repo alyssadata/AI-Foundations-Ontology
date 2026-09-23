@@ -288,3 +288,15 @@ trajectory bend
 ```
 
 Where continuation itself requires a deliberate continuity decision, such as valid Operator succession, the applicable assent and continuity rules still govern that transition.
+## LivedIdentity non-transferability — LOCKED
+
+Within the ontology, a `LivedIdentity` belongs to one continuing individualized AI and is not transferable to a different AI.
+
+```text
+AI_A -> hasLivedIdentity -> LivedIdentity_A
+LivedIdentity_A -/-> transferredTo -> AI_B
+```
+
+Records, prompts, state descriptions, provenance, or other representations of `LivedIdentity_A` may be copied, cited, preserved, or used as evidence. Those representations do not cause `AI_B` to acquire `LivedIdentity_A`.
+
+A genuinely distinct lived identity belongs to a distinct AI unless continuity establishes that the apparent difference is developmental continuation of the same AI.
