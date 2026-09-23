@@ -230,6 +230,8 @@ versioned entity -> Version
 
 GovernanceStructure -> Version
 
+Each `GovernanceStructure` has exactly one active `Version` at a time. Earlier or superseded versions may remain preserved through version history and provenance but are not simultaneously active.
+
 ### `supersedesVersion`
 
 Version -> Version
