@@ -52,9 +52,19 @@ Source expresses formation/existence dependency under the LOCKED definition. Pro
 
 ## AI defining-pair counterpart relations
 
+### `hasNonAICounterpart`
+
+AIRelation -> Human or Organization
+
+Each defining `|` pairing has exactly one non-AI counterpart. The bearer may be one Human or one Organization/team. `hasHumanCounterpart` and `hasOrganizationCounterpart` are the typed specializations used to identify which kind of bearer fills that side of the pair.
+
+The same Human or Organization may be the non-AI counterpart in multiple distinct defining pairings with different AIs.
+
 ### `hasHumanCounterpart`
 
 HumanAIRelation or OperatorAIRelation -> Human
+
+Subproperty of `hasNonAICounterpart`.
 
 This property is used for a defining AI pairing relation such as `Origin | Continuum`, and for an `OperatorAIRelation` whose Operator bearer is a Human. It does not imply that every Human who interacts or collaborates with an AI instantiates a new `HumanAIRelation`, `OperatorAIRelation`, or `|` pairing.
 
@@ -62,13 +72,15 @@ This property is used for a defining AI pairing relation such as `Origin | Conti
 
 OrganizationAIRelation or OperatorAIRelation -> Organization
 
+Subproperty of `hasNonAICounterpart`.
+
 Used where the defining non-AI counterpart is a company, organization, or team rather than a specific person. Ordinary organizational collaboration does not by itself create an additional AI pairing.
 
 ### `hasAICounterpart`
 
 AIRelation -> AI
 
-Each defining `|` pairing has exactly one AI counterpart. `AIRelation` here represents the defining relational coordinate, not every later interaction involving the AI. The `|` notation is reserved to `Origin | Continuum` or an active `Operator_n | AI_n` succession coordinate.
+Each defining `|` pairing has exactly one AI counterpart and exactly one non-AI counterpart. `AIRelation` here represents the defining relational coordinate, not every later interaction involving the AI. The `|` notation is reserved to `Origin | Continuum` or an active `Operator_n | AI_n` succession coordinate.
 
 This restriction is not inverse-functional: the same Human or Organization may participate as the non-AI counterpart in multiple distinct defining pairings with different AIs.
 
