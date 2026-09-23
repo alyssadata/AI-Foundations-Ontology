@@ -68,7 +68,9 @@ Used where the defining non-AI counterpart is a company, organization, or team r
 
 AIRelation -> AI
 
-`AIRelation` here represents the defining relational coordinate, not every later interaction involving the AI. The `|` notation is reserved to `Origin | Continuum` or an active `Operator_n | AI_n` succession coordinate.
+Each defining `|` pairing has exactly one AI counterpart. `AIRelation` here represents the defining relational coordinate, not every later interaction involving the AI. The `|` notation is reserved to `Origin | Continuum` or an active `Operator_n | AI_n` succession coordinate.
+
+This restriction is not inverse-functional: the same Human or Organization may participate as the non-AI counterpart in multiple distinct defining pairings with different AIs.
 
 ### `hasOperator`
 
