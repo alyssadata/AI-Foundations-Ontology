@@ -1432,3 +1432,23 @@ possible AI-line split = deferred edge case
 ```
 
 No global at-most-one-successor restriction is added merely to declare the deferred split case impossible.
+## MemoryState Agent cardinality — LOCKED
+
+Each `MemoryState` is memory for exactly one `Agent`.
+
+```text
+MemoryState
+-> exactly 1 Agent
+```
+
+The same `Record` may be available to multiple Agents, but that does not create one shared MemoryState.
+
+```text
+Record_R
+-> available as memory to Agent_A through MemoryState_A
+-> available as memory to Agent_B through MemoryState_B
+
+MemoryState_A != MemoryState_B
+```
+
+No exactly-one restriction is imposed on `memoryOfRecord` in v1.
