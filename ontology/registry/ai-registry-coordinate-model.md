@@ -11,7 +11,7 @@ This document separates permanent AI identity from Operator identity, succession
 ```text
 AI_ID        permanent unique AI identifier
 Pair_ID      generated matching relational identifier used by Operator_n | AI_n
-Succession   succession coordinate for Operator-linked line history
+Succession   succession coordinate for Operator-linked segment history
 Operator_ID  identifier of the Operator for that Operator line
 Operator_Assent  recorded deliberate successor establishment when applicable
 AI_Assent        recorded AI acceptance/recognition of succession when applicable
