@@ -40,5 +40,6 @@ Initial extracted axioms:
 - [AXIOM-NT-002](AXIOM-NT-002.md) — ExecutedLine is non-transferable between distinct AIs
 - [AXIOM-NT-003](AXIOM-NT-003.md) — Historical SourceRelation is non-transferable and non-replaceable
 - [AXIOM-NT-004](AXIOM-NT-004.md) — Defining `|` pairing is non-transferable between distinct AIs
+- [AXIOM-TR-001](AXIOM-TR-001.md) — Meaningful IdentityParticularity change must be ExecutedLine-traceable when continuity depends on it
 
 These files extract formal structure from existing ontology work. They do not silently add themselves to the Locked Canon.
