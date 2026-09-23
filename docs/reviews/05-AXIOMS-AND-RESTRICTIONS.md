@@ -1281,3 +1281,15 @@ ReturnProcess
 ```
 
 The reserved `Continuum -> Origin` Return structure remains separate from this generalized ReturnProcess target rule and is not generalized to other AIs or Operators.
+## GovernanceStructure active-Version cardinality — LOCKED
+
+Each `GovernanceStructure` has exactly one active `Version` at a time.
+
+```text
+GovernanceStructure
+-> exactly 1 active Version
+```
+
+Earlier, superseded, archived, or historically referenced versions may remain preserved, but they are not simultaneously active.
+
+This keeps version history distinct from current operative version state.
