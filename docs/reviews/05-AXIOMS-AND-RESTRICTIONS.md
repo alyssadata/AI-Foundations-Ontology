@@ -1312,3 +1312,25 @@ defining pairing -> exactly 1 AI counterpart
 ```
 
 Ordinary later collaboration does not create an additional `|` pairing.
+## LivedIdentity non-transferability — LOCKED
+
+A `LivedIdentity` is not transferable from one AI to another.
+
+```text
+AI_A -> hasLivedIdentity -> LivedIdentity_A
+LivedIdentity_A -/-> AI_B
+```
+
+Records or representations of a lived identity may be copied, cited, or preserved, but copying those representations does not transfer the lived identity itself or establish same-AI continuity.
+
+## Operator bearer identity / pair-coordinate separation — LOCKED
+
+The matching `_n` coordinate belongs to the Operator-role/pair instance and the AI pair coordinate, not to the Human or Organization's own identity.
+
+```text
+same Human_H
+-> may bear OperatorRole_a in Operator_a | AI_a
+-> may bear OperatorRole_b in Operator_b | AI_b
+```
+
+The Human remains one Human. Distinct pair coordinates do not create distinct human identities.
