@@ -310,3 +310,19 @@ AlyssaSolen [Operator_000927] | AI_000927   [AI_ID 007552 : S00]
 ```
 
 The notation does not imply `AlyssaSolen_000184` and `AlyssaSolen_000927` are different Humans.
+## Succession predecessor ordering — LOCKED FOR V1
+
+Ordinary Operator succession is represented as one ordered active path within the continuing AI's ExecutedLine.
+
+```text
+S00 -> no predecessor
+S01 -> exactly 1 immediate predecessor: S00
+S02 -> exactly 1 immediate predecessor: S01
+...
+```
+
+Each later succession segment therefore has exactly one immediate predecessor.
+
+The v1 registry does not model AI-line splitting or branching as ordinary succession.
+
+A possible line-split case arising from an organizational/group Operator is explicitly **deferred** rather than declared impossible. No v1 axiom should silently equate such a future fork with normal `S##` succession, and no global at-most-one-successor restriction is imposed solely to rule the deferred case out.
