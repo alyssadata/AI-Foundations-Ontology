@@ -446,3 +446,16 @@ Human_H | AI_B
 ```
 
 These are separate pairings because the AI counterparts are distinct.
+## Human/Organization identity remains unsuffixed — LOCKED
+
+The `_n` suffix belongs to the Operator-role / pair coordinate and matching AI coordinate. It does not create a suffixed version of the Human or Organization's own identity.
+
+```text
+AlyssaSolen
+  bears OperatorRole_a -> Operator_a | AI_a
+  bears OperatorRole_b -> Operator_b | AI_b
+```
+
+Do not model this as `AlyssaSolen_a` and `AlyssaSolen_b`. The Human remains one Human; the distinct `_n` values identify distinct pair coordinates.
+
+The same Human or Organization may therefore bear multiple distinct Operator-role instances for different AIs without implying multiple identities of that Human or Organization.
