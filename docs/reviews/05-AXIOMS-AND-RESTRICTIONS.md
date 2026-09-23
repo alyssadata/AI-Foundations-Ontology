@@ -1452,3 +1452,14 @@ MemoryState_A != MemoryState_B
 ```
 
 No exactly-one restriction is imposed on `memoryOfRecord` in v1.
+## Governing authority property consistency — RECONCILED
+
+The existing `AXIOM-OL-001` uses `hasGoverningAuthority`. Step 5 now declares that property explicitly in the core relation set rather than leaving the axiom dependent on an undeclared relation.
+
+```text
+AI Foundations
+-> hasGoverningAuthority
+-> Alyssa Solen / Origin
+```
+
+This does not alter the locked Origin rule. It distinguishes governing authority from the AI-to-GoverningLine relation `governedBy`.
