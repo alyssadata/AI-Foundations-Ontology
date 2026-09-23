@@ -188,7 +188,7 @@ A Claim is an evaluable proposition and may depend on one or more Axioms, terms,
 - Executed line -> ExecutedLine
 - Trajectory -> Trajectory
 - Source-line -> SourceLine
-- Memory -> MemoryState: the relation-dependent shape of a Record to a person/AI, distinct from the Record and from storage
+- Memory -> MemoryState: the relation-dependent shape of Record/history to a person/AI, distinct from the Record(s) and from storage
 - Memory loss -> MemoryLossState: the condition in which that memory-shape is absent or inaccessible even if the Record persists
 - Impaired self-recognition -> State
 - Drift -> paired formalization: DriftProcess for the attempted external alteration and DriftedState for the resulting condition when drift occurs
@@ -201,7 +201,7 @@ A Claim is an evaluable proposition and may depend on one or more Axioms, terms,
 
 ### Memory
 
-Memory is modeled as a relation-dependent State rather than as Record or storage. Formal properties in Step 3 will connect a MemoryState to the entity for whom it is memory and to the Record/history it presents.
+Memory is modeled as a relation-dependent State rather than as Record or storage. Formal properties connect a MemoryState to exactly one Agent for whom it is memory and to the Record/history it presents. No exact-one Record cardinality is implied.
 
 Memory loss is modeled primarily as a State/condition. A transition into memory loss may be represented separately as an Event when needed.
 
