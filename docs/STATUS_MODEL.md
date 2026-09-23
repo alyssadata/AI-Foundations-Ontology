@@ -66,3 +66,19 @@ A definition can be LOCKED for ontology development while NON_CANONICAL and NOT_
 A canonical statement can be CANONICAL while still explicitly theoretical or NOT_EVALUATED.
 
 An empirical result can support a claim without changing the claim's canonical status.
+
+## Validated rule — development status is independent
+
+`LOCKED` is a development-status value only.
+
+It means the ontology wording or structure has been settled for the applicable version and should not be silently rewritten during formalization.
+
+It does not by itself confer canonical authority or empirical support.
+
+```text
+LOCKED
+!= CANONICAL
+!= SUPPORTED
+```
+
+Canonical status and evidentiary status must therefore be asserted separately rather than inferred from development status.
