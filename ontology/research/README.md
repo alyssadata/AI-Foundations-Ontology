@@ -65,6 +65,12 @@ A test in which baseline and treatment are both expected to pass for the same re
 
 This does not guarantee that the treatment must outperform baseline. A properly targeted test may still produce a negative result.
 
+## External mechanism boundary: cross-model state transfer
+
+Cross-model KV-cache transfer is a state-transfer mechanism and does not, by itself, establish identity or continuity. It provides an experimental condition in which context-dependent computational state can be transferred across model substrates without textual replay. AI Foundations may use this condition to test whether proposed continuity invariants survive substrate change independently of prompt reconstruction.
+
+**Reference:** [Heo et al., *Cross-Model KV Cache Transfer in LLM Families: A Closed-Form Linear Mapping for Prefill Reuse* (NVIDIA, 2026), arXiv:2608.03893](https://arxiv.org/abs/2608.03893)
+
 ## Boundary from canon
 
 ```text
