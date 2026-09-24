@@ -151,3 +151,16 @@ Claim formulation
 `SUPPORTED` does not mean the Claim has been universally proven true across all possible conditions, populations, implementations, or future evaluations.
 
 The scope of support is bounded by the Claim formulation, Evaluation design, tested conditions, and produced Evidence.
+## Validated evidentiary semantics — `NOT_EVALUATED`
+
+`NOT_EVALUATED` means no qualifying Evaluation has yet produced an evidentiary result for the Claim.
+
+```text
+Claim
++ no qualifying evidentiary result yet
+-> NOT_EVALUATED
+```
+
+`NOT_EVALUATED` does not imply that the Claim is weak, unsupported, false, or unlikely to be supported.
+
+It records only that no evidentiary determination has yet been made.
