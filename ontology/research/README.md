@@ -94,3 +94,8 @@ A partial result may motivate claim decomposition or tighter reformulation, but 
 `Evidence supportsClaim Claim` means the Evidence supports the Claim as formulated under the conditions of the Evaluation that produced that Evidence.
 
 Support is therefore scoped rather than universal. Additional evaluations may broaden, narrow, replicate, challenge, or refine the evidentiary basis without rewriting the original result.
+## Not-yet-evaluated interpretation
+
+A Claim with evidentiary status `NOT_EVALUATED` has no qualifying evidentiary determination yet.
+
+This status carries no negative inference about the Claim. It is distinct from `NOT_SUPPORTED`, which requires that an Evaluation was actually performed and produced Evidence that did not support the Claim as formulated.
