@@ -164,3 +164,36 @@ Claim
 `NOT_EVALUATED` does not imply that the Claim is weak, unsupported, false, or unlikely to be supported.
 
 It records only that no evidentiary determination has yet been made.
+## Validated version-status separation
+
+Version state is independent of development, canonical, and evidentiary status.
+
+```text
+Version_2 supersedes Version_1
+Version_1 remains preserved
+Version_2 may be the active version
+```
+
+Being the active version means that version is currently operative for the applicable structure.
+
+It does not by itself imply:
+
+```text
+ACTIVE VERSION = CANONICAL
+ACTIVE VERSION = SUPPORTED
+```
+
+Canonical authority and evidentiary support must remain separately asserted.
+
+## Step 6 closeout
+
+The Status Model is reviewed for v1.
+
+The four independent dimensions are:
+
+1. development status;
+2. canonical status;
+3. evidentiary status;
+4. version status.
+
+No one dimension should be inferred automatically from another.
