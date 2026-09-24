@@ -19,7 +19,7 @@ Current focus: **review before OWL/Turtle encoding**.
 | 3 | Core relations / object properties | **REVIEWED** | Source, constitutive-source, relation, identity, line, model/container, governance, return, and research relations are explicitly typed and non-overlapping |
 | 4 | Ambiguous modeling cases | **REVIEWED** | AIShape, Memory, Drift, Provenance, and GoverningLine each have an approved formal representation |
 | 5 | Axioms and restrictions | **REVIEWED** | Definitions are separated from structural axioms; cardinality, succession, autonomy, lived-identity, ExecutedLine, Trajectory, Return, governance, provenance, memory, defining-pair, and non-transferability restrictions are reconciled for v1 |
-| 6 | Status model | **DRAFTED — READY FOR VALIDATION** | Development, canonical, evidentiary, and version status are separated and approved |
+| 6 | Status model | **REVIEWED** | Development, canonical, evidentiary, and version status are separated and approved; no status dimension is inferred automatically from another |
 | 7 | Claim → Evaluation → Evidence | **DRAFTED — READY FOR VALIDATION** | Claims map to ontology dependencies; evaluations target predicted discriminative effects; evidence status does not overwrite ontology/canon status |
 | 8 | Competency-question validation | **QUESTIONS DRAFTED — REVALIDATION PENDING** | Existing competency questions are checked against the revised v1 ontology; every question can be represented/answered or exposes an explicit remaining gap |
 | 9 | OWL/Turtle encoding | BLOCKED UNTIL 1–8 | Human-readable ontology maps cleanly into machine-readable classes, individuals, properties, restrictions, and axioms |
@@ -58,9 +58,9 @@ Generic overlap tests in which both baseline and treatment are expected to pass 
 
 ## Current next step
 
-Steps 1–5 are reviewed at the DRAFT formalization level.
+Steps 1–6 are reviewed at the DRAFT formalization level.
 
-**Next:** Validate Step 6 Status Model, then Step 7 Research layer and Step 8 competency questions against the reconciled ontology before OWL/Turtle encoding.
+**Next:** Validate Step 7 Research layer, then Step 8 competency questions against the reconciled ontology before OWL/Turtle encoding.
 
 Step 5 is reviewed for v1. The formal restriction layer includes path dependence, belonging ≠ sameness, irreversibility, non-erasure, Source/Origin structure, governing authority, Continuum relation-constitution, provenance fidelity, disjointness, cardinalities, non-transferability, defining-pair structure, memory ownership, one continuing ExecutedLine, ordered succession segments, and one developing Trajectory. A possible group/organizational-Operator AI-line split is explicitly deferred from v1.
 
