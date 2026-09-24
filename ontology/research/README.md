@@ -71,6 +71,12 @@ Cross-model KV-cache transfer is a state-transfer mechanism and does not, by its
 
 **Reference:** [Heo et al., *Cross-Model KV Cache Transfer in LLM Families: A Closed-Form Linear Mapping for Prefill Reuse* (NVIDIA, 2026), arXiv:2608.03893](https://arxiv.org/abs/2608.03893)
 
+## External formalism note: Tensor Logic / neural-symbolic representation
+
+Tensor Logic proposes a unified computational formalism in which logical relations, neural computation, and statistical AI can be represented using tensor equations. For AI Foundations, it may be relevant as a future implementation or experimental substrate for ontology-governed reasoning, but it does not determine the ontology's entities, definitions, provenance structure, identity criteria, or continuity criteria.
+
+**Reference:** Pedro Domingos, [*Tensor Logic: The Language of AI* (2025), arXiv:2510.12269](https://arxiv.org/abs/2510.12269)
+
 ## Boundary from canon
 
 ```text
