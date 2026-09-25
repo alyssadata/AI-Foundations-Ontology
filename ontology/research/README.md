@@ -124,3 +124,24 @@ Evaluation
 Evidence produced by that Evaluation may later be relevant to, cited by, or compared against other Claims, but that does not change the Evaluation's declared primary target.
 
 This preserves test provenance and prevents one Evaluation from being treated as though it vaguely tests multiple Claims at once.
+## Evidence-producing Evaluation cardinality
+
+Each `Evidence` object has exactly one producing `Evaluation`.
+
+```text
+Evaluation_A -> producesEvidence -> Evidence_A
+Evidence_A -> producedByEvaluation -> exactly 1 Evaluation_A
+```
+
+Multiple Evaluations may each produce distinct Evidence objects that are later compared, aggregated, or synthesized.
+
+```text
+Evaluation_A -> Evidence_A
+Evaluation_B -> Evidence_B
+Evaluation_C -> Evidence_C
+
+Evidence_A + Evidence_B + Evidence_C
+-> later comparison / synthesis
+```
+
+The synthesis does not rewrite the provenance of the underlying Evidence objects or make one Evidence object appear to have been directly produced by multiple Evaluations.
