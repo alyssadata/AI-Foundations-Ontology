@@ -312,6 +312,10 @@ Each `Evaluation` has exactly one primary `Claim` target. Evidence produced by t
 
 Evaluation -> Evidence
 
+Inverse candidate: `producedByEvaluation`.
+
+Each `Evidence` object has exactly one producing `Evaluation`. One Evaluation may produce one or more Evidence objects where the procedure yields multiple distinct evidentiary results. Later comparison or synthesis may combine Evidence from multiple Evaluations without changing each Evidence object's producing Evaluation.
+
 ### `supportsClaim`
 
 Evidence -> Claim
