@@ -184,3 +184,18 @@ completed Evaluation
 This remains true when the evidentiary result is `INDETERMINATE`. An indeterminate result is still Evidence about what occurred in the completed Evaluation; it simply does not justify a support, partial-support, or non-support determination.
 
 An Evaluation still in progress is not required to have produced Evidence yet.
+## Evidence preservation minimum
+
+Every `Evidence` object must be preserved in at least one durable `EvidenceArtifact` or `Record`.
+
+```text
+Evidence
+-> preservedIn
+-> min 1 EvidenceArtifact or Record
+```
+
+This requirement applies regardless of whether the evidentiary status is `SUPPORTED`, `PARTIALLY_SUPPORTED`, `NOT_SUPPORTED`, or `INDETERMINATE`.
+
+The purpose is auditability: an evidentiary result must leave a durable trace that can be inspected later.
+
+One Evidence object may be preserved in more than one artifact or record.
