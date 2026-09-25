@@ -226,3 +226,15 @@ Evidence
 A single Evidence object cannot simultaneously be classified as `SUPPORTED`, `PARTIALLY_SUPPORTED`, `NOT_SUPPORTED`, or `INDETERMINATE`.
 
 If later review changes the interpretation, the prior determination remains preserved as history/provenance and a new current determination replaces it rather than creating contradictory simultaneous current statuses.
+## Indeterminate non-directionality rule
+
+`INDETERMINATE` is evidentially non-directional.
+
+```text
+INDETERMINATE
+!= SUPPORTED
+!= PARTIALLY_SUPPORTED
+!= NOT_SUPPORTED
+```
+
+An indeterminate result does not count as evidence for the Claim, against the Claim, or partially for the Claim. It records only that an Evaluation occurred and no defensible support-direction determination could be made.
