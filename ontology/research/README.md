@@ -199,3 +199,19 @@ This requirement applies regardless of whether the evidentiary status is `SUPPOR
 The purpose is auditability: an evidentiary result must leave a durable trace that can be inspected later.
 
 One Evidence object may be preserved in more than one artifact or record.
+## Evidence-status cardinality
+
+Each `Evidence` object has exactly one current evidentiary-status classification at a time.
+
+```text
+Evidence_X
+-> one of:
+   SUPPORTED
+   PARTIALLY_SUPPORTED
+   NOT_SUPPORTED
+   INDETERMINATE
+```
+
+These current classifications are mutually exclusive for the same Evidence object.
+
+If the interpretation is revised after audit or review, preserve the earlier determination and its rationale as provenance, then record the revised current determination. Do not model contradictory current statuses on the same Evidence object.
