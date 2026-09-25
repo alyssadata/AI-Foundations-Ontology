@@ -352,6 +352,8 @@ Claim -> ontology schema element
 
 This is not treated as an ordinary domain object property in the OWL model. It will be encoded as an annotation/metamodel relation because the target may itself be a class, property, or axiom.
 
+Every AI Foundations `Claim` must identify at least one ontology element on which it depends. A Claim may depend on multiple ontology elements.
+
 ## Core assertions
 
 ```text
