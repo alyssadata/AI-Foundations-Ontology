@@ -432,3 +432,10 @@ If the later contributor independently satisfies the Source definition for a dis
 For any `Evidence` object, `supportsClaim`, `partiallySupportsClaim`, or `doesNotSupportClaim` may target only the same Claim identified by `directlyEvaluatesClaim`.
 
 Evidence may be secondarily relevant to other Claims, but such relevance must not be encoded as a direct support-direction relation unless it arises through that Claim's own qualifying Evaluation/Evidence path or a separately defined synthesis mechanism.
+## Predeclared scoring requirement
+
+Each `Evaluation` must have a declared scoring rule fixed before that Evaluation produces Evidence.
+
+The scoring rule is part of the Evaluation's pre-result specification. It must not be altered after observing the result and then treated as though the altered rule governed the original Evaluation.
+
+The machine-readable representation of the scoring-rule specification will be selected during OWL/Turtle encoding rather than introducing a new ontology class prematurely.
