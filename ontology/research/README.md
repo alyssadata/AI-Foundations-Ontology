@@ -158,3 +158,16 @@ procedure actually carried out
 ```
 
 A reusable or pre-execution design may later be represented separately as a protocol/design artifact if needed. The `Evaluation` begins when that procedure is instantiated and executed against its declared primary Claim.
+## Indeterminate-result interpretation
+
+An Evaluation may complete without yielding a defensible support classification.
+
+```text
+Evaluation
+-> produces Evidence
+-> evidentiary status may be INDETERMINATE
+```
+
+`INDETERMINATE` applies where the Evaluation occurred but the result is ambiguous, invalid, insufficient, uninterpretable, or otherwise unable to support a defensible `SUPPORTED`, `PARTIALLY_SUPPORTED`, or `NOT_SUPPORTED` determination.
+
+This status preserves the fact that the test occurred without forcing an unsupported evidentiary conclusion.
