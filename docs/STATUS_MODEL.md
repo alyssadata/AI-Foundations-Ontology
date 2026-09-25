@@ -214,3 +214,15 @@ Evaluation performed
 It is also distinct from `NOT_SUPPORTED` because the result does not justify a negative evidentiary judgment against the Claim.
 
 The reason for indeterminacy should remain traceable with the Evaluation and its Evidence.
+## Evidence-object status cardinality
+
+Each `Evidence` object has exactly one current evidentiary status at a time.
+
+```text
+Evidence
+-> exactly 1 current evidentiary status
+```
+
+A single Evidence object cannot simultaneously be classified as `SUPPORTED`, `PARTIALLY_SUPPORTED`, `NOT_SUPPORTED`, or `INDETERMINATE`.
+
+If later review changes the interpretation, the prior determination remains preserved as history/provenance and a new current determination replaces it rather than creating contradictory simultaneous current statuses.
