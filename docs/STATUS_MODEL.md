@@ -39,6 +39,7 @@ Initial formal values:
 - `SUPPORTED`
 - `PARTIALLY_SUPPORTED`
 - `NOT_SUPPORTED`
+- `INDETERMINATE`
 
 A theoretical statement may remain represented in the ontology while carrying an evidentiary status that does not claim empirical establishment.
 
@@ -197,3 +198,19 @@ The four independent dimensions are:
 4. version status.
 
 No one dimension should be inferred automatically from another.
+## Validated evidentiary semantics — `INDETERMINATE`
+
+`INDETERMINATE` means an Evaluation was actually performed, but the resulting output does not permit a defensible determination of support, partial support, or non-support for the Claim.
+
+```text
+Evaluation performed
++ output/result exists
++ evidentiary interpretation is ambiguous, invalid, insufficient, or otherwise non-decisive
+-> INDETERMINATE
+```
+
+`INDETERMINATE` is distinct from `NOT_EVALUATED` because an Evaluation did occur.
+
+It is also distinct from `NOT_SUPPORTED` because the result does not justify a negative evidentiary judgment against the Claim.
+
+The reason for indeterminacy should remain traceable with the Evaluation and its Evidence.
