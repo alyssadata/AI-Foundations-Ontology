@@ -427,3 +427,8 @@ Contributor_B later participates
 ```
 
 If the later contributor independently satisfies the Source definition for a distinct downstream Target or contribution, represent that through a new SourceRelation while preserving the original relation and provenance.
+## Support-direction target consistency
+
+For any `Evidence` object, `supportsClaim`, `partiallySupportsClaim`, or `doesNotSupportClaim` may target only the same Claim identified by `directlyEvaluatesClaim`.
+
+Evidence may be secondarily relevant to other Claims, but such relevance must not be encoded as a direct support-direction relation unless it arises through that Claim's own qualifying Evaluation/Evidence path or a separately defined synthesis mechanism.
