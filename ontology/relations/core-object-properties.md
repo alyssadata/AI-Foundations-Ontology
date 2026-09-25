@@ -439,3 +439,10 @@ Each `Evaluation` must have a declared scoring rule fixed before that Evaluation
 The scoring rule is part of the Evaluation's pre-result specification. It must not be altered after observing the result and then treated as though the altered rule governed the original Evaluation.
 
 The machine-readable representation of the scoring-rule specification will be selected during OWL/Turtle encoding rather than introducing a new ontology class prematurely.
+## Baseline/treatment condition requirement
+
+Each qualifying `Evaluation` must identify at least one baseline condition and at least one test/treatment condition.
+
+This requirement supports the discriminative-evaluation rule: the Evaluation must make explicit what condition is being compared against what other condition.
+
+The exact machine-readable representation of evaluation conditions will be selected during OWL/Turtle encoding.
