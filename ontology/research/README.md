@@ -111,3 +111,16 @@ Support is therefore scoped rather than universal. Additional evaluations may br
 A Claim with evidentiary status `NOT_EVALUATED` has no qualifying evidentiary determination yet.
 
 This status carries no negative inference about the Claim. It is distinct from `NOT_SUPPORTED`, which requires that an Evaluation was actually performed and produced Evidence that did not support the Claim as formulated.
+## Primary-Claim cardinality
+
+Each `Evaluation` is designed to test exactly one primary `Claim`.
+
+```text
+Evaluation
+-> evaluatesClaim
+-> exactly 1 primary Claim
+```
+
+Evidence produced by that Evaluation may later be relevant to, cited by, or compared against other Claims, but that does not change the Evaluation's declared primary target.
+
+This preserves test provenance and prevents one Evaluation from being treated as though it vaguely tests multiple Claims at once.
