@@ -306,6 +306,8 @@ Provenance does not imply continuity.
 
 Evaluation -> Claim
 
+`Evaluation` here denotes an instantiated process that is actually carried out, not merely a planned protocol or design.
+
 Each `Evaluation` has exactly one primary `Claim` target. Evidence produced by the Evaluation may later be relevant to additional Claims, but the Evaluation's declared primary target remains singular.
 
 ### `producesEvidence`
