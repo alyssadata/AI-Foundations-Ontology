@@ -322,3 +322,16 @@ The scoring rule defines how observed output will be interpreted for the Evaluat
 If the scoring rule itself is revised after execution, preserve the original Evaluation and its Evidence, then perform a new Evaluation under the revised rule.
 
 The exact OWL representation of the scoring-rule specification is deferred to encoding; this validation step fixes the semantic requirement without introducing a premature new class.
+## Baseline and treatment minimum
+
+Every qualifying `Evaluation` must specify at least one baseline condition and at least one test/treatment condition.
+
+```text
+Evaluation
+-> min 1 baseline condition
++ min 1 test/treatment condition
+```
+
+The purpose is to make the predicted discriminative difference explicit rather than evaluating a Claim without a defined comparison structure.
+
+An Evaluation may include multiple baseline or treatment conditions where needed, but neither side may be absent.
