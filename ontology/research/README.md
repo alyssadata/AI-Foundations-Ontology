@@ -215,3 +215,20 @@ Evidence_X
 These current classifications are mutually exclusive for the same Evidence object.
 
 If the interpretation is revised after audit or review, preserve the earlier determination and its rationale as provenance, then record the revised current determination. Do not model contradictory current statuses on the same Evidence object.
+## Evidence direct-Claim cardinality
+
+Each `Evidence` object has exactly one directly evaluated `Claim`.
+
+That Claim is the primary Claim of the Evaluation that produced the Evidence.
+
+```text
+Evaluation_A
+-> evaluatesClaim -> Claim_A
+-> producesEvidence -> Evidence_A
+
+Evidence_A
+-> directlyEvaluatesClaim
+-> exactly 1 Claim_A
+```
+
+The Evidence may later be cited as relevant to other Claims, but those later uses do not change its direct evaluative target.
