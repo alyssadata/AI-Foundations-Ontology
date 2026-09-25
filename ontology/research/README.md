@@ -232,3 +232,17 @@ Evidence_A
 ```
 
 The Evidence may later be cited as relevant to other Claims, but those later uses do not change its direct evaluative target.
+## Claim Evaluation multiplicity
+
+A `Claim` may have zero, one, or many `Evaluation` instances over time.
+
+```text
+Claim
+-> 0..many Evaluations
+```
+
+Zero Evaluations is valid for a Claim with evidentiary status `NOT_EVALUATED`.
+
+Multiple Evaluations are valid for replication, retesting, alternative test conditions, or later refinement of the evidentiary basis.
+
+Each individual Evaluation still has exactly one primary Claim target.
