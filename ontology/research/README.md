@@ -246,3 +246,16 @@ Zero Evaluations is valid for a Claim with evidentiary status `NOT_EVALUATED`.
 Multiple Evaluations are valid for replication, retesting, alternative test conditions, or later refinement of the evidentiary basis.
 
 Each individual Evaluation still has exactly one primary Claim target.
+## Claim ontology-dependency minimum
+
+Every AI Foundations `Claim` must depend on at least one ontology element.
+
+```text
+Claim
+-> dependsOnOntologyElement
+-> min 1 ontology term / relation / axiom
+```
+
+A Claim may depend on multiple ontology elements where its formulation requires them.
+
+This keeps the research layer anchored to the ontology rather than allowing AI Foundations Claims to float independently of the formal structure.
