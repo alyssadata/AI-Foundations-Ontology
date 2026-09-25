@@ -338,6 +338,8 @@ Evidence -> Claim
 
 Evidence -> Claim
 
+`supportsClaim`, `partiallySupportsClaim`, and `doesNotSupportClaim` are mutually exclusive support-direction relations for a given Evidence result. `INDETERMINATE` Evidence must not instantiate any of these three support-direction properties.
+
 ### `hasEvidentiaryStatus`
 
 Evidence -> evidentiary status value
