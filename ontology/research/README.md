@@ -19,7 +19,7 @@ Additional claim taxonomy belongs to the later taxonomy stage unless required fo
 
 ### Evaluation
 
-A defined procedure that tests a Claim under specified conditions.
+An instantiated evaluation process that is actually carried out to test a Claim under specified conditions.
 
 An Evaluation should identify:
 
@@ -145,3 +145,16 @@ Evidence_A + Evidence_B + Evidence_C
 ```
 
 The synthesis does not rewrite the provenance of the underlying Evidence objects or make one Evidence object appear to have been directly produced by multiple Evaluations.
+## Evaluation execution boundary
+
+`Evaluation` denotes the actual instantiated process of evaluation, not merely a planned test design.
+
+```text
+planned procedure / protocol
+!= Evaluation
+
+procedure actually carried out
+-> Evaluation
+```
+
+A reusable or pre-execution design may later be represented separately as a protocol/design artifact if needed. The `Evaluation` begins when that procedure is instantiated and executed against its declared primary Claim.
