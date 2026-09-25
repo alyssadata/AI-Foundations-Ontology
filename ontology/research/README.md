@@ -171,3 +171,16 @@ Evaluation
 `INDETERMINATE` applies where the Evaluation occurred but the result is ambiguous, invalid, insufficient, uninterpretable, or otherwise unable to support a defensible `SUPPORTED`, `PARTIALLY_SUPPORTED`, or `NOT_SUPPORTED` determination.
 
 This status preserves the fact that the test occurred without forcing an unsupported evidentiary conclusion.
+## Completed-Evaluation Evidence minimum
+
+Every completed `Evaluation` produces at least one `Evidence` object.
+
+```text
+completed Evaluation
+-> producesEvidence
+-> min 1 Evidence
+```
+
+This remains true when the evidentiary result is `INDETERMINATE`. An indeterminate result is still Evidence about what occurred in the completed Evaluation; it simply does not justify a support, partial-support, or non-support determination.
+
+An Evaluation still in progress is not required to have produced Evidence yet.
