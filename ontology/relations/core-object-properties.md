@@ -298,6 +298,8 @@ Provenance -> SourceLine
 
 Evidence -> EvidenceArtifact / Record
 
+Every `Evidence` object must be preserved in at least one `EvidenceArtifact` or `Record`. One Evidence object may be preserved in multiple artifacts/records where redundancy, serialization, publication, or archival storage requires it.
+
 Provenance does not imply continuity.
 
 ## Research relations
