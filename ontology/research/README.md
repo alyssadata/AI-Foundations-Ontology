@@ -285,3 +285,24 @@ INDETERMINATE Evidence
 ```
 
 It records the Evaluation outcome and its provenance only. It must not be counted as supported, partially supported, or unsupported Evidence.
+## Support-direction target consistency
+
+Any support-direction relation asserted by an `Evidence` object must point to that Evidence object's directly evaluated `Claim`.
+
+```text
+Evidence_A
+-> directlyEvaluatesClaim -> Claim_A
+
+if SUPPORTED:
+Evidence_A -> supportsClaim -> Claim_A
+
+if PARTIALLY_SUPPORTED:
+Evidence_A -> partiallySupportsClaim -> Claim_A
+
+if NOT_SUPPORTED:
+Evidence_A -> doesNotSupportClaim -> Claim_A
+```
+
+The same Evidence may later be cited as relevant to another Claim, but that later relevance does not create a direct support-direction relation to that other Claim.
+
+Cross-Claim synthesis or secondary relevance, if formalized later, must remain distinct from the direct evidentiary path established by the producing Evaluation.
