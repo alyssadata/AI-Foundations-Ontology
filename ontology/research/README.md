@@ -273,3 +273,15 @@ Claim
 A future Claim-level summary status would require an explicit synthesis/aggregation rule for cases where multiple Evaluations produce mixed, conflicting, replicated, or differently scoped Evidence.
 
 Therefore Claim-level aggregate evidentiary status is deferred rather than accepted or rejected in v1 at this stage.
+## Indeterminate support-direction boundary
+
+`INDETERMINATE` Evidence asserts no support-direction relation.
+
+```text
+INDETERMINATE Evidence
+-> no supportsClaim
+-> no partiallySupportsClaim
+-> no doesNotSupportClaim
+```
+
+It records the Evaluation outcome and its provenance only. It must not be counted as supported, partially supported, or unsupported Evidence.
