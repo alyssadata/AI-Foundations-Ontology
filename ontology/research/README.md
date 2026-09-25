@@ -259,3 +259,17 @@ Claim
 A Claim may depend on multiple ontology elements where its formulation requires them.
 
 This keeps the research layer anchored to the ontology rather than allowing AI Foundations Claims to float independently of the formal structure.
+## Deferred: Claim-level aggregate evidentiary status
+
+No single aggregate evidentiary status is currently required at the `Claim` level.
+
+```text
+Claim
+-> 0..many Evaluations
+-> each Evaluation produces Evidence
+-> each Evidence has one current evidentiary status
+```
+
+A future Claim-level summary status would require an explicit synthesis/aggregation rule for cases where multiple Evaluations produce mixed, conflicting, replicated, or differently scoped Evidence.
+
+Therefore Claim-level aggregate evidentiary status is deferred rather than accepted or rejected in v1 at this stage.
