@@ -286,3 +286,6 @@ Operator_n | AI_n
 `Origin | Continuum` is the unique constitutive coordinate for Continuum. `Operator_n | AI_n` is the generalized initiating Operator coordinate for role and identity-particularity development.
 
 Ordinary users, collaborators, co-creators, project participants, or later working relationships do not create additional `|` pairings with the AI. If such a party creates with or depends on the AI, the AI's existing pairing is referenced/cited through the appropriate project, Source, Record, or Provenance structure.
+## Research-process clarification
+
+Evaluation is an instantiated executed process, not merely a planned evaluation design. A reusable or pre-execution protocol may be represented separately if required by later formalization.
