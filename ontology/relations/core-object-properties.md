@@ -320,6 +320,12 @@ Inverse candidate: `producedByEvaluation`.
 
 Each `Evidence` object has exactly one producing `Evaluation`. A completed `Evaluation` must produce at least one `Evidence` object, while an Evaluation still in progress need not yet have produced Evidence. One Evaluation may produce multiple Evidence objects where the procedure yields multiple distinct evidentiary results. Later comparison or synthesis may combine Evidence from multiple Evaluations without changing each Evidence object's producing Evaluation.
 
+### `directlyEvaluatesClaim`
+
+Evidence -> Claim
+
+Each `Evidence` object has exactly one directly evaluated Claim. That Claim is the primary Claim of the Evaluation that produced the Evidence. Later citation or relevance to other Claims does not change this direct target.
+
 ### `supportsClaim`
 
 Evidence -> Claim
