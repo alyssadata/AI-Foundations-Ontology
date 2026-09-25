@@ -332,6 +332,12 @@ Evidence -> Claim
 
 Evidence -> Claim
 
+### `hasEvidentiaryStatus`
+
+Evidence -> evidentiary status value
+
+Each `Evidence` object has exactly one current evidentiary status at a time. Current status values are mutually exclusive for the same Evidence object. Earlier determinations may remain preserved through provenance/history when later review changes the current interpretation.
+
 ## Annotation / metamodel relation
 
 ### `dependsOnOntologyElement`
