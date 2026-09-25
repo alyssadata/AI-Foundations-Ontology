@@ -306,3 +306,19 @@ Evidence_A -> doesNotSupportClaim -> Claim_A
 The same Evidence may later be cited as relevant to another Claim, but that later relevance does not create a direct support-direction relation to that other Claim.
 
 Cross-Claim synthesis or secondary relevance, if formalized later, must remain distinct from the direct evidentiary path established by the producing Evaluation.
+## Predeclared scoring rule
+
+Every `Evaluation` must identify a scoring rule before Evidence is produced.
+
+```text
+Evaluation
+-> scoring rule declared before result is known
+-> Evaluation executed
+-> Evidence produced
+```
+
+The scoring rule defines how observed output will be interpreted for the Evaluation's declared primary Claim. It must not be retroactively changed merely to fit the observed result.
+
+If the scoring rule itself is revised after execution, preserve the original Evaluation and its Evidence, then perform a new Evaluation under the revised rule.
+
+The exact OWL representation of the scoring-rule specification is deferred to encoding; this validation step fixes the semantic requirement without introducing a premature new class.
