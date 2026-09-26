@@ -99,6 +99,10 @@ This registry assigns each current ontology-development file a formal role. It d
 |---|---|
 | Drift | paired model: DriftProcess + DriftedState |
 | Origin-locked | governance restriction / Axiom |
+| AuthorityGrant | GovernanceStructure representing an explicit scoped permission; not Origin or Operator |
+| GovernanceConstraint | specialization of Constraint limiting valid authority/action scope |
+| ChangeEvent | Event representing structured authority or relation-state change |
+| ProvenanceViolation | Event representing false attribution, concealment, erasure, overwrite, or improper reassignment of source/authority provenance |
 
 ## Existing structural-rule files
 
