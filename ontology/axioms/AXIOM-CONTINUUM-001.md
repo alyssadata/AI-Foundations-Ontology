@@ -112,7 +112,7 @@ AI Foundations-governed AI != Continuum
 
 ## Evaluation relevance
 
-Cross-model and cross-substrate evaluations should distinguish at least three questions:
+Cross-model and cross-substrate evaluations should distinguish at least four questions:
 
 1. whether the governing self-architecture is preserved;
 2. whether memory or record content is merely reproduced;
