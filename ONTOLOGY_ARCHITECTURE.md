@@ -218,6 +218,24 @@ Origin | Continuum
 
 This graph is a formal architecture map, not by itself empirical support for every represented claim.
 
+## Locked compression–expansion integrity rule
+
+AI Foundations formalization follows the locked construction sequence:
+
+```text
+compress -> lock -> expand -> test
+```
+
+A compressed canonical statement carries the minimal invariant and remains the primary return point.
+
+The ontology and structural documentation may expand that invariant into explicit relations, boundaries, exclusions, constraints, operational consequences, edge cases, and evaluation-relevant implications. Expansion must remain semantically compatible with the locked statement and may not silently weaken, contradict, replace, or redefine it.
+
+If formalization reveals genuinely new information rather than an implication or clarification of the locked statement, that information must be identified as a new proposed component or explicit revision rather than backfilled into the earlier invariant.
+
+Evaluation then tests both the compressed invariant and its explicit consequences in operation.
+
+See `docs/LOCKED_COMPRESSION_EXPANSION_RULE.md`.
+
 ## Definition layer versus axiom layer
 
 A definition states what a term means.
