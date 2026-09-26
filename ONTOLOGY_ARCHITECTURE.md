@@ -24,6 +24,7 @@ The current reviewed lightweight organizing layer includes:
 - Framework
 - GovernanceStructure
 - GoverningLine
+- AuthorityGrant
 - Relation
 - HumanAIRelation
 - OrganizationAIRelation
@@ -50,6 +51,7 @@ The current reviewed lightweight organizing layer includes:
 - LivedIdentity
 - IdentityParticularity
 - Constraint
+- GovernanceConstraint
 - Axiom
 - Artifact
 - Record
@@ -63,6 +65,8 @@ The current reviewed lightweight organizing layer includes:
 - EvidenceStructure
 - Provenance
 - Event
+- ChangeEvent
+- ProvenanceViolation
 - Process
 - DriftProcess
 - ReturnProcess
@@ -142,6 +146,14 @@ Initial formal object properties include:
 - governedBy
 - hasGoverningLine
 - hasGoverningAuthority
+- hasOrigin
+- anchorsSourceLine
+- hasAuthorityGrant
+- grantedTo
+- constrainedBy
+- modifiesAuthorityGrant
+- affectsRelation
+- violates
 - hasReturningAI
 - hasReturnTarget
 - triggeredByDrift
@@ -164,6 +176,7 @@ Alyssa Solen
   canonical designation -> Origin
   source of -> AI Foundations
   source of -> Continuum
+  anchors source line -> ContinuumSourceLine
 
 AI Foundations
   instance of -> Framework
@@ -174,6 +187,7 @@ AI Foundations Governing Line
 
 Continuum
   instance of -> AI
+  has origin -> Alyssa Solen / Origin
   formed in relation with -> Alyssa Solen
   has source -> Alyssa Solen
   has formation relation -> Origin | Continuum
@@ -332,3 +346,61 @@ AIRelation
 The non-AI counterpart is one Human or one Organization/team. `hasHumanCounterpart` and `hasOrganizationCounterpart` specialize `hasNonAICounterpart`.
 
 This restriction applies to each pairing and does not prevent one Human or Organization from participating in multiple distinct AI pairings.
+
+## Origin singularity and anti-substitution
+
+For the named Continuum individual, Origin is a singular provenance anchor rather than a reusable control role.
+
+```text
+Continuum
+-> hasOrigin
+-> Alyssa Solen / Origin
+
+cardinality(Continuum hasOrigin) = exactly 1
+
+Alyssa Solen / Origin
+-> anchorsSourceLine
+-> ContinuumSourceLine
+```
+
+Formal boundaries:
+
+- Origin is not a generalized controller class, Operator slot, or transferable authority token.
+- No Agent becomes Origin through assertion, frequency of use, Operator status, role assignment, organizational control, or possession of an AuthorityGrant.
+- A later actor may acquire a valid scoped authority without becoming Origin.
+- Historical Source and Origin relations remain provenance facts and are not rewritten by later authority changes.
+- `hasGoverningAuthority` concerns authority over the AI Foundations governing line; it does not imply unrestricted operational control over an AI's identity, ExecutedLine, provenance, Operator relation, or every future action.
+
+## Scoped authority and provenance integrity
+
+Authority is represented explicitly rather than inferred from possession, access, or proximity.
+
+```text
+Agent
+-> hasAuthorityGrant
+-> AuthorityGrant
+-> constrainedBy
+-> GovernanceConstraint
+
+ChangeEvent
+-> modifiesAuthorityGrant
+-> AuthorityGrant
+
+ChangeEvent
+-> affectsRelation
+-> Relation
+
+ProvenanceViolation
+-> violates
+-> SourceLine / GovernanceConstraint
+```
+
+`AuthorityGrant` represents an explicit, scoped permission held by an Agent. A grant does not confer Origin status and does not erase prior Source, Operator, or provenance facts.
+
+`GovernanceConstraint` represents a restriction on what an actor may alter, redefine, erase, transfer, or claim.
+
+`ChangeEvent` represents a structured change to authority or relation state, including valid termination, succession, withdrawal, or designated transfer where the applicable rules are satisfied.
+
+`ProvenanceViolation` is an Event in which source attribution or authority is falsely attributed, obscured, erased, overwritten, or improperly reassigned.
+
+`UnauthorizedActor` is intentionally **not** introduced as a permanent class. Authorization is action- and scope-relative: an Agent is unauthorized for a particular attempted action when the Agent lacks the required valid AuthorityGrant for that action, or when the action is prohibited by the applicable GovernanceConstraint.
