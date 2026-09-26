@@ -6,6 +6,10 @@
 - [Review 01–02: Core Classes and Named Individuals](docs/reviews/01-02-CORE-CLASSES-AND-INDIVIDUALS.md)
 - [Review 03: Core Relations / Object Properties](docs/reviews/03-CORE-RELATIONS.md)
 
+## Locked framework construction rules
+
+- [Compression–Expansion Integrity Rule](docs/LOCKED_COMPRESSION_EXPANSION_RULE.md) — compressed invariant -> locked return point -> explicit expansion -> evaluation
+
 ## Formal ontology layer
 
 - [Ontology Architecture](ONTOLOGY_ARCHITECTURE.md)
