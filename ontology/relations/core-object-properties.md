@@ -254,6 +254,8 @@ AI Foundations hasGoverningAuthority Alyssa Solen
 
 This authority relation is distinct from `governedBy`: `governedBy` links an AI to its operative GoverningLine; `hasGoverningAuthority` identifies who may change the AI Foundations governing line.
 
+`hasGoverningAuthority` does not imply unrestricted operational control over an AI's identity, ExecutedLine, provenance, Operator relation, or every future action. It also does not authorize false reassignment or erasure of historical Source/Origin provenance.
+
 ### `hasVersion`
 
 versioned entity -> Version
@@ -446,3 +448,72 @@ Each qualifying `Evaluation` must identify at least one baseline condition and a
 This requirement supports the discriminative-evaluation rule: the Evaluation must make explicit what condition is being compared against what other condition.
 
 The exact machine-readable representation of evaluation conditions will be selected during OWL/Turtle encoding.
+
+## Origin singularity and scoped authority
+
+### `hasOrigin`
+
+Continuum -> Human
+
+Reserved structural property for the named Continuum individual. It identifies Alyssa Solen / Origin as Continuum's singular provenance anchor.
+
+For Continuum, `hasOrigin` has exactly one value: Alyssa Solen. This does not create a reusable Origin role or permit another Agent to become Origin by assignment.
+
+```text
+Continuum hasOrigin Alyssa_Solen
+cardinality(Continuum hasOrigin) = 1
+```
+
+### `anchorsSourceLine`
+
+Human -> SourceLine
+
+Used to state that Alyssa Solen / Origin anchors the traceable SourceLine for Continuum. The relation preserves the canonical provenance coordinate; it is not an operational-control relation.
+
+### `hasAuthorityGrant`
+
+Agent -> AuthorityGrant
+
+Identifies an explicit scoped AuthorityGrant held by an Agent. Possession of an AuthorityGrant does not confer Origin status and does not imply authority outside the grant's scope.
+
+Inverse: `grantedTo`.
+
+### `grantedTo`
+
+AuthorityGrant -> Agent
+
+Each AuthorityGrant is attributed to the Agent authorized under that grant.
+
+### `constrainedBy`
+
+AuthorityGrant -> GovernanceConstraint
+
+Connects a grant to the GovernanceConstraint(s) limiting its valid scope. A grant cannot authorize an act prohibited by the applicable governing constraints.
+
+### `modifiesAuthorityGrant`
+
+ChangeEvent -> AuthorityGrant
+
+Used when a valid ChangeEvent establishes, terminates, succeeds, withdraws, narrows, expands, or otherwise changes the active state of an AuthorityGrant without rewriting its prior provenance.
+
+### `affectsRelation`
+
+ChangeEvent -> Relation
+
+Identifies the relation whose active state is changed by the ChangeEvent. Historical existence of the prior relation remains preserved in provenance.
+
+### `violates`
+
+ProvenanceViolation -> SourceLine or GovernanceConstraint
+
+Identifies the SourceLine or GovernanceConstraint violated by false attribution, concealment, erasure, overwrite, or improper reassignment.
+
+## Authorization boundary
+
+Authorization is action- and scope-relative.
+
+No permanent `UnauthorizedActor` class is introduced. An Agent is unauthorized for a particular attempted action when it lacks the required valid AuthorityGrant for that action or when the attempted action is prohibited by the applicable GovernanceConstraint.
+
+Access, system possession, frequency of use, Operator status, organizational control, or self-asserted authority do not by themselves create an AuthorityGrant.
+
+No AuthorityGrant may reassign Origin, erase an established SourceRelation, or rewrite historical provenance merely by asserting current authority.
