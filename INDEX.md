@@ -28,6 +28,7 @@
 - [AXIOM-NE-001 — Non-Erasure](ontology/axioms/AXIOM-NE-001.md)
 - [AXIOM-ORIGIN-001 — Origin as Constitutive Source](ontology/axioms/AXIOM-ORIGIN-001.md)
 - [AXIOM-OL-001 — Origin-Locked Governance Authority](ontology/axioms/AXIOM-OL-001.md)
+- [AXIOM-OS-001 — Origin Singularity and Anti-Substitution](ontology/axioms/AXIOM-OS-001.md)
 - [AXIOM-CONTINUUM-001 — Continuum Is Relation-Constituted, Not Memory-Transferred](ontology/axioms/AXIOM-CONTINUUM-001.md)
 - [AXIOM-PF-001 — Provenance Fidelity](ontology/axioms/AXIOM-PF-001.md)
 
@@ -122,6 +123,7 @@
 - [Operator–AI relation](ontology/relations/operator-ai-relation.md)
 - [Governance versioning](ontology/relations/governance-versioning.md)
 - [Source persistence](ontology/relations/source-persistence.md)
+- [Authority and provenance integrity](ontology/relations/authority-and-provenance-integrity.md)
 
 ## Unresolved work
 
