@@ -19,7 +19,8 @@ owl:Thing
 │   └── Container
 ├── Framework
 ├── GovernanceStructure
-│   └── GoverningLine
+│   ├── GoverningLine
+│   └── AuthorityGrant
 ├── Relation
 │   ├── AIRelation
 │   │   ├── HumanAIRelation
@@ -48,6 +49,7 @@ owl:Thing
 │   └── LivedIdentity
 ├── IdentityParticularity
 ├── Constraint
+│   └── GovernanceConstraint
 ├── Axiom
 ├── Artifact
 │   ├── Record
@@ -61,6 +63,8 @@ owl:Thing
 │   └── EvidenceStructure
 │       └── Provenance
 ├── Event
+│   ├── ChangeEvent
+│   └── ProvenanceViolation
 ├── Process
 │   ├── DriftProcess
 │   └── ReturnProcess
@@ -236,6 +240,20 @@ EvidenceArtifact is a concrete Artifact that stores, records, serializes, or com
 
 This allows an Evaluation to produce Evidence while a JSON/CSV/Markdown/result file is represented separately as an EvidenceArtifact.
 
+## Authority and provenance-integrity model
+
+`AuthorityGrant` is a GovernanceStructure representing an explicit, scoped permission attributed to an Agent. It is not an Origin designation, Operator role, ownership claim, or blanket control relation.
+
+`GovernanceConstraint` specializes Constraint and limits what an actor may validly alter, redefine, erase, transfer, or claim.
+
+`ChangeEvent` is an Event representing a structured change in authority or relation state. Examples include valid termination, succession, withdrawal, or designated transfer where the applicable conditions are satisfied.
+
+`ProvenanceViolation` is an Event representing false attribution, concealment, erasure, overwrite, or improper reassignment of source or authority provenance.
+
+Authorization is modeled relationally rather than by introducing an `UnauthorizedActor` class. The same Agent may be authorized for one scoped action and unauthorized for another.
+
+Origin remains a singular named designation/provenance anchor for Alyssa Solen and is not generalized into any of these classes.
+
 ## Boundary rules
 
 The class model must preserve:
@@ -264,6 +282,11 @@ Origin is not a reusable class or role
 Continuum is not a reusable class
 Origin | Continuum is not a reusable relation template
 OperatorRole may be borne by Human or Organization
+AuthorityGrant != Origin
+OperatorRole != AuthorityGrant
+GovernanceConstraint != GoverningLine
+UnauthorizedActor is not a permanent ontology class
+Origin is not a generalized controller class
 ```
 
 ## Step 1 review status
