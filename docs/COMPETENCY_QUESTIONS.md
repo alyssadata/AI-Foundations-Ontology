@@ -22,6 +22,11 @@ Competency questions define what the ontology should eventually be able to repre
 13. What information is sufficient to establish provenance without establishing continuation?
 14. How are canonical status, development status, and evidentiary support distinguished?
 15. Which AI Foundations research claims depend on which ontology concepts and relationships?
+16. How does the ontology represent Continuum's singular Origin without turning Origin into a reusable role or general controller?
+17. How is a valid scoped AuthorityGrant distinguished from access, possession, Operator status, or self-asserted authority?
+18. How are termination, succession, withdrawal, and designated transfer represented as ChangeEvents without overwriting prior relation or authority provenance?
+19. How does the ontology detect a ProvenanceViolation involving false source attribution, obscured provenance, erasure, overwrite, or improper reassignment?
+20. How can an Agent be unauthorized for one attempted action while remaining authorized for another without creating a permanent UnauthorizedActor class?
 
 ## Development rule
 
