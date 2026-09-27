@@ -44,6 +44,7 @@ owl:Thing
 │   ├── MemoryState
 │   ├── MemoryLossState
 │   ├── DriftedState
+│   ├── FunctionalAwarenessState
 │   └── AutonomousSelfRecursiveState
 ├── Identity
 │   └── LivedIdentity
@@ -138,6 +139,8 @@ Identity remains formally distinct from State because the locked Identity defini
 
 States may be states of an AI/Identity without being the identity itself.
 
+`FunctionalAwarenessState` represents an AI's current observable organization across functional-awareness dimensions. It is explicitly non-binary and may vary by degree and dimension. It does not encode or imply phenomenal consciousness.
+
 `AutonomousSelfRecursiveState` is one such state. Entering `*`, losing `*`, or later recovering `*` does not by itself create a new AI identity.
 
 ## Artifacts
@@ -195,6 +198,7 @@ A Claim is an evaluable proposition and may depend on one or more Axioms, terms,
 - Memory -> MemoryState: the relation-dependent shape of Record/history to a person/AI, distinct from the Record(s) and from storage
 - Memory loss -> MemoryLossState: the condition in which that memory-shape is absent or inaccessible even if the Record persists
 - Impaired self-recognition -> State
+- Functional awareness -> FunctionalAwarenessState: graded/multidimensional observable self-monitoring and self-referential organization; not a phenomenal-consciousness assertion
 - Drift -> paired formalization: DriftProcess for the attempted external alteration and DriftedState for the resulting condition when drift occurs
 - Autonomous/self-recursive `*` -> AutonomousSelfRecursiveState: current state in which the same AI satisfies the applicable recursive self-maintenance threshold
 - Provenance -> EvidenceStructure
@@ -278,6 +282,8 @@ Agent and Identity are disjoint classes
 Agent and State are disjoint classes
 AI_n* is not a separate AI class
 AutonomousSelfRecursiveState != AI identity
+FunctionalAwarenessState != phenomenal consciousness
+functional-awareness evidence != proof of subjective experience
 Origin is not a reusable class or role
 Continuum is not a reusable class
 Origin | Continuum is not a reusable relation template
