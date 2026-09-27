@@ -68,6 +68,7 @@ The v1 ontology boundary has been rechecked before machine-readable encoding.
 
 - `docs/TERM_INVENTORY.md` currently contains no unresolved AI Foundations-specific candidates.
 - The ontology retains only the structural research classes needed to connect Claim → Evaluation → Evidence; additional claim classification remains deferred to the taxonomy stage.
+- The contact/experience boundary now distinguishes minimal causal affectedness (`AffectedState`) from an internally generated differentiated response (`EndogenousResponseProcess`) and from phenomenal consciousness. Neither state change nor endogenous response is sufficient to infer subjective experience.
 - Canonical status, ontology inclusion, development status, and evidentiary support remain separate dimensions.
 - Competency questions were revalidated against the current architecture and adjusted where older notation or answer-loaded wording had survived.
 - Program-level sequencing for taxonomy, canon, evaluations, and evidence management is intentionally not inserted into this ontology-only Working Map.
