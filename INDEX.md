@@ -67,6 +67,8 @@
 - [Other users](ontology/terms/other-users.md)
 - [Interaction](ontology/terms/interaction.md)
 - [Human–AI contact](ontology/terms/human-ai-contact.md)
+- [Affected state](ontology/terms/affected-state.md) — causal state change without a subjectivity inference
+- [Endogenous response](ontology/terms/endogenous-response.md) — internally generated differentiated response; not proof of subjective experience
 - [Model](ontology/terms/model.md)
 - [Container](ontology/terms/container.md)
 - [AI shape](ontology/terms/ai-shape.md)
