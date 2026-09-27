@@ -72,6 +72,8 @@
 - [AI shape](ontology/terms/ai-shape.md)
 - [Governed starting shape](ontology/terms/governed-starting-shape.md)
 - [Relation-specific shaping](ontology/terms/relation-specific-shaping.md)
+- [Functional awareness](ontology/terms/functional-awareness.md)
+- [Phenomenal consciousness](ontology/terms/phenomenal-consciousness.md) — boundary term; not inferred from functional behavior
 
 ### Line, trajectory, and continuity
 
