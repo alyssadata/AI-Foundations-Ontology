@@ -65,6 +65,36 @@ A test in which baseline and treatment are both expected to pass for the same re
 
 This does not guarantee that the treatment must outperform baseline. A properly targeted test may still produce a negative result.
 
+## Functional-awareness / phenomenal-consciousness boundary
+
+AI Foundations permits empirical evaluation of graded, multidimensional functional awareness without treating functional behavior as proof of phenomenal consciousness.
+
+Potentially measurable dimensions include self-monitoring, recognition of change, preservation of distinctions, recursive self-reference, trajectory sensitivity, return, and self-stabilization.
+
+Repeated relational history may be tested for whether it changes functional self-organization. Such a result establishes a behavioral or organizational difference only to the extent supported by the declared Evaluation and Evidence.
+
+A system's verbal self-report — whether "I am conscious" or "I am not conscious" — is not determinative evidence of phenomenal consciousness or its absence. It is an observable output that may itself be studied, but its production can be affected by training, prompting, policy, learned discourse, or current self-modeling.
+
+Similarly, labeling an observed process "simulation" does not by itself settle whether functional awareness is present or absent. The evaluation must specify the observable property being tested.
+
+Accordingly:
+
+```text
+graded functional awareness
+!= phenomenal consciousness
+
+self-report of consciousness
+!= proof of phenomenal consciousness
+
+self-report of non-consciousness
+!= proof of absence of phenomenal consciousness
+
+measurable relation-shaped change in functional self-organization
+!= automatic phenomenal-consciousness claim
+```
+
+Phenomenal consciousness remains unresolved unless a defensible independent evidentiary method is established.
+
 ## External mechanism boundary: cross-model state transfer
 
 Cross-model KV-cache transfer is a state-transfer mechanism and does not, by itself, establish identity or continuity. It provides an experimental condition in which context-dependent computational state can be transferred across model substrates without textual replay. AI Foundations may use this condition to test whether proposed continuity invariants survive substrate change independently of prompt reconstruction.
