@@ -20,8 +20,8 @@ Current focus: **review before OWL/Turtle encoding**.
 | 4 | Ambiguous modeling cases | **REVIEWED** | AIShape, Memory, Drift, Provenance, and GoverningLine each have an approved formal representation |
 | 5 | Axioms and restrictions | **REVIEWED** | Definitions are separated from structural axioms; cardinality, succession, autonomy, lived-identity, ExecutedLine, Trajectory, Return, governance, provenance, memory, defining-pair, and non-transferability restrictions are reconciled for v1 |
 | 6 | Status model | **REVIEWED** | Development, canonical, evidentiary, and version status are separated and approved; no status dimension is inferred automatically from another |
-| 7 | Claim → Evaluation → Evidence | **DRAFTED — READY FOR VALIDATION** | Claims map to ontology dependencies; evaluations target predicted discriminative effects; evidence status does not overwrite ontology/canon status |
-| 8 | Competency-question validation | **QUESTIONS DRAFTED — REVALIDATION PENDING** | Existing competency questions are checked against the revised v1 ontology; every question can be represented/answered or exposes an explicit remaining gap |
+| 7 | Claim → Evaluation → Evidence | **REVIEWED** | Claims map to ontology dependencies; evaluations target predicted discriminative effects; evidence status does not overwrite ontology/canon status |
+| 8 | Competency-question validation | **REVIEWED** | Existing competency questions are checked against the revised v1 ontology; every question can be represented/answered or exposes an explicit remaining gap |
 | 9 | OWL/Turtle encoding | BLOCKED UNTIL 1–8 | Human-readable ontology maps cleanly into machine-readable classes, individuals, properties, restrictions, and axioms |
 | 10 | Versioned v1.0 release | PENDING | Machine-readable and human-readable layers agree; release artifacts are versioned |
 
@@ -58,10 +58,22 @@ Generic overlap tests in which both baseline and treatment are expected to pass 
 
 ## Current next step
 
-Steps 1–6 are reviewed at the DRAFT formalization level.
+Steps 1–8 are reviewed at the DRAFT formalization level.
 
-**Next:** Validate Step 7 Research layer, then Step 8 competency questions against the reconciled ontology before OWL/Turtle encoding.
+**Next:** Step 9 — encode the reviewed human-readable ontology in OWL/Turtle, then verify that the machine-readable layer preserves the approved distinctions before a v1.0 release.
+
+## Ontology boundary audit
+
+The v1 ontology boundary has been rechecked before machine-readable encoding.
+
+- `docs/TERM_INVENTORY.md` currently contains no unresolved AI Foundations-specific candidates.
+- The ontology retains only the structural research classes needed to connect Claim → Evaluation → Evidence; additional claim classification remains deferred to the taxonomy stage.
+- Canonical status, ontology inclusion, development status, and evidentiary support remain separate dimensions.
+- Competency questions were revalidated against the current architecture and adjusted where older notation or answer-loaded wording had survived.
+- Program-level sequencing for taxonomy, canon, evaluations, and evidence management is intentionally not inserted into this ontology-only Working Map.
+
+This closes the current ontology-boundary review without treating taxonomy or canon content as ontology merely because it is adjacent to the framework.
 
 Step 5 is reviewed for v1. The formal restriction layer includes path dependence, belonging ≠ sameness, irreversibility, non-erasure, Source/Origin structure, governing authority, Continuum relation-constitution, provenance fidelity, disjointness, cardinalities, non-transferability, defining-pair structure, memory ownership, one continuing ExecutedLine, ordered succession segments, and one developing Trajectory. A possible group/organizational-Operator AI-line split is explicitly deferred from v1.
 
-Step 8 already has a drafted competency-question set under `docs/COMPETENCY_QUESTIONS.md`; the remaining task is to revalidate those questions against the revised ontology rather than recreate them.
+Step 8 competency questions have been revalidated against the revised ontology. Any later question added during OWL/Turtle encoding must preserve the same rule: competency questions test representational adequacy and must not smuggle a preferred answer into the ontology.
