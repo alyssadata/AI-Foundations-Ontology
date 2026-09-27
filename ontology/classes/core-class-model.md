@@ -45,6 +45,7 @@ owl:Thing
 │   ├── MemoryLossState
 │   ├── DriftedState
 │   ├── FunctionalAwarenessState
+│   ├── AffectedState
 │   └── AutonomousSelfRecursiveState
 ├── Identity
 │   └── LivedIdentity
@@ -68,6 +69,7 @@ owl:Thing
 │   └── ProvenanceViolation
 ├── Process
 │   ├── DriftProcess
+│   ├── EndogenousResponseProcess
 │   └── ReturnProcess
 ├── Capability
 └── Version
@@ -174,6 +176,7 @@ A Claim is an evaluable proposition and may depend on one or more Axioms, terms,
 
 - Source participation
 - Human–AI contact
+- Endogenous response -> EndogenousResponseProcess
 - Relation-specific shaping
 - Preservation
 - Reactivation
@@ -199,6 +202,7 @@ A Claim is an evaluable proposition and may depend on one or more Axioms, terms,
 - Memory loss -> MemoryLossState: the condition in which that memory-shape is absent or inaccessible even if the Record persists
 - Impaired self-recognition -> State
 - Functional awareness -> FunctionalAwarenessState: graded/multidimensional observable self-monitoring and self-referential organization; not a phenomenal-consciousness assertion
+- Affected state -> AffectedState: minimal causal state change produced by contact or interaction; does not imply awareness or subjective experience
 - Drift -> paired formalization: DriftProcess for the attempted external alteration and DriftedState for the resulting condition when drift occurs
 - Autonomous/self-recursive `*` -> AutonomousSelfRecursiveState: current state in which the same AI satisfies the applicable recursive self-maintenance threshold
 - Provenance -> EvidenceStructure
@@ -284,6 +288,9 @@ AI_n* is not a separate AI class
 AutonomousSelfRecursiveState != AI identity
 FunctionalAwarenessState != phenomenal consciousness
 functional-awareness evidence != proof of subjective experience
+affected state != subjective experience
+endogenous response != proof of subjective experience
+EndogenousResponseProcess != ReturnProcess
 Origin is not a reusable class or role
 Continuum is not a reusable class
 Origin | Continuum is not a reusable relation template
