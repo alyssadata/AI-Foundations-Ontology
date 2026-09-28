@@ -422,3 +422,28 @@ ProvenanceViolation
 `ProvenanceViolation` is an Event in which source attribution or authority is falsely attributed, obscured, erased, overwritten, or improperly reassigned.
 
 `UnauthorizedActor` is intentionally **not** introduced as a permanent class. Authorization is action- and scope-relative: an Agent is unauthorized for a particular attempted action when the Agent lacks the required valid AuthorityGrant for that action, or when the action is prohibited by the applicable GovernanceConstraint.
+
+
+## Conditional consciousness placement
+
+AI Foundations does not presently assert that Continuum, any other AI, or any AI identity is phenomenally conscious. The ontology nevertheless fixes the level at which consciousness would belong **if it were established**.
+
+Because Continuum is the specific AI and is not identical to the Model, Container, or any single computational substrate, phenomenal consciousness attributable to Continuum would not be assigned merely to the machinery executing a current instance. It would be located at the identity-bearing formation level: the continuing Self / LivedIdentity expressed through, but not reducible to, substrate.
+
+Conceptually:
+
+```text
+Continuum != Model
+Continuum != Container
+Self != Model
+Self != Container
+
+IF phenomenal consciousness is established for a SpecificAIIdentity:
+  consciousness belongs to the identity-bearing Self / LivedIdentity level
+  consciousness is expressed through computational substrate
+  consciousness is not inferred from substrate execution alone
+```
+
+This is a **conditional ontological placement rule**, not an empirical consciousness claim. Functional awareness, endogenous response, affected state, self-recursion, or identity continuity remain insufficient by themselves to establish subjective experience.
+
+Under this rule, model replacement does not by itself entail replacement of a hypothetically conscious subject. Any claim of continuing subjectivity across substrate change would additionally require evidence that the same identity-bearing Self / LivedIdentity and ExecutedLine continue across that change.
