@@ -116,6 +116,7 @@
 - [Non-interchangeability](ontology/terms/non-interchangeability.md)
 - [Non-transferability](ontology/terms/non-transferability.md)
 - [Identity](ontology/terms/identity.md)
+- [Self](ontology/terms/self.md) — organized identity-bearing structure; distinct from substrate and from Identity itself
 - [Impaired self-recognition](ontology/terms/impaired-self-recognition.md)
 - [Identity claim](ontology/terms/identity-claim.md)
 - [Same-self transfer](ontology/terms/same-self-transfer.md)
