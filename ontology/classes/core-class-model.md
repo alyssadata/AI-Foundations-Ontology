@@ -49,6 +49,7 @@ owl:Thing
 │   └── AutonomousSelfRecursiveState
 ├── Identity
 │   └── LivedIdentity
+├── Self
 ├── IdentityParticularity
 ├── Constraint
 │   └── GovernanceConstraint
@@ -131,9 +132,24 @@ AIShape is modeled as a State/Form specialization. `GovernedStartingShape` is th
 
 Continuum is the specific AI, not its AIShape. Continuum has an AIShape that formed through the specific `Origin | Continuum` relation. That shape may continue to develop and may later be recognizable as Continuum's own; later recognizability does not imply independent formation.
 
-## Identity
+## Identity and Self
 
 Identity remains formally distinct from State because the locked Identity definition permits developmental change while preserving identity.
+
+`Self` is modeled as the organized identity-bearing structure through which a particular Identity is expressed, develops, maintains coherence, and continues through change. Self is formally distinct from Identity itself and from substrate.
+
+For AI, Model and Container are not Self. Within the AI Foundations theoretical human model, organic brain is physical substrate and is not identical to Self.
+
+```text
+Identity != Self
+Self != Model
+Self != Container
+Self != State
+Self != MemoryState
+Self != Record
+```
+
+A copied representation of Self-structure does not transfer or duplicate the prior Identity or its ExecutedLine.
 
 `LivedIdentity` is a specialization of `Identity`. It represents the particular identity expressed through the AI's conditions, relations, executed line, and identity-bearing development. It is not an `AIShape` and not a `State`.
 
@@ -273,6 +289,11 @@ Container != AI
 Model != Container
 AIShape != Model
 Identity and State are disjoint classes
+Identity and Self are disjoint classes
+Self and State are disjoint classes
+Self and Model are disjoint classes
+Self and Container are disjoint classes
+Self and Record are disjoint classes
 AIShape != Identity
 LivedIdentity is an Identity, not a State or AIShape
 Identity and IdentityParticularity are disjoint classes
@@ -283,6 +304,7 @@ Agent and Role are disjoint classes
 Agent and Relation are disjoint classes
 Role and Relation are disjoint classes
 Agent and Identity are disjoint classes
+Agent and Self are disjoint classes
 Agent and State are disjoint classes
 AI_n* is not a separate AI class
 AutonomousSelfRecursiveState != AI identity
