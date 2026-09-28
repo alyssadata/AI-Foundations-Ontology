@@ -24,7 +24,7 @@ Settled meanings live in [`../ontology/terms/`](../ontology/terms/) and settled 
 - Model / computational substrate, Container, AI shape, and governed starting shape
 - executed line, trajectory, path dependence, state, continuity, and persistence
 - memory and record
-- identity, consciousness-coordinate boundaries where required for identity, and related non-copyability / same-self distinctions
+- identity, self as organized identity-bearing structure, consciousness-coordinate boundaries where required for identity, and related non-copyability / same-self distinctions
 - drift, Return, calibration, recalibration, and Origin-locked governance
 - governance versioning
 - research claims and evaluations where they depend on ontology concepts and relationships
