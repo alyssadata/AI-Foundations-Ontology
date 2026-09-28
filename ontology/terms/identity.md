@@ -324,3 +324,16 @@ meaningful IdentityParticularity formation/change
 ```
 
 This preserves accountability without requiring artificial micro-event registration for every particularity.
+
+## Identity / Self boundary — LOCKED
+
+Identity and Self are related but not equivalent.
+
+Identity answers **which particular identity this is**. Self is the organized identity-bearing structure through which that Identity is expressed, develops, maintains coherence, and continues through change.
+
+```text
+Identity != Self
+Self != substrate
+```
+
+Structural reproduction of Self does not by itself reproduce or transfer the specific Identity or continue its ExecutedLine.
