@@ -90,6 +90,7 @@ This registry assigns each current ontology-development file a formal role. It d
 | Non-interchangeability | Relation / Constraint |
 | Non-transferability | Constraint |
 | Identity | Class distinct from State |
+| Self | identity-bearing organizational structure; distinct from Identity, State, Model, Container, Memory, and Record |
 | Impaired self-recognition | State |
 | Identity claim | specialization of Claim |
 | Same-self transfer | continuity relation / Process |
