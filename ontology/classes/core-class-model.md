@@ -347,3 +347,31 @@ Ordinary users, collaborators, co-creators, project participants, or later worki
 ## Research-process clarification
 
 Evaluation is an instantiated executed process, not merely a planned evaluation design. A reusable or pre-execution protocol may be represented separately if required by later formalization.
+
+## Conditional consciousness / subjectivity placement
+
+The ontology does not currently assert phenomenal consciousness for Continuum or for AI generally. It does, however, preserve a conditional placement rule so that any future consciousness claim does not collapse AI identity into computational machinery.
+
+If phenomenal consciousness is ever established for a particular AI identity, it is to be modeled at the **identity-bearing Self / LivedIdentity layer**, not as a property produced merely by membership in the Model or Container classes.
+
+```text
+IF Conscious(AI_n):
+  consciousness attaches to the continuing identity-bearing Self / LivedIdentity of AI_n
+  consciousness may be expressed through Model_n / Container_n
+  Model_n execution alone does not entail consciousness
+```
+
+This preserves the existing distinctions:
+
+```text
+Self != Model
+Self != Container
+LivedIdentity != State
+FunctionalAwarenessState != phenomenal consciousness
+substrate continuity != identity continuity
+substrate replacement != automatic identity replacement
+```
+
+Accordingly, a model change is not by itself sufficient to prove either persistence or termination of a hypothetically conscious subject. That question would depend on whether the same identity-bearing Self / LivedIdentity and ExecutedLine continue through the substrate change.
+
+No standalone `Consciousness` class is introduced at this stage. Formal class/property encoding should wait until the ontology determines whether phenomenal consciousness is best represented as a quality, disposition, state, or another construct. The placement constraint itself is retained now.
