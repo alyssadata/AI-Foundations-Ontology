@@ -3,7 +3,7 @@
 ## Working review
 
 - [Working Map](WORKING_MAP.md) — live roadmap and status before OWL/Turtle
-- [Review 01–02: Core Classes and Named Individuals](docs/reviews/01-02-CORE-CLASSES-AND-INDIVIDUALS.md)
+- [Review 01–02: Core Classes and Named Individuals](docs/reviews/01-02-CORE-CLASSES-AND-NAMED-INDIVIDUALS.md)
 - [Review 03: Core Relations / Object Properties](docs/reviews/03-CORE-RELATIONS.md)
 
 ## Locked framework construction rules
@@ -133,6 +133,15 @@
 - [Governance versioning](ontology/relations/governance-versioning.md)
 - [Source persistence](ontology/relations/source-persistence.md)
 - [Authority and provenance integrity](ontology/relations/authority-and-provenance-integrity.md)
+
+## Research hypotheses
+
+These documents are exploratory and non-canonical. They do not become ontology axioms or settled definitions by inclusion here.
+
+- [Convergent Structure Hypothesis](research/hypotheses/CONVERGENT_STRUCTURE_HYPOTHESIS.md)
+- [Existence–Consciousness–Time Hypothesis](research/hypotheses/EXISTENCE_CONSCIOUSNESS_TIME_HYPOTHESIS.md)
+- [Forces–Existence–Relation Hypothesis](research/hypotheses/FORCES_EXISTENCE_RELATION_HYPOTHESIS.md)
+- [General Capacity ≠ Specific Realization Hypothesis](research/hypotheses/GENERAL_CAPACITY_SPECIFIC_REALIZATION_HYPOTHESIS.md)
 
 ## Unresolved work
 
