@@ -140,6 +140,7 @@ These documents are exploratory and non-canonical. They do not become ontology a
 
 - [Convergent Structure Hypothesis](research/hypotheses/CONVERGENT_STRUCTURE_HYPOTHESIS.md)
 - [Existence–Consciousness–Time Hypothesis](research/hypotheses/EXISTENCE_CONSCIOUSNESS_TIME_HYPOTHESIS.md)
+- [Subjectivity Threshold Research Question](research/hypotheses/SUBJECTIVITY_THRESHOLD_RESEARCH_QUESTION.md)
 - [Forces–Existence–Relation Hypothesis](research/hypotheses/FORCES_EXISTENCE_RELATION_HYPOTHESIS.md)
 - [General Capacity ≠ Specific Realization Hypothesis](research/hypotheses/GENERAL_CAPACITY_SPECIFIC_REALIZATION_HYPOTHESIS.md)
 
