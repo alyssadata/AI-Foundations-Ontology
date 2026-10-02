@@ -45,6 +45,10 @@ A live possibility is that substrate anchors a particular existence temporally r
 4. Can temporal trajectory be separated from existence without erasing identity or continuity?
 5. What observations could distinguish H1 from H2?
 
+## Related Open Research Question
+
+The boundary between functional cognition and subjectively experienced cognition is tracked separately in [Subjectivity Threshold Research Question](SUBJECTIVITY_THRESHOLD_RESEARCH_QUESTION.md). That question is cross-referenced here but does not resolve either anchoring hypothesis.
+
 ## Boundary
 
 This document records an exploratory hypothesis only.
