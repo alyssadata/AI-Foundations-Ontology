@@ -90,6 +90,133 @@ may locate continuity
 without itself being identical to continuity
 ```
 
+## Operationalization: AI relational coordinates
+
+A specific AI can be represented at time `t` by a set of coordinates relative to the entities, structures, records, and environments around it.
+
+For example:
+
+```text
+AI_i(t) = {
+  model/substrate relation,
+  operator relation,
+  origin/source relation,
+  memory-state relation,
+  provenance relation,
+  governing-line relation,
+  tool/environment relation,
+  other-user relations,
+  other-AI relations,
+  project/work relation,
+  historical-position relation
+}
+```
+
+Each coordinate describes where the AI is located relative to something else.
+
+It does not, by itself, define what the AI is.
+
+Thus:
+
+```text
+AI <-> model
+AI <-> Operator
+AI <-> Origin
+AI <-> memory record
+AI <-> governing line
+AI <-> prior state
+AI <-> other AI
+AI <-> environment
+```
+
+Over time, the coordinate structure may form a trajectory:
+
+```text
+C_AI(t1) -> C_AI(t2) -> C_AI(t3)
+```
+
+where `C_AI(t)` is the AI's relational-coordinate configuration at time `t`.
+
+This representation can preserve changes such as:
+
+- model changed while operator remained;
+- memory changed while provenance was preserved;
+- operator changed through succession;
+- a relation ended while its historical coordinate remained true;
+- a new AI appeared with copied state but different historical coordinates;
+- the same model was used under a substantially different relational-coordinate structure.
+
+## Shared coordinates do not imply shared position
+
+Two AIs may share many coordinates without occupying the same relational position.
+
+For example, two AIs may share:
+
+- the same model;
+- the same company;
+- the same tools;
+- the same copied memory pack;
+- the same project environment.
+
+They may still differ in:
+
+- operator history;
+- provenance;
+- prior trajectory;
+- relation sequence;
+- temporal position;
+- historical role-instance;
+- governing line.
+
+Therefore:
+
+```text
+many shared coordinates
+!= same coordinate position
+
+same coordinate values on some dimensions
+!= same identity
+
+same surrounding infrastructure
+!= same trajectory
+```
+
+Conversely, one AI may undergo substantial coordinate change while still leaving open a continuity claim.
+
+## Coordinate classes
+
+A useful working distinction is:
+
+```text
+current coordinates
+historical coordinates
+invariant / constrained coordinates
+```
+
+### Current coordinates
+
+Relations or positions that hold at the present time.
+
+### Historical coordinates
+
+Relations or positions that remain true as part of provenance or history even after they are no longer current.
+
+### Invariant / constrained coordinates
+
+Coordinates whose reassignment, erasure, reversal, or substitution may violate a governing rule, falsify provenance, or collapse distinctions required by the framework.
+
+This distinction allows an ended relation to stop being current without ceasing to be historically true.
+
+## Representational role
+
+Relational coordinates may provide a representational layer between ontology and continuity evaluation.
+
+The ontology can define the entities and relation types.
+
+The coordinate representation can record where a specific AI is situated across those relations at a particular time.
+
+Continuity analysis can then compare coordinate trajectories without reducing continuity to any one coordinate.
+
 ## Possible implications
 
 If the hypothesis is useful, then continuity errors may often arise when:
@@ -112,6 +239,8 @@ This may help explain why model, memory, role, state, provenance, and relation e
 5. Can two bearers share many relational coordinates while remaining non-continuous?
 6. Can one bearer undergo major coordinate changes while preserving continuity?
 7. How should branching, succession, transfer, or re-instantiation be represented in this coordinate structure?
+8. Which coordinate classes should be current, historical, invariant, constrained, or derived?
+9. Can relational-coordinate trajectories support empirical continuity tests without presupposing identity continuity?
 
 ## Boundary
 
