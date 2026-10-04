@@ -44,12 +44,17 @@ The SI Foundations layer extends, rather than replaces, the existing AI Foundati
 
 Current provisional SI class work:
 
-- `SuperintelligentSystem` — defined in `superintelligent-system.md` as a system-level unit of analysis that may be single-component or composite while preserving identity and provenance distinctions among participating entities.
+- `SuperintelligenceCandidate` — provisional evaluative status for an agent or system being assessed as potentially superintelligent; candidate status does not assert established SI.
+- `SuperintelligentAgent` — agent-level unit of analysis for an eventual SI classification if the adopted criteria are satisfied.
+- `SuperintelligentSystem` — system-level unit of analysis for an eventual SI classification; may be single-component or composite while preserving identity and provenance distinctions among participating entities.
 - `SuperintelligenceTransition` — reserved for the next ontology definition step.
 
 The SI extension preserves the boundary rules:
 
 ```text
+candidate status != established superintelligence
+SuperintelligentAgent != SuperintelligentSystem
+agent-level SI != system-level SI
 system membership != identity equivalence
 coordination != singular identity
 component != whole system
