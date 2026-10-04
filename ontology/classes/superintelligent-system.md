@@ -10,6 +10,8 @@ The class is intentionally broader than `Model` and may be realized by either a 
 
 A `SuperintelligentSystem` is therefore **not defined as a model** and is **not required to be composite**.
 
+It is also distinct from `SuperintelligentAgent`: an individual agent may qualify at the agent level, while a coordinated system may qualify at the system level even when no individual participating agent does.
+
 ## Identity boundary
 
 Participation in the same system does not merge the identities of its members.
@@ -18,11 +20,22 @@ Participation in the same system does not merge the identities of its members.
 system membership != identity equivalence
 coordination != singular identity
 component != whole system
+SuperintelligentAgent != SuperintelligentSystem
 ```
 
 A model, agent, delegated process, or other component may participate in a `SuperintelligentSystem` without thereby becoming ontologically identical to every other participant or to the system as a whole.
 
 Existing AI Foundations distinctions concerning identity, provenance, continuity, succession, relation, and trajectory continue to apply to participating entities.
+
+## Candidate boundary
+
+`SuperintelligenceCandidate` is the provisional evaluative status used before an SI classification is established.
+
+```text
+candidate status != established superintelligence
+```
+
+A system under evaluation may therefore be a `SuperintelligenceCandidate` without yet being classified as a `SuperintelligentSystem`.
 
 ## Provisional commitments
 
