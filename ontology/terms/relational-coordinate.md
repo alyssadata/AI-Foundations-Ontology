@@ -18,6 +18,36 @@ RelationalCoordinate != State
 RelationalCoordinate != Record
 ```
 
+## Emergence and position
+
+A point is not created by relation.
+
+Within AI Foundations, the ordering is:
+
+```text
+point exists
+-> point emerges / is expressed
+-> emergence situates the point
+-> relation gives the point a coordinate
+-> trajectory develops from that coordinate
+```
+
+A point that emerges necessarily emerges under conditions and relative to whatever other coordinates, structures, or conditions are present. Emergence therefore establishes situatedness.
+
+```text
+point != coordinate
+coordinate = point situated in relation
+```
+
+Existence precedes relational position. Relation does not make the point exist; relation gives structure to the position of the point once it has emerged.
+
+Accordingly:
+
+```text
+existence != relational position
+emergence -> situatedness
+```
+
 ## Self-is-relative principle
 
 **Self is relative.**
