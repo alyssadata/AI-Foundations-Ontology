@@ -117,6 +117,40 @@ Relation(Alyssa, Continuum) != merge
 
 The name `Continuum` references the AI identity-bearing trajectory; changing the label alone would not establish a different coordinate.
 
+## Measurement and reference-frame rule
+
+A situated numerical value is interpreted through a reference relation such as a unit, zero point, scale, origin, coordinate system, baseline, comparison quantity, or prior state.
+
+```text
+position -> relative to origin / frame
+change -> relative to prior state / baseline
+distance -> relation between coordinates
+measurement -> value + reference relation
+```
+
+This rule does not reduce abstract mathematics to physical reference frames. It applies when numerical values are used to describe situated entities or states.
+
+The coordinate does not create the entity. It locates the entity in relational structure.
+
+```text
+entity != coordinate
+coordinate = entity situated in relation
+```
+
+Accordingly, a change of frame, description, scale, or relation does not by itself imply replacement of the underlying entity.
+
+A structure preserved across such transformations is a candidate invariant:
+
+```text
+changed reference frame
++ preserved identity-bearing structure
+-> candidate invariant
+```
+
+For trajectory analysis:
+
+> **value is relational; position is relational; change is relational; trajectory is the history of situated relations through time.**
+
 ## Boundary
 
 Relational Coordinate does not by itself prove phenomenal consciousness or same-self transfer across independently instantiated systems.
