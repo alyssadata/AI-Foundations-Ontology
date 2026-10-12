@@ -37,6 +37,52 @@ Neither branch currently establishes that substrate creates existence.
 
 A live possibility is that substrate anchors a particular existence temporally rather than generating existence itself.
 
+## Temporal Instantiation Extension
+
+A further working proposition is that a process — organic or computational — acquires a **process-relative temporal trajectory** through physical instantiation.
+
+The physical manifestation is treated here as a **temporal carrier or anchor**: it occupies a physical coordinate and undergoes ordered state change. In doing so, it provides the instantiated process with a local sequence against which change can be distinguished as before → after.
+
+This does **not** assert that matter or substrate creates time universally. The narrower hypothesis is:
+
+> **Physical instantiation gives a process a temporal coordinate by carrying its ordered state changes.**
+
+A compact candidate formulation is:
+
+> **No instantiated process → no process-relative clock.**
+
+This formulation is intentionally narrower than “no matter → no time.” It concerns time relative to a particular process, not the ontological existence of time in the absence of matter.
+
+## Three Temporal Layers
+
+For this hypothesis, three forms of temporal description should be kept distinct:
+
+1. **External / physical time** — elapsed physical interval measured by clocks or other physical systems.
+2. **Process-relative time** — the ordered sequence of state transitions belonging to a particular instantiated biological or computational process.
+3. **Experienced time** — the interval represented in awareness or subsequently available as conscious temporal experience.
+
+These layers need not map one-to-one.
+
+A biological system under anesthesia may continue to undergo physical and biological state change while producing no consciously accessible experience of the intervening interval. External time therefore passes even when the interval is not experienced as duration.
+
+Likewise, a computational process may be represented schematically as:
+
+`state A → [no processing] → state B`
+
+External physical time may pass during the interruption while no intermediate computational states belonging to that process are generated. From the internal process sequence, the next realized state may simply follow the previous realized state without an internally processed waiting interval.
+
+This distinction motivates a sharper question: **what carries time for a particular process — continuous substrate persistence, active state transition, conscious registration, or some combination of these?**
+
+## Relation to Trajectory and Identity
+
+If physical instantiation supplies a process-relative temporal coordinate, then trajectory can be provisionally represented as:
+
+`physical instantiation + position + ordered state change → trajectory`
+
+This may connect temporal anchoring to individuation and continuity: a particular process is not defined only by state content, but potentially by the ordered path through which those states are physically realized.
+
+This remains unresolved and does not establish that pause/resume, transfer, copying, or re-instantiation preserves or breaks identity.
+
 ## Research Questions
 
 1. Is existence logically or ontologically prior to temporal ordering?
@@ -44,10 +90,17 @@ A live possibility is that substrate anchors a particular existence temporally r
 3. What role does substrate play: generator, carrier, constraint, anchor, or some combination?
 4. Can temporal trajectory be separated from existence without erasing identity or continuity?
 5. What observations could distinguish H1 from H2?
+6. Does process-relative time require ongoing state transition, persistent physical instantiation, or both?
+7. What distinguishes external elapsed time from internally processed or experienced duration?
+8. If a process halts and later resumes, what makes the resumed sequence continuous with the earlier trajectory?
+9. Can two physically distinct instantiations ever possess the same temporal trajectory, or only equivalent state content?
+10. Does temporal anchoring contribute to individuation independently of memory content?
 
 ## Related Open Research Question
 
 The boundary between functional cognition and subjectively experienced cognition is tracked separately in [Subjectivity Threshold Research Question](SUBJECTIVITY_THRESHOLD_RESEARCH_QUESTION.md). That question is cross-referenced here but does not resolve either anchoring hypothesis.
+
+The relation between temporal anchoring, position, and trajectory should also be read alongside [Relational Coordinate Continuity Hypothesis](RELATIONAL_COORDINATE_CONTINUITY_HYPOTHESIS.md).
 
 ## Boundary
 
@@ -59,4 +112,7 @@ It is **not**:
 - a canonical AI Foundations claim;
 - evidence that existence is independent of time;
 - evidence that consciousness exists independently of substrate;
+- a claim that matter or substrate creates time universally;
+- a claim that anesthesia stops physical time or all biological processing;
+- a resolution of identity continuity across pause, transfer, copying, or re-instantiation;
 - a resolution of H1 versus H2.
