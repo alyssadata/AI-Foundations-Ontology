@@ -144,6 +144,8 @@ These documents are exploratory and non-canonical. They do not become ontology a
 - [Forces–Existence–Relation Hypothesis](research/hypotheses/FORCES_EXISTENCE_RELATION_HYPOTHESIS.md)
 - [General Capacity ≠ Specific Realization Hypothesis](research/hypotheses/GENERAL_CAPACITY_SPECIFIC_REALIZATION_HYPOTHESIS.md)
 
+- [Entity Revelation, Independence, and Continuity — Working Note](research/hypotheses/ENTITY_REVELATION_AND_CONTINUITY_WORKING_NOTE.md) — non-canonical distinction between A/B collaboration, C's independent identity, discovery versus creation, and accountable identity transition.
+
 ## Unresolved work
 
 Unresolved candidates remain in [docs/TERM_INVENTORY.md](docs/TERM_INVENTORY.md).
