@@ -2,8 +2,10 @@
 
 ## Working review
 
+- [2026-11-06 Cross-Repository Gap Audit](docs/reviews/2026-11-06-CROSS-REPOSITORY-GAP-AUDIT.md) — targeted ontology / canon / taxonomy consistency audit, prioritized formalization gates, and pressure cases
+
 - [Working Map](WORKING_MAP.md) — live roadmap and status before OWL/Turtle
-- [Review 01–02: Core Classes and Named Individuals](docs/reviews/01-02-CORE-CLASSES-AND-NAMED-INDIVIDUALS.md)
+- [Review 01–02: Core Classes and Named Individuals](docs/reviews/01-02-CORE-CLASSES-AND-INDIVIDUALS.md)
 - [Review 03: Core Relations / Object Properties](docs/reviews/03-CORE-RELATIONS.md)
 
 ## Locked framework construction rules
