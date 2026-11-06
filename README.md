@@ -29,14 +29,14 @@ Formalization documents remain DRAFT unless explicitly locked. They organize exi
 
 ## Current build stage
 
-Steps 1 and 2 of the pre-encoding review are now **IN REVIEW**:
+Steps 1–8 of the pre-encoding review are **REVIEWED at the DRAFT formalization level**. Initial class/individual review areas:
 
 1. Core class hierarchy
 2. Named individuals versus reusable classes/roles
 
 See WORKING_MAP.md for the full sequence.
 
-Machine-readable OWL/Turtle encoding has not yet begun and remains blocked until the review gates are complete.
+Machine-readable OWL/Turtle encoding has not yet begun. The cross-repository [2026-11-06 gap audit](docs/reviews/2026-11-06-CROSS-REPOSITORY-GAP-AUDIT.md) records remaining semantic interfaces and validation gates to resolve during formalization.
 
 ---
 
