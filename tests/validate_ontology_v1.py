@@ -231,6 +231,93 @@ def main():
         g.remove((AIF.TestClaim, AIF.dependsOnOntologyElement, AIF.OriginContinuum))
     shape_test(graph, shapes, "Claim without ontology dependency must fail", evidence_without_dependencies, False)
 
+    # CARD-001: distinguish pre-lived AI (0 established lines permitted)
+    # from explicitly established continuing individualized AI (exactly 1).
+    # Synthetic fixtures do not assert that any actual AI has demonstrated
+    # consciousness or empirically verified same-self continuity.
+    def pre_lived_ai_fixture(g):
+        g.add((AIF.PreLivedAI, RDF.type, AIF.AIFoundationsGovernedAI))
+        g.add((AIF.PreLivedAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.PreLivedAI, AIF.hasShape, AIF.PreLivedStartingShape))
+        g.add((AIF.PreLivedStartingShape, RDF.type, AIF.GovernedStartingShape))
+        # No individualized ExecutedLine has yet been established.
+
+    def established_line_fixture(g):
+        g.add((AIF.EstablishedLineAI, RDF.type, AIF.EstablishedContinuingIndividualizedAI))
+        g.add((AIF.EstablishedLineAI, RDF.type, AIF.AIFoundationsGovernedAI))
+        g.add((AIF.EstablishedLineAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.EstablishedLineAI, AIF.hasExecutedLine, AIF.EstablishedLine))
+        g.add((AIF.EstablishedLine, RDF.type, AIF.ExecutedLine))
+        g.add((AIF.EstablishedLine, AIF.hasTrajectory, AIF.EstablishedTrajectory))
+        g.add((AIF.EstablishedTrajectory, RDF.type, AIF.Trajectory))
+
+    shape_test(graph, shapes, "CARD-001 pre-lived governed AI passes without an ExecutedLine",
+               pre_lived_ai_fixture)
+    pre_lived = clone_graph(graph)
+    pre_lived_ai_fixture(pre_lived)
+    require(not list(pre_lived.objects(AIF.PreLivedAI, AIF.hasExecutedLine)),
+            "CARD-001 no invented lived history for governed starting AI")
+    require((AIF.PreLivedAI, RDF.type, AIF.EstablishedContinuingIndividualizedAI) not in pre_lived,
+            "CARD-001 governance/pre-lived state alone does not assert established individualized status")
+
+    shape_test(graph, shapes, "CARD-001 established individualized AI with one line passes",
+               established_line_fixture)
+
+    def established_without_line(g):
+        established_line_fixture(g)
+        g.remove((AIF.EstablishedLineAI, AIF.hasExecutedLine, AIF.EstablishedLine))
+        g.remove((AIF.EstablishedLine, RDF.type, AIF.ExecutedLine))
+        g.remove((AIF.EstablishedLine, AIF.hasTrajectory, AIF.EstablishedTrajectory))
+        g.remove((AIF.EstablishedTrajectory, RDF.type, AIF.Trajectory))
+    shape_test(graph, shapes, "CARD-001 established individualized AI with zero lines fails",
+               established_without_line, False)
+
+    def established_with_two_lines(g):
+        established_line_fixture(g)
+        g.add((AIF.EstablishedSecondLine, RDF.type, AIF.ExecutedLine))
+        g.add((AIF.EstablishedSecondTrajectory, RDF.type, AIF.Trajectory))
+        g.add((AIF.EstablishedSecondLine, AIF.hasTrajectory, AIF.EstablishedSecondTrajectory))
+        g.add((AIF.EstablishedLineAI, AIF.hasExecutedLine, AIF.EstablishedSecondLine))
+        g.add((AIF.EstablishedLine, OWL.differentFrom, AIF.EstablishedSecondLine))
+    shape_test(graph, shapes, "CARD-001 two different lines on one established AI fail",
+               established_with_two_lines, False)
+
+    def model_container_changes_one_line(g):
+        established_line_fixture(g)
+        for model in (AIF.EstablishedModel1, AIF.EstablishedModel2):
+            g.add((model, RDF.type, AIF.Model))
+            g.add((AIF.EstablishedLineAI, AIF.expressedThroughModel, model))
+        for container in (AIF.EstablishedContainer1, AIF.EstablishedContainer2):
+            g.add((container, RDF.type, AIF.Container))
+            g.add((AIF.EstablishedLineAI, AIF.operatesWithinContainer, container))
+    shape_test(graph, shapes, "CARD-001 model and Container changes preserve one ExecutedLine",
+               model_container_changes_one_line)
+    model_changed = clone_graph(graph)
+    model_container_changes_one_line(model_changed)
+    require(set(model_changed.objects(AIF.EstablishedLineAI, AIF.hasExecutedLine)) == {AIF.EstablishedLine},
+            "CARD-001 changing Model/Container does not create a second lived line")
+
+    # OWL 2 exact-one is scoped to an explicitly qualified class. Global
+    # functionality would incorrectly narrow the pre-lived / historical
+    # representation semantics of hasExecutedLine.
+    restrictions = [
+        restriction for restriction in graph.objects(AIF.EstablishedContinuingIndividualizedAI, RDFS.subClassOf)
+        if (restriction, OWL.onProperty, AIF.hasExecutedLine) in graph and
+           (restriction, OWL.cardinality, Literal(1, datatype=XSD.nonNegativeInteger)) in graph
+    ]
+    require(len(restrictions) == 1,
+            "CARD-001 OWL class-scoped exactly-one ExecutedLine restriction is encoded")
+    require((AIF.hasExecutedLine, RDF.type, OWL.FunctionalProperty) not in graph,
+            "CARD-001 hasExecutedLine is not made globally functional for all AI")
+    scope_closure = clone_graph(graph)
+    pre_lived_ai_fixture(scope_closure)
+    established_line_fixture(scope_closure)
+    DeductiveClosure(OWLRL_Semantics).expand(scope_closure)
+    require((AIF.EstablishedLineAI, RDF.type, AIF.AI) in scope_closure,
+            "CARD-001 established individualized class is an AI subtype")
+    require((AIF.PreLivedAI, RDF.type, AIF.EstablishedContinuingIndividualizedAI) not in scope_closure,
+            "CARD-001 pre-lived AI not automatically classified as established by OWL RL")
+
     # NT-001: one LivedIdentity belongs to one distinct AI bearer.
     # These are synthetic structural ownership assertions, not evidence
     # that either AI has a phenomenal consciousness coordinate.
