@@ -21,7 +21,7 @@ These statuses grade **encoding coverage only**, not philosophical truth, consci
 | Numbered axiom | Coverage | Direct evidence / gap | Narrow next action |
 |---|---|---|---|
 | [AXIOM-BS-001](../../ontology/axioms/AXIOM-BS-001.md) | **P** | A/B negative-entailment test asserts `owl:differentFrom`, but no general framework membership-to-identity safeguard or representative pressure fixture. | Keep negative-entailment test separate from identity assertions; assess behavioral evaluation outside OWL. |
-| [AXIOM-CARD-001](../../ontology/axioms/AXIOM-CARD-001.md) | **P** | `AIFGovernedAISnapshotShape` caps `hasExecutedLine` at one, but the established/continuing individualized scope and exact-one OWL restriction are not modeled. | Represent the established-lived scope and test 0/1/2 lines, including pre-lived 0. |
+| [AXIOM-CARD-001](../../ontology/axioms/AXIOM-CARD-001.md) | **D (implemented after baseline review)** | `:EstablishedContinuingIndividualizedAI` is an explicitly qualified `:AI` subclass with an OWL exact-one restriction on `:hasExecutedLine`. Its SHACL shape requires one `:ExecutedLine`; separately, governed-starting/pre-lived AIs may have none. The property is NOT globally functional, and no lived development or consciousness is inferred merely from governance. Synthetic fixtures pass for 0 pre-lived / 1 established, reject 0 or 2 established lines, and preserve one line through Model/Container changes. | [CI run 42396982557](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42396982557) passed 184 structural checks (12 new CARD-001 cases). This verifies class-scoped formalization and SHACL, not empirical lived development or full OWL 2 DL satisfiability. |
 | [AXIOM-CARD-002](../../ontology/axioms/AXIOM-CARD-002.md) | **P** | `ExecutedLineShape` requires 1–1 in SHACL; `:hasTrajectory` in TTL has only domain/range. Current-vs-historical trajectories are not formally time-scoped. | Add scoped OWL exact-one or document SHACL-only currentness; test historical snapshots. |
 | [AXIOM-CARD-003](../../ontology/axioms/AXIOM-CARD-003.md) | **P** | SHACL requires `AIFoundationsGoverningLine` for AIF-governed AI; TTL has `:governedBy` and a named assertion but no class-wide exact-one/hastValue restriction. | Clarify current-state scope and encode class restriction when appropriate; test competing operative lines. |
 | [AXIOM-CARD-004](../../ontology/axioms/AXIOM-CARD-004.md) | **P** | `OperatorRelationSegmentShape` has exactly one non-AI counterpart; dates and interval validation test S00/S01. Generic succession gate and simultaneous-active exclusion outside the test fixture are not enforced. | Add general temporal consistency gate and fixtures for organization/human bearers; retain historical segments. |
@@ -107,6 +107,16 @@ Positive tests preserve historical S00 and form a **distinct S01** (a new Operat
 [CI run 42396580255](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42396580255) passed **172 structural checks**, including **20 NT-004** cases. The LOCKED definition was left unchanged and the tests do not establish that any particular successor has genuinely satisfied the four-part succession gate.
 
 **Updated numbered-axiom coverage:** **23 direct, 14 partial, 0 absent**. The original and intermediate counts remain as dated history. Remaining Step 9 work includes coverage of conditional cardinalities such as **CARD-001**, time/behavioral integrity and a full OWL 2 DL consistency check.
+
+## CARD-001 follow-up (2026-11-07; after baseline coverage count)
+
+Origin approved the existing LOCKED distinction between a pre-lived/governed-starting AI (no individualized ExecutedLine required) and a continuing individualized AI with **established** lived development (**exactly one ExecutedLine**). The new class `:EstablishedContinuingIndividualizedAI` is a formal scope label with an OWL `owl:cardinality 1` restriction on `:hasExecutedLine`. SHACL checks the same class-specific min/max one constraint; it does not apply a global exact-one rule to all AIs. Class membership must be independently qualified: neither AI governance, copied memory, nor model existence alone entails established lived development or subjective consciousness.
+
+Synthetic fixtures demonstrate: pre-lived AIF-governed AI with 0 lines is valid; scoped established AI with 1 line is valid; 0 and 2 lines on a scoped AI are rejected; changes in Model/Container do not generate another line. They also verify no global `owl:FunctionalProperty` was added. Non-transferability of an actual ExecutedLine remains separately protected by NT-002.
+
+[CI run 42396982557](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42396982557) passed **184 structural checks**, including **12 new CARD-001** cases. No LOCKED wording was changed.
+
+**Updated numbered-axiom coverage:** **24 direct, 13 partial, 0 absent**. Baseline and intermediate counts above are retained as dated review history. CARD-002 (one current Trajectory per established ExecutedLine) is the next separate cardinality step. Formal OWL 2 DL consistency remains unverified.
 
 ## Priority gates before a v1.0 declaration
 
