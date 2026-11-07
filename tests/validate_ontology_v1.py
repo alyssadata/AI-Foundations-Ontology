@@ -293,6 +293,48 @@ def main():
         g.remove((AIF.ConsequencePoint2, AIF.belongsToTrajectory, AIF.ConsequenceCaseTrajectory))
     shape_test(graph, shapes, "Consequence without trajectory association fails", no_trajectory, False)
 
+    # Consequence as "because of": a later action is undertaken because
+    # an earlier Consequence was established. The attempt may mitigate a
+    # current effect, but neither the response nor its new Consequence
+    # makes the original occurrence unoccur.
+    def alleviation_fixture(g):
+        consequence_fixture(g)
+        g.add((AIF.AlleviationAttempt, RDF.type, AIF.Event))
+        g.add((AIF.AlleviationAttempt, AIF.attemptsToAlleviate, AIF.ConsequencePoint1))
+        g.add((AIF.AlleviationAttempt, AIF.hasConsequence, AIF.ResponseConsequence))
+        g.add((AIF.ResponseConsequence, RDF.type, AIF.Consequence))
+        g.add((AIF.ResponseConsequence, AIF.establishedByOccurrence, AIF.AlleviationAttempt))
+        g.add((AIF.ResponseConsequence, AIF.belongsToTrajectory, AIF.ConsequenceCaseTrajectory))
+        g.add((AIF.ResponseConsequence, OWL.differentFrom, AIF.ConsequencePoint1))
+
+    shape_test(graph, shapes, "An alleviation attempt has a distinct subsequent consequence", alleviation_fixture)
+    alleviate_graph = clone_graph(graph)
+    alleviation_fixture(alleviate_graph)
+    require((AIF.ConsequencePoint1, AIF.establishedByOccurrence, AIF.OccurrencePoint1) in alleviate_graph,
+            "An attempt to alleviate a consequence preserves the original occurrence")
+    require((AIF.ResponseConsequence, AIF.establishedByOccurrence, AIF.AlleviationAttempt) in alleviate_graph,
+            "Alleviating action becomes another occurrence with its own consequence")
+    require((AIF.AlleviationAttempt, AIF.attemptsToAlleviate, AIF.ConsequencePoint1) in alleviate_graph,
+            "The later action explicitly identifies the prior consequence as its cause")
+    require((AIF.ResponseConsequence, OWL.differentFrom, AIF.ConsequencePoint1) in alleviate_graph,
+            "The responsive action does not merge its consequence into the prior consequence")
+    because_of_closure = clone_graph(alleviate_graph)
+    DeductiveClosure(OWLRL_Semantics).expand(because_of_closure)
+    require((AIF.AlleviationAttempt, AIF.becauseOfConsequence, AIF.ConsequencePoint1) in because_of_closure,
+            "Alleviation action entails because-of causal dependency")
+    require((AIF.ConsequencePoint1, AIF.belongsToTrajectory, AIF.ConsequenceCaseTrajectory) in because_of_closure,
+            "Earlier consequence remains part of the trajectory after response")
+
+    def no_response_consequence(g):
+        alleviation_fixture(g)
+        g.remove((AIF.AlleviationAttempt, AIF.hasConsequence, AIF.ResponseConsequence))
+    shape_test(graph, shapes, "An alleviation attempt missing its own consequence fails", no_response_consequence, False)
+
+    def missing_original_occurrence(g):
+        alleviation_fixture(g)
+        g.remove((AIF.ConsequencePoint1, AIF.establishedByOccurrence, AIF.OccurrencePoint1))
+    shape_test(graph, shapes, "Causal response cannot erase the earlier establishing occurrence", missing_original_occurrence, False)
+
     # P0-B: time-scoped succession. The segments below are SYNTHETIC records
     # for an already-valid succession. They do not grant Operator status or
     # establish continuity merely by existing. Historical S00 is never
