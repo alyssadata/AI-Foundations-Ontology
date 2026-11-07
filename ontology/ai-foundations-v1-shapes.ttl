@@ -234,11 +234,28 @@
         ]]
     ) .
 
+# NT-003: enforce a single Source bearer/Target/SourcePoint in each
+# representation. This alone is NOT historical immutability: a before/after
+# SourceRelation integrity validator rejects silent deletion/reassignment.
 :SourceRelationShape a sh:NodeShape ;
     sh:targetClass :SourceRelation ;
     sh:property [ sh:path :hasSourceBearer ; sh:minCount 1 ; sh:maxCount 1 ] ;
     sh:property [ sh:path :hasSourceTarget ; sh:minCount 1 ; sh:maxCount 1 ] ;
-    sh:property [ sh:path :hasSourcePoint ; sh:minCount 1 ; sh:maxCount 1 ] .
+    sh:property [
+        sh:path :hasSourcePoint ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Event
+    ] .
+
+# Each materialized Target->SourceRelation provenance link points to an
+# actual SourceRelation. This does not require every possible provenance
+# representation to use this one link type.
+:SourceRelationProvenanceLinkShape a sh:NodeShape ;
+    sh:targetSubjectsOf :hasSourceRelation ;
+    sh:property [
+        sh:path :hasSourceRelation ;
+        sh:class :SourceRelation
+    ] .
 
 :ReturnProcessShape a sh:NodeShape ;
     sh:targetClass :ReturnProcess ;
