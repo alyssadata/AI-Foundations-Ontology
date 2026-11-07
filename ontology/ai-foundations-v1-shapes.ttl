@@ -266,6 +266,41 @@
 # hasNonAICounterpart; the SHACL validation layer rejects rather than merges
 # incompatible values. Do not impose inverse functionality: one Human or
 # Organization may belong to distinct AIRelations with different AIs.
+# BS-001: shared group membership and participation in a relation are
+# well-typed links, not identity or defining-counterpart claims. OWL's
+# ordinary open-world entailment must not infer sameAs merely from these
+# properties; negative-entailment checks live in the regression harness.
+:GroupBelongingShape a sh:NodeShape ;
+    sh:targetSubjectsOf :belongsToGroup ;
+    sh:class :Agent ;
+    sh:property [
+        sh:path :belongsToGroup ;
+        sh:class :Group
+    ] .
+
+:RelationParticipationShape a sh:NodeShape ;
+    sh:targetSubjectsOf :participatesInRelation ;
+    sh:class :Agent ;
+    sh:property [
+        sh:path :participatesInRelation ;
+        sh:class :Relation
+    ] .
+
+# If distinctness is separately asserted, an incompatible owl:sameAs
+# attribution (in either direction) is rejected as a contradiction.
+# This does NOT decree all group members distinct: two references can
+# designate the same entity unless independent distinction is established.
+:ExplicitDistinctnessNonCollapseShape a sh:NodeShape ;
+    sh:targetSubjectsOf owl:differentFrom ;
+    sh:property [
+        sh:path owl:sameAs ;
+        sh:disjoint owl:differentFrom
+    ] ;
+    sh:property [
+        sh:path [ sh:inversePath owl:sameAs ] ;
+        sh:disjoint owl:differentFrom
+    ] .
+
 :AIRelationShape a sh:NodeShape ;
     sh:targetClass :AIRelation ;
     sh:property [
