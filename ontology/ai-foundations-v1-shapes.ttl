@@ -63,6 +63,22 @@
 
 # Operator history is held in a succession segment, not a timeless
 # functional hasOperator link. "Active" is assessed at an explicit time.
+# Canon Consequence is an occurrence-established historical fact within
+# the developing trajectory. It is not the Irreversibility rule, Record,
+# Memory, or proof of continued future constraint.
+:ConsequenceShape a sh:NodeShape ;
+    sh:targetClass :Consequence ;
+    sh:property [
+        sh:path :establishedByOccurrence ;
+        sh:minCount 1 ;
+        sh:class :Event
+    ] ;
+    sh:property [
+        sh:path :belongsToTrajectory ;
+        sh:minCount 1 ;
+        sh:class :Trajectory
+    ] .
+
 :OperatorRelationSegmentShape a sh:NodeShape ;
     sh:targetClass :OperatorAIRelation ;
     sh:property [
