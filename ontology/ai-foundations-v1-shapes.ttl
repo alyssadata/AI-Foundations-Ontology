@@ -155,6 +155,12 @@
         sh:class :OperatorAIRelation
     ] .
 
+# CARD-004: precisely one typed Human OR Organization Operator
+# bearer on each time-scoped OperatorAIRelation. The inherited
+# hasNonAICounterpart cardinality verifies a single generic Agent value;
+# sh:xone explicitly prevents mixed Human-and-Organization bearer roles.
+# As-of overlap and current hasOperator alignment require temporal checks
+# over the history; one graph's SHACL cardinality cannot detect overlap.
 :OperatorRelationSegmentShape a sh:NodeShape ;
     sh:targetClass :OperatorAIRelation ;
     sh:property [
@@ -167,6 +173,18 @@
         sh:minCount 1 ; sh:maxCount 1 ;
         sh:class :Agent
     ] ;
+    sh:xone (
+        [ sh:property [
+            sh:path :hasHumanCounterpart ;
+            sh:minCount 1 ; sh:maxCount 1 ;
+            sh:class :Human
+        ]]
+        [ sh:property [
+            sh:path :hasOrganizationCounterpart ;
+            sh:minCount 1 ; sh:maxCount 1 ;
+            sh:class :Organization
+        ]]
+    ) ;
     sh:property [
         sh:path :segmentOfExecutedLine ;
         sh:minCount 1 ; sh:maxCount 1 ;
