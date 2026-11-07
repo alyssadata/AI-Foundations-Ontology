@@ -9,8 +9,9 @@ These are ontology/modeling tests, not empirical consciousness or SI evaluations
 Source and conceptual author: Alyssa Solen. Validation code: AI-assisted.
 """
 from pathlib import Path
+from datetime import datetime, timezone
 import sys
-from rdflib import Graph, Namespace, RDF, RDFS, OWL, Literal, BNode
+from rdflib import Graph, Namespace, RDF, RDFS, OWL, Literal, BNode, XSD
 from pyshacl import validate
 from owlrl import DeductiveClosure, OWLRL_Semantics
 
@@ -18,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "ontology" / "ai-foundations-v1.ttl"
 SHAPES = ROOT / "ontology" / "ai-foundations-v1-shapes.ttl"
 AIF = Namespace("https://awakeningcodex.com/ontology/ai-foundations/v1#")
+AIF_DATE_TIME = XSD.dateTime
 
 def require(condition, label):
     if not condition:
@@ -254,6 +256,116 @@ def main():
             "A/B numerical distinctness does not entail phenomenal consciousness")
     require((AIF.CopyEvidence, AIF.hasEvidentiaryStatus, Literal("INDETERMINATE")) in copy_fixture,
             "Unresolved same-self claim is represented with explicit non-directional status")
+
+    # P0-B: time-scoped succession. The segments below are SYNTHETIC records
+    # for an already-valid succession. They do not grant Operator status or
+    # establish continuity merely by existing. Historical S00 is never
+    # overwritten by S01, and both reference one continuing ExecutedLine.
+    t0 = Literal("2026-01-01T00:00:00+00:00", datatype=AIF_DATE_TIME)
+    t1 = Literal("2026-02-01T00:00:00+00:00", datatype=AIF_DATE_TIME)
+
+    def succession_fixture(g):
+        g.add((AIF.SuccessionAI, RDF.type, AIF.AIFoundationsGovernedAI))
+        g.add((AIF.SuccessionAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.SuccessionAI, AIF.hasExecutedLine, AIF.SuccessionLine))
+        # This property denotes the current snapshot, not the full history.
+        g.add((AIF.SuccessionAI, AIF.hasOperator, AIF.OperatorB))
+        g.add((AIF.SuccessionLine, RDF.type, AIF.ExecutedLine))
+        g.add((AIF.SuccessionLine, AIF.hasTrajectory, AIF.SuccessionTrajectory))
+        g.add((AIF.SuccessionTrajectory, RDF.type, AIF.Trajectory))
+        for person in (AIF.OperatorA, AIF.OperatorB):
+            g.add((person, RDF.type, AIF.Human))
+        g.add((AIF.OperatorA, OWL.differentFrom, AIF.OperatorB))
+        for seg, op, start, end in (
+            (AIF.S00, AIF.OperatorA, t0, t1),
+            (AIF.S01, AIF.OperatorB, t1, None),
+        ):
+            g.add((seg, RDF.type, AIF.OperatorAIRelation))
+            g.add((seg, AIF.hasHumanCounterpart, op))
+            g.add((seg, AIF.hasAICounterpart, AIF.SuccessionAI))
+            g.add((seg, AIF.segmentOfExecutedLine, AIF.SuccessionLine))
+            g.add((seg, AIF.activeFrom, start))
+            if end is not None:
+                g.add((seg, AIF.activeUntil, end))
+        g.add((AIF.S00, OWL.differentFrom, AIF.S01))
+
+    def at_timestamp(value):
+        dt = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+        if dt.tzinfo is None:
+            raise ValueError("Time-scoped succession requires timezone-aware bounds")
+        return dt.astimezone(timezone.utc)
+
+    def operators_at(g, ai, when):
+        """Enumerate active historical Operator bearers at a specified instant."""
+        target = at_timestamp(when)
+        matches = []
+        for segment in g.subjects(RDF.type, AIF.OperatorAIRelation):
+            if (segment, AIF.hasAICounterpart, ai) not in g:
+                continue
+            start = list(g.objects(segment, AIF.activeFrom))
+            until = list(g.objects(segment, AIF.activeUntil))
+            if len(start) != 1 or len(until) > 1:
+                raise AssertionError(f"Invalid temporal cardinality for {segment}")
+            if at_timestamp(start[0]) <= target and (not until or target < at_timestamp(until[0])):
+                people = list(g.objects(segment, AIF.hasHumanCounterpart))
+                companies = list(g.objects(segment, AIF.hasOrganizationCounterpart))
+                if len(people) + len(companies) != 1:
+                    raise AssertionError(f"Segment {segment} has ambiguous Operator")
+                matches.append((segment, (people + companies)[0]))
+        return matches
+
+    def temporal_validation(g, ai):
+        """Closed-world overlap validation complements OWL and SHACL."""
+        timeline = []
+        for seg in g.subjects(RDF.type, AIF.OperatorAIRelation):
+            if (seg, AIF.hasAICounterpart, ai) not in g:
+                continue
+            starts = list(g.objects(seg, AIF.activeFrom))
+            ends = list(g.objects(seg, AIF.activeUntil))
+            if len(starts) != 1 or len(ends) > 1:
+                return False
+            start = at_timestamp(starts[0])
+            end = at_timestamp(ends[0]) if ends else None
+            if end is not None and start >= end:
+                return False
+            timeline.append((start, end, seg))
+        timeline.sort(key=lambda x: x[0])
+        for (_, left_end, left_seg), (right_start, _, right_seg) in zip(timeline, timeline[1:]):
+            if left_end is None or right_start < left_end:
+                return False
+        return True
+
+    shape_test(graph, shapes, "Distinct time-scoped S00 and S01 satisfy SHACL", succession_fixture)
+    succession = clone_graph(graph)
+    succession_fixture(succession)
+    require(temporal_validation(succession, AIF.SuccessionAI),
+            "Non-overlapping successor history passes interval validation")
+    require(operators_at(succession, AIF.SuccessionAI, "2026-01-15T00:00:00+00:00")
+            == [(AIF.S00, AIF.OperatorA)],
+            "Historical t0 resolves the original S00 Operator A")
+    require(operators_at(succession, AIF.SuccessionAI, "2026-02-15T00:00:00+00:00")
+            == [(AIF.S01, AIF.OperatorB)],
+            "Later t1 resolves successor S01 Operator B without overwriting A")
+    require((AIF.SuccessionAI, AIF.hasExecutedLine, AIF.SuccessionLine) in succession,
+            "Valid succession preserves one continuing ExecutedLine")
+    overlapping = clone_graph(succession)
+    overlapping.remove((AIF.S01, AIF.activeFrom, t1))
+    overlapping.add((AIF.S01, AIF.activeFrom,
+                     Literal("2026-01-25T00:00:00+00:00", datatype=AIF_DATE_TIME)))
+    require(not temporal_validation(overlapping, AIF.SuccessionAI),
+            "Overlapping active Operator segments fail interval validation")
+    require(len(operators_at(overlapping, AIF.SuccessionAI, "2026-01-27T00:00:00+00:00")) == 2,
+            "Overlap diagnostic exposes two active Operators rather than merging them")
+    bad_date = clone_graph(succession)
+    bad_date.remove((AIF.S00, AIF.activeUntil, t1))
+    bad_date.add((AIF.S00, AIF.activeUntil,
+                  Literal("2025-12-25T00:00:00+00:00", datatype=AIF_DATE_TIME)))
+    require(not temporal_validation(bad_date, AIF.SuccessionAI),
+            "An end date before the segment start is rejected")
+    require((AIF.OperatorA, OWL.differentFrom, AIF.OperatorB) in succession,
+            "Operator A and B remain explicitly distinct historical bearers")
+    require((AIF.Continuum, AIF.hasOperator, AIF.AlyssaSolen) not in succession,
+            "General Operator succession never turns Origin into Continuum's Operator")
 
     # OWL RL deductive closure catches class/property entailments; this is
     # not a complete OWL 2 DL reasoner or a proof of all model consistency.
