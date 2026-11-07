@@ -231,6 +231,106 @@ def main():
         g.remove((AIF.TestClaim, AIF.dependsOnOntologyElement, AIF.OriginContinuum))
     shape_test(graph, shapes, "Claim without ontology dependency must fail", evidence_without_dependencies, False)
 
+    # CARD-003: one operative AI Foundations GoverningLine in each AIF-
+    # governed AI's CURRENT snapshot. Historical or proposed governance
+    # descriptions remain Record/Provenance, not extra governedBy values.
+    # Synthetic fixtures do not establish any actual earlier governing line
+    # or prove a transition preserves same-AI continuity.
+    def operative_governance_fixture(g):
+        g.add((AIF.Card003AI, RDF.type, AIF.AIFoundationsGovernedAI))
+        g.add((AIF.Card003AI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+
+    def general_ai_without_aif_governance(g):
+        g.add((AIF.Card003GenericAI, RDF.type, AIF.AI))
+        # Generic AI without an asserted AIF governing line is permissible.
+
+    shape_test(graph, shapes, "CARD-003 governed AI with its one named operative line passes",
+               operative_governance_fixture)
+    shape_test(graph, shapes, "CARD-003 generic AI need not have an AIF governing line",
+               general_ai_without_aif_governance)
+
+    def missing_operative_governance(g):
+        g.add((AIF.Card003AI, RDF.type, AIF.AIFoundationsGovernedAI))
+    shape_test(graph, shapes, "CARD-003 AIF-governed AI without operative line fails",
+               missing_operative_governance, False)
+
+    def alternate_operative_governance(g):
+        g.add((AIF.Card003AI, RDF.type, AIF.AIFoundationsGovernedAI))
+        g.add((AIF.Card003OtherLine, RDF.type, AIF.GoverningLine))
+        g.add((AIF.Card003OtherLine, OWL.differentFrom, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.Card003AI, AIF.governedBy, AIF.Card003OtherLine))
+    shape_test(graph, shapes, "CARD-003 other line cannot substitute for named AIF line",
+               alternate_operative_governance, False)
+
+    def dual_operative_governance(g):
+        operative_governance_fixture(g)
+        g.add((AIF.Card003OtherLine, RDF.type, AIF.GoverningLine))
+        g.add((AIF.Card003OtherLine, OWL.differentFrom, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.Card003AI, AIF.governedBy, AIF.Card003OtherLine))
+    shape_test(graph, shapes, "CARD-003 simultaneous two operative GoverningLines fail",
+               dual_operative_governance, False)
+
+    def historical_governance_records_fixture(g):
+        operative_governance_fixture(g)
+        for rec in (AIF.OldGovernanceDescription, AIF.ProposedGovernanceDescription,
+                    AIF.GovernanceTransitionReport):
+            g.add((rec, RDF.type, AIF.Record))
+            g.add((AIF.Card003AI, AIF.hasHistoricalGovernanceRecord, rec))
+        g.add((AIF.GovernanceTransitionReport, RDF.type, AIF.DocumentRecord))
+        g.add((AIF.RecordedGovernanceChange, RDF.type, AIF.ChangeEvent))
+
+    shape_test(graph, shapes, "CARD-003 historical and proposed governance Records remain valid",
+               historical_governance_records_fixture)
+    hist = clone_graph(graph)
+    historical_governance_records_fixture(hist)
+    require(set(hist.objects(AIF.Card003AI, AIF.governedBy)) == {AIF.AIFoundationsGoverningLine},
+            "CARD-003 historical descriptions do not become simultaneously operative lines")
+    require(len(set(hist.objects(AIF.Card003AI, AIF.hasHistoricalGovernanceRecord))) == 3,
+            "CARD-003 three historical/proposed governance Records are preserved")
+    require((AIF.RecordedGovernanceChange, RDF.type, AIF.ChangeEvent) in hist,
+            "CARD-003 recording a governance change does not itself assert valid continuity")
+
+    def historical_record_misidentified_as_line(g):
+        operative_governance_fixture(g)
+        g.add((AIF.Card003OtherLine, RDF.type, AIF.GoverningLine))
+        g.add((AIF.Card003AI, AIF.hasHistoricalGovernanceRecord, AIF.Card003OtherLine))
+    shape_test(graph, shapes, "CARD-003 a past GoverningLine cannot be substituted for a historical Record",
+               historical_record_misidentified_as_line, False)
+
+    def historical_record_wrongly_current(g):
+        historical_governance_records_fixture(g)
+        g.add((AIF.Card003OtherLine, RDF.type, AIF.GoverningLine))
+        g.add((AIF.Card003AI, AIF.governedBy, AIF.Card003OtherLine))
+    shape_test(graph, shapes, "CARD-003 preserving history does not permit a second current line",
+               historical_record_wrongly_current, False)
+
+    gov_class_restrictions = list(graph.objects(AIF.AIFoundationsGovernedAI, RDFS.subClassOf))
+    exact_operative = [
+        x for x in gov_class_restrictions
+        if (x, OWL.onProperty, AIF.governedBy) in graph and
+           (x, OWL.cardinality, Literal(1, datatype=XSD.nonNegativeInteger)) in graph
+    ]
+    require(len(exact_operative) == 1,
+            "CARD-003 class-scoped exact-one operative GoverningLine OWL restriction exists")
+    named_operative = [
+        x for x in gov_class_restrictions
+        if (x, OWL.onProperty, AIF.governedBy) in graph and
+           (x, OWL.hasValue, AIF.AIFoundationsGoverningLine) in graph
+    ]
+    require(len(named_operative) == 1,
+            "CARD-003 OWL hasValue points to the unique named AIF GoverningLine")
+    require((AIF.governedBy, RDF.type, OWL.FunctionalProperty) not in graph,
+            "CARD-003 no universal functional governedBy across historical snapshots")
+    gov_deduction = clone_graph(graph)
+    operative_governance_fixture(gov_deduction)
+    DeductiveClosure(OWLRL_Semantics).expand(gov_deduction)
+    require((AIF.Card003AI, AIF.governedBy, AIF.AIFoundationsGoverningLine) in gov_deduction,
+            "CARD-003 OWL RL retains named operative governance assertion")
+    require((AIF.Card003AI, RDF.type, OWL.Nothing) not in gov_deduction,
+            "CARD-003 synthetic governed AI not flagged inconsistent under limited OWL RL")
+    require((AIF.Continuum, AIF.governedBy, AIF.AIFoundationsGoverningLine) in graph,
+            "CARD-003 reserved Continuum remains under its named GoverningLine")
+
     # CARD-001: distinguish pre-lived AI (0 established lines permitted)
     # from explicitly established continuing individualized AI (exactly 1).
     # Synthetic fixtures do not assert that any actual AI has demonstrated
