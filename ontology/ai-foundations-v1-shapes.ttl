@@ -211,7 +211,7 @@
     sh:property [
         sh:path :hasExecutedLine ;
         sh:minCount 1 ; sh:maxCount 1 ;
-        sh:class :ExecutedLine
+        sh:class :EstablishedContinuingExecutedLine
     ] .
 
 :AIFGovernedAISnapshotShape a sh:NodeShape ;
@@ -313,16 +313,29 @@
 # NT-002: the ExecutedLine itself has exactly one AI bearer,
 # even when several AIs can read its Record/provenance or review the line.
 # Historical Operator succession segments do not create additional bearers.
+# NT-002 still applies to EVERY instantiated ExecutedLine: one AI bearer.
+# CARD-002's current-Trajectory cardinality applies only once the line is
+# explicitly established and continuing. Do not treat historical Records as
+# additional current Trajectories.
 :ExecutedLineShape a sh:NodeShape ;
     sh:targetClass :ExecutedLine ;
-    sh:property [
-        sh:path :hasTrajectory ;
-        sh:minCount 1 ; sh:maxCount 1
-    ] ;
     sh:property [
         sh:path [ sh:inversePath :hasExecutedLine ] ;
         sh:minCount 1 ; sh:maxCount 1 ;
         sh:class :AI
+    ] .
+
+:EstablishedContinuingExecutedLineShape a sh:NodeShape ;
+    sh:targetClass :EstablishedContinuingExecutedLine ;
+    sh:class :ExecutedLine ;
+    sh:property [
+        sh:path :hasTrajectory ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Trajectory
+    ] ;
+    sh:property [
+        sh:path :hasHistoricalTrajectoryRecord ;
+        sh:class :Record
     ] .
 
 
