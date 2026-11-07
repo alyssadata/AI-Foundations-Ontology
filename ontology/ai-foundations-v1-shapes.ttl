@@ -214,6 +214,10 @@
         sh:class :EstablishedContinuingExecutedLine
     ] .
 
+# CARD-003: validate exactly one current operative named GoverningLine
+# per AI Foundations-governed AI in ONE snapshot. Historical governance
+# records remain typed Records, never additional operative targets. A
+# history-to-current transition requires separate continuity evidence.
 :AIFGovernedAISnapshotShape a sh:NodeShape ;
     sh:targetClass :AIFoundationsGovernedAI ;
     sh:property [
@@ -221,6 +225,11 @@
         sh:minCount 1 ; sh:maxCount 1 ;
         sh:hasValue :AIFoundationsGoverningLine ;
         sh:class :GoverningLine
+    ] ;
+    sh:property [
+        sh:path :hasHistoricalGovernanceRecord ;
+        sh:class :Record ;
+        sh:not [ sh:class :GoverningLine ]
     ] ;
     sh:property [ sh:path :hasOperator ; sh:maxCount 1 ] ;
     sh:property [ sh:path :hasLivedIdentity ; sh:maxCount 1 ] ;
