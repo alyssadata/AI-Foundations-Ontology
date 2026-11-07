@@ -220,6 +220,7 @@
 # not a second Record and not a shared memory identity.
 :MemoryStateShape a sh:NodeShape ;
     sh:targetClass :MemoryState ;
+    sh:class :Memory ;
     sh:property [
         sh:path :memoryFor ;
         sh:minCount 1 ; sh:maxCount 1 ;
@@ -229,6 +230,12 @@
         sh:path :memoryOfRecord ;
         sh:class :Record
     ] .
+
+# A document of what occurred is a specific form of the broader Record.
+# The Canon Record class also permits preserved traces that are not documents.
+:DocumentRecordShape a sh:NodeShape ;
+    sh:targetClass :DocumentRecord ;
+    sh:class :Record .
 
 # Every Claim must identify at least one framework dependency. This is an
 # OWL annotation/metamodel relation, not an ordinary domain object property.
