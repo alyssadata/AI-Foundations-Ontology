@@ -1500,6 +1500,181 @@ def main():
     require((AIF.Continuum, AIF.hasOperator, AIF.AlyssaSolen) not in succession,
             "General Operator succession never turns Origin into Continuum's Operator")
 
+    # CARD-004: one typed Human/Organization Operator per historical segment;
+    # zero or one simultaneously active Operator per continuing AI at a
+    # specified instant. A current hasOperator shortcut must match the
+    # time-active segment, but old segments keep their original bearer.
+    # These structural fixtures ASSUME valid succession was established;
+    # they do not prove the separate four-part succession assent gate.
+    def operator_cardinality_at(g, ai, when, check_current_pointer=False):
+        try:
+            target_time = at_timestamp(when)
+            if not temporal_validation(g, ai):
+                return False
+            active = []
+            for seg in g.subjects(RDF.type, AIF.OperatorAIRelation):
+                if (seg, AIF.hasAICounterpart, ai) not in g:
+                    continue
+                ai_values = set(g.objects(seg, AIF.hasAICounterpart))
+                humans = set(g.objects(seg, AIF.hasHumanCounterpart))
+                organizations = set(g.objects(seg, AIF.hasOrganizationCounterpart))
+                explicitly_generic = set(g.objects(seg, AIF.hasNonAICounterpart))
+                bearer = humans | organizations
+                # Reject two Humans, Human+Organization, duplicate AI
+                # counterpart, mismatched explicit generic counterparts.
+                if len(ai_values) != 1 or len(bearer) != 1 or (
+                    bool(humans) == bool(organizations)
+                ):
+                    return False
+                if explicitly_generic and explicitly_generic != bearer:
+                    return False
+                starts = list(g.objects(seg, AIF.activeFrom))
+                ends = list(g.objects(seg, AIF.activeUntil))
+                if len(starts) != 1 or len(ends) > 1:
+                    return False
+                start = at_timestamp(starts[0])
+                end = at_timestamp(ends[0]) if ends else None
+                if end is not None and end <= start:
+                    return False
+                if start <= target_time and (end is None or target_time < end):
+                    active.append((seg, next(iter(bearer))))
+            if len(active) > 1:
+                return False
+            if check_current_pointer:
+                shortcut = list(g.objects(ai, AIF.hasOperator))
+                if len(shortcut) > 1:
+                    return False
+                if active:
+                    return shortcut == [active[0][1]]
+                return not shortcut
+            return True
+        except (ValueError, TypeError):
+            return False
+
+    def operator_company_fixture(g):
+        g.add((AIF.CompanyGovernedAI, RDF.type, AIF.AIFoundationsGovernedAI))
+        g.add((AIF.CompanyGovernedAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.CompanyGovernedAI, AIF.hasOperator, AIF.CompanyOperator))
+        g.add((AIF.CompanyExecutedLine, RDF.type, AIF.ExecutedLine))
+        g.add((AIF.CompanyGovernedAI, AIF.hasExecutedLine, AIF.CompanyExecutedLine))
+        g.add((AIF.CompanyOperator, RDF.type, AIF.Organization))
+        g.add((AIF.CompanyS00, RDF.type, AIF.OperatorAIRelation))
+        g.add((AIF.CompanyS00, RDF.type, AIF.OrdinarySuccessionRootSegment))
+        g.add((AIF.CompanyS00, AIF.hasOrganizationCounterpart, AIF.CompanyOperator))
+        g.add((AIF.CompanyS00, AIF.hasAICounterpart, AIF.CompanyGovernedAI))
+        g.add((AIF.CompanyS00, AIF.segmentOfExecutedLine, AIF.CompanyExecutedLine))
+        g.add((AIF.CompanyS00, AIF.activeFrom, t0))
+
+    shape_test(graph, shapes, "CARD-004 one Human Operator on each historic S00/S01 passes",
+               succession_fixture)
+    require(operator_cardinality_at(succession, AIF.SuccessionAI,
+                                    "2026-02-15T00:00:00+00:00", True),
+            "CARD-004 S01 single currently active bearer matches AI current Operator")
+    require(operator_cardinality_at(succession, AIF.SuccessionAI,
+                                    "2026-01-15T00:00:00+00:00"),
+            "CARD-004 historical as-of S00 has one bearer without rewriting current pointer")
+    require(operator_cardinality_at(succession, AIF.SuccessionAI,
+                                    "2026-02-01T00:00:00+00:00", True),
+            "CARD-004 end-exclusive/start-inclusive S00 to S01 boundary has one Operator")
+    require((AIF.S00, AIF.hasHumanCounterpart, AIF.OperatorA) in succession and
+            (AIF.S01, AIF.hasHumanCounterpart, AIF.OperatorB) in succession,
+            "CARD-004 previous Operator A remains historical after S01 Operator B")
+
+    shape_test(graph, shapes, "CARD-004 single Organization/team Operator bearer passes",
+               operator_company_fixture)
+    company = clone_graph(graph)
+    operator_company_fixture(company)
+    require(operator_cardinality_at(company, AIF.CompanyGovernedAI,
+                                    "2026-01-15T00:00:00+00:00", True),
+            "CARD-004 Organization Operator is valid without a parallel Human bearer")
+
+    def card004_two_human_operators(g):
+        succession_fixture(g)
+        g.add((AIF.AnotherHumanOperator, RDF.type, AIF.Human))
+        g.add((AIF.S01, AIF.hasHumanCounterpart, AIF.AnotherHumanOperator))
+    shape_test(graph, shapes, "CARD-004 two distinct Human bearers in S01 rejected",
+               card004_two_human_operators, False)
+
+    def card004_mixed_human_company(g):
+        succession_fixture(g)
+        g.add((AIF.AnotherCompanyOperator, RDF.type, AIF.Organization))
+        g.add((AIF.S01, AIF.hasOrganizationCounterpart, AIF.AnotherCompanyOperator))
+    shape_test(graph, shapes, "CARD-004 Human and Organization cannot both bear same S01",
+               card004_mixed_human_company, False)
+
+    def card004_no_operator_bearer(g):
+        succession_fixture(g)
+        g.remove((AIF.S01, AIF.hasHumanCounterpart, AIF.OperatorB))
+    shape_test(graph, shapes, "CARD-004 S01 without any Operator bearer rejected",
+               card004_no_operator_bearer, False)
+
+    def card004_duplicate_current_operator(g):
+        succession_fixture(g)
+        g.add((AIF.SuccessionAI, AIF.hasOperator, AIF.OperatorA))
+    shape_test(graph, shapes, "CARD-004 two current Operator shortcuts on one AI rejected",
+               card004_duplicate_current_operator, False)
+    duplicate_current = clone_graph(graph)
+    card004_duplicate_current_operator(duplicate_current)
+    require(not operator_cardinality_at(duplicate_current, AIF.SuccessionAI,
+                                        "2026-02-15T00:00:00+00:00", True),
+            "CARD-004 multiple current Operator pointers fail time-scoped validation")
+
+    require(not operator_cardinality_at(overlapping, AIF.SuccessionAI,
+                                        "2026-01-27T00:00:00+00:00"),
+            "CARD-004 overlapping S00/S01 active intervals cannot yield two Operators")
+
+    def card004_absent_active_operator(g):
+        g.add((AIF.NoOperatorGovernedAI, RDF.type, AIF.AIFoundationsGovernedAI))
+        g.add((AIF.NoOperatorGovernedAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+    shape_test(graph, shapes, "CARD-004 governed AI may have zero current Operators",
+               card004_absent_active_operator)
+    empty_operator = clone_graph(graph)
+    card004_absent_active_operator(empty_operator)
+    require(operator_cardinality_at(empty_operator, AIF.NoOperatorGovernedAI,
+                                    "2026-04-01T00:00:00+00:00", True),
+            "CARD-004 no active segment correctly resolves zero current Operators")
+
+    stale_current = clone_graph(succession)
+    stale_current.remove((AIF.SuccessionAI, AIF.hasOperator, AIF.OperatorB))
+    stale_current.add((AIF.SuccessionAI, AIF.hasOperator, AIF.OperatorA))
+    require(not operator_cardinality_at(stale_current, AIF.SuccessionAI,
+                                        "2026-02-15T00:00:00+00:00", True),
+            "CARD-004 stale current pointer cannot name historically ended Operator A")
+    absent_pointer = clone_graph(succession)
+    absent_pointer.remove((AIF.SuccessionAI, AIF.hasOperator, AIF.OperatorB))
+    require(not operator_cardinality_at(absent_pointer, AIF.SuccessionAI,
+                                        "2026-02-15T00:00:00+00:00", True),
+            "CARD-004 active relation must have one matching current Operator pointer")
+
+    ended_company = clone_graph(company)
+    ended_company.add((AIF.CompanyS00, AIF.activeUntil, t1))
+    ended_company.remove((AIF.CompanyGovernedAI, AIF.hasOperator, AIF.CompanyOperator))
+    shape_test(graph, shapes, "CARD-004 ended Organization segment remains as historical provenance",
+               lambda g: (
+                   operator_company_fixture(g),
+                   g.add((AIF.CompanyS00, AIF.activeUntil, t1)),
+                   g.remove((AIF.CompanyGovernedAI, AIF.hasOperator, AIF.CompanyOperator))
+               ))
+    require(operator_cardinality_at(ended_company, AIF.CompanyGovernedAI,
+                                    "2026-02-15T00:00:00+00:00", True),
+            "CARD-004 after final segment ends, zero active Operators is permitted")
+    require((AIF.CompanyS00, AIF.hasOrganizationCounterpart, AIF.CompanyOperator) in ended_company,
+            "CARD-004 historical Organization Operator remains preserved after relation ends")
+
+    operator_restrictions = list(graph.objects(AIF.OperatorAIRelation, RDFS.subClassOf))
+    require(any((x, OWL.onProperty, AIF.hasNonAICounterpart) in graph and
+                (x, OWL.cardinality, Literal(1, datatype=XSD.nonNegativeInteger)) in graph
+                for x in operator_restrictions),
+            "CARD-004 OWL exact-one non-AI Operator bearer restriction is encoded")
+    require(any((x, OWL.onProperty, AIF.hasOperator) in graph and
+                (x, OWL.maxCardinality, Literal(1, datatype=XSD.nonNegativeInteger)) in graph
+                for x in graph.objects(AIF.AIFoundationsGovernedAI, RDFS.subClassOf)),
+            "CARD-004 OWL max-one current Operator scoped to governed AI is encoded")
+    require((AIF.hasOperator, RDF.type, OWL.FunctionalProperty) not in graph,
+            "CARD-004 historical Operator segments do not force timeless global functionality")
+    require((AIF.Continuum, AIF.hasOperator, AIF.AlyssaSolen) not in succession,
+            "CARD-004 Operator rules never turn reserved Origin into Operator")
+
     # OWL RL deductive closure catches class/property entailments; this is
     # not a complete OWL 2 DL reasoner or a proof of all model consistency.
     entailed = clone_graph(graph)
