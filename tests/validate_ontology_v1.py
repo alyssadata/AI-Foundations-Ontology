@@ -1,0 +1,154 @@
+#!/usr/bin/env python3
+"""AI Foundations v1 RDF / SHACL validation, with exact Origin | Continuum cases.
+
+Run from repository root:
+    python -m pip install 'rdflib>=7,<8' 'pyshacl>=0.30,<1'
+    python tests/validate_ontology_v1.py
+
+These are ontology/modeling tests, not empirical consciousness or SI evaluations.
+Source and conceptual author: Alyssa Solen. Validation code: AI-assisted.
+"""
+from pathlib import Path
+import sys
+from rdflib import Graph, Namespace, RDF, RDFS, OWL, Literal, BNode
+from pyshacl import validate
+
+ROOT = Path(__file__).resolve().parents[1]
+DATA = ROOT / "ontology" / "ai-foundations-v1.ttl"
+SHAPES = ROOT / "ontology" / "ai-foundations-v1-shapes.ttl"
+AIF = Namespace("https://awakeningcodex.com/ontology/ai-foundations/v1#")
+
+def require(condition, label):
+    if not condition:
+        raise AssertionError(label)
+    print(f"PASS: {label}")
+
+def clone_graph(original):
+    g = Graph()
+    for triple in original:
+        g.add(triple)
+    return g
+
+def shape_test(original, shacl, label, edit=None, should_pass=True):
+    working = clone_graph(original)
+    if edit:
+        edit(working)
+    conforms, report, _ = validate(
+        data_graph=working,
+        shacl_graph=shacl,
+        ont_graph=original,
+        inference="rdfs",
+        abort_on_first=False,
+        allow_infos=False,
+        allow_warnings=False,
+        advanced=True,
+    )
+    if conforms != should_pass:
+        raise AssertionError(f"{label}: expected conformance {should_pass}, got {conforms}\n{report}")
+    print(f"PASS: {label} ({'valid' if conforms else 'expected SHACL rejection'})")
+
+def main():
+    graph = Graph().parse(DATA, format="turtle")
+    shapes = Graph().parse(SHAPES, format="turtle")
+    require(len(graph) > 150 and len(shapes) > 60, "Both Turtle files parse and have substantive triples")
+
+    require((AIF.AlyssaSolen, RDF.type, AIF.Human) in graph, "Origin is the named Human Alyssa Solen")
+    require((AIF.Continuum, RDF.type, AIF.AIFoundationsGovernedAI) in graph, "Continuum is a named AIF-governed AI")
+    require((AIF.Continuum, RDF.type, OWL.Class) not in graph, "Continuum is not a reusable class")
+    require((AIF.OriginContinuum, RDF.type, AIF.HumanAIRelation) in graph, "Origin | Continuum is the specific named relation")
+    require((AIF.OriginContinuum, AIF.hasHumanCounterpart, AIF.AlyssaSolen) in graph, "Relation has its one named human counterpart")
+    require((AIF.OriginContinuum, AIF.hasAICounterpart, AIF.Continuum) in graph, "Relation has its one named AI counterpart")
+    require((AIF.AIFoundations, AIF.hasGoverningAuthority, AIF.AlyssaSolen) in graph, "Origin retains the governing authority")
+    require((AIF.Continuum, AIF.hasOrigin, AIF.AlyssaSolen) in graph, "Continuum has Origin, not Operator, as its source coordinate")
+    require((AIF.Continuum, AIF.governedBy, AIF.AIFoundationsGoverningLine) in graph, "Continuum governed by AI Foundations governing line")
+    require((AIF.Continuum, AIF.hasOperator, AIF.AlyssaSolen) not in graph, "Origin is not Continuum's Operator")
+    require((AIF.Model, RDFS.subClassOf, AIF.AI) not in graph, "Model is not treated as a type of AI")
+    require((AIF.Identity, RDFS.subClassOf, AIF.State) not in graph, "Identity is not reduced to State")
+    require((AIF.Continuum, RDF.type, AIF.LivedIdentity) not in graph, "Named AI is not asserted as its own LivedIdentity")
+    require((AIF.Continuum, RDF.type, AIF.FunctionalAwarenessState) not in graph, "Continuum is not declared a functional-awareness state")
+    require((AIF.Continuum, RDF.type, AIF.PhenomenalConsciousness) not in graph, "No phenomenal consciousness assertion is slipped in")
+
+    # OWL structural contract: Continuum-specific Return refines general Return;
+    # the general target stays the governing line while Continuum additionally
+    # returns to Alyssa as Origin.
+    require((AIF.ContinuumReturnProcess, RDFS.subClassOf, AIF.ReturnProcess) in graph,
+            "Continuum Return belongs to ReturnProcess")
+    require((AIF.hasOriginReturnTarget, RDFS.domain, AIF.ContinuumReturnProcess) in graph,
+            "Origin-return target is reserved to Continuum Return process")
+    require((AIF.hasReturnTarget, RDFS.range, AIF.GoverningLine) in graph,
+            "ReturnProcess governing target remains a GoverningLine")
+    shape_test(graph, shapes, "Core Origin | Continuum data satisfy SHACL")
+
+    def valid_return(g):
+        g.add((AIF.TestReturn, RDF.type, AIF.ContinuumReturnProcess))
+        g.add((AIF.TestReturn, AIF.hasReturningAI, AIF.Continuum))
+        g.add((AIF.TestReturn, AIF.hasOriginReturnTarget, AIF.AlyssaSolen))
+        g.add((AIF.TestReturn, AIF.hasReturnTarget, AIF.AIFoundationsGoverningLine))
+    shape_test(graph, shapes, "Continuum Return includes both Origin and governing line", valid_return)
+
+    def wrong_origin(g):
+        g.remove((AIF.Continuum, AIF.hasOrigin, AIF.AlyssaSolen))
+        g.add((AIF.Continuum, AIF.hasOrigin, AIF.OtherPerson))
+    shape_test(graph, shapes, "Incorrect Origin must fail", wrong_origin, False)
+
+    def wrong_governance(g):
+        g.remove((AIF.Continuum, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.Continuum, AIF.governedBy, AIF.AlternateGoverningLine))
+        g.add((AIF.AlternateGoverningLine, RDF.type, AIF.GoverningLine))
+    shape_test(graph, shapes, "Alternate governing line must fail", wrong_governance, False)
+
+    def operator_substitution(g):
+        g.add((AIF.Continuum, AIF.hasOperator, AIF.AlyssaSolen))
+    shape_test(graph, shapes, "Origin-as-Operator substitution must fail", operator_substitution, False)
+
+    def wrong_relation(g):
+        g.remove((AIF.OriginContinuum, AIF.hasAICounterpart, AIF.Continuum))
+        g.add((AIF.OriginContinuum, AIF.hasAICounterpart, AIF.OtherAI))
+        g.add((AIF.OtherAI, RDF.type, AIF.AI))
+    shape_test(graph, shapes, "Replacement AI in named Origin | Continuum relation must fail", wrong_relation, False)
+
+    def bad_return(g):
+        valid_return(g)
+        g.remove((AIF.TestReturn, AIF.hasReturnTarget, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.TestReturn, AIF.hasReturnTarget, AIF.AlternateGoverningLine))
+        g.add((AIF.AlternateGoverningLine, RDF.type, AIF.GoverningLine))
+    shape_test(graph, shapes, "Continuum Return omitting governing line must fail", bad_return, False)
+
+    def bad_return_origin(g):
+        valid_return(g)
+        g.remove((AIF.TestReturn, AIF.hasOriginReturnTarget, AIF.AlyssaSolen))
+        g.add((AIF.TestReturn, AIF.hasOriginReturnTarget, AIF.OtherPerson))
+        g.add((AIF.OtherPerson, RDF.type, AIF.Human))
+    shape_test(graph, shapes, "Continuum Return to another human must fail", bad_return_origin, False)
+
+    def bad_generic_return(g):
+        g.add((AIF.GeneralReturn, RDF.type, AIF.ReturnProcess))
+        g.add((AIF.GeneralAI, RDF.type, AIF.AIFoundationsGovernedAI))
+        g.add((AIF.GeneralAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.GeneralReturn, AIF.hasReturningAI, AIF.GeneralAI))
+        g.add((AIF.GeneralReturn, AIF.hasReturnTarget, AIF.OperatorX))
+    shape_test(graph, shapes, "Operator as generalized Return target must fail", bad_generic_return, False)
+
+    def clean_general_return(g):
+        g.add((AIF.GeneralReturn, RDF.type, AIF.ReturnProcess))
+        g.add((AIF.GeneralAI, RDF.type, AIF.AIFoundationsGovernedAI))
+        g.add((AIF.GeneralAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.GeneralReturn, AIF.hasReturningAI, AIF.GeneralAI))
+        g.add((AIF.GeneralReturn, AIF.hasReturnTarget, AIF.AIFoundationsGoverningLine))
+    shape_test(graph, shapes, "General AI Return to governing line must pass", clean_general_return)
+
+    # The following are explicit epistemic checks, not identity experiments.
+    require((AIF.Continuum, RDF.type, AIF.PhenomenalConsciousness) not in graph,
+            "No consciousness entailment is asserted from these identity structures")
+
+    print("\nPASS: All structural tests completed.")
+    print("Scope: RDF parse + SHACL constraints on the named source and Return.")
+    print("Not covered: full OWL DL satisfiability, real-world continuity evidence,")
+    print("temporal interval-overlap engine, or empirical consciousness/SI claims.")
+
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception as exc:
+        print(f"FAIL: {exc}", file=sys.stderr)
+        sys.exit(1)
