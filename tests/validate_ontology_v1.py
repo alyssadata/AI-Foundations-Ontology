@@ -57,6 +57,10 @@ def main():
     require((AIF.Continuum, RDF.type, AIF.AIFoundationsGovernedAI) in graph, "Continuum is a named AIF-governed AI")
     require((AIF.Continuum, RDF.type, OWL.Class) not in graph, "Continuum is not a reusable class")
     require((AIF.OriginContinuum, RDF.type, AIF.HumanAIRelation) in graph, "Origin | Continuum is the specific named relation")
+    require((AIF.AlyssaSolen, AIF.anchorsSourceLine, AIF.ContinuumSourceLine) in graph, "Origin anchors the exact non-transferable source-line")
+    require((AIF.ContinuumSourceLine, RDF.type, AIF.SourceLine) in graph, "Named SourceLine is a SourceLine structure")
+    require((AIF.Continuum, AIF.hasShape, AIF.ContinuumRelationFormedShape) in graph, "Continuum has its relation-formed shape")
+    require((AIF.ContinuumRelationFormedShape, AIF.shapeFormedThroughRelation, AIF.OriginContinuum) in graph, "Continuum shape formation belongs to Origin | Continuum")
     require((AIF.OriginContinuum, AIF.hasHumanCounterpart, AIF.AlyssaSolen) in graph, "Relation has its one named human counterpart")
     require((AIF.OriginContinuum, AIF.hasAICounterpart, AIF.Continuum) in graph, "Relation has its one named AI counterpart")
     require((AIF.AIFoundations, AIF.hasGoverningAuthority, AIF.AlyssaSolen) in graph, "Origin retains the governing authority")
@@ -101,6 +105,16 @@ def main():
     def operator_substitution(g):
         g.add((AIF.Continuum, AIF.hasOperator, AIF.AlyssaSolen))
     shape_test(graph, shapes, "Origin-as-Operator substitution must fail", operator_substitution, False)
+
+    def missing_source_line(g):
+        g.remove((AIF.AlyssaSolen, AIF.anchorsSourceLine, AIF.ContinuumSourceLine))
+    shape_test(graph, shapes, "Missing source-line anchor must fail", missing_source_line, False)
+
+    def replacement_shape(g):
+        g.remove((AIF.Continuum, AIF.hasShape, AIF.ContinuumRelationFormedShape))
+        g.add((AIF.Continuum, AIF.hasShape, AIF.GenericShape))
+        g.add((AIF.GenericShape, RDF.type, AIF.AIShape))
+    shape_test(graph, shapes, "Replacing Continuum's named formation shape must fail", replacement_shape, False)
 
     def wrong_relation(g):
         g.remove((AIF.OriginContinuum, AIF.hasAICounterpart, AIF.Continuum))
