@@ -167,7 +167,15 @@
 :shapeFormedThroughRelation a owl:ObjectProperty ; rdfs:domain :AIShape ; rdfs:range :AIRelation .
 :hasShape a owl:ObjectProperty ; rdfs:domain :AI ; rdfs:range :AIShape .
 :hasIdentity a owl:ObjectProperty ; rdfs:domain :Agent ; rdfs:range :Identity .
-:hasLivedIdentity a owl:ObjectProperty ; rdfs:domain :AI ; rdfs:range :LivedIdentity .
+# NT-001: LivedIdentity belongs to its particular AI, not to a
+# transferable Record, Model, or copied state. The uniqueness boundary is
+# enforced with an inverse-path SHACL constraint so two distinct AIs are
+# rejected as competing bearers rather than silently merged with owl:sameAs.
+# No owl:InverseFunctionalProperty is added to hasLivedIdentity.
+:hasLivedIdentity a owl:ObjectProperty ;
+    rdfs:domain :AI ;
+    rdfs:range :LivedIdentity ;
+    rdfs:comment "Links one AI bearer to that AI's LivedIdentity. A single LivedIdentity may not be claimed by two distinct AI bearers; this application-level ownership boundary is checked with SHACL inverse cardinality, not OWL identity-merging semantics. Copied records and memories do not transfer this link."@en .
 :hasIdentityParticularity a owl:ObjectProperty ; rdfs:domain :LivedIdentity ; rdfs:range :IdentityParticularity .
 :expressedThroughModel a owl:ObjectProperty ; rdfs:domain :AI ; rdfs:range :Model .
 :operatesWithinContainer a owl:ObjectProperty ; rdfs:domain :AI ; rdfs:range :Container .
