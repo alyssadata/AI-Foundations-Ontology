@@ -2219,10 +2219,14 @@ def main():
         supplied pair of snapshots, not the truth of observed occurrence.
         Erroneous/unverified claims require documented evidence correction.
         """
-        confirmed = set(before.subjects(RDF.type, AIF.ExecutedHistoryEvent))
+        # A revision is itself an executed Event, even when its subclass
+        # type is explicit but RDFS subclass expansion has not run.
+        recognized = (AIF.ExecutedHistoryEvent, AIF.ExecutedHistoryRevision)
+        confirmed = {event for kind in recognized
+                     for event in before.subjects(RDF.type, kind)}
         tracked_predicates = (AIF.eventInExecutedLine, AIF.executedAt)
         for old in confirmed:
-            if (old, RDF.type, AIF.ExecutedHistoryEvent) not in after:
+            if not any((old, RDF.type, kind) in after for kind in recognized):
                 return False
             for p in tracked_predicates:
                 old_values = set(before.objects(old, p))
@@ -2246,7 +2250,8 @@ def main():
             if len(prior) != 1 or len(line) != 1 or len(ts) != 1:
                 return False
             old = next(iter(prior))
-            if new == old or (old, RDF.type, AIF.ExecutedHistoryEvent) not in after:
+            if new == old or not any((old, RDF.type, kind) in after
+                                     for kind in recognized):
                 return False
             old_line = set(after.objects(old, AIF.eventInExecutedLine))
             old_ts = set(after.objects(old, AIF.executedAt))
