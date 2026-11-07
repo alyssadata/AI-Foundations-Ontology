@@ -96,6 +96,45 @@
         sh:class :Consequence
     ] .
 
+# CARD-009: dated activation periods preserve history and disallow
+# duplicate values within one period. Cross-period overlaps and snapshot
+# alignment are checked by the time-aware validation code (not OWL).
+:GovernanceVersionActivationShape a sh:NodeShape ;
+    sh:targetClass :GovernanceVersionActivation ;
+    sh:property [
+        sh:path :versionActivationOf ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :GovernanceStructure
+    ] ;
+    sh:property [
+        sh:path :activatedVersion ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Version
+    ] ;
+    sh:property [
+        sh:path :versionActiveFrom ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ;
+        sh:lessThan :versionActiveUntil
+    ] ;
+    sh:property [
+        sh:path :versionActiveUntil ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime
+    ] .
+
+# Applied when a current version is explicitly materialized for an
+# as-of snapshot. The base ontology deliberately does not fabricate an
+# actual current Version/date for the named governing line.
+:GovernanceMaterializedCurrentVersionShape a sh:NodeShape ;
+    sh:targetSubjectsOf :hasActiveVersion ;
+    sh:class :GovernanceStructure ;
+    sh:property [
+        sh:path :hasActiveVersion ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Version
+    ] .
+
 :OperatorRelationSegmentShape a sh:NodeShape ;
     sh:targetClass :OperatorAIRelation ;
     sh:property [
