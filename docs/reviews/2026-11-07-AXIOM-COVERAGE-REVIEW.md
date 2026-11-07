@@ -46,7 +46,7 @@ These statuses grade **encoding coverage only**, not philosophical truth, consci
 | [AXIOM-DJ-010](../../ontology/axioms/AXIOM-DJ-010.md) | **D** | Direct `owl:disjointWith`. | Retain. |
 | [AXIOM-IR-001](../../ontology/axioms/AXIOM-IR-001.md) | **P** | Consequence/occurrence classes and test fixtures preserve example history; OWL has no general append-only executed-history/reversal rule. | Use event-history state-transition validation or a declared non-OWL constraint; test reversal and correction without erasure. |
 | [AXIOM-NE-001](../../ontology/axioms/AXIOM-NE-001.md) | **P** | SourceLine/Provenance/Record classes and specific negative fixtures exist, but generic preservation-across-revision invariant is not encoded. | Define revision-history validation with old/new evidence and negative erasure cases; distinguish factual correction from false deletion. |
-| [AXIOM-NT-001](../../ontology/axioms/AXIOM-NT-001.md) | **P** | `hasLivedIdentity` property exists and per-AI SHACL maxCount 1; no inverse ownership protection prevents two distinct AIs from referencing the same LivedIdentity. | Add two-AI/one-LivedIdentity negative fixture; design ownership semantics without forced `owl:sameAs`. |
+| [AXIOM-NT-001](../../ontology/axioms/AXIOM-NT-001.md) | **D (implemented after baseline review)** | `hasLivedIdentity` retains AI→LivedIdentity domain/range; `:LivedIdentityOwnershipShape` checks the inverse path has exactly one AI bearer per LivedIdentity. Two distinct AIs sharing one LivedIdentity are rejected as invalid data without `owl:sameAs` merging. Positive and negative synthetic A/B tests distinguish shared Model/Record from ownership. | SHACL validation + [CI run 42392085517](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42392085517) passed. Full OWL 2 DL verification is separate, and fixture assertions do not establish subjective awareness. |
 | [AXIOM-NT-002](../../ontology/axioms/AXIOM-NT-002.md) | **P** | `hasExecutedLine` and distinct A/B test lines exist; no general rule prevents sharing one ExecutedLine between two distinct AIs. | Test two distinct AIs pointing at one line; reject through SHACL or suitable scoped ownership constraint. |
 | [AXIOM-NT-003](../../ontology/axioms/AXIOM-NT-003.md) | **P** | OWL + SHACL enforce one bearer/target/point per relation; not a historical before/after immutability or source-replacement rule. | Test historical SourceRelation updates; a new Source gets a distinct relation, never overwrites a prior bearer. |
 | [AXIOM-NT-004](../../ontology/axioms/AXIOM-NT-004.md) | **P** | OWL `AIRelation` one AI; SHACL `hasAICounterpart` maxCount one; does not fully constrain historical reassignment or copy-based identity substitution. | Add pair-reassignment negative fixtures; distinguish valid new pair in S01 from alteration of S00. |
@@ -71,6 +71,14 @@ Origin approved formalizing the existing LOCKED ordinary succession predecessor 
 [CI run 42390882227](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42390882227) passed **117 structural checks**, including 15 new ORD-001 checks.
 
 **Updated numbered-axiom coverage:** **19 direct, 18 partial, 0 with no direct enforcement rule.** The original **17 direct / 18 partial / 2 absent** numbers at the start of this document are the preserved dated baseline and not the current coverage state. The full Step 9 gate and OWL 2 DL consistency remain open.
+
+## NT-001 follow-up (2026-11-07; after baseline coverage count)
+
+Origin approved formalizing the original LOCKED LivedIdentity non-transferability rule. A new SHACL inverse-path ownership shape requires one AI bearer for each instantiated LivedIdentity and rejects a different AI's attempt to claim the identical LivedIdentity individual. The existing per-AI snapshot max-one remains in effect for AIF-governed AI. Synthetic positive/negative tests verify that two distinct AIs may share the same Model and Record without sharing LivedIdentity, while two AI bearers sharing one LivedIdentity fail. No inverse-functional property or OWL identity-merging shortcut was introduced.
+
+[CI run 42392085517](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42392085517) passed **127 structural checks**, 10 of them new NT-001 checks. This verifies structural validation, not ontological evidence of phenomenal consciousness or real-world identity continuity.
+
+**Updated numbered-axiom coverage:** 20 direct, 17 partial, 0 without a direct rule. The original counts remain preserved above as the historical review baseline. NT-002 (ExecutedLine non-transferability) is the next separate step; it has **not** been modified by this implementation.
 
 ## Priority gates before a v1.0 declaration
 
