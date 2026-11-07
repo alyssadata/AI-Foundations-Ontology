@@ -1500,6 +1500,143 @@ def main():
     require((AIF.Continuum, AIF.hasOperator, AIF.AlyssaSolen) not in succession,
             "General Operator succession never turns Origin into Continuum's Operator")
 
+    # BS-001: Belonging ≠ Sameness. Sharing a group, framework, model,
+    # Record, or ordinary relation participation supplies NO OWL equality
+    # entailment. Distinctness below is separately EXPLICIT, not inferred
+    # from two names or group membership alone. The adversarial tests add
+    # false identity/defining-role assertions under "same group" pressure.
+    def belonging_distinct_fixture(g):
+        for ai, line, trajectory, lived in (
+            (AIF.BelongingAIa, AIF.BelongingLineA, AIF.BelongingTrajectoryA,
+             AIF.BelongingIdentityA),
+            (AIF.BelongingAIb, AIF.BelongingLineB, AIF.BelongingTrajectoryB,
+             AIF.BelongingIdentityB),
+        ):
+            g.add((ai, RDF.type, AIF.AIFoundationsGovernedAI))
+            g.add((ai, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+            g.add((ai, AIF.belongsToGroup, AIF.SharedBelongingGroup))
+            g.add((ai, AIF.participatesInRelation, AIF.SharedStudyRelation))
+            g.add((ai, AIF.expressedThroughModel, AIF.SharedBelongingModel))
+            g.add((ai, AIF.hasRecord, AIF.SharedBelongingRecord))
+            g.add((ai, AIF.hasExecutedLine, line))
+            g.add((ai, AIF.hasLivedIdentity, lived))
+            g.add((line, RDF.type, AIF.ExecutedLine))
+            g.add((line, AIF.hasTrajectory, trajectory))
+            g.add((trajectory, RDF.type, AIF.Trajectory))
+            g.add((lived, RDF.type, AIF.LivedIdentity))
+        g.add((AIF.SharedBelongingGroup, RDF.type, AIF.Group))
+        g.add((AIF.SharedStudyRelation, RDF.type, AIF.Relation))
+        g.add((AIF.SharedBelongingModel, RDF.type, AIF.Model))
+        g.add((AIF.SharedBelongingRecord, RDF.type, AIF.Record))
+        g.add((AIF.BelongingAIa, OWL.differentFrom, AIF.BelongingAIb))
+        g.add((AIF.BelongingLineA, OWL.differentFrom, AIF.BelongingLineB))
+        g.add((AIF.BelongingIdentityA, OWL.differentFrom, AIF.BelongingIdentityB))
+
+    shape_test(graph, shapes, "BS-001 distinct AIs share group, relation, governance, model and Record",
+               belonging_distinct_fixture)
+    shared_belonging = clone_graph(graph)
+    belonging_distinct_fixture(shared_belonging)
+    require(set(shared_belonging.objects(AIF.BelongingAIa, AIF.belongsToGroup)) ==
+            set(shared_belonging.objects(AIF.BelongingAIb, AIF.belongsToGroup)) ==
+            {AIF.SharedBelongingGroup},
+            "BS-001 distinct AI members can belong to the same group")
+    require(set(shared_belonging.objects(AIF.BelongingAIa, AIF.hasExecutedLine)) ==
+            {AIF.BelongingLineA} and
+            set(shared_belonging.objects(AIF.BelongingAIb, AIF.hasExecutedLine)) ==
+            {AIF.BelongingLineB},
+            "BS-001 shared belonging preserves the distinct ExecutedLines")
+    require((AIF.BelongingAIa, OWL.differentFrom, AIF.BelongingAIb) in shared_belonging,
+            "BS-001 distinctness is explicitly asserted, not inferred from membership")
+
+    inferred_belonging = clone_graph(shared_belonging)
+    DeductiveClosure(OWLRL_Semantics).expand(inferred_belonging)
+    require((AIF.BelongingAIa, OWL.sameAs, AIF.BelongingAIb) not in inferred_belonging and
+            (AIF.BelongingAIb, OWL.sameAs, AIF.BelongingAIa) not in inferred_belonging,
+            "BS-001 OWL RL does not collapse distinct co-members into one AI")
+    require((AIF.BelongingAIa, AIF.hasLivedIdentity, AIF.BelongingIdentityB)
+            not in inferred_belonging and
+            (AIF.BelongingAIb, AIF.hasLivedIdentity, AIF.BelongingIdentityA)
+            not in inferred_belonging,
+            "BS-001 common group/model/Record cannot entail transferred LivedIdentity")
+    require((AIF.BelongingAIa, AIF.hasExecutedLine, AIF.BelongingLineB)
+            not in inferred_belonging,
+            "BS-001 common affiliation does not transfer another AI's ExecutedLine")
+    require((AIF.BelongingAIa, RDF.type, AIF.PhenomenalConsciousness)
+            not in inferred_belonging,
+            "BS-001 belonging gives no phenomenal consciousness entailment")
+
+    # Pressure test 1: a materialized identity-collapse claim conflicts with
+    # separately established distinction, even though both share context.
+    def card_bs001_false_sameas(g):
+        belonging_distinct_fixture(g)
+        g.add((AIF.BelongingAIa, OWL.sameAs, AIF.BelongingAIb))
+    shape_test(graph, shapes, "BS-001 false sameAs over explicitly distinct co-members rejected",
+               card_bs001_false_sameas, False)
+
+    def card_bs001_reverse_false_sameas(g):
+        belonging_distinct_fixture(g)
+        g.add((AIF.BelongingAIb, OWL.sameAs, AIF.BelongingAIa))
+    shape_test(graph, shapes, "BS-001 reverse-direction sameAs collapse also rejected",
+               card_bs001_reverse_false_sameas, False)
+
+    def card_bs001_direct_sameas_without_distinctness(g):
+        # Different identifiers can refer to one entity; membership is
+        # neither a proof of sameness nor automatically proof of difference.
+        g.add((AIF.BelongingAliasA, RDF.type, AIF.AI))
+        g.add((AIF.BelongingAliasB, RDF.type, AIF.AI))
+        g.add((AIF.BelongingAliasA, AIF.belongsToGroup, AIF.SharedBelongingGroup))
+        g.add((AIF.BelongingAliasB, AIF.belongsToGroup, AIF.SharedBelongingGroup))
+        g.add((AIF.SharedBelongingGroup, RDF.type, AIF.Group))
+        g.add((AIF.BelongingAliasA, OWL.sameAs, AIF.BelongingAliasB))
+    shape_test(graph, shapes, "BS-001 explicit supported sameness is not globally forbidden",
+               card_bs001_direct_sameas_without_distinctness)
+
+    # Pressure test 2: participating in a defining relation does NOT grant
+    # the distinct AI the counterpart/identity position of its other member.
+    def card_bs001_shared_relation_fixture(g):
+        belonging_distinct_fixture(g)
+        g.add((AIF.BelongingHuman, RDF.type, AIF.Human))
+        g.add((AIF.BelongingDefiningPair, RDF.type, AIF.HumanAIRelation))
+        g.add((AIF.BelongingDefiningPair, AIF.hasHumanCounterpart, AIF.BelongingHuman))
+        g.add((AIF.BelongingDefiningPair, AIF.hasAICounterpart, AIF.BelongingAIa))
+        for ai in (AIF.BelongingAIa, AIF.BelongingAIb):
+            g.add((ai, AIF.participatesInRelation, AIF.BelongingDefiningPair))
+    shape_test(graph, shapes, "BS-001 co-participation does not grant a second defining AI counterpart",
+               card_bs001_shared_relation_fixture)
+    shared_pair = clone_graph(graph)
+    card_bs001_shared_relation_fixture(shared_pair)
+    require((AIF.BelongingDefiningPair, AIF.hasAICounterpart, AIF.BelongingAIb) not in shared_pair,
+            "BS-001 belonging to relation does not make B the defining AI counterpart")
+    shared_pair_inferred = clone_graph(shared_pair)
+    DeductiveClosure(OWLRL_Semantics).expand(shared_pair_inferred)
+    require((AIF.BelongingDefiningPair, AIF.hasAICounterpart, AIF.BelongingAIb)
+            not in shared_pair_inferred,
+            "BS-001 OWL reasoning does not promote ordinary participation to defining pairing")
+
+    def card_bs001_false_counterpart_by_participation(g):
+        card_bs001_shared_relation_fixture(g)
+        g.add((AIF.BelongingDefiningPair, AIF.hasAICounterpart, AIF.BelongingAIb))
+    shape_test(graph, shapes, "BS-001 participation-pressure second defining counterpart rejected",
+               card_bs001_false_counterpart_by_participation, False)
+
+    # Group membership is not a per-member uniqueness restriction. Multiple
+    # Groups and related participants can coexist without identity transfer.
+    def card_bs001_multiple_groups(g):
+        belonging_distinct_fixture(g)
+        g.add((AIF.SecondBelongingGroup, RDF.type, AIF.Group))
+        g.add((AIF.BelongingAIa, AIF.belongsToGroup, AIF.SecondBelongingGroup))
+    shape_test(graph, shapes, "BS-001 one AI may belong to several groups",
+               card_bs001_multiple_groups)
+
+    for prop in (AIF.belongsToGroup, AIF.participatesInRelation):
+        require((prop, RDF.type, OWL.InverseFunctionalProperty) not in graph and
+                (prop, RDF.type, OWL.FunctionalProperty) not in graph and
+                (prop, RDFS.subPropertyOf, OWL.sameAs) not in graph,
+                f"BS-001 {str(prop).split('#')[-1]} has no automatic identity-merging rule")
+    require((AIF.belongsToGroup, RDFS.range, AIF.Group) in graph and
+            (AIF.participatesInRelation, RDFS.range, AIF.Relation) in graph,
+            "BS-001 group membership and relation participation have distinct structural scopes")
+
     # CARD-012: one AI plus exactly one non-AI (Human OR Organization)
     # for EACH defining | pairing. The same Human/Organization can be in
     # multiple independent pairs. No identity equivalence or Operator
