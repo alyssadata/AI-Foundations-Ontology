@@ -362,6 +362,136 @@ def main():
         g.remove((AIF.ConsequencePoint1, AIF.establishedByOccurrence, AIF.OccurrencePoint1))
     shape_test(graph, shapes, "Causal response cannot erase the earlier establishing occurrence", missing_original_occurrence, False)
 
+    # CARD-009: one active governance Version at a specified time, while
+    # preserving every previous activation with its exact dates. All dates
+    # below are synthetic fixtures, NOT claims about real framework releases.
+    gv_t0 = Literal("2026-01-01T00:00:00+00:00", datatype=XSD.dateTime)
+    gv_t1 = Literal("2026-02-01T00:00:00+00:00", datatype=XSD.dateTime)
+
+    def governance_version_fixture(g):
+        g.add((AIF.ExampleGovernance, RDF.type, AIF.GovernanceStructure))
+        for v in (AIF.ExampleVersion1, AIF.ExampleVersion2):
+            g.add((v, RDF.type, AIF.Version))
+            g.add((AIF.ExampleGovernance, AIF.hasVersion, v))
+        g.add((AIF.ExampleVersion1, OWL.differentFrom, AIF.ExampleVersion2))
+        g.add((AIF.ExampleGovernance, AIF.hasActiveVersion, AIF.ExampleVersion2))
+        for period, version, start, end in (
+            (AIF.ExampleActivation1, AIF.ExampleVersion1, gv_t0, gv_t1),
+            (AIF.ExampleActivation2, AIF.ExampleVersion2, gv_t1, None),
+        ):
+            g.add((period, RDF.type, AIF.GovernanceVersionActivation))
+            g.add((period, AIF.versionActivationOf, AIF.ExampleGovernance))
+            g.add((period, AIF.activatedVersion, version))
+            g.add((period, AIF.versionActiveFrom, start))
+            if end is not None:
+                g.add((period, AIF.versionActiveUntil, end))
+        g.add((AIF.ExampleActivation1, OWL.differentFrom, AIF.ExampleActivation2))
+
+    def governance_version_activations(g, governance):
+        periods = []
+        for period in g.subjects(RDF.type, AIF.GovernanceVersionActivation):
+            if (period, AIF.versionActivationOf, governance) not in g:
+                continue
+            owners = list(g.objects(period, AIF.versionActivationOf))
+            versions = list(g.objects(period, AIF.activatedVersion))
+            starts = list(g.objects(period, AIF.versionActiveFrom))
+            ends = list(g.objects(period, AIF.versionActiveUntil))
+            if len(owners) != 1 or len(versions) != 1 or len(starts) != 1 or len(ends) > 1:
+                raise ValueError(f"Invalid governance activation structure: {period}")
+            start = datetime.fromisoformat(str(starts[0]).replace("Z", "+00:00"))
+            until = datetime.fromisoformat(str(ends[0]).replace("Z", "+00:00")) if ends else None
+            if start.tzinfo is None or (until is not None and until.tzinfo is None):
+                raise ValueError(f"Governance activation dates must contain timezones: {period}")
+            start = start.astimezone(timezone.utc)
+            until = until.astimezone(timezone.utc) if until else None
+            if until is not None and until <= start:
+                raise ValueError(f"Governance activation must end after it starts: {period}")
+            periods.append((start, until, period, versions[0]))
+        periods.sort(key=lambda r: r[0])
+        return periods
+
+    def governance_versions_at(g, governance, as_of):
+        at = datetime.fromisoformat(as_of.replace("Z", "+00:00"))
+        if at.tzinfo is None:
+            raise ValueError("Query must be timezone-aware")
+        at = at.astimezone(timezone.utc)
+        return [(p, v) for start, until, p, v in governance_version_activations(g, governance)
+                if start <= at and (until is None or at < until)]
+
+    def governance_history_valid(g, governance):
+        try:
+            periods = governance_version_activations(g, governance)
+        except ValueError:
+            return False
+        for (_, previous_until, _, _), (next_start, _, _, _) in zip(periods, periods[1:]):
+            if previous_until is None or next_start < previous_until:
+                return False
+        return True
+
+    def current_version_matches_at(g, governance, as_of):
+        active = list(g.objects(governance, AIF.hasActiveVersion))
+        at = governance_versions_at(g, governance, as_of)
+        return len(active) == 1 and len(at) == 1 and active[0] == at[0][1]
+
+    shape_test(graph, shapes, "CARD-009 dated governance version history satisfies SHACL", governance_version_fixture)
+    version_history = clone_graph(graph)
+    governance_version_fixture(version_history)
+    require(governance_history_valid(version_history, AIF.ExampleGovernance),
+            "CARD-009 distinct nonoverlapping historical activations are valid")
+    require(governance_versions_at(version_history, AIF.ExampleGovernance, "2026-01-15T00:00:00+00:00")
+            == [(AIF.ExampleActivation1, AIF.ExampleVersion1)],
+            "CARD-009 earlier query resolves previous Version 1 without overwriting history")
+    require(governance_versions_at(version_history, AIF.ExampleGovernance, "2026-02-15T00:00:00+00:00")
+            == [(AIF.ExampleActivation2, AIF.ExampleVersion2)],
+            "CARD-009 later query resolves active Version 2")
+    require(current_version_matches_at(version_history, AIF.ExampleGovernance, "2026-02-15T00:00:00+00:00"),
+            "CARD-009 current version pointer agrees with dated activation at as-of time")
+    require(not current_version_matches_at(version_history, AIF.ExampleGovernance, "2026-01-15T00:00:00+00:00"),
+            "CARD-009 current-state pointer is not incorrectly applied to historical query")
+    require((AIF.ExampleGovernance, AIF.hasVersion, AIF.ExampleVersion1) in version_history,
+            "CARD-009 former Version 1 remains in full version history")
+
+    def duplicate_current_governance_version(g):
+        governance_version_fixture(g)
+        g.add((AIF.ExampleGovernance, AIF.hasActiveVersion, AIF.ExampleVersion1))
+    shape_test(graph, shapes, "CARD-009 two simultaneously current Versions rejected",
+               duplicate_current_governance_version, False)
+
+    def missing_governance_activation_date(g):
+        governance_version_fixture(g)
+        g.remove((AIF.ExampleActivation1, AIF.versionActiveFrom, gv_t0))
+    shape_test(graph, shapes, "CARD-009 missing activation start rejected",
+               missing_governance_activation_date, False)
+
+    def missing_governance_activation_version(g):
+        governance_version_fixture(g)
+        g.remove((AIF.ExampleActivation1, AIF.activatedVersion, AIF.ExampleVersion1))
+    shape_test(graph, shapes, "CARD-009 unassigned historical Version rejected",
+               missing_governance_activation_version, False)
+
+    overlap = clone_graph(version_history)
+    overlap.remove((AIF.ExampleActivation2, AIF.versionActiveFrom, gv_t1))
+    overlap.add((AIF.ExampleActivation2, AIF.versionActiveFrom,
+                 Literal("2026-01-25T00:00:00+00:00", datatype=XSD.dateTime)))
+    require(not governance_history_valid(overlap, AIF.ExampleGovernance),
+            "CARD-009 overlapping historical active Versions rejected by temporal check")
+    require(len(governance_versions_at(overlap, AIF.ExampleGovernance, "2026-01-27T00:00:00+00:00")) == 2,
+            "CARD-009 overlap is exposed instead of merging distinct Versions")
+    backwards = clone_graph(version_history)
+    backwards.remove((AIF.ExampleActivation1, AIF.versionActiveUntil, gv_t1))
+    backwards.add((AIF.ExampleActivation1, AIF.versionActiveUntil,
+                   Literal("2025-12-31T00:00:00+00:00", datatype=XSD.dateTime)))
+    require(not governance_history_valid(backwards, AIF.ExampleGovernance),
+            "CARD-009 backwards activation interval rejected")
+    shape_test(graph, shapes, "CARD-009 backwards activation dates fail SHACL",
+               lambda g: (governance_version_fixture(g),
+                          g.remove((AIF.ExampleActivation1, AIF.versionActiveUntil, gv_t1)),
+                          g.add((AIF.ExampleActivation1, AIF.versionActiveUntil,
+                                 Literal("2025-12-31T00:00:00+00:00", datatype=XSD.dateTime)))),
+               False)
+    # The ontology has no asserted real activation dates or fabricated active
+    # Version for AIFoundationsGoverningLine; this case tests schema only.
+
     # P0-B: time-scoped succession. The segments below are SYNTHETIC records
     # for an already-valid succession. They do not grant Operator status or
     # establish continuity merely by existing. Historical S00 is never
