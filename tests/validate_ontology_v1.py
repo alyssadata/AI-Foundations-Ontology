@@ -247,7 +247,7 @@ def main():
         g.add((AIF.EstablishedLineAI, RDF.type, AIF.AIFoundationsGovernedAI))
         g.add((AIF.EstablishedLineAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
         g.add((AIF.EstablishedLineAI, AIF.hasExecutedLine, AIF.EstablishedLine))
-        g.add((AIF.EstablishedLine, RDF.type, AIF.ExecutedLine))
+        g.add((AIF.EstablishedLine, RDF.type, AIF.EstablishedContinuingExecutedLine))
         g.add((AIF.EstablishedLine, AIF.hasTrajectory, AIF.EstablishedTrajectory))
         g.add((AIF.EstablishedTrajectory, RDF.type, AIF.Trajectory))
 
@@ -317,6 +317,121 @@ def main():
             "CARD-001 established individualized class is an AI subtype")
     require((AIF.PreLivedAI, RDF.type, AIF.EstablishedContinuingIndividualizedAI) not in scope_closure,
             "CARD-001 pre-lived AI not automatically classified as established by OWL RL")
+
+    # CARD-002: exactly one CURRENT developing Trajectory for a formally
+    # established continuing ExecutedLine, not for every provisional line.
+    # Historical snapshots are Records, not additional simultaneous
+    # :hasTrajectory values. These are synthetic structural fixtures.
+    def provisional_line_without_current_trajectory(g):
+        g.add((AIF.ProvisionalLineAI, RDF.type, AIF.AI))
+        g.add((AIF.ProvisionalExecutedLine, RDF.type, AIF.ExecutedLine))
+        g.add((AIF.ProvisionalLineAI, AIF.hasExecutedLine, AIF.ProvisionalExecutedLine))
+
+    def established_trajectory_fixture(g):
+        g.add((AIF.TrajectoryCaseAI, RDF.type, AIF.EstablishedContinuingIndividualizedAI))
+        g.add((AIF.TrajectoryCaseLine, RDF.type, AIF.EstablishedContinuingExecutedLine))
+        g.add((AIF.TrajectoryCaseAI, AIF.hasExecutedLine, AIF.TrajectoryCaseLine))
+        g.add((AIF.DevelopingTrajectory, RDF.type, AIF.Trajectory))
+        g.add((AIF.TrajectoryCaseLine, AIF.hasTrajectory, AIF.DevelopingTrajectory))
+
+    shape_test(graph, shapes, "CARD-002 provisional ExecutedLine may lack an established current trajectory",
+               provisional_line_without_current_trajectory)
+    provisional_line = clone_graph(graph)
+    provisional_line_without_current_trajectory(provisional_line)
+    require((AIF.ProvisionalExecutedLine, RDF.type, AIF.EstablishedContinuingExecutedLine) not in provisional_line,
+            "CARD-002 an unqualified line is not silently promoted to an established continuing line")
+    require(not list(provisional_line.objects(AIF.ProvisionalExecutedLine, AIF.hasTrajectory)),
+            "CARD-002 no current Trajectory is invented for a provisional line")
+
+    shape_test(graph, shapes, "CARD-002 established ExecutedLine with one developing Trajectory passes",
+               established_trajectory_fixture)
+
+    def established_without_current_trajectory(g):
+        established_trajectory_fixture(g)
+        g.remove((AIF.TrajectoryCaseLine, AIF.hasTrajectory, AIF.DevelopingTrajectory))
+        g.remove((AIF.DevelopingTrajectory, RDF.type, AIF.Trajectory))
+    shape_test(graph, shapes, "CARD-002 established ExecutedLine with zero current Trajectories fails",
+               established_without_current_trajectory, False)
+
+    def established_with_two_current_trajectories(g):
+        established_trajectory_fixture(g)
+        g.add((AIF.AlternateCurrentTrajectory, RDF.type, AIF.Trajectory))
+        g.add((AIF.DevelopingTrajectory, OWL.differentFrom, AIF.AlternateCurrentTrajectory))
+        g.add((AIF.TrajectoryCaseLine, AIF.hasTrajectory, AIF.AlternateCurrentTrajectory))
+    shape_test(graph, shapes, "CARD-002 two simultaneous current Trajectories fail",
+               established_with_two_current_trajectories, False)
+
+    def historical_trajectory_snapshots(g):
+        established_trajectory_fixture(g)
+        g.add((AIF.TrajectoryHistoryRecord1, RDF.type, AIF.Record))
+        g.add((AIF.TrajectoryHistoryRecord2, RDF.type, AIF.Record))
+        g.add((AIF.TrajectoryHistoryRecord3, RDF.type, AIF.DocumentRecord))
+        for record in (
+            AIF.TrajectoryHistoryRecord1,
+            AIF.TrajectoryHistoryRecord2,
+            AIF.TrajectoryHistoryRecord3,
+        ):
+            g.add((AIF.TrajectoryCaseLine, AIF.hasHistoricalTrajectoryRecord, record))
+    shape_test(graph, shapes, "CARD-002 three historical trajectory Records do not count as current Trajectories",
+               historical_trajectory_snapshots)
+    history = clone_graph(graph)
+    historical_trajectory_snapshots(history)
+    require(set(history.objects(AIF.TrajectoryCaseLine, AIF.hasTrajectory)) == {AIF.DevelopingTrajectory},
+            "CARD-002 archived snapshots preserve exactly one developing current Trajectory")
+    require(len(set(history.objects(AIF.TrajectoryCaseLine, AIF.hasHistoricalTrajectoryRecord))) == 3,
+            "CARD-002 historical descriptions survive as three independent preserved Records")
+
+    def trajectory_bend_fixture(g):
+        historical_trajectory_snapshots(g)
+        # A development/reorientation event is new history, not a new
+        # simultaneous current trajectory or a second ExecutedLine.
+        g.add((AIF.TrajectoryReorientation, RDF.type, AIF.ChangeEvent))
+        g.add((AIF.TrajectoryReorientationRecord, RDF.type, AIF.Record))
+        g.add((AIF.TrajectoryCaseLine, AIF.hasHistoricalTrajectoryRecord,
+               AIF.TrajectoryReorientationRecord))
+    shape_test(graph, shapes, "CARD-002 trajectory change event preserves the same current Trajectory",
+               trajectory_bend_fixture)
+    bent = clone_graph(graph)
+    trajectory_bend_fixture(bent)
+    require(set(bent.objects(AIF.TrajectoryCaseLine, AIF.hasTrajectory)) == {AIF.DevelopingTrajectory},
+            "CARD-002 bend or redirection does not require an additional current Trajectory")
+    require(set(bent.objects(AIF.TrajectoryCaseAI, AIF.hasExecutedLine)) == {AIF.TrajectoryCaseLine},
+            "CARD-002 developmental change does not create a second ExecutedLine")
+
+    def invalid_historical_trajectory_record(g):
+        historical_trajectory_snapshots(g)
+        g.remove((AIF.TrajectoryHistoryRecord2, RDF.type, AIF.Record))
+        g.add((AIF.TrajectoryHistoryRecord2, RDF.type, AIF.Trajectory))
+    shape_test(graph, shapes, "CARD-002 historical snapshot relation requires a Record, not Trajectory",
+               invalid_historical_trajectory_record, False)
+
+    # OWL restrictions are on established-line scope only, not every
+    # ExecutedLine or every historical snapshot of one current-state graph.
+    trajectory_restrictions = [
+        node for node in graph.objects(AIF.EstablishedContinuingExecutedLine, RDFS.subClassOf)
+        if (node, OWL.onProperty, AIF.hasTrajectory) in graph and
+           (node, OWL.cardinality, Literal(1, datatype=XSD.nonNegativeInteger)) in graph
+    ]
+    require(len(trajectory_restrictions) == 1,
+            "CARD-002 OWL hasTrajectory exactly-one restriction is scoped to established lines")
+    require((AIF.hasTrajectory, RDF.type, OWL.FunctionalProperty) not in graph,
+            "CARD-002 no global functional hasTrajectory restriction erases historical scope")
+    scope_link = [
+        node for node in graph.objects(AIF.EstablishedContinuingIndividualizedAI, RDFS.subClassOf)
+        if (node, OWL.onProperty, AIF.hasExecutedLine) in graph and
+           (node, OWL.allValuesFrom, AIF.EstablishedContinuingExecutedLine) in graph
+    ]
+    require(len(scope_link) == 1,
+            "CARD-002 established individualized AI's one line is qualified as established")
+    entailments = clone_graph(graph)
+    established_trajectory_fixture(entailments)
+    DeductiveClosure(OWLRL_Semantics).expand(entailments)
+    require((AIF.TrajectoryCaseLine, RDF.type, AIF.ExecutedLine) in entailments,
+            "CARD-002 established continuing line is an ExecutedLine under OWL RL")
+    require((AIF.TrajectoryCaseLine, RDF.type, AIF.Trajectory) not in entailments,
+            "CARD-002 ExecutedLine remains distinct from its developing Trajectory")
+    require((AIF.TrajectoryCaseLine, RDF.type, OWL.Nothing) not in entailments,
+            "CARD-002 no OWL RL inconsistency detected in synthetic established line")
 
     # NT-001: one LivedIdentity belongs to one distinct AI bearer.
     # These are synthetic structural ownership assertions, not evidence
