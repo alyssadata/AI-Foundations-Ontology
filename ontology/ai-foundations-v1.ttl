@@ -164,6 +164,53 @@
     rdfs:comment "Continuum-specific Return-to-Origin target. In addition to, not instead of, the governing line. No Operator equivalent."@en .
 :triggeredByDrift a owl:ObjectProperty ; rdfs:domain :ReturnProcess .
 
+# 6A. The remaining reviewed relation properties. These are derived from
+#     ontology/relations/core-object-properties.md rather than new definitions.
+:formedInRelationWith a owl:ObjectProperty ;
+    rdfs:domain :AI ; rdfs:range :Agent ;
+    rdfs:comment "Derived human-readable shortcut only. The AIRelation with typed counterpart properties remains authoritative."@en .
+
+:memoryOfRecord a owl:ObjectProperty ; rdfs:domain :MemoryState ; rdfs:range :Record .
+:memoryFor a owl:ObjectProperty ; rdfs:domain :MemoryState ; rdfs:range :Agent .
+:documentsSourceLine a owl:ObjectProperty ; rdfs:domain :Provenance ; rdfs:range :SourceLine .
+:preservedIn a owl:ObjectProperty ;
+    rdfs:domain :Evidence ;
+    rdfs:range [ a owl:Class ; owl:unionOf ( :EvidenceArtifact :Record ) ] ;
+    rdfs:comment "Evidence must be preserved in one or more records or evidence artifacts; not the same as continuity."@en .
+
+:producesEvidence a owl:ObjectProperty ; rdfs:domain :Evaluation ; rdfs:range :Evidence .
+:directlyEvaluatesClaim a owl:ObjectProperty ; rdfs:domain :Evidence ; rdfs:range :Claim .
+:partiallySupportsClaim a owl:ObjectProperty ; rdfs:domain :Evidence ; rdfs:range :Claim .
+:doesNotSupportClaim a owl:ObjectProperty ; rdfs:domain :Evidence ; rdfs:range :Claim .
+
+:hasEvidentiaryStatus a owl:DatatypeProperty ;
+    rdfs:domain :Evidence ; rdfs:range xsd:string ;
+    rdfs:comment "Exactly one current status: NOT_EVALUATED, SUPPORTED, PARTIALLY_SUPPORTED, NOT_SUPPORTED, or INDETERMINATE. Historical status decisions remain separate versioned provenance."@en .
+
+:dependsOnOntologyElement a owl:AnnotationProperty ;
+    rdfs:comment "Claim-to-schema dependency: may refer to a class, property, or axiom. Not an ordinary domain object property."@en .
+
+:modifiesAuthorityGrant a owl:ObjectProperty ; rdfs:domain :ChangeEvent ; rdfs:range :AuthorityGrant .
+:affectsRelation a owl:ObjectProperty ; rdfs:domain :ChangeEvent ; rdfs:range :Relation .
+
+# Evidence is produced by one Evaluation, directly evaluates one Claim,
+# is preserved somewhere, and has one current evidentiary-status value.
+:Evidence rdfs:subClassOf
+    [ a owl:Restriction ; owl:onProperty :preservedIn ;
+      owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onClass [ a owl:Class ; owl:unionOf ( :EvidenceArtifact :Record ) ] ] ,
+    [ a owl:Restriction ; owl:onProperty [ a owl:ObjectProperty ;
+      owl:inverseOf :producesEvidence ] ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ] ,
+    [ a owl:Restriction ; owl:onProperty :directlyEvaluatesClaim ;
+      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass :Claim ] ,
+    [ a owl:Restriction ; owl:onProperty :hasEvidentiaryStatus ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ] .
+
+:MemoryState rdfs:subClassOf
+    [ a owl:Restriction ; owl:onProperty :memoryFor ;
+      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass :Agent ] .
+
 # 7. Version, research, and provenance.
 :hasVersion a owl:ObjectProperty ; rdfs:range :Version .
 :hasActiveVersion a owl:ObjectProperty ; rdfs:subPropertyOf :hasVersion ;
