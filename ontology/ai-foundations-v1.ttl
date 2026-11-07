@@ -202,6 +202,21 @@
 # checks that already-established triples are not deleted or silently replaced.
 # Static OWL/SHACL cardinality alone cannot detect a prior overwritten value.
 # New qualified downstream contributions get distinct SourceRelation individuals.
+# BS-001: Belonging is relational participation, not identity-equivalence.
+# A Group may have multiple independently identifiable members, and a
+# Relation may have multiple participants without making them the same
+# individual or granting them the same defining-pair counterpart role.
+# Deliberately no owl:FunctionalProperty, owl:InverseFunctionalProperty,
+# owl:hasKey, property chain, or owl:sameAs rule is defined for these paths.
+:belongsToGroup a owl:ObjectProperty ;
+    rdfs:domain :Agent ;
+    rdfs:range :Group ;
+    rdfs:comment "The Agent belongs to a scoped Group. Shared membership alone does not entail owl:sameAs, shared Identity, or sameness of any members; true identity is a separate evidentiary question."@en .
+:participatesInRelation a owl:ObjectProperty ;
+    rdfs:domain :Agent ;
+    rdfs:range :Relation ;
+    rdfs:comment "A distinct Agent participates in the given Relation without acquiring another participant's identity or automatically taking a defining AIRelation counterpart position. Participation is not identity-equivalence."@en .
+
 :hasSourceRelation a owl:ObjectProperty ;
     rdfs:range :SourceRelation ;
     rdfs:comment "Links a formed Target to its SourceRelation provenance. Multiple distinct SourceRelations may coexist for distinct valid contributions; none may overwrite a historical SourceRelation."@en .
