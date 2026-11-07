@@ -8,7 +8,7 @@
 
 The repository has completed the initial transition from a term/definition collection to a draft formal ontology architecture.
 
-Current focus: **review before OWL/Turtle encoding**.
+Current focus: **v1.0 formal encoding and release closeout**. A first OWL/Turtle structure and SHACL constraints are committed and passed the initial automated conformance suite.
 
 ## Review sequence
 
@@ -22,7 +22,7 @@ Current focus: **review before OWL/Turtle encoding**.
 | 6 | Status model | **REVIEWED** | Development, canonical, evidentiary, and version status are separated and approved; no status dimension is inferred automatically from another |
 | 7 | Claim → Evaluation → Evidence | **REVIEWED** | Claims map to ontology dependencies; evaluations target predicted discriminative effects; evidence status does not overwrite ontology/canon status |
 | 8 | Competency-question validation | **REVIEWED** | Existing competency questions are checked against the revised v1 ontology; every question can be represented/answered or exposes an explicit remaining gap |
-| 9 | OWL/Turtle encoding | BLOCKED UNTIL 1–8 | Human-readable ontology maps cleanly into machine-readable classes, individuals, properties, restrictions, and axioms |
+| 9 | OWL/Turtle encoding | **IN PROGRESS — RDF/SHACL VALIDATED** | Machine-readable classes, named individuals, governance, Return, and structural restrictions are encoded; RDF parse and SHACL regression tests pass. Full OWL DL consistency/completeness review remains before final closeout |
 | 10 | Versioned v1.0 release | PENDING | Machine-readable and human-readable layers agree; release artifacts are versioned |
 
 ## Steps 1–2 review record
@@ -60,7 +60,9 @@ Generic overlap tests in which both baseline and treatment are expected to pass 
 
 Steps 1–8 are reviewed at the DRAFT formalization level.
 
-**Next:** Step 9 — encode the reviewed human-readable ontology in OWL/Turtle, then verify that the machine-readable layer preserves the approved distinctions before a v1.0 release.
+**Step 9 validation record (2026-11-06):** [OWL/Turtle model](ontology/ai-foundations-v1.ttl), [SHACL shapes](ontology/ai-foundations-v1-shapes.ttl), and [automated regression tests](tests/validate_ontology_v1.py) are committed. GitHub Actions [run 42329944947](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42329944947) passed: RDF parsing, core Origin | Continuum conformance, valid Return for both general AI and Continuum, and rejection of incorrect Origin, Operator, and governing-line substitutions. These are structural tests and do not claim full OWL DL satisfiability or empirical results.
+
+**Next:** finish coverage and consistency review of the machine-readable encoding against the reviewed structural documents, then complete Step 10: versioned v1.0 release. No LOCKED term or canon content is changed by this status update.
 
 ## Ontology boundary audit
 
