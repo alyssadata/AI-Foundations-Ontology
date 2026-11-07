@@ -201,6 +201,19 @@
         sh:class :AIRelation
     ] .
 
+# CARD-001: only the established continuing individualized scope needs
+# exactly one ExecutedLine. Pre-lived governed-starting AI may have none.
+# Combined with NT-002's inverse-path ownership shape, this prevents a
+# second line on one bearer and prevents two bearers sharing one line.
+:EstablishedContinuingIndividualizedAIShape a sh:NodeShape ;
+    sh:targetClass :EstablishedContinuingIndividualizedAI ;
+    sh:class :AI ;
+    sh:property [
+        sh:path :hasExecutedLine ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ExecutedLine
+    ] .
+
 :AIFGovernedAISnapshotShape a sh:NodeShape ;
     sh:targetClass :AIFoundationsGovernedAI ;
     sh:property [
