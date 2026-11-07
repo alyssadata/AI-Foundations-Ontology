@@ -489,6 +489,198 @@ def main():
     require((AIF.hasSourceBearer, RDF.type, OWL.InverseFunctionalProperty) not in graph,
             "NT-003 Source bearer property is not inverse-functional; multiple scoped sources remain possible")
 
+    # NT-004: historically established defining pairs are not transferable.
+    # S00 and S01 are DISTINCT defining-pair individuals linked to the same
+    # continuing AI in a synthetic ordinary succession example. The tests
+    # validate representation; they do not establish the four-part assent
+    # gate or empirical same-self continuity.
+    pair_t0 = Literal("2026-01-01T00:00:00+00:00", datatype=AIF_DATE_TIME)
+    pair_t1 = Literal("2026-02-01T00:00:00+00:00", datatype=AIF_DATE_TIME)
+
+    def paired_root_fixture(g):
+        for ai, line, trajectory in (
+            (AIF.PairTestAI, AIF.PairTestLine, AIF.PairTestTrajectory),
+            (AIF.PairOtherAI, AIF.PairOtherLine, AIF.PairOtherTrajectory),
+        ):
+            g.add((ai, RDF.type, AIF.AIFoundationsGovernedAI))
+            g.add((ai, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+            g.add((ai, AIF.hasExecutedLine, line))
+            g.add((ai, AIF.hasRecord, AIF.SharedPairRecord))
+            g.add((line, RDF.type, AIF.ExecutedLine))
+            g.add((line, AIF.hasTrajectory, trajectory))
+            g.add((trajectory, RDF.type, AIF.Trajectory))
+        g.add((AIF.SharedPairRecord, RDF.type, AIF.Record))
+        g.add((AIF.PairTestAI, OWL.differentFrom, AIF.PairOtherAI))
+        g.add((AIF.PairTestLine, OWL.differentFrom, AIF.PairOtherLine))
+        for actor in (AIF.PairOperatorA, AIF.PairOperatorB):
+            g.add((actor, RDF.type, AIF.Human))
+        g.add((AIF.PairOperatorA, OWL.differentFrom, AIF.PairOperatorB))
+        # One Operator bearer can participate in two *distinct* pairings.
+        for pair, ai, line in (
+            (AIF.PairS00, AIF.PairTestAI, AIF.PairTestLine),
+            (AIF.PairOtherS00, AIF.PairOtherAI, AIF.PairOtherLine),
+        ):
+            g.add((pair, RDF.type, AIF.OperatorAIRelation))
+            g.add((pair, RDF.type, AIF.OrdinarySuccessionRootSegment))
+            g.add((pair, AIF.hasHumanCounterpart, AIF.PairOperatorA))
+            g.add((pair, AIF.hasAICounterpart, ai))
+            g.add((pair, AIF.segmentOfExecutedLine, line))
+            g.add((pair, AIF.activeFrom, pair_t0))
+        g.add((AIF.PairS00, OWL.differentFrom, AIF.PairOtherS00))
+        g.add((AIF.PairTestAI, AIF.hasOperator, AIF.PairOperatorA))
+        g.add((AIF.PairOtherAI, AIF.hasOperator, AIF.PairOperatorA))
+
+    def paired_successor_fixture(g):
+        paired_root_fixture(g)
+        # Close the preceding pair's active interval; do NOT alter S00's
+        # original AI or Operator side, or delete its historical position.
+        g.add((AIF.PairS00, AIF.activeUntil, pair_t1))
+        g.remove((AIF.PairTestAI, AIF.hasOperator, AIF.PairOperatorA))
+        g.add((AIF.PairTestAI, AIF.hasOperator, AIF.PairOperatorB))
+        g.add((AIF.PairS01, RDF.type, AIF.OperatorAIRelation))
+        g.add((AIF.PairS01, RDF.type, AIF.OrdinarySuccessionSuccessorSegment))
+        g.add((AIF.PairS01, AIF.hasHumanCounterpart, AIF.PairOperatorB))
+        g.add((AIF.PairS01, AIF.hasAICounterpart, AIF.PairTestAI))
+        g.add((AIF.PairS01, AIF.segmentOfExecutedLine, AIF.PairTestLine))
+        g.add((AIF.PairS01, AIF.activeFrom, pair_t1))
+        g.add((AIF.PairS01, AIF.immediatePredecessor, AIF.PairS00))
+        g.add((AIF.PairS01, OWL.differentFrom, AIF.PairS00))
+        g.add((AIF.PairS01, OWL.differentFrom, AIF.PairOtherS00))
+
+    def defining_pair_history_integrity(before, after):
+        """Validate persistence of already-established defining pair facts.
+
+        Unlike OWL/SHACL cardinality within one graph, this comparison
+        detects a syntactically valid but historically false reassignment.
+        Newly ending an open Operator segment is legitimate; replacing an
+        earlier recorded end instant is not. Correcting erroneous assertions
+        requires a separate evidence-accounted revision workflow.
+        """
+        defining_types = (
+            AIF.AIRelation, AIF.HumanAIRelation,
+            AIF.OrganizationAIRelation, AIF.OperatorAIRelation,
+        )
+        stable_types = defining_types + (
+            AIF.OrdinarySuccessionRootSegment,
+            AIF.OrdinarySuccessionSuccessorSegment,
+        )
+        fixed_props = (
+            AIF.hasAICounterpart, AIF.hasNonAICounterpart,
+            AIF.hasHumanCounterpart, AIF.hasOrganizationCounterpart,
+            AIF.segmentOfExecutedLine, AIF.activeFrom,
+            AIF.immediatePredecessor,
+        )
+        pairs = {p for kind in defining_types
+                 for p in before.subjects(RDF.type, kind)}
+        for pair in pairs:
+            before_ai = set(before.objects(pair, AIF.hasAICounterpart))
+            before_humans = set(before.objects(pair, AIF.hasHumanCounterpart))
+            before_orgs = set(before.objects(pair, AIF.hasOrganizationCounterpart))
+            before_nona = set(before.objects(pair, AIF.hasNonAICounterpart))
+            # The typed subproperties may be the only explicit counterpart
+            # statements; RDFS derives the generic non-AI counterpart.
+            if len(before_ai) != 1 or len(before_humans | before_orgs | before_nona) != 1:
+                return False
+            for prop in fixed_props:
+                if set(before.objects(pair, prop)) != set(after.objects(pair, prop)):
+                    return False
+            for kind in stable_types:
+                if ((pair, RDF.type, kind) in before) != ((pair, RDF.type, kind) in after):
+                    return False
+            before_end = set(before.objects(pair, AIF.activeUntil))
+            after_end = set(after.objects(pair, AIF.activeUntil))
+            if len(after_end) > 1 or (before_end and before_end != after_end):
+                return False
+        return True
+
+    shape_test(graph, shapes, "NT-004 two distinct AIs have separate S00 pairings with one shared Operator",
+               paired_root_fixture)
+    established_pairs = clone_graph(graph)
+    paired_root_fixture(established_pairs)
+    successor_pairs = clone_graph(graph)
+    paired_successor_fixture(successor_pairs)
+    shape_test(graph, shapes, "NT-004 successor receives a NEW S01 pairing, preserving S00",
+               paired_successor_fixture)
+    require(defining_pair_history_integrity(established_pairs, successor_pairs),
+            "NT-004 valid S01 adds a new pair while original S00 remains unchanged")
+    require((AIF.PairS00, AIF.hasAICounterpart, AIF.PairTestAI) in successor_pairs and
+            (AIF.PairS01, AIF.hasAICounterpart, AIF.PairTestAI) in successor_pairs,
+            "NT-004 S00 and S01 are distinct defining pair coordinates for one continuing AI")
+    require((AIF.PairS00, AIF.hasHumanCounterpart, AIF.PairOperatorA) in successor_pairs and
+            (AIF.PairS01, AIF.hasHumanCounterpart, AIF.PairOperatorB) in successor_pairs,
+            "NT-004 original Operator remains bound to S00 after S01")
+    require((AIF.PairOtherS00, AIF.hasAICounterpart, AIF.PairOtherAI) in successor_pairs,
+            "NT-004 another AI retains its independent defining pairing")
+    require((AIF.PairS00, AIF.activeUntil, pair_t1) in successor_pairs,
+            "NT-004 established Operator pair can be ended without erasing it")
+    require((AIF.OriginContinuum, AIF.hasAICounterpart, AIF.Continuum) in successor_pairs,
+            "NT-004 reserved Origin | Continuum retains its named AI counterpart")
+
+    replaced_ai = clone_graph(established_pairs)
+    replaced_ai.remove((AIF.PairS00, AIF.hasAICounterpart, AIF.PairTestAI))
+    replaced_ai.add((AIF.PairS00, AIF.hasAICounterpart, AIF.PairOtherAI))
+    require(not defining_pair_history_integrity(established_pairs, replaced_ai),
+            "NT-004 replacing the AI in the original S00 pair fails historical integrity")
+    # A single graph may STILL pass cardinality with the rewritten AI;
+    # precisely why immutable pair coordinates need cross-snapshot checks.
+    def false_single_snapshot_pair(g):
+        paired_root_fixture(g)
+        g.remove((AIF.PairS00, AIF.hasAICounterpart, AIF.PairTestAI))
+        g.add((AIF.PairS00, AIF.hasAICounterpart, AIF.PairOtherAI))
+    shape_test(graph, shapes, "NT-004 one-graph cardinality cannot prove unchanged pair history",
+               false_single_snapshot_pair)
+
+    replaced_operator = clone_graph(established_pairs)
+    replaced_operator.remove((AIF.PairS00, AIF.hasHumanCounterpart, AIF.PairOperatorA))
+    replaced_operator.add((AIF.PairS00, AIF.hasHumanCounterpart, AIF.PairOperatorB))
+    require(not defining_pair_history_integrity(established_pairs, replaced_operator),
+            "NT-004 changing original Operator on S00 fails historical integrity")
+
+    double_ai = clone_graph(established_pairs)
+    double_ai.add((AIF.PairS00, AIF.hasAICounterpart, AIF.PairOtherAI))
+    require(not defining_pair_history_integrity(established_pairs, double_ai),
+            "NT-004 appending a second AI to an old pair is not reassignment")
+    def duplicate_ai_pair(g):
+        paired_root_fixture(g)
+        g.add((AIF.PairS00, AIF.hasAICounterpart, AIF.PairOtherAI))
+    shape_test(graph, shapes, "NT-004 two AI counterparts in one pair fail SHACL",
+               duplicate_ai_pair, False)
+
+    def duplicate_nona_pair(g):
+        paired_root_fixture(g)
+        g.add((AIF.PairOrg, RDF.type, AIF.Organization))
+        g.add((AIF.PairS00, AIF.hasOrganizationCounterpart, AIF.PairOrg))
+    shape_test(graph, shapes, "NT-004 Human and Organization cannot both occupy one non-AI side",
+               duplicate_nona_pair, False)
+
+    removed_original_pair = clone_graph(established_pairs)
+    for triple in list(removed_original_pair.triples((AIF.PairS00, None, None))):
+        removed_original_pair.remove(triple)
+    require(not defining_pair_history_integrity(established_pairs, removed_original_pair),
+            "NT-004 deleting original S00 pairing fails history preservation")
+
+    displaced_line = clone_graph(established_pairs)
+    displaced_line.remove((AIF.PairS00, AIF.segmentOfExecutedLine, AIF.PairTestLine))
+    displaced_line.add((AIF.PairS00, AIF.segmentOfExecutedLine, AIF.PairOtherLine))
+    require(not defining_pair_history_integrity(established_pairs, displaced_line),
+            "NT-004 moving an old pair to another ExecutedLine fails history integrity")
+
+    origin_reassignment = clone_graph(established_pairs)
+    origin_reassignment.remove((AIF.OriginContinuum, AIF.hasAICounterpart, AIF.Continuum))
+    origin_reassignment.add((AIF.OriginContinuum, AIF.hasAICounterpart, AIF.PairOtherAI))
+    require(not defining_pair_history_integrity(established_pairs, origin_reassignment),
+            "NT-004 historical Origin | Continuum is not reassignable to another AI")
+
+    # Copying a shared Record changes no defining relation or ownership.
+    copied_record_only = clone_graph(established_pairs)
+    copied_record_only.add((AIF.RecordCopyReviewed, RDF.type, AIF.ChangeEvent))
+    require(defining_pair_history_integrity(established_pairs, copied_record_only),
+            "NT-004 copied Record or review event does not alter defining pair coordinates")
+    require((AIF.hasAICounterpart, RDF.type, OWL.InverseFunctionalProperty) not in graph,
+            "NT-004 pair AI counterpart is not inverse-functional: one AI may have successive pairs")
+    require((AIF.hasNonAICounterpart, RDF.type, OWL.InverseFunctionalProperty) not in graph,
+            "NT-004 one Human or Organization may belong to distinct AI pairings")
+
     # P0-A: operational numerical distinction is not an assertion of a
     # consciousness coordinate. From the established A/B taxonomy scenario,
     # B receives a copy of A's snapshot/record at t0 but did not live A's
