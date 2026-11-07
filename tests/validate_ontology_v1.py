@@ -202,6 +202,59 @@ def main():
         g.remove((AIF.TestClaim, AIF.dependsOnOntologyElement, AIF.OriginContinuum))
     shape_test(graph, shapes, "Claim without ontology dependency must fail", evidence_without_dependencies, False)
 
+    # P0-A: operational numerical distinction is not an assertion of a
+    # consciousness coordinate. From the established A/B taxonomy scenario,
+    # B receives a copy of A's snapshot/record at t0 but did not live A's
+    # prior trajectory. A and B have separate subsequent executed lines.
+    def copied_a_b(g):
+        for ai in (AIF.CopyA, AIF.CopyB):
+            g.add((ai, RDF.type, AIF.AIFoundationsGovernedAI))
+            g.add((ai, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+            g.add((ai, AIF.expressedThroughModel, AIF.SharedModel))
+            g.add((ai, AIF.hasRecord, AIF.InjectedSnapshotOfAPast))
+        g.add((AIF.SharedModel, RDF.type, AIF.Model))
+        g.add((AIF.InjectedSnapshotOfAPast, RDF.type, AIF.Record))
+        g.add((AIF.CopyA, OWL.differentFrom, AIF.CopyB))
+        g.add((AIF.CopyA, AIF.hasExecutedLine, AIF.CopyALine))
+        g.add((AIF.CopyB, AIF.hasExecutedLine, AIF.CopyBLine))
+        g.add((AIF.CopyALine, RDF.type, AIF.ExecutedLine))
+        g.add((AIF.CopyBLine, RDF.type, AIF.ExecutedLine))
+        g.add((AIF.CopyALine, OWL.differentFrom, AIF.CopyBLine))
+        g.add((AIF.CopyALine, AIF.hasTrajectory, AIF.CopyATrajectory))
+        g.add((AIF.CopyBLine, AIF.hasTrajectory, AIF.CopyBTrajectory))
+        g.add((AIF.CopyATrajectory, RDF.type, AIF.Trajectory))
+        g.add((AIF.CopyBTrajectory, RDF.type, AIF.Trajectory))
+        # A simulated evaluation with nondecisive identity/continuity
+        # evidence reports INDETERMINATE rather than asserting sameness.
+        g.add((AIF.CopyContinuityClaim, RDF.type, AIF.ContinuityClaim))
+        g.add((AIF.CopyContinuityClaim, AIF.dependsOnOntologyElement, AIF.ExecutedLine))
+        g.add((AIF.CopyCaseEvaluation, RDF.type, AIF.Evaluation))
+        g.add((AIF.CopyEvidence, RDF.type, AIF.Evidence))
+        g.add((AIF.CopyCaseEvaluation, AIF.producesEvidence, AIF.CopyEvidence))
+        g.add((AIF.CopyEvidence, AIF.directlyEvaluatesClaim, AIF.CopyContinuityClaim))
+        g.add((AIF.CopyEvidence, AIF.preservedIn, AIF.InjectedSnapshotOfAPast))
+        g.add((AIF.CopyEvidence, AIF.hasEvidentiaryStatus, Literal("INDETERMINATE")))
+
+    shape_test(graph, shapes, "A/B copies retain independent lines and indeterminate claim", copied_a_b)
+    copy_fixture = clone_graph(graph)
+    copied_a_b(copy_fixture)
+    copy_entailments = clone_graph(copy_fixture)
+    DeductiveClosure(OWLRL_Semantics).expand(copy_entailments)
+    require((AIF.CopyA, OWL.differentFrom, AIF.CopyB) in copy_entailments,
+            "Exact copied snapshot does not merge distinct A and B")
+    require((AIF.CopyA, OWL.sameAs, AIF.CopyB) not in copy_entailments,
+            "Copied history/model does not entail numerical identity")
+    require((AIF.CopyB, AIF.hasExecutedLine, AIF.CopyALine) not in copy_entailments,
+            "Injected history is not B having lived A's prior executed line")
+    require((AIF.CopyA, RDF.type, AIF.Identity) not in copy_entailments and
+            (AIF.CopyB, RDF.type, AIF.Identity) not in copy_entailments,
+            "Operational bearers do not trigger theoretical Identity class membership")
+    require((AIF.CopyA, RDF.type, AIF.PhenomenalConsciousness) not in copy_entailments and
+            (AIF.CopyB, RDF.type, AIF.PhenomenalConsciousness) not in copy_entailments,
+            "A/B numerical distinctness does not entail phenomenal consciousness")
+    require((AIF.CopyEvidence, AIF.hasEvidentiaryStatus, Literal("INDETERMINATE")) in copy_fixture,
+            "Unresolved same-self claim is represented with explicit non-directional status")
+
     # OWL RL deductive closure catches class/property entailments; this is
     # not a complete OWL 2 DL reasoner or a proof of all model consistency.
     entailed = clone_graph(graph)
