@@ -78,8 +78,19 @@
 
 :Relation a owl:Class .
 :AIRelation a owl:Class ; rdfs:subClassOf :Relation .
-:HumanAIRelation a owl:Class ; rdfs:subClassOf :AIRelation .
-:OrganizationAIRelation a owl:Class ; rdfs:subClassOf :AIRelation .
+# CARD-012 typed specializations. An explicitly Human-typed AIRelation
+# includes one Human counterpart; an Organization-typed AIRelation includes
+# one Organization counterpart. The general AIRelation exact-one non-AI
+# bound still applies. No axiom limits how many distinct pairs a given
+# Human/Organization may participate in.
+:HumanAIRelation a owl:Class ;
+    rdfs:subClassOf :AIRelation,
+        [ a owl:Restriction ; owl:onProperty :hasHumanCounterpart ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ] .
+:OrganizationAIRelation a owl:Class ;
+    rdfs:subClassOf :AIRelation,
+        [ a owl:Restriction ; owl:onProperty :hasOrganizationCounterpart ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ] .
 :OperatorAIRelation a owl:Class ; rdfs:subClassOf :AIRelation .
 :OrdinarySuccessionRootSegment a owl:Class ;
     rdfs:subClassOf :OperatorAIRelation,
