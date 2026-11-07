@@ -214,12 +214,22 @@
     sh:property [ sh:path :hasExecutedLine ; sh:maxCount 1 ] ;
     rdfs:comment "Apply this shape to a single time-scoped active snapshot, not a union of past Operator and version snapshots."@en .
 
+# NT-004: the defining pair is one AI and one non-AI bearer, even
+# when typed :hasHumanCounterpart / :hasOrganizationCounterpart properties
+# infer the generalized counterpart through rdfs:subPropertyOf.
+# Historical immutability and valid successor pairing are checked using
+# before/after snapshots separately; one snapshot cannot reveal a rewrite.
 :AIRelationShape a sh:NodeShape ;
     sh:targetClass :AIRelation ;
     sh:property [
         sh:path :hasAICounterpart ;
         sh:minCount 1 ; sh:maxCount 1 ;
         sh:class :AI
+    ] ;
+    sh:property [
+        sh:path :hasNonAICounterpart ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Agent
     ] ;
     sh:or (
         [ sh:property [
