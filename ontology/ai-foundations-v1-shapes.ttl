@@ -293,6 +293,27 @@
         ]]
     ) .
 
+# CARD-012: typed AIRelation subclasses must use their matching
+# counterpart specialization. This does not restrict the same Human or
+# Organization from participating in multiple distinct defining pairings.
+:HumanAIRelationCounterpartShape a sh:NodeShape ;
+    sh:targetClass :HumanAIRelation ;
+    sh:property [
+        sh:path :hasHumanCounterpart ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Human
+    ] ;
+    sh:property [ sh:path :hasOrganizationCounterpart ; sh:maxCount 0 ] .
+
+:OrganizationAIRelationCounterpartShape a sh:NodeShape ;
+    sh:targetClass :OrganizationAIRelation ;
+    sh:property [
+        sh:path :hasOrganizationCounterpart ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Organization
+    ] ;
+    sh:property [ sh:path :hasHumanCounterpart ; sh:maxCount 0 ] .
+
 # NT-003: enforce a single Source bearer/Target/SourcePoint in each
 # representation. This alone is NOT historical immutability: a before/after
 # SourceRelation integrity validator rejects silent deletion/reassignment.
