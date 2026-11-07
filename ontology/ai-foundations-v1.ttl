@@ -144,10 +144,24 @@
     owl:inverseOf :isSourceOf ;
     rdfs:comment "Constitutive source of the particular formed thing, not general use, similarity, or provenance evidence alone."@en .
 :isSourceOf a owl:ObjectProperty .
-:hasSourceRelation a owl:ObjectProperty ; rdfs:range :SourceRelation .
-:hasSourceBearer a owl:ObjectProperty ; rdfs:domain :SourceRelation .
-:hasSourceTarget a owl:ObjectProperty ; rdfs:domain :SourceRelation .
-:hasSourcePoint a owl:ObjectProperty ; rdfs:domain :SourceRelation ; rdfs:range :Event .
+# NT-003: SourceRelation represents a historically established source
+# coordinate for a specific Source, Target, and SourcePoint. Its values are
+# exact-one per graph; the before/after history gate in the regression suite
+# checks that already-established triples are not deleted or silently replaced.
+# Static OWL/SHACL cardinality alone cannot detect a prior overwritten value.
+# New qualified downstream contributions get distinct SourceRelation individuals.
+:hasSourceRelation a owl:ObjectProperty ;
+    rdfs:range :SourceRelation ;
+    rdfs:comment "Links a formed Target to its SourceRelation provenance. Multiple distinct SourceRelations may coexist for distinct valid contributions; none may overwrite a historical SourceRelation."@en .
+:hasSourceBearer a owl:ObjectProperty ;
+    rdfs:domain :SourceRelation ;
+    rdfs:comment "Original qualifying bearer of a particular SourceRelation, fixed once that relation has been historically established. A later contributor must not replace this value."@en .
+:hasSourceTarget a owl:ObjectProperty ;
+    rdfs:domain :SourceRelation ;
+    rdfs:comment "Specific formed Target of the historical SourceRelation; its identity is not silently reassigned to a later downstream creation."@en .
+:hasSourcePoint a owl:ObjectProperty ;
+    rdfs:domain :SourceRelation ; rdfs:range :Event ;
+    rdfs:comment "Actual first load-bearing SourcePoint for the specific SourceRelation; later contributions have their own SourcePoint/SourceRelation where independently qualifying."@en .
 
 # 4. Pairing and individuation. Human counterpart is a specialization of
 #    non-AI counterpart, without converting every collaborator into Operator.
