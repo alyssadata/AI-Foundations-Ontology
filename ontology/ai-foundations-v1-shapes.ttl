@@ -129,6 +129,70 @@
     sh:targetClass :ExecutedLine ;
     sh:property [ sh:path :hasTrajectory ; sh:minCount 1 ; sh:maxCount 1 ] .
 
+
+# Reviewed memory ownership: a MemoryState is memory *for* exactly one Agent,
+# not a second Record and not a shared memory identity.
+:MemoryStateShape a sh:NodeShape ;
+    sh:targetClass :MemoryState ;
+    sh:property [
+        sh:path :memoryFor ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Agent
+    ] ;
+    sh:property [
+        sh:path :memoryOfRecord ;
+        sh:class :Record
+    ] .
+
+# Every Claim must identify at least one framework dependency. This is an
+# OWL annotation/metamodel relation, not an ordinary domain object property.
+:ClaimShape a sh:NodeShape ;
+    sh:targetClass :Claim ;
+    sh:property [
+        sh:path :dependsOnOntologyElement ;
+        sh:minCount 1
+    ] .
+
+# A concrete Evidence object must have a producing Evaluation, a primary
+# Claim, an artifact/record that preserves it, and exactly one current status.
+# Histories of status revision remain in provenance, not simultaneous current
+# hasEvidentiaryStatus assertions on the same Evidence object.
+:EvidenceShape a sh:NodeShape ;
+    sh:targetClass :Evidence ;
+    sh:property [
+        sh:path [ sh:inversePath :producesEvidence ] ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Evaluation
+    ] ;
+    sh:property [
+        sh:path :directlyEvaluatesClaim ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Claim
+    ] ;
+    sh:property [
+        sh:path :preservedIn ;
+        sh:minCount 1 ;
+        sh:or (
+            [ sh:class :EvidenceArtifact ]
+            [ sh:class :Record ]
+        )
+    ] ;
+    sh:property [
+        sh:path :hasEvidentiaryStatus ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:in (
+            "NOT_EVALUATED"
+            "SUPPORTED"
+            "PARTIALLY_SUPPORTED"
+            "NOT_SUPPORTED"
+            "INDETERMINATE"
+        )
+    ] ;
+    sh:property [ sh:path :supportsClaim ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :partiallySupportsClaim ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :doesNotSupportClaim ; sh:maxCount 1 ] .
+
 # The following do not conclude identity continuity or phenomenal awareness:
 # copied records, repeated descriptions, model type, or reappearing outputs.
 # A ContinuityClaim is not inferred from any of those properties here.
