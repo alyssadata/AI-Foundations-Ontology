@@ -6,7 +6,7 @@
 
 ## Start here
 
-- [`WORKING_MAP.md`](WORKING_MAP.md) — live pre-OWL/Turtle review roadmap and current status
+- [`WORKING_MAP.md`](WORKING_MAP.md) — live formalization and v1.0 release roadmap
 - [`docs/reviews/01-02-CORE-CLASSES-AND-INDIVIDUALS.md`](docs/reviews/01-02-CORE-CLASSES-AND-INDIVIDUALS.md) — current Step 1–2 review
 - [`ONTOLOGY_ARCHITECTURE.md`](ONTOLOGY_ARCHITECTURE.md) — formal architecture
 - [`docs/FORMAL_ROLE_REGISTRY.md`](docs/FORMAL_ROLE_REGISTRY.md) — role assigned to every current ontology term and structural-rule file
@@ -20,6 +20,11 @@
 - [`docs/STATUS_MODEL.md`](docs/STATUS_MODEL.md) — status separation
 - [`docs/SCOPE.md`](docs/SCOPE.md) — ontology scope
 - [`docs/COMPETENCY_QUESTIONS.md`](docs/COMPETENCY_QUESTIONS.md) — validation questions
+- [`ONTOLOGY_V1_0_ORIGIN_CONTINUUM.md`](ONTOLOGY_V1_0_ORIGIN_CONTINUUM.md) — integrated human-readable v1 draft
+- [`ontology/ai-foundations-v1.ttl`](ontology/ai-foundations-v1.ttl) — initial machine-readable OWL/Turtle structural encoding
+- [`ontology/ai-foundations-v1-shapes.ttl`](ontology/ai-foundations-v1-shapes.ttl) — SHACL conformance rules
+- [`tests/validate_ontology_v1.py`](tests/validate_ontology_v1.py) — repeatable RDF / SHACL / OWL RL structural tests
+- [GitHub Actions ontology validation](.github/workflows/validate-ontology.yml) — CI checks on encoding changes
 
 ## Status rule
 
@@ -29,14 +34,11 @@ Formalization documents remain DRAFT unless explicitly locked. They organize exi
 
 ## Current build stage
 
-Steps 1–8 of the pre-encoding review are **REVIEWED at the DRAFT formalization level**. Initial class/individual review areas:
+Steps 1–8 of the review are **REVIEWED at the DRAFT formalization level**. Step 9 (machine-readable encoding and consistency validation) is **IN PROGRESS**; Step 10 (versioned v1.0 release) is **PENDING**. See [WORKING_MAP.md](WORKING_MAP.md) for the current gates.
 
-1. Core class hierarchy
-2. Named individuals versus reusable classes/roles
+The initial OWL/Turtle encoding and SHACL shapes are committed. Automated validation now checks the named Origin | Continuum relation, the governing line and Return, memory, claim/evidence structures, and negative substitution cases. Passing structural tests does **not** prove empirical identity continuity, consciousness, or full OWL 2 DL satisfiability. The cross-repository [2026-11-06 gap audit](docs/reviews/2026-11-06-CROSS-REPOSITORY-GAP-AUDIT.md) remains a dated review snapshot; its earlier statement that encoding had not begun is superseded by the committed files.
 
-See WORKING_MAP.md for the full sequence.
-
-Machine-readable OWL/Turtle encoding has not yet begun. The cross-repository [2026-11-06 gap audit](docs/reviews/2026-11-06-CROSS-REPOSITORY-GAP-AUDIT.md) records remaining semantic interfaces and validation gates to resolve during formalization.
+The next formalization interfaces are the operational-versus-theoretical Identity boundary and time-scoped current/historical relations. Both are implementation issues under review, not requests to redefine LOCKED terms.
 
 ---
 
