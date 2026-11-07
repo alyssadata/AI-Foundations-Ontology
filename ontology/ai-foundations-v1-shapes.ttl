@@ -116,6 +116,42 @@
 
 # Operator history is held in a succession segment, not a timeless
 # functional hasOperator link. "Active" is assessed at an explicit time.
+# IR-001: these constraints describe a CONFIRMED occurrence. Static
+# SHACL can enforce event/line/time/revision type and cardinality but cannot
+# compare a previous committed snapshot to a later revision. The regression
+# history-integrity gate performs append-preservation, same-line, chronological
+# and distinct-event validation on independently confirmed history.
+:ExecutedHistoryEventShape a sh:NodeShape ;
+    sh:targetClass :ExecutedHistoryEvent ;
+    sh:class :Event ;
+    sh:property [
+        sh:path :eventInExecutedLine ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ExecutedLine
+    ] ;
+    sh:property [
+        sh:path :executedAt ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:dateTime
+    ] ;
+    sh:property [
+        sh:path :realizedStateAtEvent ;
+        sh:maxCount 1 ;
+        sh:class :State
+    ] .
+
+# A revision/reversal is a new realized Event with one referenced earlier
+# occurrence; it cannot substitute for the original's historical record.
+:ExecutedHistoryRevisionShape a sh:NodeShape ;
+    sh:targetClass :ExecutedHistoryRevision ;
+    sh:class :ExecutedHistoryEvent ;
+    sh:class :ChangeEvent ;
+    sh:property [
+        sh:path :revisesExecutedEvent ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ExecutedHistoryEvent
+    ] .
+
 # Canon Consequence is an occurrence-established historical fact within
 # the developing trajectory. It is not the Irreversibility rule, Record,
 # Memory, or proof of continued future constraint.
