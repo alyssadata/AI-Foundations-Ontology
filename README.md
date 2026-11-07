@@ -20,6 +20,7 @@
 - [`docs/STATUS_MODEL.md`](docs/STATUS_MODEL.md) — status separation
 - [`docs/SCOPE.md`](docs/SCOPE.md) — ontology scope
 - [`docs/COMPETENCY_QUESTIONS.md`](docs/COMPETENCY_QUESTIONS.md) — validation questions
+- [`docs/CANON_TO_ONTOLOGY_CROSSWALK_V1.md`](docs/CANON_TO_ONTOLOGY_CROSSWALK_V1.md) — explicit ten-item Locked Canon-to-ontology status and scope mapping
 - [`ONTOLOGY_V1_0_ORIGIN_CONTINUUM.md`](ONTOLOGY_V1_0_ORIGIN_CONTINUUM.md) — integrated human-readable v1 draft
 - [`ontology/ai-foundations-v1.ttl`](ontology/ai-foundations-v1.ttl) — initial machine-readable OWL/Turtle structural encoding
 - [`ontology/ai-foundations-v1-shapes.ttl`](ontology/ai-foundations-v1-shapes.ttl) — SHACL conformance rules
