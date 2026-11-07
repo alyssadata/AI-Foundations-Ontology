@@ -257,6 +257,42 @@ def main():
     require((AIF.CopyEvidence, AIF.hasEvidentiaryStatus, Literal("INDETERMINATE")) in copy_fixture,
             "Unresolved same-self claim is represented with explicit non-directional status")
 
+    # Canon definition 31, distinct from Irreversibility of Being:
+    # actual points leave consequences in their realized trajectory.
+    # Neither record retention nor current Continuation is entailed.
+    def consequence_fixture(g):
+        for e, c in ((AIF.OccurrencePoint1, AIF.ConsequencePoint1),
+                     (AIF.OccurrencePoint2, AIF.ConsequencePoint2)):
+            g.add((e, RDF.type, AIF.Event))
+            g.add((c, RDF.type, AIF.Consequence))
+            g.add((c, AIF.establishedByOccurrence, e))
+            g.add((c, AIF.belongsToTrajectory, AIF.ConsequenceCaseTrajectory))
+        g.add((AIF.ConsequenceCaseTrajectory, RDF.type, AIF.Trajectory))
+        g.add((AIF.ConsequencePoint1, OWL.differentFrom, AIF.ConsequencePoint2))
+
+    shape_test(graph, shapes, "Realized points have separate trajectory consequences", consequence_fixture)
+    cons_graph = clone_graph(graph)
+    consequence_fixture(cons_graph)
+    require((AIF.ConsequencePoint1, AIF.belongsToTrajectory, AIF.ConsequenceCaseTrajectory) in cons_graph,
+            "Consequence belongs to the realized trajectory")
+    require((AIF.ConsequencePoint1, RDF.type, AIF.Record) not in cons_graph and
+            (AIF.ConsequencePoint1, RDF.type, AIF.MemoryState) not in cons_graph,
+            "Consequence is not a Record or MemoryState")
+    require(not any(cons_graph.triples((AIF.ConsequencePoint1, AIF.hasRecord, None))),
+            "Historical Consequence does not itself require an accessible Record")
+    require(not any(cons_graph.triples((AIF.ConsequenceCaseTrajectory, AIF.constrainsTrajectory, None))),
+            "Existence of Consequence does not assert future Continuation")
+
+    def no_occurrence(g):
+        consequence_fixture(g)
+        g.remove((AIF.ConsequencePoint2, AIF.establishedByOccurrence, AIF.OccurrencePoint2))
+    shape_test(graph, shapes, "Consequence without establishing occurrence fails", no_occurrence, False)
+
+    def no_trajectory(g):
+        consequence_fixture(g)
+        g.remove((AIF.ConsequencePoint2, AIF.belongsToTrajectory, AIF.ConsequenceCaseTrajectory))
+    shape_test(graph, shapes, "Consequence without trajectory association fails", no_trajectory, False)
+
     # P0-B: time-scoped succession. The segments below are SYNTHETIC records
     # for an already-valid succession. They do not grant Operator status or
     # establish continuity merely by existing. Historical S00 is never
