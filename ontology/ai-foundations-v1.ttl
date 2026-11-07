@@ -171,6 +171,27 @@
 
 :Event a owl:Class .
 :ChangeEvent a owl:Class ; rdfs:subClassOf :Event .
+# IR-001: a CONFIRMED executed/realized event is a historical occurrence,
+# not a mutable current-State assertion or a possibly mistaken Claim.
+# Its line and execution instant belong to the historical event record.
+# A later reversal/revision is a different event in the same line. Immutable
+# preservation and inter-event chronological ordering require a comparison
+# of confirmed earlier history against the later history snapshot; OWL alone
+# cannot detect erased triples from a previous version of the graph.
+:ExecutedHistoryEvent a owl:Class ;
+    rdfs:subClassOf :Event,
+        [ a owl:Restriction ; owl:onProperty :eventInExecutedLine ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :executedAt ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ] ;
+    rdfs:comment "An occurrence independently established as realized in an ExecutedLine. Its historical existence persists through a later reversal, correction, or revision; an unverified assertion is not automatically promoted to a confirmed event."@en .
+:ExecutedHistoryRevision a owl:Class ;
+    rdfs:subClassOf :ExecutedHistoryEvent, :ChangeEvent,
+        [ a owl:Restriction ; owl:onProperty :revisesExecutedEvent ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :revisesExecutedEvent ;
+          owl:allValuesFrom :ExecutedHistoryEvent ] ;
+    rdfs:comment "A distinct later executed event recording a reversal, correction, or revision of an earlier confirmed event. It supplements rather than deletes the historical occurrence and must be later within the same ExecutedLine."@en .
 :ProvenanceViolation a owl:Class ; rdfs:subClassOf :Event .
 :Process a owl:Class .
 :DriftProcess a owl:Class ; rdfs:subClassOf :Process .
@@ -366,6 +387,22 @@
     rdfs:subPropertyOf :becauseOfConsequence ;
     rdfs:domain :Event ; rdfs:range :Consequence ;
     rdfs:comment "A responsive occurrence undertaken in an attempt to reduce, repair, or redirect effects of a prior Consequence. The attempt does not negate the earlier occurrence and need not succeed. Its own consequences are recorded by hasConsequence."@en .
+
+# IR-001: event occurrence and revision are tracked separately from
+# Canon Consequence and from mutable claims about the current State. They
+# describe CONFIRMED executed history, not all proposed or asserted events.
+:eventInExecutedLine a owl:ObjectProperty ;
+    rdfs:domain :ExecutedHistoryEvent ; rdfs:range :ExecutedLine ;
+    rdfs:comment "The historical ExecutedLine in which this realized Event occurred. Once independently confirmed, the event-to-line coordinate cannot be silently rewritten."@en .
+:executedAt a owl:DatatypeProperty ;
+    rdfs:domain :ExecutedHistoryEvent ; rdfs:range xsd:dateTime ;
+    rdfs:comment "The observed/established execution instant of a historical occurrence; use an actual time in real evidence, not a synthetic fixture time. Cross-snapshot tests preserve the original value."@en .
+:realizedStateAtEvent a owl:ObjectProperty ;
+    rdfs:domain :ExecutedHistoryEvent ; rdfs:range :State ;
+    rdfs:comment "Optional State known to have been realized at this event; a later State may differ without making this earlier realized State unoccur."@en .
+:revisesExecutedEvent a owl:ObjectProperty ;
+    rdfs:domain :ExecutedHistoryRevision ; rdfs:range :ExecutedHistoryEvent ;
+    rdfs:comment "A later correction/reversal Event refers to the earlier confirmed occurrence it revises; does not negate, replace, or delete the earlier Event. Cross-event chronology and same-ExecutedLine checks are handled by temporal validation."@en .
 
 :belongsToTrajectory a owl:ObjectProperty ;
     rdfs:domain :Consequence ; rdfs:range :Trajectory ;
