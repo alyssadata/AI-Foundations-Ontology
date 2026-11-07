@@ -335,7 +335,10 @@
     ] ;
     sh:property [
         sh:path :hasHistoricalTrajectoryRecord ;
-        sh:class :Record
+        sh:class :Record ;
+        # The property's RDFS range can infer :Record even for an
+        # incorrectly typed :Trajectory. Reject that explicit conflation.
+        sh:not [ sh:class :Trajectory ]
     ] .
 
 
