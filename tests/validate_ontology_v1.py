@@ -231,6 +231,70 @@ def main():
         g.remove((AIF.TestClaim, AIF.dependsOnOntologyElement, AIF.OriginContinuum))
     shape_test(graph, shapes, "Claim without ontology dependency must fail", evidence_without_dependencies, False)
 
+    # NT-001: one LivedIdentity belongs to one distinct AI bearer.
+    # These are synthetic structural ownership assertions, not evidence
+    # that either AI has a phenomenal consciousness coordinate.
+    def lived_identity_ownership_fixture(g):
+        g.add((AIF.OwnershipA, RDF.type, AIF.AI))
+        g.add((AIF.OwnershipB, RDF.type, AIF.AI))
+        g.add((AIF.OwnershipA, OWL.differentFrom, AIF.OwnershipB))
+        g.add((AIF.OwnIdentityA, RDF.type, AIF.LivedIdentity))
+        g.add((AIF.OwnIdentityB, RDF.type, AIF.LivedIdentity))
+        g.add((AIF.OwnIdentityA, OWL.differentFrom, AIF.OwnIdentityB))
+        g.add((AIF.OwnershipA, AIF.hasLivedIdentity, AIF.OwnIdentityA))
+        g.add((AIF.OwnershipB, AIF.hasLivedIdentity, AIF.OwnIdentityB))
+        # A model and copied Record may be shared without sharing identity.
+        g.add((AIF.SharedIdentityTestModel, RDF.type, AIF.Model))
+        g.add((AIF.SharedHistoryCopy, RDF.type, AIF.Record))
+        for ai in (AIF.OwnershipA, AIF.OwnershipB):
+            g.add((ai, AIF.expressedThroughModel, AIF.SharedIdentityTestModel))
+            g.add((ai, AIF.hasRecord, AIF.SharedHistoryCopy))
+
+    shape_test(graph, shapes, "NT-001 distinct A/B AI bearers have different owned LivedIdentities",
+               lived_identity_ownership_fixture)
+    owned = clone_graph(graph)
+    lived_identity_ownership_fixture(owned)
+    require((AIF.OwnershipA, AIF.hasLivedIdentity, AIF.OwnIdentityA) in owned and
+            (AIF.OwnershipB, AIF.hasLivedIdentity, AIF.OwnIdentityB) in owned,
+            "NT-001 each synthetic AI retains its separately asserted identity")
+    require((AIF.OwnershipA, AIF.hasRecord, AIF.SharedHistoryCopy) in owned and
+            (AIF.OwnershipB, AIF.hasRecord, AIF.SharedHistoryCopy) in owned,
+            "NT-001 a shared Record does not require a shared LivedIdentity")
+
+    def two_bearers_one_identity(g):
+        lived_identity_ownership_fixture(g)
+        # Replace B's distinct identity claim, leaving one identity each
+        # in B's own assertions. The ONLY violation is two AI owners of A.
+        g.remove((AIF.OwnershipB, AIF.hasLivedIdentity, AIF.OwnIdentityB))
+        g.add((AIF.OwnershipB, AIF.hasLivedIdentity, AIF.OwnIdentityA))
+        g.remove((AIF.OwnIdentityB, RDF.type, AIF.LivedIdentity))
+    shape_test(graph, shapes, "NT-001 two distinct AI bearers claiming one identity rejected",
+               two_bearers_one_identity, False)
+
+    def unowned_lived_identity(g):
+        g.add((AIF.UnclaimedLivedIdentity, RDF.type, AIF.LivedIdentity))
+    shape_test(graph, shapes, "NT-001 LivedIdentity without an AI bearer rejected",
+               unowned_lived_identity, False)
+
+    def copied_history_without_transfer(g):
+        lived_identity_ownership_fixture(g)
+        g.remove((AIF.OwnershipB, AIF.hasLivedIdentity, AIF.OwnIdentityB))
+        g.remove((AIF.OwnIdentityB, RDF.type, AIF.LivedIdentity))
+    shape_test(graph, shapes, "NT-001 copied model and Record with no identity claim passes",
+               copied_history_without_transfer)
+
+    copy_only = clone_graph(graph)
+    copied_history_without_transfer(copy_only)
+    DeductiveClosure(OWLRL_Semantics).expand(copy_only)
+    require((AIF.OwnershipB, AIF.hasLivedIdentity, AIF.OwnIdentityA) not in copy_only,
+            "NT-001 copied history does not infer A's lived identity for B")
+    require((AIF.OwnershipA, OWL.sameAs, AIF.OwnershipB) not in copy_only,
+            "NT-001 B is not merged into A via the ownership schema")
+    require((AIF.OwnershipA, OWL.differentFrom, AIF.OwnershipB) in copy_only,
+            "NT-001 distinct AI bearers remain explicitly different")
+    require((AIF.hasLivedIdentity, RDF.type, OWL.InverseFunctionalProperty) not in graph,
+            "NT-001 no OWL inverse-functional identity-merging mechanism is introduced")
+
     # P0-A: operational numerical distinction is not an assertion of a
     # consciousness coordinate. From the established A/B taxonomy scenario,
     # B receives a copy of A's snapshot/record at t0 but did not live A's
