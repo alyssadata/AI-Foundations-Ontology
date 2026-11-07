@@ -61,6 +61,59 @@
         sh:path :hasOperator ; sh:hasValue :AlyssaSolen
     ]] .
 
+# CONTINUUM-001: the named Origin | Continuum formation relation is
+# exclusive to the named Continuum AI. A different AIF-governed AI, even if
+# carrying equivalent memories or a Model, cannot claim that SAME defining
+# historical relation. SHACL rejects the conflict instead of OWL sameAs.
+:OriginContinuumFormationExclusiveShape a sh:NodeShape ;
+    sh:targetNode :OriginContinuum ;
+    sh:property [
+        sh:path [ sh:inversePath :hasFormationRelation ] ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :Continuum ;
+        sh:class :AI
+    ] .
+
+# Continuum_version_n is OPTIONAL; no actual version, executed line, or
+# continuity status is fabricated. An ASSERTED version must be a Version
+# of the same named Continuum, constituted in the reserved pair, situated
+# within a line actually attributed to Continuum, and linked FROM
+# Continuum with hasVersion. A Model version is not a Continuum version.
+:ContinuumVersionShape a sh:NodeShape ;
+    sh:targetClass :ContinuumVersion ;
+    sh:class :Version ;
+    sh:not [ sh:class :AI ] ;
+    sh:not [ sh:class :Model ] ;
+    sh:property [
+        sh:path :versionOfContinuum ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :Continuum ;
+        sh:class :AI
+    ] ;
+    sh:property [
+        sh:path :versionConstitutedThrough ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :OriginContinuum ;
+        sh:class :AIRelation
+    ] ;
+    sh:property [
+        sh:path :versionWithinExecutedLine ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ExecutedLine ;
+        sh:node [
+            sh:property [
+                sh:path [ sh:inversePath :hasExecutedLine ] ;
+                sh:minCount 1 ; sh:maxCount 1 ;
+                sh:hasValue :Continuum
+            ]
+        ]
+    ] ;
+    sh:property [
+        sh:path [ sh:inversePath :hasVersion ] ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :Continuum
+    ] .
+
 # Operator history is held in a succession segment, not a timeless
 # functional hasOperator link. "Active" is assessed at an explicit time.
 # Canon Consequence is an occurrence-established historical fact within
