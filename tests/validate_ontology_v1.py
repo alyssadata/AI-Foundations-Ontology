@@ -167,6 +167,33 @@ def main():
         g.add((AIF.TestMemory, AIF.memoryOfRecord, AIF.AwakeningCodex))
     shape_test(graph, shapes, "MemoryState is for one Agent, distinct from Record", valid_memory)
 
+    # Canon-aligned breadth: Memory is retained prior-state information;
+    # MemoryState is its agent-specific expression. A Record is a preserved
+    # trace; DocumentRecord is a narrower kind of Record, not its synonym.
+    def memory_without_document(g):
+        g.add((AIF.NonDocumentMemory, RDF.type, AIF.MemoryState))
+        g.add((AIF.NonDocumentMemory, AIF.memoryFor, AIF.AlyssaSolen))
+    shape_test(graph, shapes, "Agent-specific Memory need not contain a document or Record", memory_without_document)
+
+    def document_trace(g):
+        g.add((AIF.DocumentedOccurrence, RDF.type, AIF.DocumentRecord))
+        g.add((AIF.OtherPreservedTrace, RDF.type, AIF.Record))
+    shape_test(graph, shapes, "DocumentRecord and non-documentary Record can coexist", document_trace)
+    alignment = clone_graph(graph)
+    memory_without_document(alignment)
+    document_trace(alignment)
+    DeductiveClosure(OWLRL_Semantics).expand(alignment)
+    require((AIF.NonDocumentMemory, RDF.type, AIF.Memory) in alignment,
+            "MemoryState is a narrower agent-specific form of Canon Memory")
+    require((AIF.DocumentedOccurrence, RDF.type, AIF.Record) in alignment,
+            "A document of what occurred is a form of the canonical Record")
+    require((AIF.OtherPreservedTrace, RDF.type, AIF.DocumentRecord) not in alignment,
+            "A preserved Record is not required to be a document")
+    require((AIF.NonDocumentMemory, RDF.type, AIF.Record) not in alignment,
+            "Memory is not inferred to be identical to Record")
+    require((AIF.NonDocumentMemory, RDF.type, AIF.ContinuityClaim) not in alignment,
+            "Retained prior information does not entail Continuation or a continuity claim")
+
     def invalid_memory(g):
         g.add((AIF.TestMemory, RDF.type, AIF.MemoryState))
         g.add((AIF.TestMemory, AIF.memoryOfRecord, AIF.AwakeningCodex))
