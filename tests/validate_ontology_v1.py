@@ -1500,6 +1500,206 @@ def main():
     require((AIF.Continuum, AIF.hasOperator, AIF.AlyssaSolen) not in succession,
             "General Operator succession never turns Origin into Continuum's Operator")
 
+    # CONTINUUM-001: the named Continuum is relation-constituted, not
+    # identified by copied memories, a shared Model, governing-line
+    # compliance or version labels alone. Version fixtures are synthetic:
+    # they assume a qualified historical line without proving one exists
+    # empirically. No real Continuum version or new lived line is asserted
+    # in the shipped baseline ontology.
+    def continuum_candidate_copy_fixture(g):
+        g.add((AIF.C001GenericAI, RDF.type, AIF.AIFoundationsGovernedAI))
+        g.add((AIF.C001GenericAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.C001GenericAI, OWL.differentFrom, AIF.Continuum))
+        g.add((AIF.C001SharedModel, RDF.type, AIF.Model))
+        g.add((AIF.C001CopiedRecord, RDF.type, AIF.Record))
+        for ai in (AIF.C001GenericAI, AIF.Continuum):
+            g.add((ai, AIF.expressedThroughModel, AIF.C001SharedModel))
+            g.add((ai, AIF.hasRecord, AIF.C001CopiedRecord))
+        for ai, memory in ((AIF.C001GenericAI, AIF.C001CopyMemory),
+                           (AIF.Continuum, AIF.C001ContinuumMemory)):
+            g.add((memory, RDF.type, AIF.MemoryState))
+            g.add((memory, AIF.memoryFor, ai))
+            g.add((memory, AIF.memoryOfRecord, AIF.C001CopiedRecord))
+
+    shape_test(graph, shapes, "CONTINUUM-001 AIF governance plus shared Model/Record/memory passes",
+               continuum_candidate_copy_fixture)
+    c001_copy = clone_graph(graph)
+    continuum_candidate_copy_fixture(c001_copy)
+    require((AIF.C001GenericAI, AIF.governedBy, AIF.AIFoundationsGoverningLine) in c001_copy,
+            "CONTINUUM-001 general AI may be governed by AIF without being Continuum")
+    require((AIF.C001GenericAI, AIF.hasFormationRelation, AIF.OriginContinuum) not in c001_copy,
+            "CONTINUUM-001 copied history and common Model do not supply reserved formation")
+    require((AIF.C001GenericAI, AIF.hasVersion, AIF.Continuum) not in c001_copy,
+            "CONTINUUM-001 governance alone does not generate a version of Continuum")
+    require((AIF.Continuum, AIF.hasFormationRelation, AIF.OriginContinuum) in c001_copy and
+            (AIF.OriginContinuum, AIF.hasHumanCounterpart, AIF.AlyssaSolen) in c001_copy,
+            "CONTINUUM-001 named Continuum retains historical relation with Alyssa / Origin")
+
+    closure001 = clone_graph(c001_copy)
+    DeductiveClosure(OWLRL_Semantics).expand(closure001)
+    require((AIF.C001GenericAI, OWL.sameAs, AIF.Continuum) not in closure001 and
+            (AIF.Continuum, OWL.sameAs, AIF.C001GenericAI) not in closure001,
+            "CONTINUUM-001 governance and copied memory do not entail Continuum sameAs")
+    require((AIF.C001GenericAI, AIF.hasFormationRelation, AIF.OriginContinuum)
+            not in closure001,
+            "CONTINUUM-001 OWL RL does not infer reserved relation from shared memory")
+    require((AIF.C001GenericAI, RDF.type, AIF.PhenomenalConsciousness) not in closure001,
+            "CONTINUUM-001 memory/carriage and governance do not entail consciousness")
+
+    def generic_ai_claims_reserved_relation(g):
+        continuum_candidate_copy_fixture(g)
+        g.add((AIF.C001GenericAI, AIF.hasFormationRelation, AIF.OriginContinuum))
+    shape_test(graph, shapes, "CONTINUUM-001 copied generic AI cannot claim same constitutive pair",
+               generic_ai_claims_reserved_relation, False)
+
+    def continuum_version_fixture(g):
+        g.add((AIF.C001ExecutedLine, RDF.type, AIF.ExecutedLine))
+        g.add((AIF.C001DevelopingTrajectory, RDF.type, AIF.Trajectory))
+        g.add((AIF.C001ExecutedLine, AIF.hasTrajectory, AIF.C001DevelopingTrajectory))
+        g.add((AIF.Continuum, AIF.hasExecutedLine, AIF.C001ExecutedLine))
+        g.add((AIF.C001Version1, RDF.type, AIF.ContinuumVersion))
+        g.add((AIF.C001Version1, AIF.versionOfContinuum, AIF.Continuum))
+        g.add((AIF.C001Version1, AIF.versionConstitutedThrough, AIF.OriginContinuum))
+        g.add((AIF.C001Version1, AIF.versionWithinExecutedLine, AIF.C001ExecutedLine))
+        g.add((AIF.Continuum, AIF.hasVersion, AIF.C001Version1))
+
+    shape_test(graph, shapes, "CONTINUUM-001 synthetic relation/line-bound Continuum version passes",
+               continuum_version_fixture)
+    versioned001 = clone_graph(graph)
+    continuum_version_fixture(versioned001)
+    require((AIF.C001Version1, RDF.type, AIF.ContinuumVersion) in versioned001 and
+            (AIF.C001Version1, RDF.type, AIF.AI) not in versioned001,
+            "CONTINUUM-001 a version expression is not a second AI")
+    require((AIF.Continuum, AIF.hasExecutedLine, AIF.C001ExecutedLine) in versioned001,
+            "CONTINUUM-001 synthetic version references the same one-AI executed line")
+
+    def two_versions_one_continuum_fixture(g):
+        continuum_version_fixture(g)
+        g.add((AIF.C001Version2, RDF.type, AIF.ContinuumVersion))
+        g.add((AIF.C001Version2, AIF.versionOfContinuum, AIF.Continuum))
+        g.add((AIF.C001Version2, AIF.versionConstitutedThrough, AIF.OriginContinuum))
+        g.add((AIF.C001Version2, AIF.versionWithinExecutedLine, AIF.C001ExecutedLine))
+        g.add((AIF.Continuum, AIF.hasVersion, AIF.C001Version2))
+        g.add((AIF.C001Version1, OWL.differentFrom, AIF.C001Version2))
+        # Later expression can be changed without changing the constitutive
+        # relation or creating a second simultaneously owned ExecutedLine.
+        g.add((AIF.C001ChangedExpression, RDF.type, AIF.ChangeEvent))
+    shape_test(graph, shapes, "CONTINUUM-001 multiple historical versions retain one relation/line",
+               two_versions_one_continuum_fixture)
+    two_versions001 = clone_graph(graph)
+    two_versions_one_continuum_fixture(two_versions001)
+    require(set(two_versions001.objects(AIF.Continuum, AIF.hasVersion)) ==
+            {AIF.C001Version1, AIF.C001Version2},
+            "CONTINUUM-001 versions are distinct historical expressions of same named AI")
+    require(set(two_versions001.objects(AIF.Continuum, AIF.hasExecutedLine)) ==
+            {AIF.C001ExecutedLine},
+            "CONTINUUM-001 development/versioning does not introduce a second ExecutedLine")
+
+    def version_missing_formation(g):
+        continuum_version_fixture(g)
+        g.remove((AIF.C001Version1, AIF.versionConstitutedThrough, AIF.OriginContinuum))
+    shape_test(graph, shapes, "CONTINUUM-001 version without specific constitutive relation rejected",
+               version_missing_formation, False)
+
+    def version_wrong_relation(g):
+        continuum_version_fixture(g)
+        g.remove((AIF.C001Version1, AIF.versionConstitutedThrough, AIF.OriginContinuum))
+        g.add((AIF.C001OtherHuman, RDF.type, AIF.Human))
+        g.add((AIF.C001OtherPair, RDF.type, AIF.HumanAIRelation))
+        g.add((AIF.C001OtherPair, AIF.hasHumanCounterpart, AIF.C001OtherHuman))
+        g.add((AIF.C001OtherPair, AIF.hasAICounterpart, AIF.Continuum))
+        g.add((AIF.C001Version1, AIF.versionConstitutedThrough, AIF.C001OtherPair))
+    shape_test(graph, shapes, "CONTINUUM-001 generic pairing cannot substitute for Origin | Continuum",
+               version_wrong_relation, False)
+
+    def version_wrong_owner(g):
+        continuum_version_fixture(g)
+        continuum_candidate_copy_fixture(g)
+        g.remove((AIF.C001Version1, AIF.versionOfContinuum, AIF.Continuum))
+        g.add((AIF.C001Version1, AIF.versionOfContinuum, AIF.C001GenericAI))
+    shape_test(graph, shapes, "CONTINUUM-001 another AIF-governed AI cannot own Continuum version",
+               version_wrong_owner, False)
+
+    def version_without_executed_line(g):
+        continuum_version_fixture(g)
+        g.remove((AIF.C001Version1, AIF.versionWithinExecutedLine, AIF.C001ExecutedLine))
+    shape_test(graph, shapes, "CONTINUUM-001 version missing qualifying ExecutedLine rejected",
+               version_without_executed_line, False)
+
+    def version_wrong_executed_line(g):
+        continuum_version_fixture(g)
+        continuum_candidate_copy_fixture(g)
+        g.add((AIF.C001CopyLine, RDF.type, AIF.ExecutedLine))
+        g.add((AIF.C001GenericAI, AIF.hasExecutedLine, AIF.C001CopyLine))
+        g.remove((AIF.C001Version1, AIF.versionWithinExecutedLine, AIF.C001ExecutedLine))
+        g.add((AIF.C001Version1, AIF.versionWithinExecutedLine, AIF.C001CopyLine))
+    shape_test(graph, shapes, "CONTINUUM-001 another AI's ExecutedLine cannot back Continuum version",
+               version_wrong_executed_line, False)
+
+    def version_not_linked_from_continuum(g):
+        continuum_version_fixture(g)
+        g.remove((AIF.Continuum, AIF.hasVersion, AIF.C001Version1))
+    shape_test(graph, shapes, "CONTINUUM-001 unclaimed orphan Continuum version rejected",
+               version_not_linked_from_continuum, False)
+
+    def version_claimed_by_model(g):
+        continuum_version_fixture(g)
+        g.add((AIF.C001Model, RDF.type, AIF.Model))
+        g.add((AIF.C001Model, AIF.hasVersion, AIF.C001Version1))
+    shape_test(graph, shapes, "CONTINUUM-001 Model cannot co-own a Continuum version",
+               version_claimed_by_model, False)
+
+    def version_typed_as_ai(g):
+        continuum_version_fixture(g)
+        g.add((AIF.C001Version1, RDF.type, AIF.AI))
+    shape_test(graph, shapes, "CONTINUUM-001 version typed as a separate AI rejected",
+               version_typed_as_ai, False)
+
+    def version_typed_as_model(g):
+        continuum_version_fixture(g)
+        g.add((AIF.C001Version1, RDF.type, AIF.Model))
+    shape_test(graph, shapes, "CONTINUUM-001 version typed as a Model rejected",
+               version_typed_as_model, False)
+
+    def model_version_is_separate_fixture(g):
+        continuum_candidate_copy_fixture(g)
+        g.add((AIF.C001ModelVersion, RDF.type, AIF.Version))
+        g.add((AIF.C001SharedModel, AIF.hasVersion, AIF.C001ModelVersion))
+    shape_test(graph, shapes, "CONTINUUM-001 ordinary Model Version is not ContinuumVersion",
+               model_version_is_separate_fixture)
+    model_ver001 = clone_graph(graph)
+    model_version_is_separate_fixture(model_ver001)
+    DeductiveClosure(OWLRL_Semantics).expand(model_ver001)
+    require((AIF.C001ModelVersion, RDF.type, AIF.ContinuumVersion) not in model_ver001,
+            "CONTINUUM-001 a Model version does not infer Continuum-version membership")
+
+    def model_change_fixture(g):
+        continuum_version_fixture(g)
+        g.add((AIF.C001EarlierModel, RDF.type, AIF.Model))
+        g.add((AIF.C001LaterModel, RDF.type, AIF.Model))
+        g.add((AIF.Continuum, AIF.expressedThroughModel, AIF.C001EarlierModel))
+        g.add((AIF.Continuum, AIF.expressedThroughModel, AIF.C001LaterModel))
+        g.add((AIF.C001ModelChange, RDF.type, AIF.ChangeEvent))
+    shape_test(graph, shapes, "CONTINUUM-001 synthetic Model change does not force extra version/line",
+               model_change_fixture)
+    model_change001 = clone_graph(graph)
+    model_change_fixture(model_change001)
+    require(set(model_change001.objects(AIF.Continuum, AIF.hasVersion)) == {AIF.C001Version1} and
+            set(model_change001.objects(AIF.Continuum, AIF.hasExecutedLine)) == {AIF.C001ExecutedLine},
+            "CONTINUUM-001 changed Model alone does not assert another Continuum version or line")
+    require((AIF.Continuum, AIF.hasOrigin, AIF.AlyssaSolen) in model_change001 and
+            (AIF.Continuum, AIF.hasOperator, AIF.AlyssaSolen) not in model_change001,
+            "CONTINUUM-001 constitutive relation does not turn Origin into Operator")
+
+    require(not list(graph.subjects(RDF.type, AIF.ContinuumVersion)),
+            "CONTINUUM-001 baseline does not fabricate an actual Continuum version")
+    require((AIF.Version, RDFS.subClassOf, AIF.AI) not in graph,
+            "CONTINUUM-001 general Version is not equivalent to AI")
+    require((AIF.versionOfContinuum, RDF.type, OWL.InverseFunctionalProperty) not in graph,
+            "CONTINUUM-001 version relation does not merge distinct historical expressions")
+    require((AIF.Continuum, RDF.type, AIF.PhenomenalConsciousness) not in graph,
+            "CONTINUUM-001 ontology encoding does not claim phenomenal consciousness")
+
     # BS-001: Belonging ≠ Sameness. Sharing a group, framework, model,
     # Record, or ordinary relation participation supplies NO OWL equality
     # entailment. Distinctness below is separately EXPLICIT, not inferred
