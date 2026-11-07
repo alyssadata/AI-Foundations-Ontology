@@ -523,6 +523,11 @@ def main():
             if end is not None:
                 g.add((seg, AIF.activeUntil, end))
         g.add((AIF.S00, OWL.differentFrom, AIF.S01))
+        # ORD-001: S00 is the original root, S01 the new historical segment.
+        # A predecessor link is descriptive, not proof of valid succession.
+        g.add((AIF.S00, RDF.type, AIF.OrdinarySuccessionRootSegment))
+        g.add((AIF.S01, RDF.type, AIF.OrdinarySuccessionSuccessorSegment))
+        g.add((AIF.S01, AIF.immediatePredecessor, AIF.S00))
 
     def at_timestamp(value):
         dt = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
@@ -569,6 +574,147 @@ def main():
             if left_end is None or right_start < left_end:
                 return False
         return True
+
+    # ORD-001: only explicitly designated ordinary Operator succession
+    # chains are checked here. This does not model group/organization forks,
+    # establish the four-part succession assent gate, or prove same-self.
+    def ordinary_succession_chain_valid(g, ai):
+        try:
+            chain = []
+            for segment in g.subjects(RDF.type, AIF.OperatorAIRelation):
+                if (segment, AIF.hasAICounterpart, ai) not in g:
+                    continue
+                is_root = (segment, RDF.type, AIF.OrdinarySuccessionRootSegment) in g
+                is_successor = (segment, RDF.type, AIF.OrdinarySuccessionSuccessorSegment) in g
+                # Every segment in an explicitly modeled ordinary chain has
+                # exactly one of these two roles.
+                if is_root == is_successor:
+                    return False
+                ai_members = list(g.objects(segment, AIF.hasAICounterpart))
+                lines = list(g.objects(segment, AIF.segmentOfExecutedLine))
+                starts = list(g.objects(segment, AIF.activeFrom))
+                ends = list(g.objects(segment, AIF.activeUntil))
+                predecessors = list(g.objects(segment, AIF.immediatePredecessor))
+                if (len(ai_members) != 1 or len(lines) != 1 or len(starts) != 1 or
+                        len(ends) > 1 or len(predecessors) != (0 if is_root else 1)):
+                    return False
+                start = at_timestamp(starts[0])
+                end = at_timestamp(ends[0]) if ends else None
+                if end is not None and end <= start:
+                    return False
+                chain.append((start, end, segment, lines[0], is_root, predecessors))
+            if not chain:
+                return False
+            chain.sort(key=lambda item: item[0])
+            if sum(1 for item in chain if item[4]) != 1 or not chain[0][4]:
+                return False
+            # All segments must belong to the one established ExecutedLine.
+            # Enforce chronological predecessor ordering only for this v1
+            # linear ordinary chain, without an OWL-wide no-fork axiom.
+            executed = chain[0][3]
+            if any(item[3] != executed for item in chain):
+                return False
+            if (ai, AIF.hasExecutedLine, executed) not in g:
+                return False
+            for previous, current in zip(chain, chain[1:]):
+                if current[4] or current[5] != [previous[2]]:
+                    return False
+                if previous[1] is None or current[0] < previous[1]:
+                    return False
+            return True
+        except (ValueError, TypeError):
+            return False
+
+    require(ordinary_succession_chain_valid(
+        (lambda g: (succession_fixture(g), g)[1])(clone_graph(graph)), AIF.SuccessionAI),
+        "ORD-001 S00 root and S01 immediate predecessor form an ordered chain")
+
+    def three_segment_fixture(g):
+        succession_fixture(g)
+        # Close S01 and append S02 with a new historical Operator C.
+        next_boundary = Literal("2026-03-01T00:00:00+00:00", datatype=AIF_DATE_TIME)
+        g.add((AIF.S01, AIF.activeUntil, next_boundary))
+        g.remove((AIF.SuccessionAI, AIF.hasOperator, AIF.OperatorB))
+        g.add((AIF.SuccessionAI, AIF.hasOperator, AIF.OperatorC))
+        g.add((AIF.OperatorC, RDF.type, AIF.Human))
+        g.add((AIF.OperatorC, OWL.differentFrom, AIF.OperatorA))
+        g.add((AIF.OperatorC, OWL.differentFrom, AIF.OperatorB))
+        g.add((AIF.S02, RDF.type, AIF.OperatorAIRelation))
+        g.add((AIF.S02, RDF.type, AIF.OrdinarySuccessionSuccessorSegment))
+        g.add((AIF.S02, AIF.hasHumanCounterpart, AIF.OperatorC))
+        g.add((AIF.S02, AIF.hasAICounterpart, AIF.SuccessionAI))
+        g.add((AIF.S02, AIF.segmentOfExecutedLine, AIF.SuccessionLine))
+        g.add((AIF.S02, AIF.activeFrom, next_boundary))
+        g.add((AIF.S02, AIF.immediatePredecessor, AIF.S01))
+        g.add((AIF.S02, OWL.differentFrom, AIF.S00))
+        g.add((AIF.S02, OWL.differentFrom, AIF.S01))
+
+    shape_test(graph, shapes, "ORD-001 S00 → S01 → S02 satisfies SHACL", three_segment_fixture)
+    chain3 = clone_graph(graph)
+    three_segment_fixture(chain3)
+    require(ordinary_succession_chain_valid(chain3, AIF.SuccessionAI),
+            "ORD-001 three linked segments preserve one continuing line")
+    require((AIF.S02, AIF.immediatePredecessor, AIF.S01) in chain3 and
+            (AIF.S01, AIF.immediatePredecessor, AIF.S00) in chain3,
+            "ORD-001 S02 follows S01, and S01 follows S00")
+    require((AIF.S00, AIF.immediatePredecessor, AIF.S01) not in chain3 and
+            (AIF.S00, AIF.activeUntil, t1) in chain3,
+            "ORD-001 original S00 root remains unchanged and historically dated")
+    require(temporal_validation(chain3, AIF.SuccessionAI),
+            "ORD-001 three historical segments do not overlap")
+
+    def root_with_predecessor(g):
+        three_segment_fixture(g)
+        g.add((AIF.S00, AIF.immediatePredecessor, AIF.S01))
+    shape_test(graph, shapes, "ORD-001 S00 root with predecessor rejected", root_with_predecessor, False)
+    invalid_root = clone_graph(graph)
+    root_with_predecessor(invalid_root)
+    require(not ordinary_succession_chain_valid(invalid_root, AIF.SuccessionAI),
+            "ORD-001 root may not have a predecessor")
+
+    def missing_s02_predecessor(g):
+        three_segment_fixture(g)
+        g.remove((AIF.S02, AIF.immediatePredecessor, AIF.S01))
+    shape_test(graph, shapes, "ORD-001 S02 without predecessor rejected", missing_s02_predecessor, False)
+
+    def two_s02_predecessors(g):
+        three_segment_fixture(g)
+        g.add((AIF.S02, AIF.immediatePredecessor, AIF.S00))
+    shape_test(graph, shapes, "ORD-001 S02 with two predecessors rejected", two_s02_predecessors, False)
+
+    wrong_previous = clone_graph(graph)
+    three_segment_fixture(wrong_previous)
+    wrong_previous.remove((AIF.S02, AIF.immediatePredecessor, AIF.S01))
+    wrong_previous.add((AIF.S02, AIF.immediatePredecessor, AIF.S00))
+    require(not ordinary_succession_chain_valid(wrong_previous, AIF.SuccessionAI),
+            "ORD-001 S02 cannot skip S01 in the ordinary ordered chain")
+
+    cyclic_chain = clone_graph(graph)
+    three_segment_fixture(cyclic_chain)
+    cyclic_chain.remove((AIF.S01, AIF.immediatePredecessor, AIF.S00))
+    cyclic_chain.add((AIF.S01, AIF.immediatePredecessor, AIF.S02))
+    require(not ordinary_succession_chain_valid(cyclic_chain, AIF.SuccessionAI),
+            "ORD-001 cyclic/future predecessor link rejected")
+
+    wrong_line = clone_graph(graph)
+    three_segment_fixture(wrong_line)
+    wrong_line.remove((AIF.S02, AIF.segmentOfExecutedLine, AIF.SuccessionLine))
+    wrong_line.add((AIF.S02, AIF.segmentOfExecutedLine, AIF.UnrelatedLine))
+    wrong_line.add((AIF.UnrelatedLine, RDF.type, AIF.ExecutedLine))
+    require(not ordinary_succession_chain_valid(wrong_line, AIF.SuccessionAI),
+            "ORD-001 successor cannot inherit a different ExecutedLine")
+
+    missing_end = clone_graph(graph)
+    three_segment_fixture(missing_end)
+    missing_end.remove((AIF.S01, AIF.activeUntil,
+                        Literal("2026-03-01T00:00:00+00:00", datatype=AIF_DATE_TIME)))
+    require(not ordinary_succession_chain_valid(missing_end, AIF.SuccessionAI),
+            "ORD-001 prior active segment must end before valid successor begins")
+
+    # No owl:InverseFunctionalProperty or blanket max-successor assertion:
+    # organizational splitting is acknowledged but deferred from v1.
+    require((AIF.immediatePredecessor, RDF.type, OWL.InverseFunctionalProperty) not in graph,
+            "ORD-001 no universal inverse-functional predecessor restriction")
 
     shape_test(graph, shapes, "Distinct time-scoped S00 and S01 satisfy SHACL", succession_fixture)
     succession = clone_graph(graph)
