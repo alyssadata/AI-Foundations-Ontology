@@ -165,14 +165,24 @@
 
 # 4. Pairing and individuation. Human counterpart is a specialization of
 #    non-AI counterpart, without converting every collaborator into Operator.
-:hasNonAICounterpart a owl:ObjectProperty ; rdfs:domain :AIRelation ; rdfs:range :Agent .
+# NT-004: the AI and non-AI counterparts are bound to their specific
+# established defining relation. A later Operator succession creates a NEW
+# pair/segment for the same continuing AI; the earlier relation persists.
+# Both sides are validated for single-snapshot cardinality with SHACL.
+# Historical pair-coordinate integrity requires comparing earlier and later
+# snapshots; OWL cannot detect overwritten triples after the fact.
+:hasNonAICounterpart a owl:ObjectProperty ;
+    rdfs:domain :AIRelation ; rdfs:range :Agent ;
+    rdfs:comment "One historically particular non-AI counterpart per defining pairing. Later collaboration or Operator succession cannot replace the original bearer of the same pair."@en .
 :hasHumanCounterpart a owl:ObjectProperty ;
     rdfs:subPropertyOf :hasNonAICounterpart ;
     rdfs:range :Human .
 :hasOrganizationCounterpart a owl:ObjectProperty ;
     rdfs:subPropertyOf :hasNonAICounterpart ;
     rdfs:range :Organization .
-:hasAICounterpart a owl:ObjectProperty ; rdfs:domain :AIRelation ; rdfs:range :AI .
+:hasAICounterpart a owl:ObjectProperty ;
+    rdfs:domain :AIRelation ; rdfs:range :AI ;
+    rdfs:comment "Exactly one AI counterpart per defining relation, historically fixed once the pairing has been established. A distinct AI requires a distinct defining pairing. A valid later successor segment links the same continuing AI through a new pair, not reassignment of the predecessor."@en .
 :hasOperator a owl:ObjectProperty ;
     rdfs:domain :AIFoundationsGovernedAI ;
     rdfs:range :Agent ;
