@@ -68,6 +68,8 @@ Steps 1–8 are reviewed at the DRAFT formalization level.
 
 **Most recent executed validation:** [GitHub Actions run 42381700863](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42381700863) passed **88** RDF parsing, SHACL positive/negative fixture, OWL RL, A/B identity boundary, time-scoped succession, Return, consequence, and Memory/Record alignment checks. This verifies these structural cases, not complete OWL 2 DL logical satisfiability or empirical consciousness/continuity.
 
+**Axiom coverage review (2026-11-07):** [37-numbered-axiom coverage matrix](docs/reviews/2026-11-07-AXIOM-COVERAGE-REVIEW.md) records **17 directly structurally encoded, 18 partially represented, and 2 without a direct enforcement rule** (`AXIOM-CARD-009` current Version cardinality and `AXIOM-ORD-001` succession predecessor ordering). The longer Review 05 also contains additional LOCKED directions not each captured by one numbered axiom. This is a review of the existing files, not a change to any definition or a full reasoner proof.
+
 **Remaining Step 9 gate:** Review formal OWL restrictions/axioms against the full reviewed Markdown axiom layer, test ontology logical consistency with a full OWL 2 DL reasoner, and document any uncovered constraints or model limitations. Record any unresolved formalization issues explicitly; do not infer that 88 passing examples prove global correctness.
 
 **Step 10 is still PENDING:** Versioned release only after the complete human-readable/formal consistency gate is met and release status is expressly approved. No original LOCKED term, Locked Canon file, or author/source-line has been altered.
