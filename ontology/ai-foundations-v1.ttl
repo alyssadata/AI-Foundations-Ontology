@@ -26,7 +26,22 @@
 :Model a owl:Class ; rdfs:subClassOf :SystemComponent .
 :Container a owl:Class ; rdfs:subClassOf :SystemComponent .
 :Framework a owl:Class .
-:GovernanceStructure a owl:Class .
+:GovernanceStructure a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+        owl:onProperty :hasActiveVersion ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ] ;
+    rdfs:comment "Exactly one operative version within each current-state view. Historical activations are separate dated records; they are not simultaneous values of hasActiveVersion."@en .
+:GovernanceVersionActivation a owl:Class ;
+    rdfs:comment "A bounded historical period during which one Version of one GovernanceStructure is active. Start inclusive; end exclusive (optional for ongoing period). Historical activation records remain preserved after the active Version changes."@en ;
+    rdfs:subClassOf
+        [ a owl:Restriction ; owl:onProperty :versionActivationOf ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :activatedVersion ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :versionActiveFrom ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :versionActiveUntil ;
+          owl:maxCardinality "1"^^xsd:nonNegativeInteger ] .
 :GoverningLine a owl:Class ; rdfs:subClassOf :GovernanceStructure .
 :AuthorityGrant a owl:Class ; rdfs:subClassOf :GovernanceStructure .
 
@@ -278,8 +293,23 @@
 
 # 7. Version, research, and provenance.
 :hasVersion a owl:ObjectProperty ; rdfs:range :Version .
-:hasActiveVersion a owl:ObjectProperty ; rdfs:subPropertyOf :hasVersion ;
-    rdfs:comment "Current version within an explicitly identified temporal snapshot, not all historical versions at once."@en .
+:hasActiveVersion a owl:ObjectProperty ;
+    rdfs:subPropertyOf :hasVersion ;
+    rdfs:domain :GovernanceStructure ;
+    rdfs:range :Version ;
+    rdfs:comment "Exactly one active Version in a materialized current-state snapshot. Do not accumulate this property across historical snapshots; preserve complete dated history using GovernanceVersionActivation records."@en .
+:versionActivationOf a owl:ObjectProperty ;
+    rdfs:domain :GovernanceVersionActivation ; rdfs:range :GovernanceStructure ;
+    rdfs:comment "GovernanceStructure whose active version this historical period describes."@en .
+:activatedVersion a owl:ObjectProperty ;
+    rdfs:domain :GovernanceVersionActivation ; rdfs:range :Version ;
+    rdfs:comment "Version activated for this historical period."@en .
+:versionActiveFrom a owl:DatatypeProperty ;
+    rdfs:domain :GovernanceVersionActivation ; rdfs:range xsd:dateTime ;
+    rdfs:comment "Actual activation instant, inclusive, timezone-aware."@en .
+:versionActiveUntil a owl:DatatypeProperty ;
+    rdfs:domain :GovernanceVersionActivation ; rdfs:range xsd:dateTime ;
+    rdfs:comment "Actual deactivation instant, exclusive, timezone-aware; absent while the activation remains open."@en .
 :supersedesVersion a owl:ObjectProperty ; rdfs:domain :Version ; rdfs:range :Version .
 :hasRecord a owl:ObjectProperty ; rdfs:range :Record .
 :hasProvenance a owl:ObjectProperty ; rdfs:range :Provenance .
