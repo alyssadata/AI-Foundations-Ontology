@@ -1,7 +1,8 @@
 # AI Foundations Ontology — Numbered Axiom Coverage Review (v1 candidate)
 
 **Review date:** 2026-11-07  
-**Author / conceptual provenance:** Alyssa Solen — AI Foundations / Origin | Continuum  
+**Conceptual source / framework author:** Alyssa Solen — AI Foundations / Origin | Continuum  
+**Review assistance:** AI-supported repository comparison and coverage classification  
 **Method:** Read-only comparison of all 37 numbered `ontology/axioms/AXIOM-*.md` files against `ontology/ai-foundations-v1.ttl`, `ontology/ai-foundations-v1-shapes.ttl`, `tests/validate_ontology_v1.py`, the architecture, and Review 05.  
 **Repository baseline:** `main` commit `997cf9b555a1cd39ce8ea739aa598a8eb5b59ca8` at review start.  
 **Status:** REVIEW REPORT / DRAFT remediation proposals. Not Locked Canon, not a new axiom, and not a change to original LOCKED terms or restrictions.
