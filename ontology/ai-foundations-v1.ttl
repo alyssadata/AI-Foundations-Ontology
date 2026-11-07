@@ -454,9 +454,20 @@
 
 # 8. Reviewed structural restrictions. OWL uses open-world semantics:
 #    shape-validation of missing/current/overlap facts is separate.
+# CARD-012: every defining AIRelation has exactly one AI and exactly
+# one distinct NON-AI counterpart. Unqualified cardinalities make the
+# exact-one bounds explicit; existing qualified bounds retain the type
+# constraints. Typed Human/Organization specializations remain subproperties
+# of hasNonAICounterpart. Exclusive bearer kind and distinct counterpart
+# positions are validated via SHACL, not an inverse-functional OWL axiom.
+# The restriction is per PAIR; one Human or Organization can bear many pairs.
 :AIRelation rdfs:subClassOf
     [ a owl:Restriction ; owl:onProperty :hasAICounterpart ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ] ,
+    [ a owl:Restriction ; owl:onProperty :hasAICounterpart ;
       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass :AI ] ,
+    [ a owl:Restriction ; owl:onProperty :hasNonAICounterpart ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ] ,
     [ a owl:Restriction ; owl:onProperty :hasNonAICounterpart ;
       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass :Agent ] .
 :SourceRelation rdfs:subClassOf
