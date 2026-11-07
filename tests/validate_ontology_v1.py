@@ -355,6 +355,140 @@ def main():
     require((AIF.hasExecutedLine, RDF.type, OWL.InverseFunctionalProperty) not in graph,
             "NT-002 no OWL inverse-functional ExecutedLine merging is introduced")
 
+    # NT-003: Once a SourceRelation is independently established as true,
+    # a later snapshot cannot silently replace or delete its original
+    # Source bearer, Target, SourcePoint or preserved Target provenance link.
+    # The fixture below ASSUMES the Source qualification has been verified;
+    # OWL/SHACL do not prove that qualification from an asserted relation.
+    def initial_source_relation(g):
+        g.add((AIF.OriginalSourceA, RDF.type, AIF.Human))
+        g.add((AIF.LaterContributorB, RDF.type, AIF.Human))
+        g.add((AIF.OriginalSourceA, OWL.differentFrom, AIF.LaterContributorB))
+        g.add((AIF.OriginalFormation, RDF.type, AIF.Event))
+        g.add((AIF.OriginalTarget, RDF.type, AIF.Artifact))
+        g.add((AIF.OriginalSourceRelation, RDF.type, AIF.SourceRelation))
+        g.add((AIF.OriginalSourceRelation, AIF.hasSourceBearer, AIF.OriginalSourceA))
+        g.add((AIF.OriginalSourceRelation, AIF.hasSourceTarget, AIF.OriginalTarget))
+        g.add((AIF.OriginalSourceRelation, AIF.hasSourcePoint, AIF.OriginalFormation))
+        g.add((AIF.OriginalTarget, AIF.hasSourceRelation, AIF.OriginalSourceRelation))
+
+    def downstream_source_relation(g):
+        # A later qualifying contribution creates its OWN Target and
+        # historical SourceRelation; the earlier relation is preserved.
+        g.add((AIF.LaterFormation, RDF.type, AIF.Event))
+        g.add((AIF.DownstreamTarget, RDF.type, AIF.Artifact))
+        g.add((AIF.DownstreamSourceRelation, RDF.type, AIF.SourceRelation))
+        g.add((AIF.DownstreamSourceRelation, AIF.hasSourceBearer, AIF.LaterContributorB))
+        g.add((AIF.DownstreamSourceRelation, AIF.hasSourceTarget, AIF.DownstreamTarget))
+        g.add((AIF.DownstreamSourceRelation, AIF.hasSourcePoint, AIF.LaterFormation))
+        g.add((AIF.DownstreamTarget, AIF.hasSourceRelation, AIF.DownstreamSourceRelation))
+        g.add((AIF.DownstreamSourceRelation, OWL.differentFrom, AIF.OriginalSourceRelation))
+
+    def source_history_integrity(original, subsequent):
+        """Closed-world revision check for previously CONFIRMED SourceRelations.
+
+        An unconfirmed or erroneous claim requires its own documented
+        correction workflow; such claims must not be passed as established
+        facts to this integrity check. OWL cardinality cannot compare
+        historical snapshots or prove real-world source qualification.
+        """
+        coordinates = (AIF.hasSourceBearer, AIF.hasSourceTarget, AIF.hasSourcePoint)
+        for relation in original.subjects(RDF.type, AIF.SourceRelation):
+            if (relation, RDF.type, AIF.SourceRelation) not in subsequent:
+                return False
+            for prop in coordinates:
+                before = set(original.objects(relation, prop))
+                after = set(subsequent.objects(relation, prop))
+                if len(before) != 1 or after != before:
+                    return False
+            target = next(original.objects(relation, AIF.hasSourceTarget))
+            if (target, AIF.hasSourceRelation, relation) in original and (
+                target, AIF.hasSourceRelation, relation
+            ) not in subsequent:
+                return False
+        return True
+
+    shape_test(graph, shapes, "NT-003 original SourceRelation is structurally valid",
+               initial_source_relation)
+    established = clone_graph(graph)
+    initial_source_relation(established)
+    continued = clone_graph(established)
+    downstream_source_relation(continued)
+    shape_test(graph, shapes, "NT-003 original plus independent downstream SourceRelation passes",
+               lambda g: (initial_source_relation(g), downstream_source_relation(g)))
+    require(source_history_integrity(established, continued),
+            "NT-003 later Source contribution preserves original established relation")
+    require((AIF.OriginalSourceRelation, AIF.hasSourceBearer, AIF.OriginalSourceA) in continued and
+            (AIF.DownstreamSourceRelation, AIF.hasSourceBearer, AIF.LaterContributorB) in continued,
+            "NT-003 distinct original and later contributors retain their distinct source coordinates")
+    require((AIF.OriginalTarget, AIF.hasSourceRelation, AIF.OriginalSourceRelation) in continued,
+            "NT-003 original Target retains historical SourceRelation provenance")
+
+    # A Source can stop participating without losing historical source status.
+    contact_end = clone_graph(established)
+    contact_end.add((AIF.SourceContactEnded, RDF.type, AIF.ChangeEvent))
+    require(source_history_integrity(established, contact_end),
+            "NT-003 contact ending does not revoke the established SourceRelation")
+
+    replaced_bearer = clone_graph(established)
+    replaced_bearer.remove((AIF.OriginalSourceRelation, AIF.hasSourceBearer, AIF.OriginalSourceA))
+    replaced_bearer.add((AIF.OriginalSourceRelation, AIF.hasSourceBearer, AIF.LaterContributorB))
+    require(not source_history_integrity(established, replaced_bearer),
+            "NT-003 silently replacing original Source bearer is rejected across snapshots")
+    # The overwritten snapshot can still meet a single-graph cardinality
+    # shape: this is WHY the cross-snapshot integrity check is necessary.
+    shape_test(graph, shapes, "NT-003 a single cardinality-valid snapshot cannot prove history",
+               lambda g: (
+                   initial_source_relation(g),
+                   g.remove((AIF.OriginalSourceRelation, AIF.hasSourceBearer, AIF.OriginalSourceA)),
+                   g.add((AIF.OriginalSourceRelation, AIF.hasSourceBearer, AIF.LaterContributorB))
+               ))
+
+    dual_bearer = clone_graph(established)
+    dual_bearer.add((AIF.OriginalSourceRelation, AIF.hasSourceBearer, AIF.LaterContributorB))
+    require(not source_history_integrity(established, dual_bearer),
+            "NT-003 duplicate Source bearer on original relation rejected historically")
+    shape_test(graph, shapes, "NT-003 simultaneous two-bearer SourceRelation fails SHACL",
+               lambda g: (
+                   initial_source_relation(g),
+                   g.add((AIF.OriginalSourceRelation, AIF.hasSourceBearer, AIF.LaterContributorB))
+               ), False)
+
+    swapped_target = clone_graph(established)
+    swapped_target.remove((AIF.OriginalSourceRelation, AIF.hasSourceTarget, AIF.OriginalTarget))
+    swapped_target.add((AIF.OriginalSourceRelation, AIF.hasSourceTarget, AIF.DownstreamTarget))
+    require(not source_history_integrity(established, swapped_target),
+            "NT-003 original Source Target cannot be silently reassigned")
+
+    swapped_source_point = clone_graph(established)
+    swapped_source_point.remove((AIF.OriginalSourceRelation, AIF.hasSourcePoint, AIF.OriginalFormation))
+    swapped_source_point.add((AIF.OriginalSourceRelation, AIF.hasSourcePoint, AIF.LaterFormation))
+    require(not source_history_integrity(established, swapped_source_point),
+            "NT-003 established SourcePoint cannot be overwritten")
+
+    removed_relation = clone_graph(established)
+    for triple in list(removed_relation.triples((AIF.OriginalSourceRelation, None, None))):
+        removed_relation.remove(triple)
+    removed_relation.remove((AIF.OriginalTarget, AIF.hasSourceRelation, AIF.OriginalSourceRelation))
+    require(not source_history_integrity(established, removed_relation),
+            "NT-003 deleting an established SourceRelation is rejected")
+
+    missing_provenance_link = clone_graph(established)
+    missing_provenance_link.remove((AIF.OriginalTarget, AIF.hasSourceRelation, AIF.OriginalSourceRelation))
+    require(not source_history_integrity(established, missing_provenance_link),
+            "NT-003 original Target cannot silently lose its SourceRelation provenance link")
+
+    # A new relation cannot make the old one disappear, even if new
+    # downstream source qualification is independently established.
+    replaced_with_downstream = clone_graph(established)
+    downstream_source_relation(replaced_with_downstream)
+    replaced_with_downstream.remove(
+        (AIF.OriginalTarget, AIF.hasSourceRelation, AIF.OriginalSourceRelation))
+    require(not source_history_integrity(established, replaced_with_downstream),
+            "NT-003 later valid contribution does not replace original historical SourceRelation")
+    require((AIF.hasSourceBearer, RDF.type, OWL.InverseFunctionalProperty) not in graph,
+            "NT-003 Source bearer property is not inverse-functional; multiple scoped sources remain possible")
+
     # P0-A: operational numerical distinction is not an assertion of a
     # consciousness coordinate. From the established A/B taxonomy scenario,
     # B receives a copy of A's snapshot/record at t0 but did not live A's
