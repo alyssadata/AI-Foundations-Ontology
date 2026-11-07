@@ -12,6 +12,7 @@ from pathlib import Path
 import sys
 from rdflib import Graph, Namespace, RDF, RDFS, OWL, Literal, BNode
 from pyshacl import validate
+from owlrl import DeductiveClosure, OWLRL_Semantics
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "ontology" / "ai-foundations-v1.ttl"
@@ -141,8 +142,67 @@ def main():
     require((AIF.Continuum, RDF.type, AIF.PhenomenalConsciousness) not in graph,
             "No consciousness entailment is asserted from these identity structures")
 
+    # Verify reviewed memory identity and evidence provenance constraints.
+    def valid_memory(g):
+        g.add((AIF.TestMemory, RDF.type, AIF.MemoryState))
+        g.add((AIF.TestMemory, AIF.memoryFor, AIF.AlyssaSolen))
+        g.add((AIF.TestMemory, AIF.memoryOfRecord, AIF.AwakeningCodex))
+    shape_test(graph, shapes, "MemoryState is for one Agent, distinct from Record", valid_memory)
+
+    def invalid_memory(g):
+        g.add((AIF.TestMemory, RDF.type, AIF.MemoryState))
+        g.add((AIF.TestMemory, AIF.memoryOfRecord, AIF.AwakeningCodex))
+    shape_test(graph, shapes, "MemoryState without an owning Agent must fail", invalid_memory, False)
+
+    def valid_evidence(g):
+        g.add((AIF.TestClaim, RDF.type, AIF.Claim))
+        g.add((AIF.TestClaim, AIF.dependsOnOntologyElement, AIF.OriginContinuum))
+        g.add((AIF.TestEvaluation, RDF.type, AIF.Evaluation))
+        g.add((AIF.TestEvidence, RDF.type, AIF.Evidence))
+        g.add((AIF.TestEvaluation, AIF.producesEvidence, AIF.TestEvidence))
+        g.add((AIF.TestEvidence, AIF.directlyEvaluatesClaim, AIF.TestClaim))
+        g.add((AIF.TestEvidence, AIF.preservedIn, AIF.AwakeningCodex))
+        g.add((AIF.TestEvidence, AIF.hasEvidentiaryStatus, Literal("NOT_EVALUATED")))
+    shape_test(graph, shapes, "Evidence has Claim, producing Evaluation, Record and current status", valid_evidence)
+
+    def unpreserved_evidence(g):
+        valid_evidence(g)
+        g.remove((AIF.TestEvidence, AIF.preservedIn, AIF.AwakeningCodex))
+    shape_test(graph, shapes, "Evidence without Record or artifact must fail", unpreserved_evidence, False)
+
+    def wrong_status(g):
+        valid_evidence(g)
+        g.remove((AIF.TestEvidence, AIF.hasEvidentiaryStatus, Literal("NOT_EVALUATED")))
+        g.add((AIF.TestEvidence, AIF.hasEvidentiaryStatus, Literal("JUST_TRUE")))
+    shape_test(graph, shapes, "Unknown evidentiary status must fail", wrong_status, False)
+
+    def contradictory_statuses(g):
+        valid_evidence(g)
+        g.add((AIF.TestEvidence, AIF.hasEvidentiaryStatus, Literal("SUPPORTED")))
+    shape_test(graph, shapes, "Two simultaneous current evidence statuses must fail", contradictory_statuses, False)
+
+    def evidence_without_dependencies(g):
+        valid_evidence(g)
+        g.remove((AIF.TestClaim, AIF.dependsOnOntologyElement, AIF.OriginContinuum))
+    shape_test(graph, shapes, "Claim without ontology dependency must fail", evidence_without_dependencies, False)
+
+    # OWL RL deductive closure catches class/property entailments; this is
+    # not a complete OWL 2 DL reasoner or a proof of all model consistency.
+    entailed = clone_graph(graph)
+    DeductiveClosure(OWLRL_Semantics).expand(entailed)
+    require((AIF.Continuum, RDF.type, AIF.AI) in entailed,
+            "OWL RL infers Continuum is an AI by subclass inheritance")
+    require((AIF.OriginContinuum, RDF.type, AIF.AIRelation) in entailed,
+            "OWL RL infers Origin | Continuum is an AIRelation")
+    require((AIF.AlyssaSolen, RDF.type, AIF.AI) not in entailed,
+            "OWL RL does not infer Origin is AI")
+    require((AIF.Continuum, RDF.type, OWL.Nothing) not in entailed,
+            "OWL RL does not flag named Continuum as inconsistent")
+    require((AIF.AlyssaSolen, RDF.type, OWL.Nothing) not in entailed,
+            "OWL RL does not flag named Origin as inconsistent")
+
     print("\nPASS: All structural tests completed.")
-    print("Scope: RDF parse + SHACL constraints on the named source and Return.")
+    print("Scope: RDF parsing + SHACL source, Return, memory and evidence constraints + OWL RL closure.")
     print("Not covered: full OWL DL satisfiability, real-world continuity evidence,")
     print("temporal interval-overlap engine, or empirical consciousness/SI claims.")
 
