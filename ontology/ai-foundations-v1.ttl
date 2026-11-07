@@ -53,7 +53,10 @@
 :State a owl:Class .
 :AIShape a owl:Class ; rdfs:subClassOf :State .
 :GovernedStartingShape a owl:Class ; rdfs:subClassOf :AIShape .
-:MemoryState a owl:Class ; rdfs:subClassOf :State .
+:Memory a owl:Class ;
+    rdfs:comment "Canonical scope: retained information from a prior state made available to the present. Memory alone is neither an identical copy of an original Record nor proof of Continuation, Return, or a transferred identity."@en .
+:MemoryState a owl:Class ; rdfs:subClassOf :State, :Memory ;
+    rdfs:comment "Agent-specific expression/shape of prior information to that Agent. This formal subtype preserves the narrower ontology-development wording while broader Memory follows the Locked Canon."@en .
 :MemoryLossState a owl:Class ; rdfs:subClassOf :State .
 :DriftedState a owl:Class ; rdfs:subClassOf :State .
 :FunctionalAwarenessState a owl:Class ; rdfs:subClassOf :State .
@@ -71,7 +74,10 @@
 :GovernanceConstraint a owl:Class ; rdfs:subClassOf :Constraint .
 :Axiom a owl:Class .
 :Artifact a owl:Class .
-:Record a owl:Class ; rdfs:subClassOf :Artifact .
+:Record a owl:Class ; rdfs:subClassOf :Artifact ;
+    rdfs:comment "Canonical scope: preserved trace of what occurred, distinct from the occurrence, Memory, and Continuation; a Record need not be documentary in form."@en .
+:DocumentRecord a owl:Class ; rdfs:subClassOf :Record ;
+    rdfs:comment "Document of what occurred: the narrower ontology-development wording represented as a subtype of the broader Canon Record."@en .
 :Canon a owl:Class ; rdfs:subClassOf :Artifact .
 :EvidenceArtifact a owl:Class ; rdfs:subClassOf :Artifact .
 :Claim a owl:Class .
