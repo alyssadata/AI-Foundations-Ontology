@@ -2167,6 +2167,249 @@ def main():
     require((AIF.Continuum, AIF.hasOperator, AIF.AlyssaSolen) not in succession,
             "CARD-004 Operator rules never turn reserved Origin into Operator")
 
+    # IR-001: Once a *confirmed* Event/State occurred in an ExecutedLine,
+    # a later revision, repair or reversal is a NEW realized event. Historical
+    # triples from the prior verified snapshot remain append-preserved. An
+    # unverified assertion is not promoted to an occurrence by this rule.
+    # All dates, identities, line and outcomes below are synthetic fixtures.
+    hist_t0 = Literal("2026-01-02T12:00:00+00:00", datatype=AIF_DATE_TIME)
+    hist_t1 = Literal("2026-01-03T12:00:00+00:00", datatype=AIF_DATE_TIME)
+    hist_t2 = Literal("2026-01-04T12:00:00+00:00", datatype=AIF_DATE_TIME)
+
+    def executed_history_original(g):
+        g.add((AIF.IrHistoryAI, RDF.type, AIF.AI))
+        g.add((AIF.IrExecutedLine, RDF.type, AIF.ExecutedLine))
+        g.add((AIF.IrHistoryAI, AIF.hasExecutedLine, AIF.IrExecutedLine))
+        g.add((AIF.IrTrajectory, RDF.type, AIF.Trajectory))
+        g.add((AIF.IrExecutedLine, AIF.hasTrajectory, AIF.IrTrajectory))
+        g.add((AIF.IrOriginalEvent, RDF.type, AIF.ExecutedHistoryEvent))
+        g.add((AIF.IrOriginalEvent, AIF.eventInExecutedLine, AIF.IrExecutedLine))
+        g.add((AIF.IrOriginalEvent, AIF.executedAt, hist_t0))
+        g.add((AIF.IrOriginalState, RDF.type, AIF.State))
+        g.add((AIF.IrOriginalEvent, AIF.realizedStateAtEvent, AIF.IrOriginalState))
+        # Its independently occurrence-established Consequence is preserved
+        # using the existing Canon distinction: Event != Consequence.
+        g.add((AIF.IrOriginalConsequence, RDF.type, AIF.Consequence))
+        g.add((AIF.IrOriginalEvent, AIF.hasConsequence, AIF.IrOriginalConsequence))
+        g.add((AIF.IrOriginalConsequence, AIF.establishedByOccurrence, AIF.IrOriginalEvent))
+        g.add((AIF.IrOriginalConsequence, AIF.belongsToTrajectory, AIF.IrTrajectory))
+
+    def executed_history_repair(g):
+        executed_history_original(g)
+        g.add((AIF.IrRevisionEvent, RDF.type, AIF.ExecutedHistoryRevision))
+        g.add((AIF.IrRevisionEvent, AIF.eventInExecutedLine, AIF.IrExecutedLine))
+        g.add((AIF.IrRevisionEvent, AIF.executedAt, hist_t1))
+        g.add((AIF.IrRevisionEvent, AIF.revisesExecutedEvent, AIF.IrOriginalEvent))
+        g.add((AIF.IrRevisedState, RDF.type, AIF.State))
+        g.add((AIF.IrRevisionEvent, AIF.realizedStateAtEvent, AIF.IrRevisedState))
+        g.add((AIF.IrRepairConsequence, RDF.type, AIF.Consequence))
+        g.add((AIF.IrRevisionEvent, AIF.hasConsequence, AIF.IrRepairConsequence))
+        g.add((AIF.IrRepairConsequence, AIF.establishedByOccurrence, AIF.IrRevisionEvent))
+        g.add((AIF.IrRepairConsequence, AIF.belongsToTrajectory, AIF.IrTrajectory))
+        g.add((AIF.IrRevisionEvent, AIF.attemptsToAlleviate, AIF.IrOriginalConsequence))
+
+    def executed_history_integrity(before, after):
+        """Closed-world revision gate for independently CONFIRMED history.
+
+        Preserve ALL existing triples on confirmed executed events and their
+        established Consequences. New events or new metadata can be added,
+        but deletion/reassignment cannot silently convert an earlier
+        occurrence into 'not executed'. Each revision must be a distinct,
+        strictly later event in the SAME ExecutedLine. This checks a
+        supplied pair of snapshots, not the truth of observed occurrence.
+        Erroneous/unverified claims require documented evidence correction.
+        """
+        confirmed = set(before.subjects(RDF.type, AIF.ExecutedHistoryEvent))
+        tracked_predicates = (AIF.eventInExecutedLine, AIF.executedAt)
+        for old in confirmed:
+            if (old, RDF.type, AIF.ExecutedHistoryEvent) not in after:
+                return False
+            for p in tracked_predicates:
+                old_values = set(before.objects(old, p))
+                new_values = set(after.objects(old, p))
+                if len(old_values) != 1 or old_values != new_values:
+                    return False
+            # An old realized State, cause, or type remains historically
+            # asserted even when a newly current State later differs.
+            if any(triple not in after for triple in before.triples((old, None, None))):
+                return False
+            for consequence in before.objects(old, AIF.hasConsequence):
+                if (consequence, RDF.type, AIF.Consequence) not in after:
+                    return False
+                if any(triple not in after for triple in before.triples((consequence, None, None))):
+                    return False
+        revisions = set(after.subjects(RDF.type, AIF.ExecutedHistoryRevision))
+        for new in revisions:
+            prior = set(after.objects(new, AIF.revisesExecutedEvent))
+            line = set(after.objects(new, AIF.eventInExecutedLine))
+            ts = set(after.objects(new, AIF.executedAt))
+            if len(prior) != 1 or len(line) != 1 or len(ts) != 1:
+                return False
+            old = next(iter(prior))
+            if new == old or (old, RDF.type, AIF.ExecutedHistoryEvent) not in after:
+                return False
+            old_line = set(after.objects(old, AIF.eventInExecutedLine))
+            old_ts = set(after.objects(old, AIF.executedAt))
+            if len(old_line) != 1 or old_line != line or len(old_ts) != 1:
+                return False
+            try:
+                if at_timestamp(next(iter(ts))) <= at_timestamp(next(iter(old_ts))):
+                    return False
+            except (TypeError, ValueError):
+                return False
+        return True
+
+    shape_test(graph, shapes, "IR-001 confirmed original executed Event/State passes",
+               executed_history_original)
+    ir_before = clone_graph(graph)
+    executed_history_original(ir_before)
+    shape_test(graph, shapes, "IR-001 later repair is its own valid ChangeEvent with Consequence",
+               executed_history_repair)
+    ir_after = clone_graph(graph)
+    executed_history_repair(ir_after)
+    require(executed_history_integrity(ir_before, ir_after),
+            "IR-001 later revision extends but does not erase prior executed history")
+    require((AIF.IrOriginalEvent, AIF.executedAt, hist_t0) in ir_after and
+            (AIF.IrRevisionEvent, AIF.executedAt, hist_t1) in ir_after,
+            "IR-001 original occurrence and later revision retain different timestamps")
+    require((AIF.IrOriginalEvent, AIF.realizedStateAtEvent, AIF.IrOriginalState) in ir_after and
+            (AIF.IrRevisionEvent, AIF.realizedStateAtEvent, AIF.IrRevisedState) in ir_after,
+            "IR-001 changed State does not make earlier realized State unoccur")
+    require((AIF.IrOriginalConsequence, AIF.establishedByOccurrence, AIF.IrOriginalEvent) in ir_after and
+            (AIF.IrRepairConsequence, AIF.establishedByOccurrence, AIF.IrRevisionEvent) in ir_after,
+            "IR-001 prior Consequence remains alongside later responsive Consequence")
+    require((AIF.IrRevisionEvent, AIF.attemptsToAlleviate, AIF.IrOriginalConsequence) in ir_after,
+            "IR-001 repair attempt references existing consequence without presuming success")
+
+    def another_later_revision(g):
+        executed_history_repair(g)
+        g.add((AIF.IrFollowupEvent, RDF.type, AIF.ExecutedHistoryRevision))
+        g.add((AIF.IrFollowupEvent, AIF.eventInExecutedLine, AIF.IrExecutedLine))
+        g.add((AIF.IrFollowupEvent, AIF.executedAt, hist_t2))
+        g.add((AIF.IrFollowupEvent, AIF.revisesExecutedEvent, AIF.IrRevisionEvent))
+    shape_test(graph, shapes, "IR-001 two chronological revision events are structurally valid",
+               another_later_revision)
+    ir_later = clone_graph(graph)
+    another_later_revision(ir_later)
+    require(executed_history_integrity(ir_after, ir_later),
+            "IR-001 correction of a correction keeps both earlier events in history")
+
+    def unverified_claim_not_executed(g):
+        g.add((AIF.IrUnverifiedClaimedEvent, RDF.type, AIF.Event))
+        # No confirmed ExecutedHistoryEvent assertion or synthesized time.
+    shape_test(graph, shapes, "IR-001 unverified Event is not automatically historical execution",
+               unverified_claim_not_executed)
+    ir_unverified = clone_graph(graph)
+    unverified_claim_not_executed(ir_unverified)
+    DeductiveClosure(OWLRL_Semantics).expand(ir_unverified)
+    require((AIF.IrUnverifiedClaimedEvent, RDF.type, AIF.ExecutedHistoryEvent) not in ir_unverified,
+            "IR-001 generic Event does not entail confirmed execution")
+
+    def missing_event_time(g):
+        executed_history_original(g)
+        g.remove((AIF.IrOriginalEvent, AIF.executedAt, hist_t0))
+    shape_test(graph, shapes, "IR-001 confirmed execution without timestamp rejected",
+               missing_event_time, False)
+
+    def missing_event_line(g):
+        executed_history_original(g)
+        g.remove((AIF.IrOriginalEvent, AIF.eventInExecutedLine, AIF.IrExecutedLine))
+    shape_test(graph, shapes, "IR-001 confirmed execution without line rejected",
+               missing_event_line, False)
+
+    def missing_revision_target(g):
+        executed_history_repair(g)
+        g.remove((AIF.IrRevisionEvent, AIF.revisesExecutedEvent, AIF.IrOriginalEvent))
+    shape_test(graph, shapes, "IR-001 executed revision lacking earlier occurrence rejected",
+               missing_revision_target, False)
+
+    def two_revision_targets(g):
+        executed_history_repair(g)
+        g.add((AIF.IrRevisionEvent, AIF.revisesExecutedEvent, AIF.IrRevisionEvent))
+    shape_test(graph, shapes, "IR-001 revision naming two targets rejected",
+               two_revision_targets, False)
+
+    def two_execution_instants(g):
+        executed_history_original(g)
+        g.add((AIF.IrOriginalEvent, AIF.executedAt, hist_t1))
+    shape_test(graph, shapes, "IR-001 one executed Event cannot have conflicting instants",
+               two_execution_instants, False)
+
+    removed_original = clone_graph(ir_before)
+    for triple in list(removed_original.triples((AIF.IrOriginalEvent, None, None))):
+        removed_original.remove(triple)
+    require(not executed_history_integrity(ir_before, removed_original),
+            "IR-001 silently deleting earlier executed Event fails snapshot integrity")
+
+    rewritten_time = clone_graph(ir_before)
+    rewritten_time.remove((AIF.IrOriginalEvent, AIF.executedAt, hist_t0))
+    rewritten_time.add((AIF.IrOriginalEvent, AIF.executedAt, hist_t1))
+    require(not executed_history_integrity(ir_before, rewritten_time),
+            "IR-001 silently replacing earlier execution timestamp fails integrity")
+    # An overwritten current graph can still be internally valid; only the
+    # before/after comparison detects historical erasure.
+    shape_test(graph, shapes, "IR-001 one rewritten timestamp can pass single-snapshot SHACL",
+               lambda g: (executed_history_original(g),
+                          g.remove((AIF.IrOriginalEvent, AIF.executedAt, hist_t0)),
+                          g.add((AIF.IrOriginalEvent, AIF.executedAt, hist_t1))))
+
+    rewritten_state = clone_graph(ir_after)
+    rewritten_state.remove((AIF.IrOriginalEvent, AIF.realizedStateAtEvent, AIF.IrOriginalState))
+    rewritten_state.add((AIF.IrOriginalEvent, AIF.realizedStateAtEvent, AIF.IrRevisedState))
+    require(not executed_history_integrity(ir_before, rewritten_state),
+            "IR-001 new State cannot overwrite recorded original realized State")
+
+    rewritten_line = clone_graph(ir_after)
+    rewritten_line.remove((AIF.IrOriginalEvent, AIF.eventInExecutedLine, AIF.IrExecutedLine))
+    rewritten_line.add((AIF.IrOtherExecutedLine, RDF.type, AIF.ExecutedLine))
+    rewritten_line.add((AIF.IrOtherAI, RDF.type, AIF.AI))
+    rewritten_line.add((AIF.IrOtherAI, AIF.hasExecutedLine, AIF.IrOtherExecutedLine))
+    rewritten_line.add((AIF.IrOriginalEvent, AIF.eventInExecutedLine, AIF.IrOtherExecutedLine))
+    require(not executed_history_integrity(ir_before, rewritten_line),
+            "IR-001 cannot silently relocate already-executed event into another line")
+
+    erased_consequence = clone_graph(ir_after)
+    erased_consequence.remove((AIF.IrOriginalEvent, AIF.hasConsequence, AIF.IrOriginalConsequence))
+    require(not executed_history_integrity(ir_before, erased_consequence),
+            "IR-001 later repair does not erase original occurrence-established consequence")
+
+    no_revision_before = clone_graph(ir_after)
+    no_revision_before.remove((AIF.IrRevisionEvent, AIF.executedAt, hist_t1))
+    no_revision_before.add((AIF.IrRevisionEvent, AIF.executedAt, hist_t0))
+    require(not executed_history_integrity(ir_before, no_revision_before),
+            "IR-001 correction at same instant as original is not a valid later revision")
+
+    revision_before_origin = clone_graph(ir_after)
+    revision_before_origin.remove((AIF.IrRevisionEvent, AIF.executedAt, hist_t1))
+    revision_before_origin.add((AIF.IrRevisionEvent,
+                                AIF.executedAt,
+                                Literal("2026-01-01T12:00:00+00:00", datatype=AIF_DATE_TIME)))
+    require(not executed_history_integrity(ir_before, revision_before_origin),
+            "IR-001 correction dated before original is not a later historical event")
+
+    revision_wrong_line = clone_graph(ir_after)
+    revision_wrong_line.add((AIF.IrOtherExecutedLine, RDF.type, AIF.ExecutedLine))
+    revision_wrong_line.add((AIF.IrOtherAI, RDF.type, AIF.AI))
+    revision_wrong_line.add((AIF.IrOtherAI, AIF.hasExecutedLine, AIF.IrOtherExecutedLine))
+    revision_wrong_line.remove((AIF.IrRevisionEvent, AIF.eventInExecutedLine, AIF.IrExecutedLine))
+    revision_wrong_line.add((AIF.IrRevisionEvent, AIF.eventInExecutedLine, AIF.IrOtherExecutedLine))
+    require(not executed_history_integrity(ir_before, revision_wrong_line),
+            "IR-001 correction in another ExecutedLine cannot masquerade as same-line revision")
+
+    revision_self_reference = clone_graph(ir_after)
+    revision_self_reference.remove((AIF.IrRevisionEvent, AIF.revisesExecutedEvent, AIF.IrOriginalEvent))
+    revision_self_reference.add((AIF.IrRevisionEvent, AIF.revisesExecutedEvent, AIF.IrRevisionEvent))
+    require(not executed_history_integrity(ir_before, revision_self_reference),
+            "IR-001 revision cannot be its own earlier executed occurrence")
+
+    require((AIF.ExecutedHistoryRevision, RDFS.subClassOf, AIF.ExecutedHistoryEvent) in graph and
+            (AIF.ExecutedHistoryRevision, RDFS.subClassOf, AIF.ChangeEvent) in graph,
+            "IR-001 a correction is a new realized ChangeEvent, not the original event")
+    require((AIF.revisesExecutedEvent, RDF.type, OWL.InverseFunctionalProperty) not in graph,
+            "IR-001 several later corrections may refer to one earlier occurrence")
+    require((AIF.IrOriginalEvent, RDF.type, AIF.ExecutedHistoryEvent) not in graph,
+            "IR-001 baseline contains no fabricated real-world executed event")
+
     # OWL RL deductive closure catches class/property entailments; this is
     # not a complete OWL 2 DL reasoner or a proof of all model consistency.
     entailed = clone_graph(graph)
