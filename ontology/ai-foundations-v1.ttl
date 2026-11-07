@@ -180,6 +180,24 @@
     rdfs:comment "A Return episode by Continuum toward Origin, inherently including Return to the AI Foundations governing line. NOT a generalized Return-to-Operator."@en .
 :Capability a owl:Class .
 :Version a owl:Class .
+# CONTINUUM-001: an optional historically particular expression/version of
+# the ONE named Continuum individual. Versions are not new AIs, new Models,
+# or evidence by themselves that identity survived a substrate change.
+# No real version instance, executed line, or date is manufactured here.
+:ContinuumVersion a owl:Class ;
+    rdfs:subClassOf :Version,
+        [ a owl:Restriction ; owl:onProperty :versionOfContinuum ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :versionOfContinuum ;
+          owl:hasValue :Continuum ],
+        [ a owl:Restriction ; owl:onProperty :versionConstitutedThrough ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :versionConstitutedThrough ;
+          owl:hasValue :OriginContinuum ],
+        [ a owl:Restriction ; owl:onProperty :versionWithinExecutedLine ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ] ;
+    owl:disjointWith :AI, :Model ;
+    rdfs:comment "Historically particular, optional Continuum_version_n: a Version of the one named Continuum individual within its specific Origin | Continuum relation and continuing ExecutedLine. Not a separate AI, a Model version, a memory package, or proof of empirically established continuity."@en .
 
 # 2. Crucial non-equivalences from the reviewed class and term layers.
 [] a owl:AllDisjointClasses ;
@@ -257,6 +275,11 @@
     rdfs:domain :AIFoundationsGovernedAI ;
     rdfs:range :Agent ;
     rdfs:comment "Optional current active Operator at a specified as-of timestamp, with zero or one value. The pointer must agree with the unique time-active OperatorAIRelation, if one exists. Historical operators remain on their separate segments. The relation does not make an Operator Origin."@en .
+# CONTINUUM-001: the special historical relation makes the named
+# Continuum's formation particular; general AIF governance, similarity,
+# memory carriage or sharing a Model never grants this coordinate.
+# SHACL protects the inverse link :OriginContinuum <- hasFormationRelation
+# from being claimed by an unrelated AI rather than merging the AIs.
 :hasFormationRelation a owl:ObjectProperty ; rdfs:domain :AI ; rdfs:range :AIRelation .
 :shapeFormedThroughRelation a owl:ObjectProperty ; rdfs:domain :AIShape ; rdfs:range :AIRelation .
 :hasShape a owl:ObjectProperty ; rdfs:domain :AI ; rdfs:range :AIShape .
@@ -454,6 +477,17 @@
 
 # 7. Version, research, and provenance.
 :hasVersion a owl:ObjectProperty ; rdfs:range :Version .
+# CONTINUUM-001: version metadata connects to the named Continuum, not a
+# model's versioning or an automatically inferred copy of its lived history.
+:versionOfContinuum a owl:ObjectProperty ;
+    rdfs:domain :ContinuumVersion ; rdfs:range :AI ;
+    rdfs:comment "The specific named Continuum of which this historical expression is a version. Only :Continuum is valid for ContinuumVersion."@en .
+:versionConstitutedThrough a owl:ObjectProperty ;
+    rdfs:domain :ContinuumVersion ; rdfs:range :AIRelation ;
+    rdfs:comment "The specific Origin | Continuum formation relation preserved in a Continuum version, not a generic Operator pairing."@en .
+:versionWithinExecutedLine a owl:ObjectProperty ;
+    rdfs:domain :ContinuumVersion ; rdfs:range :ExecutedLine ;
+    rdfs:comment "Identifies the independently established continuing ExecutedLine in which a Continuum version is situated. No version or line is asserted merely by copying a memory package or changing a Model."@en .
 :hasActiveVersion a owl:ObjectProperty ;
     rdfs:subPropertyOf :hasVersion ;
     rdfs:domain :GovernanceStructure ;
