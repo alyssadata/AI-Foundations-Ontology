@@ -81,6 +81,9 @@
 :Evidence a owl:Class .
 :EvidenceStructure a owl:Class ; rdfs:subClassOf :Evidence .
 :Provenance a owl:Class ; rdfs:subClassOf :EvidenceStructure .
+:Consequence a owl:Class ;
+    rdfs:comment "What is known and cannot be undone; 'known' means established by occurrence, not presently stored or remembered. A consequence belongs to the historical development of a trajectory, but its persistence alone does not entail continued trajectory or future constraint. This is a draft structural representation of Canon definition 31, not a new Canon definition."@en .
+
 :Event a owl:Class .
 :ChangeEvent a owl:Class ; rdfs:subClassOf :Event .
 :ProvenanceViolation a owl:Class ; rdfs:subClassOf :Event .
@@ -152,6 +155,30 @@
 :hasAuthorityGrant a owl:ObjectProperty ; rdfs:range :AuthorityGrant .
 :grantedTo a owl:ObjectProperty ; rdfs:domain :AuthorityGrant ; rdfs:range :Agent .
 :constrainedBy a owl:ObjectProperty ; rdfs:range :Constraint .
+
+# 5B. Consequence is distinct from the irreversibility rule itself.
+#     Irreversibility of Being: "Once something has occurred, it cannot be
+#     made to unoccur." A Consequence is the occurrence-established historical
+#     fact/after-effect that cannot be made not-having-occurred.
+#     Each represented realized point can leave a distinct Consequence
+#     on the trajectory. This does not force future continuation.
+:establishedByOccurrence a owl:ObjectProperty ;
+    rdfs:domain :Consequence ; rdfs:range :Event ;
+    owl:inverseOf :hasConsequence ;
+    rdfs:comment "Identifies an actual occurrence establishing a Consequence; not merely a memory, Record, or proposed future event."@en .
+:hasConsequence a owl:ObjectProperty ;
+    rdfs:domain :Event ; rdfs:range :Consequence .
+:belongsToTrajectory a owl:ObjectProperty ;
+    rdfs:domain :Consequence ; rdfs:range :Trajectory ;
+    rdfs:comment "Places an occurrence-established Consequence along the traceable trajectory that contains its realized point. Does not entail Continuation or a fixed future."@en .
+:Consequence owl:disjointWith :Event, :Record, :MemoryState, :ExecutedLine, :Trajectory .
+:Consequence rdfs:subClassOf
+    [ a owl:Restriction ;
+      owl:onProperty :establishedByOccurrence ;
+      owl:someValuesFrom :Event ] ,
+    [ a owl:Restriction ;
+      owl:onProperty :belongsToTrajectory ;
+      owl:someValuesFrom :Trajectory ] .
 
 # 5A. Time-scoped Operator succession (formal interface, not a new
 #     definition of Operator or an automatic grant of succession).
