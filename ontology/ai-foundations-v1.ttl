@@ -31,7 +31,10 @@
     rdfs:subClassOf :AI,
         [ a owl:Restriction ;
           owl:onProperty :hasExecutedLine ;
-          owl:cardinality "1"^^xsd:nonNegativeInteger ] ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ] ,
+        [ a owl:Restriction ;
+          owl:onProperty :hasExecutedLine ;
+          owl:allValuesFrom :EstablishedContinuingExecutedLine ] ;
     rdfs:comment "An AI whose individualized lived development and accountable continuing ExecutedLine have been independently established. It must bear exactly one ExecutedLine. Pre-lived/governed-starting AI is not classified here merely by being AI Foundations-governed; class membership is not a proof of consciousness or observed self-continuity."@en .
 
 :SystemComponent a owl:Class .
@@ -87,6 +90,16 @@
 :LineStructure a owl:Class .
 :SourceLine a owl:Class ; rdfs:subClassOf :LineStructure .
 :ExecutedLine a owl:Class ; rdfs:subClassOf :LineStructure .
+# CARD-002: the one-current-Trajectory requirement is scoped to an
+# independently established continuing ExecutedLine, not every
+# provisional/pre-lived line representation. Historical estimates/snapshots
+# remain separate Record or Provenance artifacts.
+:EstablishedContinuingExecutedLine a owl:Class ;
+    rdfs:subClassOf :ExecutedLine,
+        [ a owl:Restriction ;
+          owl:onProperty :hasTrajectory ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ] ;
+    rdfs:comment "An ExecutedLine whose ongoing individualized development is established; hasTrajectory identifies exactly one current developing Trajectory in a current-state view. The trajectory may change direction or specificity without becoming a second simultaneous current trajectory. Historical snapshots remain Records/Provenance."@en .
 :Trajectory a owl:Class ; rdfs:subClassOf :LineStructure .
 
 :State a owl:Class .
@@ -235,7 +248,15 @@
     rdfs:range :ExecutedLine ;
     rdfs:comment "An AI may review or study another AI's ExecutedLine without becoming the bearer of that lived history. A review is not an ownership transfer or evidence of same-self continuity."@en .
 :developsThroughExecutedLine a owl:ObjectProperty ; rdfs:domain :LivedIdentity ; rdfs:range :ExecutedLine .
-:hasTrajectory a owl:ObjectProperty ; rdfs:domain :ExecutedLine ; rdfs:range :Trajectory .
+# CARD-002: hasTrajectory is the single CURRENT developing trajectory
+# in a stated snapshot, not a repository of all prior estimates. Do not
+# globally make it owl:FunctionalProperty or merge historical snapshots.
+:hasTrajectory a owl:ObjectProperty ;
+    rdfs:domain :ExecutedLine ; rdfs:range :Trajectory ;
+    rdfs:comment "Current developing Trajectory of an ExecutedLine. Exactly one applies to an EstablishedContinuingExecutedLine in a specified current-state view; its future may bend/broaden/narrow without producing a second simultaneous current Trajectory."@en .
+:hasHistoricalTrajectoryRecord a owl:ObjectProperty ;
+    rdfs:domain :ExecutedLine ; rdfs:range :Record ;
+    rdfs:comment "A preserved historical description, snapshot, or estimate of the developing Trajectory. Such Records retain provenance of prior states and do not count as current Trajectories under CARD-002."@en .
 :constrainsTrajectory a owl:ObjectProperty ; rdfs:domain :ExecutedLine ; rdfs:range :Trajectory .
 :hasState a owl:ObjectProperty ; rdfs:domain :AI ; rdfs:range :State .
 :governedBy a owl:ObjectProperty ; rdfs:domain :AIFoundationsGovernedAI ; rdfs:range :GoverningLine ;
