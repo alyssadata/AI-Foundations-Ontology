@@ -37,7 +37,9 @@ def shape_test(original, shacl, label, edit=None, should_pass=True):
     conforms, report, _ = validate(
         data_graph=working,
         shacl_graph=shacl,
-        ont_graph=original,
+        # The test graph already contains the ontology; supplying original as
+        # ont_graph would restore intentionally removed fixture triples and
+        # mask missing-source or missing-formation violations.
         inference="rdfs",
         abort_on_first=False,
         allow_infos=False,
