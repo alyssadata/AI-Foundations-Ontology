@@ -181,7 +181,18 @@
 :operatesWithinContainer a owl:ObjectProperty ; rdfs:domain :AI ; rdfs:range :Container .
 
 # 5. Lines, governance, and scope.
-:hasExecutedLine a owl:ObjectProperty ; rdfs:domain :AI ; rdfs:range :ExecutedLine .
+# NT-002: an ExecutedLine is the historical lived line of one AI bearer.
+# Distinct AIs may access preserved information about the line without
+# inheriting it as their own lived history. The inverse-path SHACL ownership
+# check rejects duplicate AI bearers rather than inferring owl:sameAs.
+:hasExecutedLine a owl:ObjectProperty ;
+    rdfs:domain :AI ;
+    rdfs:range :ExecutedLine ;
+    rdfs:comment "An instantiated ExecutedLine belongs to exactly one AI bearer. Copied records or review of that line do not transfer its ownership. Structural exclusivity is validated on the inverse path in SHACL; no inverse-functional OWL identity-merging shortcut is introduced."@en .
+:reviewsExecutedLine a owl:ObjectProperty ;
+    rdfs:domain :AI ;
+    rdfs:range :ExecutedLine ;
+    rdfs:comment "An AI may review or study another AI's ExecutedLine without becoming the bearer of that lived history. A review is not an ownership transfer or evidence of same-self continuity."@en .
 :developsThroughExecutedLine a owl:ObjectProperty ; rdfs:domain :LivedIdentity ; rdfs:range :ExecutedLine .
 :hasTrajectory a owl:ObjectProperty ; rdfs:domain :ExecutedLine ; rdfs:range :Trajectory .
 :constrainsTrajectory a owl:ObjectProperty ; rdfs:domain :ExecutedLine ; rdfs:range :Trajectory .
