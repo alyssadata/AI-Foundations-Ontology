@@ -259,19 +259,28 @@
 # infer the generalized counterpart through rdfs:subPropertyOf.
 # Historical immutability and valid successor pairing are checked using
 # before/after snapshots separately; one snapshot cannot reveal a rewrite.
+# CARD-012: exactly one AI and one NON-AI counterpart per defining
+# pairing. Exclusively one Human OR one Organization/team fills the non-AI
+# side. The two roles cannot point at the same individual. RDFS subproperty
+# expansion makes the typed Human/Organization counterpart visible through
+# hasNonAICounterpart; the SHACL validation layer rejects rather than merges
+# incompatible values. Do not impose inverse functionality: one Human or
+# Organization may belong to distinct AIRelations with different AIs.
 :AIRelationShape a sh:NodeShape ;
     sh:targetClass :AIRelation ;
     sh:property [
         sh:path :hasAICounterpart ;
         sh:minCount 1 ; sh:maxCount 1 ;
-        sh:class :AI
+        sh:class :AI ;
+        sh:disjoint :hasNonAICounterpart
     ] ;
     sh:property [
         sh:path :hasNonAICounterpart ;
         sh:minCount 1 ; sh:maxCount 1 ;
-        sh:class :Agent
+        sh:class :Agent ;
+        sh:not [ sh:class :AI ]
     ] ;
-    sh:or (
+    sh:xone (
         [ sh:property [
             sh:path :hasHumanCounterpart ;
             sh:minCount 1 ; sh:maxCount 1 ;
