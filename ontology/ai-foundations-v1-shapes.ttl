@@ -79,6 +79,23 @@
         sh:class :Trajectory
     ] .
 
+# A later attempt to alleviate a consequence is itself an actual event
+# with its own consequence. A repair attempt does not erase its cause and
+# does not assert that repair succeeded.
+:AlleviationAttemptShape a sh:NodeShape ;
+    sh:targetSubjectsOf :attemptsToAlleviate ;
+    sh:class :Event ;
+    sh:property [
+        sh:path :attemptsToAlleviate ;
+        sh:minCount 1 ;
+        sh:class :Consequence
+    ] ;
+    sh:property [
+        sh:path :hasConsequence ;
+        sh:minCount 1 ;
+        sh:class :Consequence
+    ] .
+
 :OperatorRelationSegmentShape a sh:NodeShape ;
     sh:targetClass :OperatorAIRelation ;
     sh:property [
