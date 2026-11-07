@@ -277,6 +277,18 @@
 
 # Reviewed memory ownership: a MemoryState is memory *for* exactly one Agent,
 # not a second Record and not a shared memory identity.
+# NT-001: each instantiated LivedIdentity has exactly one AI bearer.
+# Inverse-path SHACL rejects two different AIs pointing to one identity
+# without inferring owl:sameAs or promoting a copied Record to lived history.
+# This is a structural ownership assertion, not evidence of consciousness.
+:LivedIdentityOwnershipShape a sh:NodeShape ;
+    sh:targetClass :LivedIdentity ;
+    sh:property [
+        sh:path [ sh:inversePath :hasLivedIdentity ] ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :AI
+    ] .
+
 :MemoryStateShape a sh:NodeShape ;
     sh:targetClass :MemoryState ;
     sh:class :Memory ;
