@@ -135,6 +135,26 @@
         sh:class :Version
     ] .
 
+# ORD-001: type the root versus later links explicitly. These rules
+# apply only to modeled ordinary succession, not hypothetical AI-line forks.
+# A chronological same-AI/ExecutedLine chain is checked in Python.
+:OrdinarySuccessionRootShape a sh:NodeShape ;
+    sh:targetClass :OrdinarySuccessionRootSegment ;
+    sh:class :OperatorAIRelation ;
+    sh:property [
+        sh:path :immediatePredecessor ;
+        sh:maxCount 0
+    ] .
+
+:OrdinarySuccessionSuccessorShape a sh:NodeShape ;
+    sh:targetClass :OrdinarySuccessionSuccessorSegment ;
+    sh:class :OperatorAIRelation ;
+    sh:property [
+        sh:path :immediatePredecessor ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :OperatorAIRelation
+    ] .
+
 :OperatorRelationSegmentShape a sh:NodeShape ;
     sh:targetClass :OperatorAIRelation ;
     sh:property [
