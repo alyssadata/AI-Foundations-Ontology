@@ -62,7 +62,11 @@ Steps 1–8 are reviewed at the DRAFT formalization level.
 
 **Step 9 validation record (2026-11-06):** [OWL/Turtle model](ontology/ai-foundations-v1.ttl), [SHACL shapes](ontology/ai-foundations-v1-shapes.ttl), and [automated regression tests](tests/validate_ontology_v1.py) are committed. GitHub Actions [run 42329944947](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42329944947) passed: RDF parsing, core Origin | Continuum conformance, valid Return for both general AI and Continuum, and rejection of incorrect Origin, Operator, and governing-line substitutions. These are structural tests and do not claim full OWL DL satisfiability or empirical results.
 
-**Next:** finish coverage and consistency review of the machine-readable encoding against the reviewed structural documents, then complete Step 10: versioned v1.0 release. No LOCKED term or canon content is changed by this status update.
+**Step 9 follow-up (2026-11-06, later in session):** [CI run 42332435819](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42332435819) passed 65 executed structural checks. The source-line/formation-shape fixture was repaired to prevent a negative test from reimporting deliberately removed facts. Additional fixtures distinguish A/B numerical identity from theoretical phenomenal consciousness and validate dated Operator S00/S01 segments, preservation of historical Operators, temporal queries, and overlap rejection. The general Return and Continuum-specific Return are both encoded. This does not establish full OWL DL satisfiability, empirical same-self continuity, or continuity under actual operator succession.
+
+**Canon crosswalk (draft):** [Canon-to-Ontology v1 Crosswalk](docs/CANON_TO_ONTOLOGY_CROSSWALK_V1.md) maps all ten current canonical definitions to ontology terms/encoding without promoting draft material. It flags potential wording-scope interfaces for Memory and Record and a direct-coverage gap for Consequence (canonically defined, not yet formally placed in the ontology). These require review, not silent rewriting.
+
+**Next:** resolve the explicit Consequence placement and crosswalk wording boundaries, finish formal entailment/consistency validation of the full axioms, and then complete Step 10, versioned v1.0 release. No LOCKED term or canon content is changed by these documentation or test updates.
 
 ## Ontology boundary audit
 
