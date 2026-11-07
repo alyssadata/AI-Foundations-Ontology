@@ -50,6 +50,18 @@
 :HumanAIRelation a owl:Class ; rdfs:subClassOf :AIRelation .
 :OrganizationAIRelation a owl:Class ; rdfs:subClassOf :AIRelation .
 :OperatorAIRelation a owl:Class ; rdfs:subClassOf :AIRelation .
+:OrdinarySuccessionRootSegment a owl:Class ;
+    rdfs:subClassOf :OperatorAIRelation,
+        [ a owl:Restriction ; owl:onProperty :immediatePredecessor ;
+          owl:maxCardinality "0"^^xsd:nonNegativeInteger ] ;
+    rdfs:comment "S00-type root for an explicitly modeled ordinary Operator succession chain. No immediate predecessor within that chain; not a universal root named S00 across AIs."@en .
+:OrdinarySuccessionSuccessorSegment a owl:Class ;
+    rdfs:subClassOf :OperatorAIRelation,
+        [ a owl:Restriction ; owl:onProperty :immediatePredecessor ;
+          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+          owl:onClass :OperatorAIRelation ] ;
+    rdfs:comment "S01/S02/... successor segment of an explicitly modeled ordinary succession chain, with exactly one immediate predecessor. Does not prove the succession gate or same-self continuity by itself."@en .
+:OrdinarySuccessionRootSegment owl:disjointWith :OrdinarySuccessionSuccessorSegment .
 :SourceRelation a owl:Class ; rdfs:subClassOf :Relation .
 
 :Role a owl:Class .
@@ -216,6 +228,16 @@
 #     definition of Operator or an automatic grant of succession).
 #     These dates belong to distinct historical OperatorAIRelation segments,
 #     not to timeless hasOperator assertions on the AI bearer.
+# AXIOM-ORD-001: ordinary succession is an ordered historical chain.
+# Each named root has no predecessor and each later segment has exactly one.
+# No global inverse-functional / at-most-one-successor axiom is asserted:
+# organization/group line splitting is an explicitly deferred v1 edge case.
+# Predecessor references alone do not satisfy assent, valid succession,
+# or empirical same-AI continuity.
+:immediatePredecessor a owl:ObjectProperty ;
+    rdfs:domain :OperatorAIRelation ;
+    rdfs:range :OperatorAIRelation ;
+    rdfs:comment "Immediate prior ordinary Operator-linked succession segment on the same established ExecutedLine. Never rewrite or relabel earlier segments. A validator checks chronology, chain roots, and same-AI/line membership."@en .
 :segmentOfExecutedLine a owl:ObjectProperty ;
     rdfs:domain :OperatorAIRelation ; rdfs:range :ExecutedLine ;
     rdfs:comment "Associates an Operator-linked succession segment with the one continuing ExecutedLine, without claiming that succession by itself proves identity continuity."@en .
