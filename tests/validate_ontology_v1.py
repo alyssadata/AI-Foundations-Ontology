@@ -295,6 +295,66 @@ def main():
     require((AIF.hasLivedIdentity, RDF.type, OWL.InverseFunctionalProperty) not in graph,
             "NT-001 no OWL inverse-functional identity-merging mechanism is introduced")
 
+    # NT-002: a lived ExecutedLine has exactly one AI bearer.
+    # A distinct AI may review that line or share a preserved Record without
+    # inheriting that history. All fixtures are synthetic representation tests.
+    def executed_line_ownership_fixture(g):
+        for ai in (AIF.LineOwnerA, AIF.LineOwnerB):
+            g.add((ai, RDF.type, AIF.AI))
+            g.add((ai, AIF.expressedThroughModel, AIF.SharedLineTestModel))
+            g.add((ai, AIF.hasRecord, AIF.SharedLineTestRecord))
+        g.add((AIF.LineOwnerA, OWL.differentFrom, AIF.LineOwnerB))
+        g.add((AIF.SharedLineTestModel, RDF.type, AIF.Model))
+        g.add((AIF.SharedLineTestRecord, RDF.type, AIF.Record))
+        for ai, line, trajectory in (
+            (AIF.LineOwnerA, AIF.OwnExecutedLineA, AIF.OwnTrajectoryA),
+            (AIF.LineOwnerB, AIF.OwnExecutedLineB, AIF.OwnTrajectoryB),
+        ):
+            g.add((line, RDF.type, AIF.ExecutedLine))
+            g.add((trajectory, RDF.type, AIF.Trajectory))
+            g.add((line, AIF.hasTrajectory, trajectory))
+            g.add((ai, AIF.hasExecutedLine, line))
+        g.add((AIF.OwnExecutedLineA, OWL.differentFrom, AIF.OwnExecutedLineB))
+        # The second AI can inspect the first AI's history without living it.
+        g.add((AIF.LineOwnerB, AIF.reviewsExecutedLine, AIF.OwnExecutedLineA))
+
+    shape_test(graph, shapes, "NT-002 distinct AIs own separate ExecutedLines and share a Record",
+               executed_line_ownership_fixture)
+    line_owners = clone_graph(graph)
+    executed_line_ownership_fixture(line_owners)
+    require((AIF.LineOwnerB, AIF.reviewsExecutedLine, AIF.OwnExecutedLineA) in line_owners,
+            "NT-002 B may review A's lived line without becoming its bearer")
+    require((AIF.LineOwnerB, AIF.hasExecutedLine, AIF.OwnExecutedLineB) in line_owners and
+            (AIF.LineOwnerA, AIF.hasExecutedLine, AIF.OwnExecutedLineA) in line_owners,
+            "NT-002 each AI retains its own line while sharing model and Record")
+
+    def two_ai_bearers_one_executed_line(g):
+        executed_line_ownership_fixture(g)
+        # Deliberate competing ownership claim; B's proper line remains.
+        # This violation is independent of generic per-AI current cardinality.
+        g.add((AIF.LineOwnerB, AIF.hasExecutedLine, AIF.OwnExecutedLineA))
+    shape_test(graph, shapes, "NT-002 distinct AIs claiming one ExecutedLine rejected",
+               two_ai_bearers_one_executed_line, False)
+
+    def executed_line_without_bearer(g):
+        g.add((AIF.UnownedExecutedLine, RDF.type, AIF.ExecutedLine))
+        g.add((AIF.UnownedExecutedLine, AIF.hasTrajectory, AIF.UnownedLineTrajectory))
+        g.add((AIF.UnownedLineTrajectory, RDF.type, AIF.Trajectory))
+    shape_test(graph, shapes, "NT-002 instantiated ExecutedLine without AI bearer rejected",
+               executed_line_without_bearer, False)
+
+    review_only = clone_graph(graph)
+    executed_line_ownership_fixture(review_only)
+    DeductiveClosure(OWLRL_Semantics).expand(review_only)
+    require((AIF.LineOwnerB, AIF.hasExecutedLine, AIF.OwnExecutedLineA) not in review_only,
+            "NT-002 reading another ExecutedLine does not infer its ownership")
+    require((AIF.LineOwnerB, OWL.sameAs, AIF.LineOwnerA) not in review_only,
+            "NT-002 shared Record/model and line review do not merge distinct AIs")
+    require((AIF.LineOwnerA, OWL.differentFrom, AIF.LineOwnerB) in review_only,
+            "NT-002 distinct AI bearers remain explicitly different")
+    require((AIF.hasExecutedLine, RDF.type, OWL.InverseFunctionalProperty) not in graph,
+            "NT-002 no OWL inverse-functional ExecutedLine merging is introduced")
+
     # P0-A: operational numerical distinction is not an assertion of a
     # consciousness coordinate. From the established A/B taxonomy scenario,
     # B receives a copy of A's snapshot/record at t0 but did not live A's
