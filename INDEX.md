@@ -1,5 +1,13 @@
 # AI Foundations Ontology Index
 
+## Ontology v1.0 — Integrated statement and machine-readable encoding
+
+- [Origin | Continuum integrated conceptual ontology](ONTOLOGY_V1_0_ORIGIN_CONTINUUM.md) — Alyssa Solen's complete human-readable v1 statement, preserving the original terms and Locked Canon.
+- [OWL/Turtle structural encoding](ontology/ai-foundations-v1.ttl) — machine-readable classes, named individuals, relations, governance, and restrictions.
+- [SHACL structural constraints](ontology/ai-foundations-v1-shapes.ttl) — source, identity-boundary, Return, memory, evidence, and Claim dependency validation.
+- [Repeatable RDF/OWL RL/SHACL validation suite](tests/validate_ontology_v1.py) — positive and deliberately invalid cases.
+- [GitHub Actions validation workflow](.github/workflows/validate-ontology.yml) — automated checks on formalization updates.
+
 ## Working review
 
 - [2026-11-06 Cross-Repository Gap Audit](docs/reviews/2026-11-06-CROSS-REPOSITORY-GAP-AUDIT.md) — targeted ontology / canon / taxonomy consistency audit, prioritized formalization gates, and pressure cases
