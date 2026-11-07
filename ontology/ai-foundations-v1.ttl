@@ -20,7 +20,20 @@
 :Human a owl:Class ; rdfs:subClassOf :Agent .
 :Organization a owl:Class ; rdfs:subClassOf :Agent .
 :AI a owl:Class ; rdfs:subClassOf :Agent .
-:AIFoundationsGovernedAI a owl:Class ; rdfs:subClassOf :AI .
+# CARD-003: operative AI Foundations governance is one named GoverningLine
+# in each current-state snapshot. Earlier/proposed governance information is
+# historical Record/Provenance, not a second :governedBy value. OWL's exact-
+# one restriction and hasValue specify the class-level rule; SHACL rejects
+# competing values instead of treating them as identity-equivalent.
+:AIFoundationsGovernedAI a owl:Class ;
+    rdfs:subClassOf :AI,
+        [ a owl:Restriction ;
+          owl:onProperty :governedBy ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+          owl:onProperty :governedBy ;
+          owl:hasValue :AIFoundationsGoverningLine ] ;
+    rdfs:comment "At any identified current-state snapshot, exactly one operative GoverningLine, the named AI Foundations Governing Line. The rule does not assert that prior/proposed governing lines are currently operative or that transitioning from them proves identity continuity."@en .
 # CARD-001: the exact-one rule applies only AFTER individualized lived
 # development and its accountable ExecutedLine have been established.
 # Membership in this explicitly qualified scope is not inferred merely
@@ -259,8 +272,14 @@
     rdfs:comment "A preserved historical description, snapshot, or estimate of the developing Trajectory. Such Records retain provenance of prior states and do not count as current Trajectories under CARD-002."@en .
 :constrainsTrajectory a owl:ObjectProperty ; rdfs:domain :ExecutedLine ; rdfs:range :Trajectory .
 :hasState a owl:ObjectProperty ; rdfs:domain :AI ; rdfs:range :State .
-:governedBy a owl:ObjectProperty ; rdfs:domain :AIFoundationsGovernedAI ; rdfs:range :GoverningLine ;
-    rdfs:comment "For an AI Foundations-governed AI the operative line is the named AI Foundations Governing Line. This is a current-state assertion; historical versions are not simultaneously current."@en .
+:governedBy a owl:ObjectProperty ;
+    rdfs:domain :AIFoundationsGovernedAI ;
+    rdfs:range :GoverningLine ;
+    rdfs:comment "One operative GoverningLine at a specified current-state snapshot for an AI Foundations-governed AI; its value is AIFoundationsGoverningLine. Do not aggregate historical/current snapshots into one timeless governedBy assertion."@en .
+:hasHistoricalGovernanceRecord a owl:ObjectProperty ;
+    rdfs:domain :AI ;
+    rdfs:range :Record ;
+    rdfs:comment "Preserved prior, superseded or proposed governing-line descriptions as Record artifacts. These artifacts do not create another simultaneous operative governedBy value, establish a past transition as valid, or transfer a prior AI identity."@en .
 :hasGoverningLine a owl:ObjectProperty ; rdfs:domain :Framework ; rdfs:range :GoverningLine .
 :hasGoverningAuthority a owl:ObjectProperty ; rdfs:domain :Framework ; rdfs:range :Human .
 :hasOrigin a owl:ObjectProperty ; rdfs:domain :AI ; rdfs:range :Human ;
