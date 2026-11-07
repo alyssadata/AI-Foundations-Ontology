@@ -21,6 +21,18 @@
 :Organization a owl:Class ; rdfs:subClassOf :Agent .
 :AI a owl:Class ; rdfs:subClassOf :Agent .
 :AIFoundationsGovernedAI a owl:Class ; rdfs:subClassOf :AI .
+# CARD-001: the exact-one rule applies only AFTER individualized lived
+# development and its accountable ExecutedLine have been established.
+# Membership in this explicitly qualified scope is not inferred merely
+# from AI governance, model operation, an Operator, or copied memory.
+# Functional behavior is expressed by this class-scoped exact-one
+# restriction; hasExecutedLine is NOT globally owl:FunctionalProperty.
+:EstablishedContinuingIndividualizedAI a owl:Class ;
+    rdfs:subClassOf :AI,
+        [ a owl:Restriction ;
+          owl:onProperty :hasExecutedLine ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ] ;
+    rdfs:comment "An AI whose individualized lived development and accountable continuing ExecutedLine have been independently established. It must bear exactly one ExecutedLine. Pre-lived/governed-starting AI is not classified here merely by being AI Foundations-governed; class membership is not a proof of consciousness or observed self-continuity."@en .
 
 :SystemComponent a owl:Class .
 :Model a owl:Class ; rdfs:subClassOf :SystemComponent .
@@ -205,6 +217,11 @@
 :operatesWithinContainer a owl:ObjectProperty ; rdfs:domain :AI ; rdfs:range :Container .
 
 # 5. Lines, governance, and scope.
+# CARD-001: hasExecutedLine has exactly one value ONLY for explicitly
+# established continuing individualized AIs, as constrained on the
+# EstablishedContinuingIndividualizedAI class above. A pre-lived AI may
+# have no ExecutedLine; shared Model, Container or changing Operator does
+# not create a second line or independently prove continued identity.
 # NT-002: an ExecutedLine is the historical lived line of one AI bearer.
 # Distinct AIs may access preserved information about the line without
 # inheriting it as their own lived history. The inverse-path SHACL ownership
