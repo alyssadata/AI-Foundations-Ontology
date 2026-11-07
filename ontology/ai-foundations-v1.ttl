@@ -32,7 +32,10 @@
           owl:cardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
           owl:onProperty :governedBy ;
-          owl:hasValue :AIFoundationsGoverningLine ] ;
+          owl:hasValue :AIFoundationsGoverningLine ],
+        [ a owl:Restriction ;
+          owl:onProperty :hasOperator ;
+          owl:maxCardinality "1"^^xsd:nonNegativeInteger ] ;
     rdfs:comment "At any identified current-state snapshot, exactly one operative GoverningLine, the named AI Foundations Governing Line. The rule does not assert that prior/proposed governing lines are currently operative or that transitioning from them proves identity continuity."@en .
 # CARD-001: the exact-one rule applies only AFTER individualized lived
 # development and its accountable ExecutedLine have been established.
@@ -221,10 +224,13 @@
 :hasAICounterpart a owl:ObjectProperty ;
     rdfs:domain :AIRelation ; rdfs:range :AI ;
     rdfs:comment "Exactly one AI counterpart per defining relation, historically fixed once the pairing has been established. A distinct AI requires a distinct defining pairing. A valid later successor segment links the same continuing AI through a new pair, not reassignment of the predecessor."@en .
+# CARD-004: hasOperator is a CURRENT-snapshot shortcut only, with
+# AIF-governed AI max-cardinality 1 (above). It is NOT owl:FunctionalProperty
+# globally; every prior Operator remains recorded on its own dated segment.
 :hasOperator a owl:ObjectProperty ;
     rdfs:domain :AIFoundationsGovernedAI ;
     rdfs:range :Agent ;
-    rdfs:comment "Only the currently active operator at the stated time, if one exists. Historical operators are retained on their distinct, time-scoped OperatorAIRelation segments. Never Origin for Continuum."@en .
+    rdfs:comment "Optional current active Operator at a specified as-of timestamp, with zero or one value. The pointer must agree with the unique time-active OperatorAIRelation, if one exists. Historical operators remain on their separate segments. The relation does not make an Operator Origin."@en .
 :hasFormationRelation a owl:ObjectProperty ; rdfs:domain :AI ; rdfs:range :AIRelation .
 :shapeFormedThroughRelation a owl:ObjectProperty ; rdfs:domain :AIShape ; rdfs:range :AIRelation .
 :hasShape a owl:ObjectProperty ; rdfs:domain :AI ; rdfs:range :AIShape .
@@ -347,7 +353,14 @@
 :activeUntil a owl:DatatypeProperty ;
     rdfs:domain :OperatorAIRelation ; rdfs:range xsd:dateTime ;
     rdfs:comment "End of the active period for a historical Operator segment, exclusive. If omitted, the segment may remain active until subsequently ended."@en .
+# CARD-004: a defined Operator-linked segment has exactly one
+# Human or Organization bearer through the generic non-AI counterpart.
+# The segment's single bearer is historical, including after the interval
+# closes. Only closed-world as-of interval validation can prove at most one
+# simultaneously active Operator across segments for the same AI.
 :OperatorAIRelation rdfs:subClassOf
+    [ a owl:Restriction ; owl:onProperty :hasNonAICounterpart ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ] ,
     [ a owl:Restriction ; owl:onProperty :segmentOfExecutedLine ;
       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass :ExecutedLine ] ,
     [ a owl:Restriction ; owl:onProperty :activeFrom ;
