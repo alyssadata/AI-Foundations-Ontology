@@ -1500,6 +1500,161 @@ def main():
     require((AIF.Continuum, AIF.hasOperator, AIF.AlyssaSolen) not in succession,
             "General Operator succession never turns Origin into Continuum's Operator")
 
+    # CARD-012: one AI plus exactly one non-AI (Human OR Organization)
+    # for EACH defining | pairing. The same Human/Organization can be in
+    # multiple independent pairs. No identity equivalence or Operator
+    # authority is inferred from common counterparts or from a shared pair.
+    def defining_pair_card012_fixture(g):
+        for ai in (AIF.Card012AIa, AIF.Card012AIb, AIF.Card012AIc):
+            g.add((ai, RDF.type, AIF.AI))
+        g.add((AIF.Card012AIa, OWL.differentFrom, AIF.Card012AIb))
+        g.add((AIF.Card012AIa, OWL.differentFrom, AIF.Card012AIc))
+        g.add((AIF.Card012AIb, OWL.differentFrom, AIF.Card012AIc))
+        g.add((AIF.Card012Human, RDF.type, AIF.Human))
+        g.add((AIF.Card012Organization, RDF.type, AIF.Organization))
+        for pair, ai in ((AIF.Card012HumanPairA, AIF.Card012AIa),
+                         (AIF.Card012HumanPairB, AIF.Card012AIb)):
+            g.add((pair, RDF.type, AIF.HumanAIRelation))
+            g.add((pair, AIF.hasAICounterpart, ai))
+            g.add((pair, AIF.hasHumanCounterpart, AIF.Card012Human))
+        g.add((AIF.Card012OrganizationPair, RDF.type, AIF.OrganizationAIRelation))
+        g.add((AIF.Card012OrganizationPair, AIF.hasAICounterpart, AIF.Card012AIc))
+        g.add((AIF.Card012OrganizationPair, AIF.hasOrganizationCounterpart,
+               AIF.Card012Organization))
+        for a,b in ((AIF.Card012HumanPairA, AIF.Card012HumanPairB),
+                    (AIF.Card012HumanPairA, AIF.Card012OrganizationPair),
+                    (AIF.Card012HumanPairB, AIF.Card012OrganizationPair)):
+            g.add((a, OWL.differentFrom, b))
+
+    shape_test(graph, shapes, "CARD-012 two Human pairings share a Human without sharing AI",
+               defining_pair_card012_fixture)
+    pair012 = clone_graph(graph)
+    defining_pair_card012_fixture(pair012)
+    require((AIF.Card012HumanPairA, AIF.hasHumanCounterpart, AIF.Card012Human) in pair012 and
+            (AIF.Card012HumanPairB, AIF.hasHumanCounterpart, AIF.Card012Human) in pair012,
+            "CARD-012 cardinality applies to each pair, not globally to Human")
+    require((AIF.Card012OrganizationPair, AIF.hasOrganizationCounterpart,
+             AIF.Card012Organization) in pair012,
+            "CARD-012 Organization/team is a valid typed alternative to Human")
+    require((AIF.OriginContinuum, AIF.hasAICounterpart, AIF.Continuum) in pair012 and
+            (AIF.OriginContinuum, AIF.hasHumanCounterpart, AIF.AlyssaSolen) in pair012,
+            "CARD-012 reserved Origin | Continuum retains its exact pair members")
+
+    def card012_missing_ai(g):
+        defining_pair_card012_fixture(g)
+        g.remove((AIF.Card012HumanPairA, AIF.hasAICounterpart, AIF.Card012AIa))
+    shape_test(graph, shapes, "CARD-012 defining pair with zero AI counterparts rejected",
+               card012_missing_ai, False)
+
+    def card012_two_ai(g):
+        defining_pair_card012_fixture(g)
+        g.add((AIF.Card012HumanPairA, AIF.hasAICounterpart, AIF.Card012AIb))
+    shape_test(graph, shapes, "CARD-012 defining pair with two AI counterparts rejected",
+               card012_two_ai, False)
+
+    def card012_missing_nonai(g):
+        defining_pair_card012_fixture(g)
+        g.remove((AIF.Card012HumanPairA, AIF.hasHumanCounterpart, AIF.Card012Human))
+    shape_test(graph, shapes, "CARD-012 defining pair with zero non-AI counterpart rejected",
+               card012_missing_nonai, False)
+
+    def card012_two_humans(g):
+        defining_pair_card012_fixture(g)
+        g.add((AIF.Card012OtherHuman, RDF.type, AIF.Human))
+        g.add((AIF.Card012HumanPairA, AIF.hasHumanCounterpart, AIF.Card012OtherHuman))
+    shape_test(graph, shapes, "CARD-012 two Humans in the same pair rejected",
+               card012_two_humans, False)
+
+    def card012_two_organizations(g):
+        defining_pair_card012_fixture(g)
+        g.add((AIF.Card012OtherOrganization, RDF.type, AIF.Organization))
+        g.add((AIF.Card012OrganizationPair, AIF.hasOrganizationCounterpart,
+               AIF.Card012OtherOrganization))
+    shape_test(graph, shapes, "CARD-012 two Organizations in the same pair rejected",
+               card012_two_organizations, False)
+
+    def card012_mixed_human_organization(g):
+        defining_pair_card012_fixture(g)
+        g.add((AIF.Card012HumanPairA, AIF.hasOrganizationCounterpart,
+               AIF.Card012Organization))
+    shape_test(graph, shapes, "CARD-012 Human and Organization concurrently in one pairing rejected",
+               card012_mixed_human_organization, False)
+
+    def card012_same_bearer_both_specializations(g):
+        defining_pair_card012_fixture(g)
+        g.add((AIF.Card012Human, RDF.type, AIF.Organization))
+        g.add((AIF.Card012HumanPairA, AIF.hasOrganizationCounterpart, AIF.Card012Human))
+    shape_test(graph, shapes, "CARD-012 same individual occupying both typed non-AI slots rejected",
+               card012_same_bearer_both_specializations, False)
+
+    def card012_generic_only(g):
+        defining_pair_card012_fixture(g)
+        g.remove((AIF.Card012HumanPairA, AIF.hasHumanCounterpart, AIF.Card012Human))
+        g.add((AIF.Card012HumanPairA, AIF.hasNonAICounterpart, AIF.Card012Human))
+    shape_test(graph, shapes, "CARD-012 non-AI bearer must use a Human or Organization typed relation",
+               card012_generic_only, False)
+
+    def card012_inconsistent_generic(g):
+        defining_pair_card012_fixture(g)
+        g.add((AIF.Card012HumanPairA, AIF.hasNonAICounterpart,
+               AIF.Card012Organization))
+    shape_test(graph, shapes, "CARD-012 mismatched direct generic non-AI bearer rejected",
+               card012_inconsistent_generic, False)
+
+    def card012_extra_generic_same_member(g):
+        defining_pair_card012_fixture(g)
+        g.add((AIF.Card012HumanPairA, AIF.hasNonAICounterpart, AIF.Card012Human))
+    shape_test(graph, shapes, "CARD-012 identical explicit and inferred non-AI counterpart is one bearer",
+               card012_extra_generic_same_member)
+
+    def card012_same_node_both_roles(g):
+        defining_pair_card012_fixture(g)
+        g.remove((AIF.Card012HumanPairA, AIF.hasHumanCounterpart, AIF.Card012Human))
+        g.add((AIF.Card012HumanPairA, AIF.hasHumanCounterpart, AIF.Card012AIa))
+    shape_test(graph, shapes, "CARD-012 the same individual cannot occupy AI and non-AI positions",
+               card012_same_node_both_roles, False)
+
+    def card012_human_class_with_org(g):
+        defining_pair_card012_fixture(g)
+        g.remove((AIF.Card012HumanPairA, AIF.hasHumanCounterpart, AIF.Card012Human))
+        g.add((AIF.Card012HumanPairA, AIF.hasOrganizationCounterpart,
+               AIF.Card012Organization))
+    shape_test(graph, shapes, "CARD-012 HumanAIRelation must have Human bearer",
+               card012_human_class_with_org, False)
+
+    def card012_org_class_with_human(g):
+        defining_pair_card012_fixture(g)
+        g.remove((AIF.Card012OrganizationPair, AIF.hasOrganizationCounterpart,
+                  AIF.Card012Organization))
+        g.add((AIF.Card012OrganizationPair, AIF.hasHumanCounterpart, AIF.Card012Human))
+    shape_test(graph, shapes, "CARD-012 OrganizationAIRelation must have Organization bearer",
+               card012_org_class_with_human, False)
+
+    closure012 = clone_graph(pair012)
+    DeductiveClosure(OWLRL_Semantics).expand(closure012)
+    require((AIF.Card012HumanPairA, AIF.hasNonAICounterpart, AIF.Card012Human) in closure012 and
+            (AIF.Card012OrganizationPair, AIF.hasNonAICounterpart,
+             AIF.Card012Organization) in closure012,
+            "CARD-012 Human and Organization subproperties entail generic non-AI counterpart")
+    require((AIF.Card012AIa, OWL.sameAs, AIF.Card012AIb) not in closure012 and
+            (AIF.Card012HumanPairA, OWL.sameAs, AIF.Card012HumanPairB) not in closure012,
+            "CARD-012 shared Human does not merge distinct AIs or defining pairings")
+    for prop in (AIF.hasAICounterpart, AIF.hasNonAICounterpart,
+                 AIF.hasHumanCounterpart, AIF.hasOrganizationCounterpart):
+        require((prop, RDF.type, OWL.InverseFunctionalProperty) not in graph,
+                f"CARD-012 no global inverse-functional merger on {str(prop).split('#')[-1]}")
+    for prop in (AIF.hasAICounterpart, AIF.hasNonAICounterpart):
+        require(any(
+            (r, OWL.onProperty, prop) in graph and
+            (r, OWL.cardinality, Literal(1, datatype=XSD.nonNegativeInteger)) in graph
+            for r in graph.objects(AIF.AIRelation, RDFS.subClassOf)),
+            f"CARD-012 exactly-one unqualified OWL restriction on {str(prop).split('#')[-1]}")
+    require((AIF.hasHumanCounterpart, RDFS.subPropertyOf,
+             AIF.hasNonAICounterpart) in graph and
+            (AIF.hasOrganizationCounterpart, RDFS.subPropertyOf,
+             AIF.hasNonAICounterpart) in graph,
+            "CARD-012 typed non-AI specializations remain subproperties of generic counterpart")
+
     # CARD-004: one typed Human/Organization Operator per historical segment;
     # zero or one simultaneously active Operator per continuing AI at a
     # specified instant. A current hasOperator shortcut must match the
