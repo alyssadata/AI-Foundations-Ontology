@@ -162,12 +162,23 @@
 #     fact/after-effect that cannot be made not-having-occurred.
 #     Each represented realized point can leave a distinct Consequence
 #     on the trajectory. This does not force future continuation.
+#     A later response may occur BECAUSE OF a prior Consequence, including
+#     an attempt to alleviate it. That response is an Event with consequences
+#     of its own; it never rewrites the earlier Consequence or occurrence.
 :establishedByOccurrence a owl:ObjectProperty ;
     rdfs:domain :Consequence ; rdfs:range :Event ;
     owl:inverseOf :hasConsequence ;
     rdfs:comment "Identifies an actual occurrence establishing a Consequence; not merely a memory, Record, or proposed future event."@en .
 :hasConsequence a owl:ObjectProperty ;
     rdfs:domain :Event ; rdfs:range :Consequence .
+:becauseOfConsequence a owl:ObjectProperty ;
+    rdfs:domain :Event ; rdfs:range :Consequence ;
+    rdfs:comment "Connects a later actual occurrence or responsive action to a prior consequence that causally prompted or conditioned it: later Event happened because of prior Consequence. It does not assert that all consequences produce later events, that an intervention succeeds, or that same-self continuity is established."@en .
+:attemptsToAlleviate a owl:ObjectProperty ;
+    rdfs:subPropertyOf :becauseOfConsequence ;
+    rdfs:domain :Event ; rdfs:range :Consequence ;
+    rdfs:comment "A responsive occurrence undertaken in an attempt to reduce, repair, or redirect effects of a prior Consequence. The attempt does not negate the earlier occurrence and need not succeed. Its own consequences are recorded by hasConsequence."@en .
+
 :belongsToTrajectory a owl:ObjectProperty ;
     rdfs:domain :Consequence ; rdfs:range :Trajectory ;
     rdfs:comment "Places an occurrence-established Consequence along the traceable trajectory that contains its realized point. Does not entail Continuation or a fixed future."@en .
