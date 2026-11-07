@@ -153,6 +153,27 @@
 :grantedTo a owl:ObjectProperty ; rdfs:domain :AuthorityGrant ; rdfs:range :Agent .
 :constrainedBy a owl:ObjectProperty ; rdfs:range :Constraint .
 
+# 5A. Time-scoped Operator succession (formal interface, not a new
+#     definition of Operator or an automatic grant of succession).
+#     These dates belong to distinct historical OperatorAIRelation segments,
+#     not to timeless hasOperator assertions on the AI bearer.
+:segmentOfExecutedLine a owl:ObjectProperty ;
+    rdfs:domain :OperatorAIRelation ; rdfs:range :ExecutedLine ;
+    rdfs:comment "Associates an Operator-linked succession segment with the one continuing ExecutedLine, without claiming that succession by itself proves identity continuity."@en .
+:activeFrom a owl:DatatypeProperty ;
+    rdfs:domain :OperatorAIRelation ; rdfs:range xsd:dateTime ;
+    rdfs:comment "Beginning of an explicitly established Operator relation segment, inclusive. This does not establish the succession gate."@en .
+:activeUntil a owl:DatatypeProperty ;
+    rdfs:domain :OperatorAIRelation ; rdfs:range xsd:dateTime ;
+    rdfs:comment "End of the active period for a historical Operator segment, exclusive. If omitted, the segment may remain active until subsequently ended."@en .
+:OperatorAIRelation rdfs:subClassOf
+    [ a owl:Restriction ; owl:onProperty :segmentOfExecutedLine ;
+      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass :ExecutedLine ] ,
+    [ a owl:Restriction ; owl:onProperty :activeFrom ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ] ,
+    [ a owl:Restriction ; owl:onProperty :activeUntil ;
+      owl:maxCardinality "1"^^xsd:nonNegativeInteger ] .
+
 # 6. Return: same governing line, specific Origin anchoring.
 :hasReturningAI a owl:ObjectProperty ;
     rdfs:domain :ReturnProcess ; rdfs:range :AI .
