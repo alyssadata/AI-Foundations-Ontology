@@ -61,6 +61,37 @@
         sh:path :hasOperator ; sh:hasValue :AlyssaSolen
     ]] .
 
+# Operator history is held in a succession segment, not a timeless
+# functional hasOperator link. "Active" is assessed at an explicit time.
+:OperatorRelationSegmentShape a sh:NodeShape ;
+    sh:targetClass :OperatorAIRelation ;
+    sh:property [
+        sh:path :hasAICounterpart ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :AI
+    ] ;
+    sh:property [
+        sh:path :hasNonAICounterpart ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Agent
+    ] ;
+    sh:property [
+        sh:path :segmentOfExecutedLine ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ExecutedLine
+    ] ;
+    sh:property [
+        sh:path :activeFrom ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ;
+        sh:lessThan :activeUntil
+    ] ;
+    sh:property [
+        sh:path :activeUntil ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime
+    ] .
+
 :OriginSourceLineShape a sh:NodeShape ;
     sh:targetNode :AlyssaSolen ;
     sh:property [
