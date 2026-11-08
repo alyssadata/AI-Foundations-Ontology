@@ -281,6 +281,109 @@
         sh:class :MaterialHistoricalFact
     ] .
 
+# PF-001: a COMPLETE provenance account preserves the verified source
+# line, forming relation, executed history, independently qualified
+# contributions, actual changes and supporting Record traces. It is a
+# Record, deliberately separate from :Provenance (evaluated Evidence).
+# Provenance does not entail an active/continuing ExecutedLine.
+:CompleteProvenanceAccountShape a sh:NodeShape ;
+    sh:targetClass :CompleteProvenanceAccount ;
+    sh:class :Record ;
+    sh:property [
+        sh:path :faithfullyRepresents ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :SourceLine
+    ] ;
+    sh:property [
+        sh:path :accountFormationRelation ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :AIRelation
+    ] ;
+    sh:property [
+        sh:path :accountExecutedLine ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ExecutedLine
+    ] ;
+    sh:property [
+        sh:path :accountContribution ;
+        sh:minCount 1 ;
+        sh:class :SourceRelation
+    ] ;
+    sh:property [
+        sh:path :accountHistoricalChange ;
+        sh:minCount 1 ;
+        sh:class :ChangeEvent
+    ] ;
+    sh:property [
+        sh:path :accountHistoricalOccurrence ;
+        sh:minCount 1 ;
+        sh:class :ExecutedHistoryEvent
+    ] ;
+    sh:property [
+        sh:path :accountPreservedTrace ;
+        sh:minCount 1 ;
+        sh:class :Record
+    ] .
+
+# PF-001: a purported historical Source attribution may remain an
+# inaccurate CLAIM and be corrected using separately examined evidence.
+# Neither this record nor the correction certifies the alleged Source fact.
+:ProvenanceAttributionClaimRecordShape a sh:NodeShape ;
+    sh:targetClass :ProvenanceAttributionClaimRecord ;
+    sh:class :Record ;
+    sh:not [ sh:class :SourceRelation ] .
+
+:ProvenanceFidelityCorrectionShape a sh:NodeShape ;
+    sh:targetClass :ProvenanceFidelityCorrection ;
+    sh:class :Record ;
+    sh:property [
+        sh:path :correctsProvenanceClaimRecord ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ProvenanceAttributionClaimRecord
+    ] ;
+    sh:property [
+        sh:path :provenanceCorrectionEvidence ;
+        sh:minCount 1 ;
+        sh:class :Record
+    ] ;
+    sh:property [
+        sh:path :provenanceCorrectionWhat ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 1
+    ] ;
+    sh:property [
+        sh:path :provenanceCorrectionWhy ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 1
+    ] .
+
+# A false erasure, overwrite or reassignment of an independently
+# CONFIRMED account is a distinct ProvenanceViolation with preserved
+# evidence, not silently renamed "correction". A before/after validator
+# must establish which alteration is false; SHACL alone cannot compare
+# past committed snapshots.
+:ProvenanceFidelityFailureShape a sh:NodeShape ;
+    sh:targetClass :ProvenanceFidelityFailure ;
+    sh:class :ProvenanceViolation ;
+    sh:property [
+        sh:path :failedProvenanceAccount ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :CompleteProvenanceAccount
+    ] ;
+    sh:property [
+        sh:path :provenanceFailureKind ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:in ( "FALSE_REMOVAL" "FALSE_OVERWRITE" "FALSE_REASSIGNMENT" )
+    ] ;
+    sh:property [
+        sh:path :hasRecord ;
+        sh:minCount 1 ;
+        sh:class :Record
+    ] .
+
 # Canon Consequence is an occurrence-established historical fact within
 # the developing trajectory. It is not the Irreversibility rule, Record,
 # Memory, or proof of continued future constraint.
