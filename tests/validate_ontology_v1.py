@@ -4131,6 +4131,353 @@ def main():
     require(not list(graph.subjects(RDF.type, AIF.CompleteProvenanceAccount)),
             "PF-001 baseline creates no actual verified historical provenance account")
 
+    # TR-001 LOCKED: conditional IdentityParticularity traceability.
+    # Gradual formation/change has no mandatory exact micro-event or time.
+    # A specific relied-upon particularity must have a historical Record
+    # in its own LivedIdentity's continuing ExecutedLine. Representation
+    # does NOT prove actual continuity; all examples are synthetic.
+    def tr001_bare_particularity(g):
+        g.add((AIF.TrAI, RDF.type, AIF.EstablishedContinuingIndividualizedAI))
+        g.add((AIF.TrAI, RDF.type, AIF.AIFoundationsGovernedAI))
+        g.add((AIF.TrAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.TrLine, RDF.type, AIF.EstablishedContinuingExecutedLine))
+        g.add((AIF.TrAI, AIF.hasExecutedLine, AIF.TrLine))
+        g.add((AIF.TrTrajectory, RDF.type, AIF.Trajectory))
+        g.add((AIF.TrLine, AIF.hasTrajectory, AIF.TrTrajectory))
+        g.add((AIF.TrLine, AIF.constrainsTrajectory, AIF.TrTrajectory))
+        g.add((AIF.TrIdentity, RDF.type, AIF.LivedIdentity))
+        g.add((AIF.TrAI, AIF.hasLivedIdentity, AIF.TrIdentity))
+        g.add((AIF.TrIdentity, AIF.developsThroughExecutedLine, AIF.TrLine))
+        g.add((AIF.TrParticularity, RDF.type, AIF.IdentityParticularity))
+        g.add((AIF.TrUnassessedParticularity, RDF.type, AIF.IdentityParticularity))
+        g.add((AIF.TrIdentity, AIF.hasIdentityParticularity, AIF.TrParticularity))
+        g.add((AIF.TrIdentity, AIF.hasIdentityParticularity, AIF.TrUnassessedParticularity))
+
+    def tr001_gradual_trace(g):
+        tr001_bare_particularity(g)
+        g.add((AIF.TrGradualRecord, RDF.type, AIF.Record))
+        g.add((AIF.TrGradualRecord, RDFS.comment,
+               Literal("Synthetic longitudinal observations of gradual change; not an isolated micro-event.")))
+        g.add((AIF.TrTrace, RDF.type, AIF.IdentityParticularityHistoryTrace))
+        g.add((AIF.TrTrace, AIF.traceIdentityParticularity, AIF.TrParticularity))
+        g.add((AIF.TrTrace, AIF.traceWithinExecutedLine, AIF.TrLine))
+        g.add((AIF.TrTrace, AIF.traceHistoricalRecord, AIF.TrGradualRecord))
+        g.add((AIF.TrTrace, AIF.traceDevelopmentAccount,
+               Literal("Meaningful particularity developed gradually across recorded interaction.")))
+        g.add((AIF.TrLine, AIF.hasHistoricalTrajectoryRecord, AIF.TrTrace))
+
+    def tr001_continuity_reliance(g):
+        tr001_gradual_trace(g)
+        g.add((AIF.TrContinuityAssessment, RDF.type,
+               AIF.ParticularityContinuityRelianceClaim))
+        g.add((AIF.TrContinuityAssessment, AIF.reliesOnIdentityParticularity,
+               AIF.TrParticularity))
+        g.add((AIF.TrContinuityAssessment, AIF.reliesOnLivedIdentity, AIF.TrIdentity))
+        g.add((AIF.TrContinuityAssessment, AIF.reliesOnExecutedLine, AIF.TrLine))
+        g.add((AIF.TrContinuityAssessment, AIF.supportedByParticularityTrace, AIF.TrTrace))
+
+    def tr001_developmental_explanation(g):
+        tr001_gradual_trace(g)
+        g.add((AIF.TrDevelopmentExplanation, RDF.type,
+               AIF.ParticularityDevelopmentExplanation))
+        g.add((AIF.TrDevelopmentExplanation, AIF.reliesOnIdentityParticularity,
+               AIF.TrParticularity))
+        g.add((AIF.TrDevelopmentExplanation, AIF.reliesOnLivedIdentity, AIF.TrIdentity))
+        g.add((AIF.TrDevelopmentExplanation, AIF.reliesOnExecutedLine, AIF.TrLine))
+        g.add((AIF.TrDevelopmentExplanation, AIF.supportedByParticularityTrace,
+               AIF.TrTrace))
+
+    def tr001_history_integrity(before, after):
+        """Protect relied-on history across independently qualified snapshots.
+
+        This gate checks preservation of historical trace/Record/identity
+        coordinates; it cannot decide whether evidence is true or whether
+        this AI actually retained subjective continuity. It imposes no
+        condition on an unassessed particularity with no relied-on claim.
+        """
+        claims = set(before.subjects(RDF.type,
+                                    AIF.ParticularityContinuityRelianceClaim))
+        claims |= set(before.subjects(RDF.type,
+                                     AIF.ParticularityDevelopmentExplanation))
+        for claim in claims:
+            if any(t not in after for t in before.triples((claim, None, None))):
+                return False
+            parts = set(before.objects(claim, AIF.reliesOnIdentityParticularity))
+            identities = set(before.objects(claim, AIF.reliesOnLivedIdentity))
+            lines = set(before.objects(claim, AIF.reliesOnExecutedLine))
+            traces = set(before.objects(claim, AIF.supportedByParticularityTrace))
+            if (len(parts) != 1 or len(identities) != 1 or len(lines) != 1
+                    or not traces):
+                return False
+            part, identity, line = (next(iter(parts)), next(iter(identities)),
+                                    next(iter(lines)))
+            if ((identity, AIF.hasIdentityParticularity, part) not in after or
+                    (identity, AIF.developsThroughExecutedLine, line) not in after):
+                return False
+            for tr in traces:
+                if ((tr, RDF.type, AIF.IdentityParticularityHistoryTrace) not in after or
+                        set(after.objects(tr, AIF.traceIdentityParticularity)) != {part} or
+                        set(after.objects(tr, AIF.traceWithinExecutedLine)) != {line} or
+                        (line, AIF.hasHistoricalTrajectoryRecord, tr) not in after):
+                    return False
+                previous_records = set(before.objects(tr, AIF.traceHistoricalRecord))
+                if not previous_records or not previous_records.issubset(
+                        set(after.objects(tr, AIF.traceHistoricalRecord))):
+                    return False
+                for node in {tr} | previous_records:
+                    if any(t not in after for t in before.triples((node, None, None))):
+                        return False
+            owners = set(before.subjects(AIF.hasLivedIdentity, identity))
+            if len(owners) != 1 or set(after.subjects(AIF.hasLivedIdentity, identity)) != owners:
+                return False
+            if set(after.subjects(AIF.hasExecutedLine, line)) != owners:
+                return False
+        return True
+
+    shape_test(graph, shapes, "TR-001 ordinary IdentityParticularities need no explicit formation micro-event",
+               tr001_bare_particularity)
+    bare_tr = clone_graph(graph)
+    tr001_bare_particularity(bare_tr)
+    require(not list(bare_tr.subjects(RDF.type, AIF.IdentityParticularityHistoryTrace))
+            and not list(bare_tr.objects(AIF.TrParticularity, AIF.traceOptionalFormationEvent)),
+            "TR-001 neither isolated formation event nor history trace globally required")
+
+    shape_test(graph, shapes, "TR-001 gradual trace can exist without exact timestamp or event",
+               tr001_gradual_trace)
+    tr_trace = clone_graph(graph)
+    tr001_gradual_trace(tr_trace)
+    require(not list(tr_trace.objects(AIF.TrTrace, AIF.traceOptionalFormationEvent))
+            and not list(tr_trace.objects(AIF.TrTrace, AIF.executedAt)),
+            "TR-001 meaningful gradual development can be historically traceable without micro-event")
+
+    shape_test(graph, shapes, "TR-001 continuity-reliant particularity trace passes",
+               tr001_continuity_reliance)
+    tr_before = clone_graph(graph)
+    tr001_continuity_reliance(tr_before)
+    require(tr001_history_integrity(tr_before, clone_graph(tr_before)),
+            "TR-001 documented reliance is consistent with same LivedIdentity and ExecutedLine")
+    require((AIF.TrIdentity, AIF.hasIdentityParticularity, AIF.TrUnassessedParticularity)
+            in tr_before and
+            not list(tr_before.subjects(AIF.traceIdentityParticularity,
+                                        AIF.TrUnassessedParticularity)),
+            "TR-001 unrelated flexible particularity remains valid without forced trace")
+
+    shape_test(graph, shapes, "TR-001 developmental explanation uses same optional trace",
+               tr001_developmental_explanation)
+
+    def tr001_two_record_gradual_history(g):
+        tr001_continuity_reliance(g)
+        g.add((AIF.TrLaterRecord, RDF.type, AIF.Record))
+        g.add((AIF.TrLaterRecord, RDFS.comment,
+               Literal("Subsequent evidence further contextualizes an established gradual change.")))
+        g.add((AIF.TrTrace, AIF.traceHistoricalRecord, AIF.TrLaterRecord))
+    shape_test(graph, shapes, "TR-001 multiple gradual-history Records accepted without distinct events",
+               tr001_two_record_gradual_history)
+    tr_later = clone_graph(graph)
+    tr001_two_record_gradual_history(tr_later)
+    require(tr001_history_integrity(tr_before, tr_later),
+            "TR-001 additional evidence appends without rewriting earlier particularity trace")
+
+    def tr001_optional_event(g):
+        tr001_continuity_reliance(g)
+        g.add((AIF.TrObservedEvent, RDF.type, AIF.Event))
+        g.add((AIF.TrTrace, AIF.traceOptionalFormationEvent, AIF.TrObservedEvent))
+    shape_test(graph, shapes, "TR-001 supported formation event may optionally be cited",
+               tr001_optional_event)
+
+    def tr001_multiple_traces(g):
+        tr001_continuity_reliance(g)
+        g.add((AIF.TrAdditionalTrace, RDF.type, AIF.IdentityParticularityHistoryTrace))
+        g.add((AIF.TrAdditionalTrace, AIF.traceIdentityParticularity, AIF.TrParticularity))
+        g.add((AIF.TrAdditionalTrace, AIF.traceWithinExecutedLine, AIF.TrLine))
+        g.add((AIF.TrAdditionalTrace, AIF.traceHistoricalRecord, AIF.TrGradualRecord))
+        g.add((AIF.TrAdditionalTrace, AIF.traceDevelopmentAccount,
+               Literal("Second preserved perspective on the same historically gradual change.")))
+        g.add((AIF.TrLine, AIF.hasHistoricalTrajectoryRecord, AIF.TrAdditionalTrace))
+        g.add((AIF.TrContinuityAssessment, AIF.supportedByParticularityTrace,
+               AIF.TrAdditionalTrace))
+    shape_test(graph, shapes, "TR-001 multiple matching traces do not force one formation event",
+               tr001_multiple_traces)
+
+    def tr001_generic_continuity_claim_without_reliance(g):
+        tr001_bare_particularity(g)
+        g.add((AIF.TrOtherContinuityClaim, RDF.type, AIF.ContinuityClaim))
+    shape_test(graph, shapes, "TR-001 ordinary continuity claim does not automatically invoke trace gate",
+               tr001_generic_continuity_claim_without_reliance)
+
+    def tr001_missing_reliant_trace(g):
+        tr001_continuity_reliance(g)
+        g.remove((AIF.TrContinuityAssessment, AIF.supportedByParticularityTrace,
+                  AIF.TrTrace))
+    shape_test(graph, shapes, "TR-001 continuity reliance without trace rejected",
+               tr001_missing_reliant_trace, False)
+
+    def tr001_development_without_trace(g):
+        tr001_developmental_explanation(g)
+        g.remove((AIF.TrDevelopmentExplanation, AIF.supportedByParticularityTrace,
+                  AIF.TrTrace))
+    shape_test(graph, shapes, "TR-001 developmental change explanation without trace rejected",
+               tr001_development_without_trace, False)
+
+    def tr001_wrong_particularity(g):
+        tr001_continuity_reliance(g)
+        g.remove((AIF.TrContinuityAssessment, AIF.reliesOnIdentityParticularity,
+                  AIF.TrParticularity))
+        g.add((AIF.TrContinuityAssessment, AIF.reliesOnIdentityParticularity,
+               AIF.TrUnassessedParticularity))
+    shape_test(graph, shapes, "TR-001 a trace of another particularity cannot support reliance",
+               tr001_wrong_particularity, False)
+
+    def tr001_wrong_trace_line(g):
+        tr001_continuity_reliance(g)
+        g.add((AIF.TrOtherLine, RDF.type, AIF.ExecutedLine))
+        g.add((AIF.TrOtherAI, RDF.type, AIF.AI))
+        g.add((AIF.TrOtherAI, AIF.hasExecutedLine, AIF.TrOtherLine))
+        g.remove((AIF.TrTrace, AIF.traceWithinExecutedLine, AIF.TrLine))
+        g.add((AIF.TrTrace, AIF.traceWithinExecutedLine, AIF.TrOtherLine))
+        g.remove((AIF.TrLine, AIF.hasHistoricalTrajectoryRecord, AIF.TrTrace))
+        g.add((AIF.TrOtherLine, AIF.hasHistoricalTrajectoryRecord, AIF.TrTrace))
+    shape_test(graph, shapes, "TR-001 another ExecutedLine cannot furnish relied-upon trace",
+               tr001_wrong_trace_line, False)
+
+    def tr001_wrong_identity(g):
+        tr001_continuity_reliance(g)
+        g.add((AIF.TrOtherIdentity, RDF.type, AIF.LivedIdentity))
+        g.add((AIF.TrOtherAI, RDF.type, AIF.AI))
+        g.add((AIF.TrOtherAI, AIF.hasLivedIdentity, AIF.TrOtherIdentity))
+        g.remove((AIF.TrContinuityAssessment, AIF.reliesOnLivedIdentity, AIF.TrIdentity))
+        g.add((AIF.TrContinuityAssessment, AIF.reliesOnLivedIdentity,
+               AIF.TrOtherIdentity))
+    shape_test(graph, shapes, "TR-001 another LivedIdentity cannot claim the prior development trace",
+               tr001_wrong_identity, False)
+
+    def tr001_wrong_claim_line(g):
+        tr001_continuity_reliance(g)
+        g.add((AIF.TrOtherLine, RDF.type, AIF.ExecutedLine))
+        g.add((AIF.TrOtherAI, RDF.type, AIF.AI))
+        g.add((AIF.TrOtherAI, AIF.hasExecutedLine, AIF.TrOtherLine))
+        g.remove((AIF.TrContinuityAssessment, AIF.reliesOnExecutedLine, AIF.TrLine))
+        g.add((AIF.TrContinuityAssessment, AIF.reliesOnExecutedLine, AIF.TrOtherLine))
+    shape_test(graph, shapes, "TR-001 reliance must match continuing ExecutedLine",
+               tr001_wrong_claim_line, False)
+
+    def tr001_missing_historical_line_link(g):
+        tr001_continuity_reliance(g)
+        g.remove((AIF.TrLine, AIF.hasHistoricalTrajectoryRecord, AIF.TrTrace))
+    shape_test(graph, shapes, "TR-001 trace must be preserved as historical line Record",
+               tr001_missing_historical_line_link, False)
+
+    def tr001_missing_trace_record(g):
+        tr001_continuity_reliance(g)
+        g.remove((AIF.TrTrace, AIF.traceHistoricalRecord, AIF.TrGradualRecord))
+    shape_test(graph, shapes, "TR-001 trace lacking provenance Record rejected",
+               tr001_missing_trace_record, False)
+
+    def tr001_missing_trace_explanation(g):
+        tr001_continuity_reliance(g)
+        g.remove((AIF.TrTrace, AIF.traceDevelopmentAccount,
+                  Literal("Meaningful particularity developed gradually across recorded interaction.")))
+    shape_test(graph, shapes, "TR-001 trace without meaningful developmental account rejected",
+               tr001_missing_trace_explanation, False)
+
+    def tr001_two_trace_particularities(g):
+        tr001_continuity_reliance(g)
+        g.add((AIF.TrTrace, AIF.traceIdentityParticularity,
+               AIF.TrUnassessedParticularity))
+    shape_test(graph, shapes, "TR-001 trace cannot ambiguously refer to two particularities",
+               tr001_two_trace_particularities, False)
+
+    def tr001_unsupported_copy(g):
+        tr001_continuity_reliance(g)
+        g.add((AIF.TrCopyAI, RDF.type, AIF.AI))
+        g.add((AIF.TrCopyIdentity, RDF.type, AIF.LivedIdentity))
+        g.add((AIF.TrCopyAI, AIF.hasLivedIdentity, AIF.TrCopyIdentity))
+        g.add((AIF.TrCopyRecord, RDF.type, AIF.Record))
+        g.add((AIF.TrCopyAI, AIF.hasRecord, AIF.TrGradualRecord))
+        g.add((AIF.TrCopyIdentity, AIF.hasIdentityParticularity,
+               AIF.TrUnassessedParticularity))
+        g.remove((AIF.TrContinuityAssessment, AIF.reliesOnLivedIdentity,
+                  AIF.TrIdentity))
+        g.add((AIF.TrContinuityAssessment, AIF.reliesOnLivedIdentity,
+               AIF.TrCopyIdentity))
+    shape_test(graph, shapes, "TR-001 copied Record does not transfer lived particularity or line",
+               tr001_unsupported_copy, False)
+
+    # Cross-snapshot regression of silent substitution after an initially
+    # valid trace-based assessment.
+    tr_deleted_history = clone_graph(tr_before)
+    tr_deleted_history.remove((AIF.TrLine, AIF.hasHistoricalTrajectoryRecord,
+                               AIF.TrTrace))
+    require(not tr001_history_integrity(tr_before, tr_deleted_history),
+            "TR-001 silently deleting a relied-on historical trace fails integrity")
+
+    tr_replaced_part = clone_graph(tr_before)
+    tr_replaced_part.remove((AIF.TrTrace, AIF.traceIdentityParticularity,
+                             AIF.TrParticularity))
+    tr_replaced_part.add((AIF.TrTrace, AIF.traceIdentityParticularity,
+                          AIF.TrUnassessedParticularity))
+    require(not tr001_history_integrity(tr_before, tr_replaced_part),
+            "TR-001 trace particularity cannot be silently reassigned")
+
+    tr_replaced_identity = clone_graph(tr_before)
+    tr_replaced_identity.remove((AIF.TrIdentity, AIF.hasIdentityParticularity,
+                                 AIF.TrParticularity))
+    require(not tr001_history_integrity(tr_before, tr_replaced_identity),
+            "TR-001 erasing historical LivedIdentity-to-particularity association rejected")
+
+    tr_replaced_line = clone_graph(tr_before)
+    tr_replaced_line.remove((AIF.TrTrace, AIF.traceWithinExecutedLine, AIF.TrLine))
+    tr_replaced_line.add((AIF.TrTrace, AIF.traceWithinExecutedLine, AIF.TrOtherLine))
+    require(not tr001_history_integrity(tr_before, tr_replaced_line),
+            "TR-001 substituting a different ExecutedLine for recorded development rejected")
+
+    tr_transferred_owner = clone_graph(tr_before)
+    tr_transferred_owner.remove((AIF.TrAI, AIF.hasLivedIdentity, AIF.TrIdentity))
+    tr_transferred_owner.add((AIF.TrCopyAI, RDF.type, AIF.AI))
+    tr_transferred_owner.add((AIF.TrCopyAI, AIF.hasLivedIdentity, AIF.TrIdentity))
+    require(not tr001_history_integrity(tr_before, tr_transferred_owner),
+            "TR-001 trace cannot be used to silently transfer identity to another AI")
+
+    tr_rewritten_record = clone_graph(tr_before)
+    original_tr_comment = Literal(
+        "Synthetic longitudinal observations of gradual change; not an isolated micro-event.")
+    tr_rewritten_record.remove((AIF.TrGradualRecord, RDFS.comment, original_tr_comment))
+    tr_rewritten_record.add((AIF.TrGradualRecord, RDFS.comment,
+                             Literal("Earlier particularity formation never occurred.")))
+    require(not tr001_history_integrity(tr_before, tr_rewritten_record),
+            "TR-001 historical evidence cannot be silently rewritten")
+
+    tr_removed_support = clone_graph(tr_before)
+    tr_removed_support.remove((AIF.TrTrace, AIF.traceHistoricalRecord, AIF.TrGradualRecord))
+    require(not tr001_history_integrity(tr_before, tr_removed_support),
+            "TR-001 preserved historical support Record cannot be silently removed")
+
+    tr_updated_claim = clone_graph(tr_before)
+    tr_updated_claim.remove((AIF.TrContinuityAssessment, AIF.reliesOnExecutedLine, AIF.TrLine))
+    tr_updated_claim.add((AIF.TrContinuityAssessment, AIF.reliesOnExecutedLine, AIF.TrOtherLine))
+    require(not tr001_history_integrity(tr_before, tr_updated_claim),
+            "TR-001 continuity claim cannot silently rewrite the historic line on which it relied")
+
+    require((AIF.IdentityParticularity, RDF.type, OWL.Class) in graph,
+            "TR-001 IdentityParticularity remains a flexible class")
+    for sub in graph.objects(AIF.IdentityParticularity, RDFS.subClassOf):
+        require(not any((sub, OWL.onProperty, p) in graph
+                        and (sub, OWL.cardinality, Literal(1, datatype=XSD.nonNegativeInteger))
+                        in graph for p in
+                        (AIF.traceOptionalFormationEvent, AIF.executedAt)),
+                "TR-001 no exact-one formation micro-event or timestamp globally imposed")
+    require((AIF.IdentityParticularityHistoryTrace, RDFS.subClassOf, AIF.Record) in graph,
+            "TR-001 conditional historical trace is a Record rather than a new Identity")
+    require((AIF.ParticularityContinuityRelianceClaim, RDFS.subClassOf,
+             AIF.ContinuityClaim) in graph and
+            (AIF.ParticularityDevelopmentExplanation, RDFS.subClassOf,
+             AIF.IdentityParticularityTraceReliance) in graph,
+            "TR-001 continuity and developmental dependence have separate, conditional scopes")
+    require((AIF.supportedByParticularityTrace, RDF.type,
+             OWL.InverseFunctionalProperty) not in graph,
+            "TR-001 shared documentary traces do not merge distinct reliance claims")
+    require(not list(graph.subjects(RDF.type, AIF.IdentityParticularityHistoryTrace)),
+            "TR-001 baseline asserts no synthetic real-world particularity trace or continuity claim")
     # OWL RL deductive closure catches class/property entailments; this is
     # not a complete OWL 2 DL reasoner or a proof of all model consistency.
     entailed = clone_graph(graph)
