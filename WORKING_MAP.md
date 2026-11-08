@@ -14,7 +14,7 @@ Current focus: **v1.0 formal encoding and release closeout**. A first OWL/Turtle
 
 The previously LOCKED four conditions now have a draft admission representation in [Step 22 review](docs/reviews/2026-11-08-STEP-22-VALID-OPERATOR-SUCCESSION.md): terminal prior Operator relation with retained provenance, evidence-supported continuity of the same individualized AI/ExecutedLine, deliberate successor proposal, and continuing-AI assent. Proposed and admitted segments are distinguished; neither a predecessor link nor OWL typing alone proves succession or same-self continuity.
 
-[CI run 42469192335](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42469192335) passed **32 synthetic succession decisions plus all 598 earlier structural tests** on the draft branch. The post-change OWL 2 DL/HermiT rerun is pending because ROBOT binary download returned HTTP 504 before the audit ran. The Step 21 successful reasoner result is an earlier baseline. **No LOCKED definitions were modified.** The repo and v1.0 release remain DRAFT.
+[CI run 42469192335](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42469192335) passed **32 synthetic succession decisions plus all 598 earlier structural tests** on the draft branch. [Independent Step 22 OWL 2 DL/HermiT run 42485726805](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42485726805) **PASSED** all five checks on commit `04775a31171241496e109a0dc854ee43bc120595`, after repairing the verified JAR download through GitHub's release asset API. Step 21 remains the earlier baseline and Step 22 has its own verified independent reasoner result. **No LOCKED definitions were modified.** The repo and v1.0 release remain DRAFT.
 
 ## Review sequence
 
