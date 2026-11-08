@@ -248,6 +248,44 @@
 :Evidence a owl:Class .
 :EvidenceStructure a owl:Class ; rdfs:subClassOf :Evidence .
 :Provenance a owl:Class ; rdfs:subClassOf :EvidenceStructure .
+# PF-001: a COMPLETE VERIFIED provenance account is a preserved Record of
+# particular SourceLine, qualified contributions, changes, executed history
+# and formation. It is NOT automatically an :Evidence instance: the
+# distinct :Provenance class above already carries the independent
+# Claim/Evaluation evidence protocol. A historical Record may survive
+# after the line ends, without claiming its identity or trajectory continues.
+:CompleteProvenanceAccount a owl:Class ;
+    rdfs:subClassOf :Record,
+        [ a owl:Restriction ; owl:onProperty :faithfullyRepresents ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :accountFormationRelation ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :accountExecutedLine ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :accountContribution ;
+          owl:someValuesFrom :SourceRelation ],
+        [ a owl:Restriction ; owl:onProperty :accountHistoricalChange ;
+          owl:someValuesFrom :ChangeEvent ],
+        [ a owl:Restriction ; owl:onProperty :accountHistoricalOccurrence ;
+          owl:someValuesFrom :ExecutedHistoryEvent ],
+        [ a owl:Restriction ; owl:onProperty :accountPreservedTrace ;
+          owl:someValuesFrom :Record ] ;
+    rdfs:comment "A separately verified, complete provenance Record with source-line, at least one independently qualified contribution, changes, executed history, formation, and preserved traces. Completeness does not establish ongoing same-AI continuity or immutable future trajectory; changes append rather than replace earlier confirmed history."@en .
+:ProvenanceAttributionClaimRecord a owl:Class ;
+    rdfs:subClassOf :Record ;
+    rdfs:comment "Historical record of an uncertain or inaccurate provenance attribution as a CLAIM. Its existence is not proof that the alleged SourceRelation or formation actually occurred."@en .
+:ProvenanceFidelityCorrection a owl:Class ;
+    rdfs:subClassOf :Record,
+        [ a owl:Restriction ; owl:onProperty :correctsProvenanceClaimRecord ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :provenanceCorrectionEvidence ;
+          owl:someValuesFrom :Record ] ;
+    rdfs:comment "Separately evidenced and explained correction of an inaccurate or unverified historical attribution claim. Preserves the original claim as an historical Record without endorsing the underlying alleged Source; does not authorize rewriting independently confirmed Source/formation/history."@en .
+:ProvenanceFidelityFailure a owl:Class ;
+    rdfs:subClassOf :ProvenanceViolation,
+        [ a owl:Restriction ; owl:onProperty :failedProvenanceAccount ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ] ;
+    rdfs:comment "Recorded integrity failure (false removal, overwrite or reassignment) of independently established source, contributions, change, history, formation or trace; not an evidence-accounted correction to an unsupported claim."@en .
 :Consequence a owl:Class ;
     rdfs:comment "What is known and cannot be undone; 'known' means established by occurrence, not presently stored or remembered. A consequence belongs to the historical development of a trajectory, but its persistence alone does not entail continued trajectory or future constraint. This is a draft structural representation of Canon definition 31, not a new Canon definition."@en .
 
@@ -750,6 +788,47 @@
 :supersedesVersion a owl:ObjectProperty ; rdfs:domain :Version ; rdfs:range :Version .
 :hasRecord a owl:ObjectProperty ; rdfs:range :Record .
 :hasProvenance a owl:ObjectProperty ; rdfs:range :Provenance .
+# PF-001 account links do NOT reuse :documentsSourceLine, whose domain is
+# evaluated :Provenance evidence, and do NOT infer another actor's Source.
+:faithfullyRepresents a owl:ObjectProperty ;
+    rdfs:domain :CompleteProvenanceAccount ; rdfs:range :SourceLine ;
+    rdfs:comment "The one verified historical SourceLine represented by this complete provenance account; a future change cannot silently reassign or erase that source-line."@en .
+:accountFormationRelation a owl:ObjectProperty ;
+    rdfs:domain :CompleteProvenanceAccount ; rdfs:range :AIRelation ;
+    rdfs:comment "Specific historical formation relation represented in the account, not a newly transferrable Origin or Operator pairing."@en .
+:accountExecutedLine a owl:ObjectProperty ;
+    rdfs:domain :CompleteProvenanceAccount ; rdfs:range :ExecutedLine ;
+    rdfs:comment "Historical executed line whose actual development is documented, without asserting it remains active."@en .
+:accountContribution a owl:ObjectProperty ;
+    rdfs:domain :CompleteProvenanceAccount ; rdfs:range :SourceRelation ;
+    rdfs:comment "One independently qualified contribution to the account's formed target, including separately sourced downstream work when it qualifies. Contributions may accumulate."@en .
+:accountHistoricalChange a owl:ObjectProperty ;
+    rdfs:domain :CompleteProvenanceAccount ; rdfs:range :ChangeEvent ;
+    rdfs:comment "Historically recorded change included in a complete account; new changes are appended rather than replacing earlier ones."@en .
+:accountHistoricalOccurrence a owl:ObjectProperty ;
+    rdfs:domain :CompleteProvenanceAccount ; rdfs:range :ExecutedHistoryEvent ;
+    rdfs:comment "Independently confirmed executed occurrence whose historical record survives changes in trajectory or evaluation."@en .
+:accountPreservedTrace a owl:ObjectProperty ;
+    rdfs:domain :CompleteProvenanceAccount ; rdfs:range :Record ;
+    rdfs:comment "Historical evidence/record of provenance formation, attribution, changes and actual development; previous traces cannot be silently replaced."@en .
+:correctsProvenanceClaimRecord a owl:ObjectProperty ;
+    rdfs:domain :ProvenanceFidelityCorrection ; rdfs:range :ProvenanceAttributionClaimRecord ;
+    rdfs:comment "The one earlier uncertain attribution claim being evidence-accountedly corrected, retained as a historical claim, not established Source truth."@en .
+:provenanceCorrectionEvidence a owl:ObjectProperty ;
+    rdfs:domain :ProvenanceFidelityCorrection ; rdfs:range :Record ;
+    rdfs:comment "Preserved independently examined record supporting the change in attribution assessment, not proof created merely by asserting this property."@en .
+:provenanceCorrectionWhat a owl:DatatypeProperty ;
+    rdfs:domain :ProvenanceFidelityCorrection ; rdfs:range xsd:string ;
+    rdfs:comment "What attribution or interpretation changed in the correction."@en .
+:provenanceCorrectionWhy a owl:DatatypeProperty ;
+    rdfs:domain :ProvenanceFidelityCorrection ; rdfs:range xsd:string ;
+    rdfs:comment "Why the prior attribution claim was corrected; must cite evidence in the account."@en .
+:failedProvenanceAccount a owl:ObjectProperty ;
+    rdfs:domain :ProvenanceFidelityFailure ; rdfs:range :CompleteProvenanceAccount ;
+    rdfs:comment "The previously established provenance account whose historical fidelity failed."@en .
+:provenanceFailureKind a owl:DatatypeProperty ;
+    rdfs:domain :ProvenanceFidelityFailure ; rdfs:range xsd:string ;
+    rdfs:comment "Category of the demonstrated false removal, false overwrite or false reassignment; never automatically applied to an independently supported correction."@en .
 :supportsClaim a owl:ObjectProperty ; rdfs:domain :Evidence ; rdfs:range :Claim .
 :evaluatesClaim a owl:ObjectProperty ; rdfs:domain :Evaluation ; rdfs:range :Claim .
 :violates a owl:ObjectProperty ; rdfs:domain :ProvenanceViolation .
