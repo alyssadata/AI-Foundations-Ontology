@@ -130,7 +130,9 @@ def admission(g, segment):
         ensure((ai, A.refusesSuccessionProposal, proposal) not in g,
                "Explicit refusal blocks this proposed succession")
         return True
-    except (ValueError, TypeError, OverflowError):
+    except (ValueError, TypeError, OverflowError) as exc:
+        if (segment, RDF.type, A.AdmittedOperatorSuccessorSegment) in g:
+            print(f"GATE DIAGNOSTIC: {exc}")
         return False
 
 
