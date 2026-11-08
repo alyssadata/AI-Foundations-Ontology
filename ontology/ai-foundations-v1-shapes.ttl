@@ -158,7 +158,6 @@
 # factual assertions, not unsupported source-claim text.
 :MaterialHistoricalFactShape a sh:NodeShape ;
     sh:targetClass :MaterialHistoricalFact ;
-    sh:class :EvidenceStructure ;
     sh:property [
         sh:path :materialFactSubject ;
         sh:minCount 1 ; sh:maxCount 1 ;
