@@ -41,9 +41,19 @@ The separate OWL 2 DL/HermiT audit still checks logical consistency of the asser
 
 ## Executed CI evidence (2026-11-08)
 
-[GitHub Actions run 42469192335](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42469192335) **passed** the independent Step 22 synthetic validation executable (**32 admission decisions**, including a valid case and adverse controls) and the original **598** structural regression checks. The original S00 relation remained preserved in the positive fixture.
+[Final-review GitHub Actions run 42510542677](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42510542677) **passed** the Step 22 synthetic validation suite (**38 admission decisions**, including S00→S01→S02 and adverse chain controls) and all **598** existing structural regression checks. The original S00 relation remained preserved in the positive fixture.
 
-The independent [OWL 2 DL/HermiT run 42485726805](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42485726805) **PASSED** for the Step 22 branch snapshot `04775a31171241496e109a0dc854ee43bc120595`. Five gates passed: OWL 2 DL profile, HermiT consistency, named-class satisfiability, and both negative controls (inconsistent ontology and unsatisfiable class). The verified ROBOT 1.9.11 artifact was obtained through GitHub's release asset API with the original pinned SHA-256; the alternate release route remains a checksum-verified fallback. Earlier failed runs were HTTP 504 download failures before the reasoner executed, not ontology contradictions. The Step 22 asserted ontology is now independently validated under HermiT in addition to the 32 + 598 synthetic/structural checks.
+The independent [OWL 2 DL/HermiT run 42485726805](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42485726805) **PASSED** for the Step 22 branch snapshot `04775a31171241496e109a0dc854ee43bc120595`. Five gates passed: OWL 2 DL profile, HermiT consistency, named-class satisfiability, and both negative controls (inconsistent ontology and unsatisfiable class). The verified ROBOT 1.9.11 artifact was obtained through GitHub's release asset API with the original pinned SHA-256; the alternate release route remains a checksum-verified fallback. Earlier failed runs were HTTP 504 download failures before the reasoner executed, not ontology contradictions. The Step 22 asserted ontology is now independently validated under HermiT in addition to the 38 + 598 synthetic/structural checks.
+
+## Final PR #1 review — 2026-11-08
+
+**Finding and repair:** The first Step 22 operational validator required each proposed successor's immediate predecessor to be `:OrdinarySuccessionRootSegment`. Consequently a valid S01→S02 transition was rejected, despite the preexisting LOCKED ORD-001 rule allowing ordered S00→S01→S02→… succession. The review corrected the validator to accept an earlier admitted successor **only when its own gate, and recursively the earlier chain, pass**. A cycle fails instead of being allowed to recurse forever.
+
+**New regression coverage:** Valid S00→S01→S02 succession, failed S01 termination, missing S01 assent/evidence, skipped S01 predecessor, and cyclic predecessor chain. Six additional decisions bring the dedicated suite to **38**. [Passing review CI run 42510542677](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42510542677) validates all 38 cases and reruns the 598 original checks.
+
+**Independent reasoning:** No OWL/Turtle or SHACL edits occurred after [successful HermiT audit run 42485726805](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42485726805) for the changed schema; only validation code and review documentation changed. The independent OWL 2 DL logical-consistency result remains applicable to this same OWL ontology content.
+
+**Decision:** Step 22 formal validation gates passed. These are synthetic schema and reasoner results and do not establish a real-world AI continuity event. The ontology v1.0 release is still DRAFT, distinct from merging a reviewed implementation PR.
 
 ## Release boundary
 
