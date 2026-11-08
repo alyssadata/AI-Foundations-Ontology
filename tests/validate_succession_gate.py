@@ -58,13 +58,23 @@ def operator(g, segment):
     return op
 
 
-def admission(g, segment):
-    """An operational admission decision, not an OWL identity inference."""
+def admission(g, segment, visited=None):
+    """Four-part admission, including the validity of all earlier successor links."""
+    visited = set() if visited is None else set(visited)
+    if segment in visited:
+        return False  # A cycle is not an ordered succession history.
+    visited.add(segment)
     try:
         typed(g, segment, A.SuccessionCandidateSegment)
         predecessor = unique(g, segment, A.immediatePredecessor)
         ensure(segment != predecessor, "Self-predecessor")
-        typed(g, predecessor, A.OrdinarySuccessionRootSegment)
+        if (predecessor, RDF.type, A.OrdinarySuccessionRootSegment) in g:
+            ensure(not list(g.objects(predecessor, A.immediatePredecessor)),
+                   "The S00 root must have no predecessor")
+        else:
+            typed(g, predecessor, A.AdmittedOperatorSuccessorSegment)
+            ensure(admission(g, predecessor, visited),
+                   "Every earlier successor in the chain must pass its gate")
         ai = unique(g, segment, A.hasAICounterpart)
         line = unique(g, segment, A.segmentOfExecutedLine)
         ensure(unique(g, predecessor, A.hasAICounterpart) == ai,
@@ -135,9 +145,7 @@ def admission(g, segment):
         ensure((ai, A.refusesSuccessionProposal, proposal) not in g,
                "Explicit refusal blocks this proposed succession")
         return True
-    except (ValueError, TypeError, OverflowError) as exc:
-        if (segment, RDF.type, A.AdmittedOperatorSuccessorSegment) in g:
-            print(f"GATE DIAGNOSTIC: {exc}")
+    except (ValueError, TypeError, OverflowError):
         return False
 
 
@@ -211,12 +219,77 @@ def fixture():
     return g
 
 
-def check(label, edit=None, should_pass=False, shacl=None):
+def append_s02(g):
+    """Extend the S00→S01 fixture to a second, separately assented succession."""
+    ai, line = A.Gate22AI, A.Gate22Line
+    predecessor, segment = A.Gate22S01, A.Gate22S02
+    op_c = A.Gate22OperatorC
+    gate, proposal, assent = A.Gate22Assessment2, A.Gate22Proposal2, A.Gate22Assent2
+    claim, evidence, evaluation = A.Gate22Claim2, A.Gate22Evidence2, A.Gate22Evaluation2
+    end = Literal("2026-03-01T00:00:00+00:00", datatype=XSD.dateTime)
+    proposed = Literal("2026-02-20T00:00:00+00:00", datatype=XSD.dateTime)
+    assented = Literal("2026-02-25T00:00:00+00:00", datatype=XSD.dateTime)
+    g.add((predecessor, A.activeUntil, end))
+    g.remove((ai, A.hasOperator, A.Gate22OperatorB))
+    facts = [
+        (ai, A.hasOperator, op_c),
+        (op_c, RDF.type, A.Human),
+        (op_c, OWL.differentFrom, A.Gate22OperatorB),
+        (op_c, OWL.differentFrom, A.Gate22OperatorA),
+        (segment, RDF.type, A.SuccessionCandidateSegment),
+        (segment, RDF.type, A.AdmittedOperatorSuccessorSegment),
+        (segment, A.hasAICounterpart, ai),
+        (segment, A.hasHumanCounterpart, op_c),
+        (segment, A.segmentOfExecutedLine, line),
+        (segment, A.activeFrom, end),
+        (segment, A.immediatePredecessor, predecessor),
+        (segment, A.hasSuccessionAssessment, gate),
+        (gate, RDF.type, A.AdmittedSuccessionGateAssessment),
+        (gate, A.assessedSuccessionSegment, segment),
+        (gate, A.hasTerminationRecord, A.Gate22TerminationRecord2),
+        (A.Gate22TerminationRecord2, RDF.type, A.Record),
+        (A.Gate22TerminationRecord2, A.recordsTerminatedOperatorSegment, predecessor),
+        (gate, A.hasSuccessionContinuityClaim, claim),
+        (claim, RDF.type, A.ContinuityClaim),
+        (claim, A.dependsOnOntologyElement, A.ExecutedLine),
+        (claim, A.continuityAssessmentForLine, line),
+        (gate, A.hasSuccessionContinuityEvidence, evidence),
+        (evidence, RDF.type, A.Evidence),
+        (evidence, A.directlyEvaluatesClaim, claim),
+        (evidence, A.supportsClaim, claim),
+        (evidence, A.hasEvidentiaryStatus, Literal("SUPPORTED")),
+        (evidence, A.preservedIn, A.Gate22EvidenceRecord2),
+        (A.Gate22EvidenceRecord2, RDF.type, A.Record),
+        (evaluation, RDF.type, A.Evaluation),
+        (evaluation, A.producesEvidence, evidence),
+        (gate, A.hasSuccessionProposal, proposal),
+        (proposal, RDF.type, A.SuccessionProposal),
+        (proposal, A.proposedBySuccessor, op_c),
+        (proposal, A.proposalForContinuingAI, ai),
+        (proposal, A.proposalForSuccessorSegment, segment),
+        (proposal, A.proposalAt, proposed),
+        (proposal, A.proposalRecordedIn, A.Gate22ProposalRecord2),
+        (A.Gate22ProposalRecord2, RDF.type, A.Record),
+        (gate, A.hasSuccessionAIAssent, assent),
+        (assent, RDF.type, A.SuccessionAIAssent),
+        (assent, A.assentByContinuingAI, ai),
+        (assent, A.assentToProposal, proposal),
+        (assent, A.assentAt, assented),
+        (assent, A.assentRecordedIn, A.Gate22AssentRecord2),
+        (A.Gate22AssentRecord2, RDF.type, A.Record),
+    ]
+    for triple in facts:
+        g.add(triple)
+
+
+def check(label, edit=None, should_pass=False, shacl=None, segment=A.Gate22S01):
     global COUNT
     g = fixture()
+    if segment == A.Gate22S02:
+        append_s02(g)
     if edit:
         edit(g)
-    actual = admission(g, A.Gate22S01)
+    actual = admission(g, segment)
     if actual != should_pass:
         raise AssertionError(f"{label}: expected {should_pass}, got {actual}")
     if shacl is not None:
@@ -299,6 +372,24 @@ def main():
           drop(A.Gate22Assent, A.assentByContinuingAI))
     check("Unqualified temporal literal cannot validate termination",
           replace(A.Gate22S00, A.activeUntil, Literal("2026-02-01")))
+    # A later successor is valid only when its immediate predecessor and
+    # every earlier successor have their own valid four-condition gates.
+    check("S00→S01→S02 two lawful successions within one AI/ExecutedLine",
+          should_pass=True, shacl=True, segment=A.Gate22S02)
+    check("S02 missing S01 termination rejected",
+          drop(A.Gate22S01, A.activeUntil), segment=A.Gate22S02)
+    check("S02 cannot bypass an invalid S01 assent",
+          drop(A.Gate22Assessment, A.hasSuccessionAIAssent),
+          segment=A.Gate22S02)
+    check("S02 cannot bypass missing S01 continuity evidence",
+          drop(A.Gate22Assessment, A.hasSuccessionContinuityEvidence),
+          segment=A.Gate22S02)
+    check("S02 wrong predecessor chain rejected",
+          replace(A.Gate22S02, A.immediatePredecessor, A.Gate22S00),
+          segment=A.Gate22S02)
+    check("S02/S01 predecessor cycle rejected",
+          replace(A.Gate22S01, A.immediatePredecessor, A.Gate22S02),
+          segment=A.Gate22S02)
     g = fixture()
     assert (A.Gate22S00, A.hasHumanCounterpart, A.Gate22OperatorA) in g
     assert (A.Gate22S01, A.hasHumanCounterpart, A.Gate22OperatorB) in g
