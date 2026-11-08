@@ -39,6 +39,12 @@ The accompanying CI test suite uses only **synthetic** S00→S01 examples. It in
 
 The separate OWL 2 DL/HermiT audit still checks logical consistency of the asserted ontology; SHACL and closed-world tests check operational validity of the record schema. Neither establishes empirical continuity, consciousness or a valid particular real-world successor.
 
+## Executed CI evidence (2026-11-08)
+
+[GitHub Actions run 42469192335](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42469192335) **passed** the independent Step 22 synthetic validation executable (**32 admission decisions**, including a valid case and adverse controls) and the original **598** structural regression checks. The original S00 relation remained preserved in the positive fixture.
+
+The separate HermiT/OWL 2 DL check for this Step 22 OWL addition is **not yet verified**. Its first attempt and retry failed *before invoking the reasoner*, at the pinned ROBOT download step (HTTP 504). This is an infrastructure download failure, **not** a diagnosed ontology profile or reasoning failure. The earlier Step 21 baseline audit remains valid only for its pinned earlier commit.
+
 ## Release boundary
 
 No original LOCKED definition or Canon text was edited. Adding this draft gate does not itself release ontology v1.0. Merge and final validation results must be recorded separately.
