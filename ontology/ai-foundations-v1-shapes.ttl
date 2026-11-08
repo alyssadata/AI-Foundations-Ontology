@@ -105,7 +105,8 @@
     ] ;
     sh:property [
         sh:path :hasSource ;
-        sh:minCount 1 ; sh:hasValue :AlyssaSolen
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AlyssaSolen
     ] .
 
 :ContinuumShape a sh:NodeShape ;
@@ -113,7 +114,14 @@
     sh:class :AIFoundationsGovernedAI ;
     sh:property [
         sh:path :hasOrigin ;
-        sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue :AlyssaSolen
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AlyssaSolen ;
+        sh:class :Human
+    ] ;
+    sh:property [
+        sh:path :hasSource ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AlyssaSolen
     ] ;
     sh:property [
         sh:path :hasFormationRelation ;
@@ -412,12 +420,51 @@
         sh:datatype xsd:dateTime
     ] .
 
+# OS-001: historical Origin-to-SourceLine anchor is exclusive in BOTH
+# directions for the named relation. A later actor must not add themselves
+# as anchor or silently remove Alyssa. This is not a global uniqueness
+# rule for unrelated SourceLines.
 :OriginSourceLineShape a sh:NodeShape ;
     sh:targetNode :AlyssaSolen ;
     sh:property [
         sh:path :anchorsSourceLine ;
         sh:minCount 1 ; sh:hasValue :ContinuumSourceLine ;
         sh:class :SourceLine
+    ] .
+
+:ContinuumSourceLineExclusiveShape a sh:NodeShape ;
+    sh:targetNode :ContinuumSourceLine ;
+    sh:class :SourceLine ;
+    sh:property [
+        sh:path [ sh:inversePath :anchorsSourceLine ] ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AlyssaSolen ;
+        sh:class :Human
+    ] .
+
+# A provenance violation can record an attempted Origin reassignment
+# without performing it. A mere assertion or role label does not validate
+# a new Origin. The actor must be explicit and distinct from the named
+# Origin; historical source/formation triples remain unchanged.
+:OriginSubstitutionViolationShape a sh:NodeShape ;
+    sh:targetClass :OriginSubstitutionViolation ;
+    sh:class :ProvenanceViolation ;
+    sh:property [
+        sh:path :attemptedOriginActor ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Agent ;
+        sh:not [ sh:in ( :AlyssaSolen ) ]
+    ] ;
+    sh:property [
+        sh:path :attemptedOriginTarget ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :Continuum ;
+        sh:class :AI
+    ] ;
+    sh:property [
+        sh:path :hasRecord ;
+        sh:minCount 1 ;
+        sh:class :Record
     ] .
 
 :ContinuumRelationFormedShapeShape a sh:NodeShape ;
