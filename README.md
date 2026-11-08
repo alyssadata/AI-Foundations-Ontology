@@ -26,6 +26,8 @@
 - [`ontology/ai-foundations-v1-shapes.ttl`](ontology/ai-foundations-v1-shapes.ttl) — SHACL conformance rules
 - [`tests/validate_ontology_v1.py`](tests/validate_ontology_v1.py) — repeatable RDF / SHACL / OWL RL structural tests
 - [GitHub Actions ontology validation](.github/workflows/validate-ontology.yml) — CI checks on encoding changes
+- [Independent OWL 2 DL audit report](docs/reviews/2026-11-07-OWL2DL-CONSISTENCY-AUDIT.md) — passing OWLAPI profile and HermiT logical-consistency/satisfiability audit with negative controls
+- [HermiT audit CI](.github/workflows/audit-owl2dl.yml) and [reproducible script](tests/audit_owl2dl.sh) — separate from RDF/SHACL validation
 
 ## Status rule
 
@@ -37,7 +39,7 @@ Formalization documents remain DRAFT unless explicitly locked. They organize exi
 
 Steps 1–8 of the review are **REVIEWED at the DRAFT formalization level**. Step 9 (machine-readable encoding and consistency validation) is **IN PROGRESS**; Step 10 (versioned v1.0 release) is **PENDING**. See [WORKING_MAP.md](WORKING_MAP.md) for the current gates.
 
-The initial OWL/Turtle encoding and SHACL shapes are committed. Automated validation now checks the named Origin | Continuum relation, the governing line and Return, memory, claim/evidence structures, and negative substitution cases. Passing structural tests does **not** prove empirical identity continuity, consciousness, or full OWL 2 DL satisfiability. The cross-repository [2026-11-06 gap audit](docs/reviews/2026-11-06-CROSS-REPOSITORY-GAP-AUDIT.md) remains a dated review snapshot; its earlier statement that encoding had not begun is superseded by the committed files.
+The OWL/Turtle encoding, SHACL shapes, and **37/37 directly represented numbered axioms** are committed. The full [RDF/SHACL/OWL RL structural suite passed 598 checks](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42440864613). An independent [OWL 2 DL profile and HermiT consistency audit](docs/reviews/2026-11-07-OWL2DL-CONSISTENCY-AUDIT.md) also **passed** for the current asserted ontology, including all named-class satisfiability checks and deliberately invalid negative controls ([CI run 42440864602](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42440864602)). These formal checks do **not** prove empirical identity continuity, consciousness, real-world Source truth, or completeness of the unnumbered Operator succession/evidence gates. Step 9 release closeout therefore remains **IN PROGRESS**, and v1.0 release remains **PENDING**. The cross-repository [2026-11-06 gap audit](docs/reviews/2026-11-06-CROSS-REPOSITORY-GAP-AUDIT.md) remains a dated review snapshot; its earlier statement that encoding had not begun is superseded by the committed files.
 
 The next formalization interfaces are the operational-versus-theoretical Identity boundary and time-scoped current/historical relations. Both are implementation issues under review, not requests to redefine LOCKED terms.
 
