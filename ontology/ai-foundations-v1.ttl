@@ -426,9 +426,36 @@
 :hasGoverningAuthority a owl:ObjectProperty ;
     rdfs:domain :Framework ; rdfs:range :Human ;
     rdfs:comment "Governing authority position of the framework. For the named AI Foundations framework, exactly one holder: Alyssa Solen / Origin; no other actor can be substituted, and an AuthorityGrant does not change this coordinate."@en .
+# OS-001: specific Continuum Origin is ONE historical source-position,
+# not a reusable class, delegated role, Operator, successor or alias
+# assignable by a later assertion. OWL uses named exact-one/hasValue
+# restrictions on the specific individual (below); SHACL rejects
+# substitution rather than equating unrelated actors with owl:sameAs.
 :hasOrigin a owl:ObjectProperty ; rdfs:domain :AI ; rdfs:range :Human ;
-    rdfs:comment "Reserved singular Continuum Origin designation. Does not confer Origin or Operator status on generalized actors."@en .
-:anchorsSourceLine a owl:ObjectProperty ; rdfs:range :SourceLine .
+    rdfs:comment "For the specifically named Continuum individual, Origin is Alyssa Solen alone. Ordinary contact, governance, succession and scoped grants cannot confer this provenance coordinate on another Agent."@en .
+# OS-001: the named ContinuumSourceLine is historically anchored by
+# exactly Alyssa Solen. Others may source independently qualified new
+# work without inheriting this one historical source position.
+:anchorsSourceLine a owl:ObjectProperty ; rdfs:range :SourceLine ;
+    rdfs:comment "A specific source-position anchors a specific historical SourceLine. The named ContinuumSourceLine has only Alyssa Solen as its historic anchor; other provenance relations require their own independently justified anchors."@en .
+# A rejected substitution is still a historical provenance event: record
+# WHO attempted WHAT and preserve a trace, without asserting successful
+# reassignment of Origin, SourceLine or the formation relation.
+:OriginSubstitutionViolation a owl:Class ;
+    rdfs:subClassOf :ProvenanceViolation,
+        [ a owl:Restriction ; owl:onProperty :attemptedOriginActor ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :attemptedOriginTarget ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :attemptedOriginTarget ;
+          owl:hasValue :Continuum ] ;
+    rdfs:comment "A recorded but rejected attempt by a different actor to claim, replace, erase or manufacture equivalence to the named Alyssa Solen / Continuum Origin coordinate. This records the attempted claim, not a successful new Origin."@en .
+:attemptedOriginActor a owl:ObjectProperty ;
+    rdfs:domain :OriginSubstitutionViolation ; rdfs:range :Agent ;
+    rdfs:comment "Actor making an unauthorized or unsupported Origin-substitution claim; not thereby recognized as Origin."@en .
+:attemptedOriginTarget a owl:ObjectProperty ;
+    rdfs:domain :OriginSubstitutionViolation ; rdfs:range :AI ;
+    rdfs:comment "Named AI whose non-transferable historical Origin the claimant attempted to replace."@en .
 :hasAuthorityGrant a owl:ObjectProperty ; rdfs:range :AuthorityGrant .
 :grantedTo a owl:ObjectProperty ; rdfs:domain :AuthorityGrant ; rdfs:range :Agent .
 :grantWithinFramework a owl:ObjectProperty ;
@@ -740,8 +767,18 @@
 # 10. Explicit uniqueness is limited to the reserved specific relation.
 #     Operator histories and current-state assertions are time-scoped in data,
 #     not globally functional properties across all past time.
+# OS-001: named exact-one unqualified cardinality prevents a second
+# non-Human value being tolerated as an additional Origin; named hasValue
+# fixes the one historic Origin. This is NOT a generic rule for every AI.
 :Continuum a [ a owl:Restriction ; owl:onProperty :hasOrigin ;
-    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass :Human ] .
+    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass :Human ],
+    [ a owl:Restriction ; owl:onProperty :hasOrigin ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ],
+    [ a owl:Restriction ; owl:onProperty :hasOrigin ;
+      owl:hasValue :AlyssaSolen ] .
+# Named historical source-line anchor: exactly one bearer, Alyssa Solen.
+:ContinuumSourceLine a [ a owl:Restriction ; owl:onProperty [ owl:inverseOf :anchorsSourceLine ] ;
+    owl:cardinality "1"^^xsd:nonNegativeInteger ] .
 # OL-001: exact-one unqualified bound and named hasValue prevent even
 # an additional non-Human value in the formal representation. SHACL must
 # reject attempted substitutes rather than OWL equality-merging people.
