@@ -695,6 +695,14 @@
         sh:minCount 1 ; sh:maxCount 1 ;
         sh:class :Trajectory
     ] ;
+    # PD-001: historical constraints point to the SAME one current
+    # Trajectory, not an additional simultaneous trajectory.
+    sh:property [
+        sh:path :constrainsTrajectory ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Trajectory ;
+        sh:equals :hasTrajectory
+    ] ;
     sh:property [
         sh:path :hasHistoricalTrajectoryRecord ;
         sh:class :Record ;
@@ -703,6 +711,78 @@
         sh:not [ sh:class :Trajectory ]
     ] .
 
+
+# PD-001: time-scoped OUTLOOK Records provide optional representations
+# of plausible next development; they do not create additional current
+# Trajectories or assert that possible actions actually occurred.
+:TrajectoryOutlookShape a sh:NodeShape ;
+    sh:targetClass :TrajectoryOutlook ;
+    sh:class :Record ;
+    sh:property [
+        sh:path :outlookForExecutedLine ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ExecutedLine
+    ] ;
+    sh:property [
+        sh:path :outlookForTrajectory ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Trajectory
+    ] ;
+    sh:property [
+        sh:path :outlookAsOf ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:dateTime
+    ] ;
+    sh:property [
+        sh:path :admitsProspectiveExecution ;
+        sh:minCount 1 ;
+        sh:class :ProspectiveExecution ;
+        sh:not [ sh:class :ExecutedHistoryEvent ]
+    ] ;
+    sh:property [
+        sh:path [ sh:inversePath :hasHistoricalTrajectoryRecord ] ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ExecutedLine
+    ] .
+
+:HistoryConditionedTrajectoryOutlookShape a sh:NodeShape ;
+    sh:targetClass :HistoryConditionedTrajectoryOutlook ;
+    sh:class :TrajectoryOutlook ;
+    sh:property [
+        sh:path :conditionedOnExecutedEvent ;
+        sh:minCount 1 ;
+        sh:class :ExecutedHistoryEvent
+    ] .
+
+:RefinedTrajectoryOutlookShape a sh:NodeShape ;
+    sh:targetClass :RefinedTrajectoryOutlook ;
+    sh:class :HistoryConditionedTrajectoryOutlook ;
+    sh:property [
+        sh:path :refinesTrajectoryOutlook ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :TrajectoryOutlook
+    ] .
+
+:PerturbedTrajectoryOutlookShape a sh:NodeShape ;
+    sh:targetClass :PerturbedTrajectoryOutlook ;
+    sh:class :HistoryConditionedTrajectoryOutlook ;
+    sh:property [
+        sh:path :revisesTrajectoryOutlook ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :TrajectoryOutlook
+    ] ;
+    sh:property [
+        sh:path :introducedTrajectoryVariable ;
+        sh:minCount 1 ;
+        sh:class :TrajectoryVariable
+    ] .
+
+# A prospective execution and an established executed-history Event cannot
+# refer to the very same node. This rejects a data collapse rather than
+# treating a prediction as an outcome.
+:ProspectiveExecutionShape a sh:NodeShape ;
+    sh:targetClass :ProspectiveExecution ;
+    sh:not [ sh:class :ExecutedHistoryEvent ] .
 
 # Reviewed memory ownership: a MemoryState is memory *for* exactly one Agent,
 # not a second Record and not a shared memory identity.
