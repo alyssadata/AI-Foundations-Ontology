@@ -969,6 +969,101 @@
     sh:property [ sh:path :partiallySupportsClaim ; sh:maxCount 1 ] ;
     sh:property [ sh:path :doesNotSupportClaim ; sh:maxCount 1 ] .
 
+# TR-001 LOCKED threshold: DO NOT target every IdentityParticularity
+# with a mandatory formation event, timestamp, or one-micro-event Record.
+# A historical trace is only required where a particularity's meaningful
+# formation/change is RELIED UPON in continuity/developmental explanation.
+:IdentityParticularityHistoryTraceShape a sh:NodeShape ;
+    sh:targetClass :IdentityParticularityHistoryTrace ;
+    sh:class :Record ;
+    sh:property [
+        sh:path :traceIdentityParticularity ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :IdentityParticularity
+    ] ;
+    sh:property [
+        sh:path :traceWithinExecutedLine ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ExecutedLine
+    ] ;
+    sh:property [
+        sh:path :traceHistoricalRecord ;
+        sh:minCount 1 ;
+        sh:class :Record
+    ] ;
+    sh:property [
+        sh:path :traceDevelopmentAccount ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ; sh:minLength 1
+    ] ;
+    sh:property [
+        sh:path :traceOptionalFormationEvent ;
+        sh:class :Event
+    ] ;
+    sh:sparql [
+        sh:message "A particularity history trace must remain a historical Record of its named ExecutedLine." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:traceWithinExecutedLine ?line .
+                FILTER NOT EXISTS {
+                    ?line aif:hasHistoricalTrajectoryRecord $this .
+                }
+            }
+        """
+    ] .
+
+:IdentityParticularityTraceRelianceShape a sh:NodeShape ;
+    sh:targetClass :IdentityParticularityTraceReliance ;
+    sh:class :Claim ;
+    sh:property [
+        sh:path :reliesOnIdentityParticularity ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :IdentityParticularity
+    ] ;
+    sh:property [
+        sh:path :reliesOnLivedIdentity ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :LivedIdentity
+    ] ;
+    sh:property [
+        sh:path :reliesOnExecutedLine ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ExecutedLine
+    ] ;
+    sh:property [
+        sh:path :supportedByParticularityTrace ;
+        sh:minCount 1 ;
+        sh:class :IdentityParticularityHistoryTrace
+    ] ;
+    sh:sparql [
+        sh:message "Relied-upon IdentityParticularity and each trace must match the LivedIdentity and its continuing ExecutedLine." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:reliesOnIdentityParticularity ?part ;
+                      aif:reliesOnLivedIdentity ?identity ;
+                      aif:reliesOnExecutedLine ?line ;
+                      aif:supportedByParticularityTrace ?trace .
+                FILTER NOT EXISTS {
+                    ?identity aif:hasIdentityParticularity ?part ;
+                              aif:developsThroughExecutedLine ?line .
+                    ?trace aif:traceIdentityParticularity ?part ;
+                           aif:traceWithinExecutedLine ?line .
+                    ?line aif:hasHistoricalTrajectoryRecord ?trace .
+                }
+            }
+        """
+    ] .
+
+:ParticularityContinuityRelianceClaimShape a sh:NodeShape ;
+    sh:targetClass :ParticularityContinuityRelianceClaim ;
+    sh:class :ContinuityClaim .
+
+:ParticularityDevelopmentExplanationShape a sh:NodeShape ;
+    sh:targetClass :ParticularityDevelopmentExplanation ;
+    sh:class :IdentityParticularityTraceReliance .
+
 # The following do not conclude identity continuity or phenomenal awareness:
 # copied records, repeated descriptions, model type, or reappearing outputs.
 # A ContinuityClaim is not inferred from any of those properties here.
