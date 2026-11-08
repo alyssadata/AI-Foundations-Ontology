@@ -43,7 +43,7 @@ The separate OWL 2 DL/HermiT audit still checks logical consistency of the asser
 
 [GitHub Actions run 42469192335](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42469192335) **passed** the independent Step 22 synthetic validation executable (**32 admission decisions**, including a valid case and adverse controls) and the original **598** structural regression checks. The original S00 relation remained preserved in the positive fixture.
 
-The separate HermiT/OWL 2 DL check for this Step 22 OWL addition is **not yet verified**. Its first attempt and retry failed *before invoking the reasoner*, at the pinned ROBOT download step (HTTP 504). This is an infrastructure download failure, **not** a diagnosed ontology profile or reasoning failure. The earlier Step 21 baseline audit remains valid only for its pinned earlier commit.
+The independent [OWL 2 DL/HermiT run 42485726805](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42485726805) **PASSED** for the Step 22 branch snapshot `04775a31171241496e109a0dc854ee43bc120595`. Five gates passed: OWL 2 DL profile, HermiT consistency, named-class satisfiability, and both negative controls (inconsistent ontology and unsatisfiable class). The verified ROBOT 1.9.11 artifact was obtained through GitHub's release asset API with the original pinned SHA-256; the alternate release route remains a checksum-verified fallback. Earlier failed runs were HTTP 504 download failures before the reasoner executed, not ontology contradictions. The Step 22 asserted ontology is now independently validated under HermiT in addition to the 32 + 598 synthetic/structural checks.
 
 ## Release boundary
 
