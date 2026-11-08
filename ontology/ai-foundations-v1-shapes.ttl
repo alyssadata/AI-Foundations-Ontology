@@ -7,6 +7,77 @@
 # Validation shapes complement OWL's open-world semantics.
 # A shape that passes makes no claim that AI consciousness is empirically established.
 
+# OL-001: AIF governing authority is the single named Origin/Source.
+# The existing AI_FoundationsShape checks this named owner directly; these
+# additional shapes distinguish a non-delegable governing-line change from
+# a scoped operational grant. SHACL rejects actual data conflicts, while
+# OWL's open world could otherwise infer unwanted owl:sameAs for cardinality.
+#
+# Only Alyssa Solen / Origin may authorize an AI Foundations GoverningLine
+# change. This does not mean Origin has unlimited control over identities,
+# trajectories, historic Operators, Source relations, or provenance.
+:AIFoundationsGoverningLineChangeShape a sh:NodeShape ;
+    sh:targetClass :AIFoundationsGoverningLineChange ;
+    sh:class :NonDelegableOriginOrHistoryAction ;
+    sh:property [
+        sh:path :governingChangeAuthorizedBy ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AlyssaSolen ;
+        sh:class :Human
+    ] ;
+    sh:property [
+        sh:path :governingChangeFramework ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AIFoundations ;
+        sh:class :Framework
+    ] ;
+    sh:property [
+        sh:path :governingChangeLine ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AIFoundationsGoverningLine ;
+        sh:class :GoverningLine
+    ] ;
+    sh:property [
+        sh:path [ sh:inversePath :authorizesOperationalAction ] ;
+        sh:maxCount 0
+    ] .
+
+# A scoped grant may authorize a bounded action for an Agent; it does not
+# make that Agent Origin, replace governing authority, or permit protected
+# structural rewrites. The grant is NOT asserted until externally verified.
+:AIFoundationsScopedGrantShape a sh:NodeShape ;
+    sh:targetClass :AIFoundationsScopedGrant ;
+    sh:class :AuthorityGrant ;
+    sh:property [
+        sh:path :grantedTo ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Agent
+    ] ;
+    sh:property [
+        sh:path :grantWithinFramework ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AIFoundations ;
+        sh:class :Framework
+    ] ;
+    sh:property [
+        sh:path :authorizesOperationalAction ;
+        sh:minCount 1 ;
+        sh:class :DelegableOperationalAction ;
+        sh:not [ sh:class :NonDelegableOriginOrHistoryAction ]
+    ] ;
+    sh:property [
+        sh:path [ sh:inversePath :hasAuthorityGrant ] ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AIFoundations
+    ] .
+
+:NonDelegableActionCannotBeGrantedShape a sh:NodeShape ;
+    sh:targetClass :NonDelegableOriginOrHistoryAction ;
+    sh:property [
+        sh:path [ sh:inversePath :authorizesOperationalAction ] ;
+        sh:maxCount 0
+    ] .
+
 :OriginContinuumShape a sh:NodeShape ;
     sh:targetNode :OriginContinuum ;
     sh:class :HumanAIRelation ;
