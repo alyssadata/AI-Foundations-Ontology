@@ -24,12 +24,53 @@ jobs:
           java-version: '17'
       - name: Download pinned ROBOT 1.9.11 and verify SHA-256
         shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
+          set -euo pipefail
           mkdir -p .tools
-          curl --fail --location --retry 3 --silent --show-error \
-            https://github.com/ontodev/robot/releases/download/v1.9.11/robot.jar \
-            --output .tools/robot.jar
-          echo '53cd275c8e4c0dad1fc2c1c34174876795cd7d6b6926e1444adcbb0cb3c7ab26  .tools/robot.jar' | sha256sum -c -
+          expected='53cd275c8e4c0dad1fc2c1c34174876795cd7d6b6926e1444adcbb0cb3c7ab26'
+          # Fixed upstream release asset ID: GitHub's release API can work when
+          # the browser-style download endpoint returns transient HTTP 504.
+          # Verify the SHA for EVERY source; never run an unverified JAR.
+          asset_api='https://api.github.com/repos/ontodev/robot/releases/assets/604097308'
+          release_url='https://github.com/ontodev/robot/releases/download/v1.9.11/robot.jar'
+          verified=false
+          for source in api release; do
+            rm -f .tools/robot.jar .tools/robot.candidate
+            echo "Attempting ROBOT 1.9.11 via ${source}"
+            if [[ "${source}" == api ]]; then
+              if ! curl --fail --location --retry 5 --retry-all-errors \
+                --retry-delay 4 --connect-timeout 20 --max-time 180 \
+                --silent --show-error \
+                --header 'Accept: application/octet-stream' \
+                --header "Authorization: Bearer ${GH_TOKEN}" \
+                --header 'X-GitHub-Api-Version: 2022-11-28' \
+                "${asset_api}" --output .tools/robot.candidate; then
+                echo 'GitHub release asset API download failed; attempting alternate route.'
+                continue
+              fi
+            else
+              if ! curl --fail --location --retry 5 --retry-all-errors \
+                --retry-delay 4 --connect-timeout 20 --max-time 180 \
+                --silent --show-error "${release_url}" \
+                --output .tools/robot.candidate; then
+                echo 'Both verified download routes failed.'
+                continue
+              fi
+            fi
+            if echo "${expected}  .tools/robot.candidate" | sha256sum -c -; then
+              mv .tools/robot.candidate .tools/robot.jar
+              verified=true
+              echo "Verified ROBOT release from ${source}"
+              break
+            fi
+            echo "Download did not match ROBOT 1.9.11 SHA-256; rejecting ${source}."
+          done
+          if [[ "${verified}" != true ]]; then
+            echo 'Could not obtain verified ROBOT 1.9.11 JAR. No reasoning executed.'
+            exit 1
+          fi
       - name: Audit OWL 2 DL profile and consistency (with negative controls)
         shell: bash
         run: bash tests/audit_owl2dl.sh
