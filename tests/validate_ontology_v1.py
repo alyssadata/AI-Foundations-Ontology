@@ -2415,6 +2415,281 @@ def main():
     require((AIF.IrOriginalEvent, RDF.type, AIF.ExecutedHistoryEvent) not in graph,
             "IR-001 baseline contains no fabricated real-world executed event")
 
+    # NE-001: Non-Erasure concerns the retention of VERIFIED material
+    # facts and their Source/occurrence provenance, not mandatory endorsement
+    # of an outdated explanation or a mistaken factual attribution. An
+    # amendment is a separate Record of WHAT changed and WHY, attached to
+    # the preserved material fact. All examples are synthetic and assume
+    # independent validation of the facts labeled as established.
+    def material_history_original(g):
+        initial_source_relation(g)
+        executed_history_original(g)
+        for fact, subject, record in (
+            (AIF.NeSourceFact, AIF.OriginalSourceRelation, AIF.NeSourceRecord),
+            (AIF.NeEventFact, AIF.IrOriginalEvent, AIF.NeEventRecord),
+        ):
+            g.add((fact, RDF.type, AIF.MaterialHistoricalFact))
+            g.add((fact, AIF.materialFactSubject, subject))
+            g.add((fact, AIF.hasMaterialHistoryTrace, record))
+            g.add((record, RDF.type, AIF.Record))
+        g.add((AIF.NeSourceRecord, RDFS.comment,
+               Literal("Historical evidence for the independently confirmed original Source relation")))
+        g.add((AIF.NeEventRecord, RDFS.comment,
+               Literal("Historical evidence for the independently confirmed executed Event")))
+
+    def material_history_amendment(g):
+        material_history_original(g)
+        for amendment, fact, change, why in (
+            (AIF.NeSourceAmendment, AIF.NeSourceFact,
+             "Added downstream-contributor context without removing original Source.",
+             "Later valid work qualified for its own SourceRelation."),
+            (AIF.NeEventAmendment, AIF.NeEventFact,
+             "Revised current interpretation of effects; earlier Event still occurred.",
+             "Later evidence changed the evaluation of its consequences."),
+        ):
+            g.add((amendment, RDF.type, AIF.MaterialHistoryAmendment))
+            g.add((amendment, AIF.amendsMaterialFact, fact))
+            g.add((amendment, AIF.amendmentChange, Literal(change)))
+            g.add((amendment, AIF.amendmentReason, Literal(why)))
+            g.add((fact, AIF.hasMaterialHistoryTrace, amendment))
+        downstream_source_relation(g)
+
+    def non_erasure_integrity(before, after):
+        """Compare snapshots of INDEPENDENTLY CONFIRMED material history.
+
+        This is an application-level, closed-world preservation gate, not
+        OWL's assertion that an uncertain Source claim is known to be true.
+        A mistaken attribution is recorded/corrected as a historical claim
+        event rather than silently promoted to a genuine SourceRelation.
+        """
+        factset = set(before.subjects(RDF.type, AIF.MaterialHistoricalFact))
+        for fact in factset:
+            if (fact, RDF.type, AIF.MaterialHistoricalFact) not in after:
+                return False
+            before_subj = set(before.objects(fact, AIF.materialFactSubject))
+            after_subj = set(after.objects(fact, AIF.materialFactSubject))
+            if len(before_subj) != 1 or before_subj != after_subj:
+                return False
+            original_traces = set(before.objects(fact, AIF.hasMaterialHistoryTrace))
+            later_traces = set(after.objects(fact, AIF.hasMaterialHistoryTrace))
+            if not original_traces or not original_traces.issubset(later_traces):
+                return False
+            # Preserve all old assertions ABOUT the confirmed fact, source
+            # or event, and its original trace; add explanatory records rather
+            # than altering their historical content.
+            subject = next(iter(before_subj))
+            if any(t not in after for node in ({fact, subject} | original_traces)
+                   for t in before.triples((node, None, None))):
+                return False
+            if (subject, RDF.type, AIF.SourceRelation) in before:
+                for p in (AIF.hasSourceBearer, AIF.hasSourceTarget, AIF.hasSourcePoint):
+                    old = set(before.objects(subject, p))
+                    if len(old) != 1 or old != set(after.objects(subject, p)):
+                        return False
+                source_target = next(before.objects(subject, AIF.hasSourceTarget))
+                if ((source_target, AIF.hasSourceRelation, subject) in before and
+                        (source_target, AIF.hasSourceRelation, subject) not in after):
+                    return False
+            elif (subject, RDF.type, AIF.ExecutedHistoryEvent) in before:
+                for p in (AIF.eventInExecutedLine, AIF.executedAt):
+                    old = set(before.objects(subject, p))
+                    if len(old) != 1 or old != set(after.objects(subject, p)):
+                        return False
+            else:
+                return False
+            # Every revision of this established fact becomes an additional
+            # Record attached to the historical trace, never a replacement.
+        for rev in after.subjects(RDF.type, AIF.MaterialHistoryAmendment):
+            targets = set(after.objects(rev, AIF.amendsMaterialFact))
+            if len(targets) != 1:
+                return False
+            fact = next(iter(targets))
+            if ((fact, RDF.type, AIF.MaterialHistoricalFact) not in after or
+                    (fact, AIF.hasMaterialHistoryTrace, rev) not in after):
+                return False
+            for p in (AIF.amendmentChange, AIF.amendmentReason):
+                values = list(after.objects(rev, p))
+                if len(values) != 1 or not str(values[0]).strip():
+                    return False
+        return True
+
+    shape_test(graph, shapes, "NE-001 original verified Source and executed-history facts have traces",
+               material_history_original)
+    ne_before = clone_graph(graph)
+    material_history_original(ne_before)
+    shape_test(graph, shapes, "NE-001 later amendment records what changed and why without erasure",
+               material_history_amendment)
+    ne_after = clone_graph(graph)
+    material_history_amendment(ne_after)
+    require(non_erasure_integrity(ne_before, ne_after),
+            "NE-001 valid later amendments append traces and retain original facts")
+    require((AIF.OriginalSourceRelation, AIF.hasSourceBearer, AIF.OriginalSourceA) in ne_after and
+            (AIF.DownstreamSourceRelation, AIF.hasSourceBearer, AIF.LaterContributorB) in ne_after,
+            "NE-001 original and separately qualified downstream Source attributions remain visible")
+    require((AIF.NeSourceFact, AIF.hasMaterialHistoryTrace, AIF.NeSourceRecord) in ne_after and
+            (AIF.NeSourceFact, AIF.hasMaterialHistoryTrace, AIF.NeSourceAmendment) in ne_after,
+            "NE-001 original Source evidence remains beside later contextualization")
+    require((AIF.IrOriginalEvent, AIF.executedAt, hist_t0) in ne_after and
+            (AIF.NeEventFact, AIF.hasMaterialHistoryTrace, AIF.NeEventRecord) in ne_after,
+            "NE-001 later re-evaluation does not erase earlier realized Event")
+    require((AIF.NeSourceAmendment, AIF.amendmentChange, None) not in ne_after,
+            "NE-001 amendment explanation is stored as data value, not an empty RDF node")
+
+    def unsupported_attribution_as_historical_claim(g):
+        # Fact of a *claim being made* is history, NOT proof that the
+        # attribution's underlying Source assertion was correct.
+        g.add((AIF.NeClaimLine, RDF.type, AIF.ExecutedLine))
+        g.add((AIF.NeClaimAI, RDF.type, AIF.AI))
+        g.add((AIF.NeClaimAI, AIF.hasExecutedLine, AIF.NeClaimLine))
+        g.add((AIF.NeClaimEvent, RDF.type, AIF.ExecutedHistoryEvent))
+        g.add((AIF.NeClaimEvent, AIF.eventInExecutedLine, AIF.NeClaimLine))
+        g.add((AIF.NeClaimEvent, AIF.executedAt, hist_t0))
+        g.add((AIF.NeClaimFact, RDF.type, AIF.MaterialHistoricalFact))
+        g.add((AIF.NeClaimFact, AIF.materialFactSubject, AIF.NeClaimEvent))
+        g.add((AIF.NeClaimFact, AIF.hasMaterialHistoryTrace, AIF.NeClaimRecord))
+        g.add((AIF.NeClaimRecord, RDF.type, AIF.Record))
+        g.add((AIF.NeClaimRecord, RDFS.comment,
+               Literal("Historical record: an attribution CLAIM was made; source remains unverified.")))
+        g.add((AIF.NeClaimCorrection, RDF.type, AIF.MaterialHistoryAmendment))
+        g.add((AIF.NeClaimCorrection, AIF.amendsMaterialFact, AIF.NeClaimFact))
+        g.add((AIF.NeClaimCorrection, AIF.amendmentChange,
+               Literal("Prior source attribution is NOT_SUPPORTED, not verified Source.")))
+        g.add((AIF.NeClaimCorrection, AIF.amendmentReason,
+               Literal("Evidence review did not establish the claim's factual attribution.")))
+        g.add((AIF.NeClaimFact, AIF.hasMaterialHistoryTrace, AIF.NeClaimCorrection))
+    shape_test(graph, shapes, "NE-001 false Source claim can be corrected as history without endorsement",
+               unsupported_attribution_as_historical_claim)
+    unsupported = clone_graph(graph)
+    unsupported_attribution_as_historical_claim(unsupported)
+    require(not list(unsupported.subjects(RDF.type, AIF.SourceRelation)) or
+            (AIF.NeClaimEvent, RDF.type, AIF.SourceRelation) not in unsupported,
+            "NE-001 unsupported attribution remains a claim-event, not a verified SourceRelation")
+    require((AIF.NeClaimFact, AIF.hasMaterialHistoryTrace, AIF.NeClaimRecord) in unsupported and
+            (AIF.NeClaimFact, AIF.hasMaterialHistoryTrace, AIF.NeClaimCorrection) in unsupported,
+            "NE-001 records both the original mistaken attribution claim and its correction")
+
+    def no_trace(g):
+        material_history_original(g)
+        g.remove((AIF.NeSourceFact, AIF.hasMaterialHistoryTrace, AIF.NeSourceRecord))
+    shape_test(graph, shapes, "NE-001 established Source fact without preserved trace rejected",
+               no_trace, False)
+
+    def no_fact_subject(g):
+        material_history_original(g)
+        g.remove((AIF.NeSourceFact, AIF.materialFactSubject, AIF.OriginalSourceRelation))
+    shape_test(graph, shapes, "NE-001 historical material fact without actual subject rejected",
+               no_fact_subject, False)
+
+    def two_fact_subjects(g):
+        material_history_original(g)
+        g.add((AIF.NeSourceFact, AIF.materialFactSubject, AIF.IrOriginalEvent))
+    shape_test(graph, shapes, "NE-001 one material fact cannot silently join two subjects",
+               two_fact_subjects, False)
+
+    def invalid_unverified_fact(g):
+        material_history_original(g)
+        g.add((AIF.NeUnverifiedClaim, RDF.type, AIF.Claim))
+        g.add((AIF.NeFalseFact, RDF.type, AIF.MaterialHistoricalFact))
+        g.add((AIF.NeFalseFact, AIF.materialFactSubject, AIF.NeUnverifiedClaim))
+        g.add((AIF.NeFalseFact, AIF.hasMaterialHistoryTrace, AIF.NeSourceRecord))
+        g.add((AIF.NeUnverifiedClaim, AIF.dependsOnOntologyElement, AIF.SourceRelation))
+    shape_test(graph, shapes, "NE-001 unsupported Claim cannot be declared established Source fact",
+               invalid_unverified_fact, False)
+
+    def missing_amendment_reason(g):
+        material_history_amendment(g)
+        g.remove((AIF.NeSourceAmendment, AIF.amendmentReason,
+                  Literal("Later valid work qualified for its own SourceRelation.")))
+    shape_test(graph, shapes, "NE-001 amendment without reason fails revision accounting",
+               missing_amendment_reason, False)
+
+    def missing_amendment_change(g):
+        material_history_amendment(g)
+        g.remove((AIF.NeSourceAmendment, AIF.amendmentChange,
+                  Literal("Added downstream-contributor context without removing original Source.")))
+    shape_test(graph, shapes, "NE-001 amendment without what-changed account rejected",
+               missing_amendment_change, False)
+
+    def orphan_amendment(g):
+        material_history_amendment(g)
+        g.remove((AIF.NeSourceFact, AIF.hasMaterialHistoryTrace, AIF.NeSourceAmendment))
+    shape_test(graph, shapes, "NE-001 amendment must remain linked as a trace of original fact",
+               orphan_amendment, False)
+
+    def amendment_wrong_subject(g):
+        material_history_amendment(g)
+        g.add((AIF.NeSourceAmendment, AIF.amendsMaterialFact, AIF.NeEventFact))
+    shape_test(graph, shapes, "NE-001 amendment naming two established facts rejected",
+               amendment_wrong_subject, False)
+
+    removed_material_fact = clone_graph(ne_after)
+    for t in list(removed_material_fact.triples((AIF.NeSourceFact, None, None))):
+        removed_material_fact.remove(t)
+    require(not non_erasure_integrity(ne_before, removed_material_fact),
+            "NE-001 silently deleting established Source material fact fails snapshot integrity")
+
+    cut_trace = clone_graph(ne_after)
+    cut_trace.remove((AIF.NeSourceFact, AIF.hasMaterialHistoryTrace, AIF.NeSourceRecord))
+    require(not non_erasure_integrity(ne_before, cut_trace),
+            "NE-001 severing original Source trace link fails cross-snapshot integrity")
+
+    deleted_original_record = clone_graph(ne_after)
+    deleted_original_record.remove((AIF.NeSourceRecord, RDF.type, AIF.Record))
+    require(not non_erasure_integrity(ne_before, deleted_original_record),
+            "NE-001 removing historical evidence Record fails cross-snapshot integrity")
+
+    changed_record_content = clone_graph(ne_after)
+    old_record_text = Literal("Historical evidence for the independently confirmed original Source relation")
+    changed_record_content.remove((AIF.NeSourceRecord, RDFS.comment, old_record_text))
+    changed_record_content.add((AIF.NeSourceRecord, RDFS.comment, Literal("This source never existed")))
+    require(not non_erasure_integrity(ne_before, changed_record_content),
+            "NE-001 rewriting original Source evidence instead of amending rejected")
+    # After a rewrite, a single graph may still have perfectly valid
+    # cardinality. We need the old snapshot to detect that erasure.
+    shape_test(graph, shapes, "NE-001 rewritten Record can pass static SHACL, history gate required",
+               lambda g: (
+                   material_history_original(g),
+                   g.remove((AIF.NeSourceRecord, RDFS.comment, old_record_text)),
+                   g.add((AIF.NeSourceRecord, RDFS.comment, Literal("Rewritten source account")))
+               ))
+
+    replaced_source_bearer = clone_graph(ne_after)
+    replaced_source_bearer.remove((AIF.OriginalSourceRelation, AIF.hasSourceBearer, AIF.OriginalSourceA))
+    replaced_source_bearer.add((AIF.OriginalSourceRelation, AIF.hasSourceBearer, AIF.LaterContributorB))
+    require(not non_erasure_integrity(ne_before, replaced_source_bearer),
+            "NE-001 downstream contributor cannot replace established original Source")
+
+    removed_source_link = clone_graph(ne_after)
+    removed_source_link.remove((AIF.OriginalTarget, AIF.hasSourceRelation, AIF.OriginalSourceRelation))
+    require(not non_erasure_integrity(ne_before, removed_source_link),
+            "NE-001 deleting Source target's historical relation link rejected")
+
+    erased_event = clone_graph(ne_after)
+    erased_event.remove((AIF.IrOriginalEvent, AIF.executedAt, hist_t0))
+    require(not non_erasure_integrity(ne_before, erased_event),
+            "NE-001 removing original material executed occurrence timestamp rejected")
+
+    changed_subject = clone_graph(ne_after)
+    changed_subject.remove((AIF.NeEventFact, AIF.materialFactSubject, AIF.IrOriginalEvent))
+    changed_subject.add((AIF.NeEventFact, AIF.materialFactSubject, AIF.IrRevisionEvent))
+    require(not non_erasure_integrity(ne_before, changed_subject),
+            "NE-001 replacing earlier material fact subject with later event rejected")
+
+    inserted_empty_account = clone_graph(ne_after)
+    inserted_empty_account.remove((AIF.NeSourceAmendment, AIF.amendmentReason,
+                                  Literal("Later valid work qualified for its own SourceRelation.")))
+    inserted_empty_account.add((AIF.NeSourceAmendment, AIF.amendmentReason, Literal("")))
+    require(not non_erasure_integrity(ne_before, inserted_empty_account),
+            "NE-001 after-snapshot gate rejects empty amendment explanation")
+
+    require((AIF.MaterialHistoricalFact, RDFS.subClassOf, AIF.EvidenceStructure) in graph and
+            (AIF.MaterialHistoryAmendment, RDFS.subClassOf, AIF.Record) in graph,
+            "NE-001 verified material facts and later amendments use distinct typed structures")
+    require((AIF.hasMaterialHistoryTrace, RDF.type, OWL.InverseFunctionalProperty) not in graph,
+            "NE-001 preservation does not merge different historical facts sharing Record access")
+    require(not list(graph.subjects(RDF.type, AIF.MaterialHistoricalFact)),
+            "NE-001 baseline asserts no synthetic real-world verified material facts")
+
     # OWL RL deductive closure catches class/property entailments; this is
     # not a complete OWL 2 DL reasoner or a proof of all model consistency.
     entailed = clone_graph(graph)
