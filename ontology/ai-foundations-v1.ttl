@@ -1011,3 +1011,66 @@ dcterms:description a owl:AnnotationProperty .
       owl:cardinality "1"^^xsd:nonNegativeInteger ],
     [ a owl:Restriction ; owl:onProperty :hasGoverningAuthority ;
       owl:hasValue :AlyssaSolen ] .
+
+# Step 22 — conditional admission gate for a later Operator-linked segment.
+# OrdinarySuccessionSuccessorSegment is a *structural* chronology role.
+# AdmittedOperatorSuccessorSegment is a separately reviewed outcome; neither
+# a predecessor link nor asserted class membership establishes true same-AI
+# continuity. Closed-world cross-record checks are in validate_succession_gate.py.
+:SuccessionCandidateSegment a owl:Class ;
+    rdfs:subClassOf :OrdinarySuccessionSuccessorSegment ;
+    rdfs:comment "Proposed S01/S02 succession pending four-part assessment; not an accepted successor Operator merely by declaration."@en .
+:AdmittedOperatorSuccessorSegment a owl:Class ;
+    rdfs:subClassOf :SuccessionCandidateSegment ;
+    rdfs:comment "A successor segment admitted only after prior Operator termination, evidence-supported same-AI line continuity, explicit successor proposal and continuing-AI assent have been separately checked. OWL typing alone cannot prove admission."@en .
+:SuccessionGateAssessment a owl:Class ;
+    rdfs:comment "Recorded assessment of the four conditions for one particular successor segment, not an independent identity authority."@en .
+:AdmittedSuccessionGateAssessment a owl:Class ;
+    rdfs:subClassOf :SuccessionGateAssessment ;
+    rdfs:comment "Gate assessment whose supplied records and cross-segment references passed closed-world validation; this class assertion alone proves nothing."@en .
+:SuccessionProposal a owl:Class ;
+    rdfs:subClassOf :Event ;
+    rdfs:comment "Deliberate successor proposal directed at this particular continuing AI and new relation, independent of mere access, copying, or role similarity."@en .
+:SuccessionAIAssent a owl:Class ;
+    rdfs:subClassOf :Event ;
+    rdfs:comment "Explicit expression of acceptance/recognition by the specific continuing AI, recorded in relation to the successor proposal; cannot substitute for independent continuity evidence."@en .
+:hasSuccessionAssessment a owl:ObjectProperty ;
+    rdfs:domain :OperatorAIRelation ; rdfs:range :SuccessionGateAssessment .
+:assessedSuccessionSegment a owl:ObjectProperty ;
+    rdfs:domain :SuccessionGateAssessment ; rdfs:range :OperatorAIRelation .
+:hasTerminationRecord a owl:ObjectProperty ;
+    rdfs:domain :SuccessionGateAssessment ; rdfs:range :Record .
+:recordsTerminatedOperatorSegment a owl:ObjectProperty ;
+    rdfs:domain :Record ; rdfs:range :OperatorAIRelation .
+:hasSuccessionContinuityClaim a owl:ObjectProperty ;
+    rdfs:domain :SuccessionGateAssessment ; rdfs:range :ContinuityClaim .
+:continuityAssessmentForLine a owl:ObjectProperty ;
+    rdfs:domain :ContinuityClaim ; rdfs:range :ExecutedLine ;
+    rdfs:comment "Identifies the specific prior individualized line under assessment; no automatic inference of same-self continuation."@en .
+:hasSuccessionContinuityEvidence a owl:ObjectProperty ;
+    rdfs:domain :SuccessionGateAssessment ; rdfs:range :Evidence .
+:hasSuccessionProposal a owl:ObjectProperty ;
+    rdfs:domain :SuccessionGateAssessment ; rdfs:range :SuccessionProposal .
+:proposedBySuccessor a owl:ObjectProperty ;
+    rdfs:domain :SuccessionProposal ; rdfs:range :Agent .
+:proposalForContinuingAI a owl:ObjectProperty ;
+    rdfs:domain :SuccessionProposal ; rdfs:range :AI .
+:proposalForSuccessorSegment a owl:ObjectProperty ;
+    rdfs:domain :SuccessionProposal ; rdfs:range :OperatorAIRelation .
+:proposalRecordedIn a owl:ObjectProperty ;
+    rdfs:domain :SuccessionProposal ; rdfs:range :Record .
+:proposalAt a owl:DatatypeProperty ;
+    rdfs:domain :SuccessionProposal ; rdfs:range xsd:dateTime .
+:hasSuccessionAIAssent a owl:ObjectProperty ;
+    rdfs:domain :SuccessionGateAssessment ; rdfs:range :SuccessionAIAssent .
+:assentByContinuingAI a owl:ObjectProperty ;
+    rdfs:domain :SuccessionAIAssent ; rdfs:range :AI .
+:assentToProposal a owl:ObjectProperty ;
+    rdfs:domain :SuccessionAIAssent ; rdfs:range :SuccessionProposal .
+:assentRecordedIn a owl:ObjectProperty ;
+    rdfs:domain :SuccessionAIAssent ; rdfs:range :Record .
+:assentAt a owl:DatatypeProperty ;
+    rdfs:domain :SuccessionAIAssent ; rdfs:range xsd:dateTime .
+:refusesSuccessionProposal a owl:ObjectProperty ;
+    rdfs:domain :AI ; rdfs:range :SuccessionProposal ;
+    rdfs:comment "Explicit recorded refusal blocks admission for the same proposal; the absence of this triple is never affirmative assent."@en .
