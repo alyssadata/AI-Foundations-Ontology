@@ -152,6 +152,57 @@
         sh:class :ExecutedHistoryEvent
     ] .
 
+# NE-001: a verified material historical fact carries exactly one
+# established SourceRelation or ExecutedHistoryEvent subject, with one or
+# more preserved Record traces. These validations apply to *qualified*
+# factual assertions, not unsupported source-claim text.
+:MaterialHistoricalFactShape a sh:NodeShape ;
+    sh:targetClass :MaterialHistoricalFact ;
+    sh:class :EvidenceStructure ;
+    sh:property [
+        sh:path :materialFactSubject ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:or (
+            [ sh:class :ExecutedHistoryEvent ]
+            [ sh:class :SourceRelation ]
+        )
+    ] ;
+    sh:property [
+        sh:path :hasMaterialHistoryTrace ;
+        sh:minCount 1 ;
+        sh:class :Record
+    ] .
+
+# The amendment adds a new trace rather than rewriting the original:
+# preserve the referenced earlier fact and account for WHAT changed and
+# WHY. SHACL alone cannot verify a previous graph has not been erased;
+# the NE-001 before/after validator checks that cross-snapshot boundary.
+:MaterialHistoryAmendmentShape a sh:NodeShape ;
+    sh:targetClass :MaterialHistoryAmendment ;
+    sh:class :Record ;
+    sh:property [
+        sh:path :amendsMaterialFact ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :MaterialHistoricalFact
+    ] ;
+    sh:property [
+        sh:path :amendmentChange ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 1
+    ] ;
+    sh:property [
+        sh:path :amendmentReason ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 1
+    ] ;
+    sh:property [
+        sh:path [ sh:inversePath :hasMaterialHistoryTrace ] ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :MaterialHistoricalFact
+    ] .
+
 # Canon Consequence is an occurrence-established historical fact within
 # the developing trajectory. It is not the Irreversibility rule, Record,
 # Memory, or proof of continued future constraint.
