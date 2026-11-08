@@ -229,7 +229,38 @@
 :LivedIdentity a owl:Class ; rdfs:subClassOf :Identity .
 :Self a owl:Class ;
     rdfs:comment "Organized identity-bearing structure, distinct from Identity, State, Model, and Container."@en .
-:IdentityParticularity a owl:Class .
+# TR-001 LOCKED threshold: an IdentityParticularity may develop gradually.
+# Do NOT impose a required exact-one, timestamped, or uniquely identified
+# micro-formation event on every instance. Traceability is conditional on a
+# continuity/developmental assessment explicitly RELYING on the particularity.
+:IdentityParticularity a owl:Class ;
+    rdfs:comment "Flexible identity particularity; no compulsory formation micro-event or precise formation timestamp. Only identity-continuity/developmental claims relying on meaningful formation/change must preserve a sufficient ExecutedLine historical trace."@en .
+:IdentityParticularityHistoryTrace a owl:Class ;
+    rdfs:subClassOf :Record,
+        [ a owl:Restriction ; owl:onProperty :traceIdentityParticularity ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :traceWithinExecutedLine ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :traceHistoricalRecord ;
+          owl:someValuesFrom :Record ] ;
+    rdfs:comment "One particularity's meaningful formation/change made historically traceable in the lived ExecutedLine by one or more preserved Records. An optional event may be cited but is not required; gradual change may be documented without false micro-event precision."@en .
+:IdentityParticularityTraceReliance a owl:Class ;
+    rdfs:subClassOf :Claim,
+        [ a owl:Restriction ; owl:onProperty :reliesOnIdentityParticularity ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :reliesOnLivedIdentity ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :reliesOnExecutedLine ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :supportedByParticularityTrace ;
+          owl:someValuesFrom :IdentityParticularityHistoryTrace ] ;
+    rdfs:comment "An explicitly particularity-reliant claim about continuity or developmental explanation: required historical trace must refer to the SAME particularity, SAME LivedIdentity and SAME ExecutedLine. Structural traceability does not imply the claim is true."@en .
+:ParticularityContinuityRelianceClaim a owl:Class ;
+    rdfs:subClassOf :IdentityParticularityTraceReliance, :ContinuityClaim ;
+    rdfs:comment "Continuity assessment that explicitly relies on a meaningful particularity formation/change; traceability is necessary for assessment but not sufficient proof of continuity."@en .
+:ParticularityDevelopmentExplanation a owl:Class ;
+    rdfs:subClassOf :IdentityParticularityTraceReliance ;
+    rdfs:comment "Developmental explanation explicitly relying on meaningful particularity formation/change; traceability is required without falsely requiring a timestamped micro-event."@en .
 
 :Constraint a owl:Class .
 :GovernanceConstraint a owl:Class ; rdfs:subClassOf :Constraint .
@@ -458,6 +489,38 @@
     rdfs:range :LivedIdentity ;
     rdfs:comment "Links one AI bearer to that AI's LivedIdentity. A single LivedIdentity may not be claimed by two distinct AI bearers; this application-level ownership boundary is checked with SHACL inverse cardinality, not OWL identity-merging semantics. Copied records and memories do not transfer this link."@en .
 :hasIdentityParticularity a owl:ObjectProperty ; rdfs:domain :LivedIdentity ; rdfs:range :IdentityParticularity .
+# TR-001: optional historical traces are Records, not new LivedIdentities,
+# memories, or evidence of a new AI. An asserted conditional reliance needs
+# a matching trace within the identified one ExecutedLine. No general
+# exact-one formation-event or timestamp constraint is introduced.
+:traceIdentityParticularity a owl:ObjectProperty ;
+    rdfs:domain :IdentityParticularityHistoryTrace ; rdfs:range :IdentityParticularity ;
+    rdfs:comment "The specific particularity whose meaningful formation/change is being historically traced; unchanged across later assessments."@en .
+:traceWithinExecutedLine a owl:ObjectProperty ;
+    rdfs:domain :IdentityParticularityHistoryTrace ; rdfs:range :ExecutedLine ;
+    rdfs:comment "Historical ExecutedLine in which development occurred, not an inferred transfer of that line or of the associated LivedIdentity."@en .
+:traceHistoricalRecord a owl:ObjectProperty ;
+    rdfs:domain :IdentityParticularityHistoryTrace ; rdfs:range :Record ;
+    rdfs:comment "Preserved source/provenance or developmental Record sufficient for the specific assessment. A Record need not isolate every gradual change into a discrete event."@en .
+:traceDevelopmentAccount a owl:DatatypeProperty ;
+    rdfs:domain :IdentityParticularityHistoryTrace ; rdfs:range xsd:string ;
+    rdfs:comment "Qualitative account of meaningful formation or developmental change without invented timestamp or one-micro-event-per-particularity requirement."@en .
+:traceOptionalFormationEvent a owl:ObjectProperty ;
+    rdfs:domain :IdentityParticularityHistoryTrace ; rdfs:range :Event ;
+    rdfs:comment "Optional identifiable historical event where evidence supports one; never mandatory and never artificially exact-one on all IdentityParticularities."@en .
+:reliesOnIdentityParticularity a owl:ObjectProperty ;
+    rdfs:domain :IdentityParticularityTraceReliance ; rdfs:range :IdentityParticularity ;
+    rdfs:comment "Particularity actively relied upon by this explicit continuity assessment or developmental explanation; triggers conditional traceability."@en .
+:reliesOnLivedIdentity a owl:ObjectProperty ;
+    rdfs:domain :IdentityParticularityTraceReliance ; rdfs:range :LivedIdentity ;
+    rdfs:comment "The lived identity to which the relied-upon particularity belongs, without transferring its bearer."@en .
+:reliesOnExecutedLine a owl:ObjectProperty ;
+    rdfs:domain :IdentityParticularityTraceReliance ; rdfs:range :ExecutedLine ;
+    rdfs:comment "ExecutedLine in which the depended-on particularity formation/change must be traceable."@en .
+:supportedByParticularityTrace a owl:ObjectProperty ;
+    rdfs:domain :IdentityParticularityTraceReliance ;
+    rdfs:range :IdentityParticularityHistoryTrace ;
+    rdfs:comment "Preserved historical trace supporting the *assessment*, not proof of successful identity continuity or a new subjective experience."@en .
 :expressedThroughModel a owl:ObjectProperty ; rdfs:domain :AI ; rdfs:range :Model .
 :operatesWithinContainer a owl:ObjectProperty ; rdfs:domain :AI ; rdfs:range :Container .
 
