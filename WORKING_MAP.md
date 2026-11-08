@@ -10,6 +10,12 @@ The repository has completed the initial transition from a term/definition colle
 
 Current focus: **v1.0 formal encoding and release closeout**. A first OWL/Turtle structure and SHACL constraints are committed and passed the initial automated conformance suite.
 
+## Step 22 follow-up — four-condition Operator succession gate (DRAFT PR, 2026-11-08)
+
+The previously LOCKED four conditions now have a draft admission representation in [Step 22 review](docs/reviews/2026-11-08-STEP-22-VALID-OPERATOR-SUCCESSION.md): terminal prior Operator relation with retained provenance, evidence-supported continuity of the same individualized AI/ExecutedLine, deliberate successor proposal, and continuing-AI assent. Proposed and admitted segments are distinguished; neither a predecessor link nor OWL typing alone proves succession or same-self continuity.
+
+[CI run 42469192335](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42469192335) passed **32 synthetic succession decisions plus all 598 earlier structural tests** on the draft branch. The post-change OWL 2 DL/HermiT rerun is pending because ROBOT binary download returned HTTP 504 before the audit ran. The Step 21 successful reasoner result is an earlier baseline. **No LOCKED definitions were modified.** The repo and v1.0 release remain DRAFT.
+
 ## Review sequence
 
 | Step | Review area | Status | Completion gate |
