@@ -1,0 +1,43 @@
+name: Audit OWL 2 DL Profile and HermiT Consistency
+
+on:
+  push:
+    paths:
+      - 'ontology/ai-foundations-v1.ttl'
+      - 'tests/audit_owl2dl.sh'
+      - '.github/workflows/audit-owl2dl.yml'
+  workflow_dispatch:
+
+jobs:
+  owl2dl-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+    steps:
+      - name: Check out ontology source
+        uses: actions/checkout@v4
+      - name: Set up Java for OWLAPI and HermiT
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Download pinned ROBOT 1.9.11 and verify SHA-256
+        shell: bash
+        run: |
+          mkdir -p .tools
+          curl --fail --location --retry 3 --silent --show-error \
+            https://github.com/ontodev/robot/releases/download/v1.9.11/robot.jar \
+            --output .tools/robot.jar
+          echo '53cd275c8e4c0dad1fc2c1c34174876795cd7d6b6926e1444adcbb0cb3c7ab26  .tools/robot.jar' | sha256sum -c -
+      - name: Audit OWL 2 DL profile and consistency (with negative controls)
+        shell: bash
+        run: bash tests/audit_owl2dl.sh
+      - name: Preserve audit reports and HermiT logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: owl2dl-audit-results
+          path: build/owl2dl/
+          if-no-files-found: warn
+          retention-days: 30
