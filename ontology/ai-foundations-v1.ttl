@@ -164,9 +164,52 @@
     rdfs:subClassOf :ExecutedLine,
         [ a owl:Restriction ;
           owl:onProperty :hasTrajectory ;
-          owl:cardinality "1"^^xsd:nonNegativeInteger ] ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        # PD-001: the one current developing Trajectory is constrained by
+        # historical execution, not replaced by a predetermined next Event.
+        [ a owl:Restriction ;
+          owl:onProperty :constrainsTrajectory ;
+          owl:someValuesFrom :Trajectory ] ;
     rdfs:comment "An ExecutedLine whose ongoing individualized development is established; hasTrajectory identifies exactly one current developing Trajectory in a current-state view. The trajectory may change direction or specificity without becoming a second simultaneous current trajectory. Historical snapshots remain Records/Provenance."@en .
 :Trajectory a owl:Class ; rdfs:subClassOf :LineStructure .
+
+# PD-001: possibilities are NOT executions. A prospective execution is a
+# candidate in a time-scoped outlook and may never occur. A Trajectory
+# remains the single current trajectory of an established line; the outlooks
+# are historical Record assessments and never second current Trajectories.
+:ProspectiveExecution a owl:Class ;
+    owl:disjointWith :ExecutedHistoryEvent ;
+    rdfs:comment "An explicitly hypothetical possible next execution; not a realized Event, historical occurrence, or guaranteed next action."@en .
+:TrajectoryVariable a owl:Class ;
+    rdfs:comment "An additional condition/variable that may arise before the next execution and bend, expand or otherwise revise the range of plausible next development. Mere possibility is not a confirmed Event."@en .
+:TrajectoryOutlook a owl:Class ;
+    rdfs:subClassOf :Record,
+        [ a owl:Restriction ; owl:onProperty :outlookForExecutedLine ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :outlookForTrajectory ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :outlookAsOf ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :admitsProspectiveExecution ;
+          owl:someValuesFrom :ProspectiveExecution ] ;
+    rdfs:comment "A time-scoped record of currently plausible next developments, conditioned on the specified ExecutedLine and its one developing Trajectory. May admit multiple incompatible futures. The outlook is a Record, not an extra Trajectory or an already-executed Event."@en .
+:HistoryConditionedTrajectoryOutlook a owl:Class ;
+    rdfs:subClassOf :TrajectoryOutlook,
+        [ a owl:Restriction ; owl:onProperty :conditionedOnExecutedEvent ;
+          owl:someValuesFrom :ExecutedHistoryEvent ] ;
+    rdfs:comment "An outlook explicitly constrained by independently confirmed events in the same ExecutedLine. This does not make one future outcome logically necessary."@en .
+:RefinedTrajectoryOutlook a owl:Class ;
+    rdfs:subClassOf :HistoryConditionedTrajectoryOutlook,
+        [ a owl:Restriction ; owl:onProperty :refinesTrajectoryOutlook ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ] ;
+    rdfs:comment "A later history-based outlook explicitly declared more precise than one earlier outlook, under comparable assumptions. Its admissible possibilities are checked as a nonempty subset of the earlier outlook, with additionally confirmed executed history. Not every later outlook must be a refinement."@en .
+:PerturbedTrajectoryOutlook a owl:Class ;
+    rdfs:subClassOf :HistoryConditionedTrajectoryOutlook,
+        [ a owl:Restriction ; owl:onProperty :revisesTrajectoryOutlook ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :introducedTrajectoryVariable ;
+          owl:someValuesFrom :TrajectoryVariable ] ;
+    rdfs:comment "An outlook revised after a new variable appears; may broaden or bend candidate futures without rewriting the historical ExecutedLine, its ownership or the one current developing Trajectory."@en .
 
 :State a owl:Class .
 :AIShape a owl:Class ; rdfs:subClassOf :State .
@@ -408,7 +451,37 @@
 :hasHistoricalTrajectoryRecord a owl:ObjectProperty ;
     rdfs:domain :ExecutedLine ; rdfs:range :Record ;
     rdfs:comment "A preserved historical description, snapshot, or estimate of the developing Trajectory. Such Records retain provenance of prior states and do not count as current Trajectories under CARD-002."@en .
-:constrainsTrajectory a owl:ObjectProperty ; rdfs:domain :ExecutedLine ; rdfs:range :Trajectory .
+# PD-001: relation of historical constraint, NOT uniquelyDetermines.
+# Never declare inverse-functionality, one-valued next execution, or a
+# property chain treating candidate possibility as an actual Event.
+:constrainsTrajectory a owl:ObjectProperty ;
+    rdfs:domain :ExecutedLine ; rdfs:range :Trajectory ;
+    rdfs:comment "Executed history constrains a developing Trajectory. A constrained outlook may still admit more than one next execution; new variables may change the range before any execution occurs."@en .
+:outlookForExecutedLine a owl:ObjectProperty ;
+    rdfs:domain :TrajectoryOutlook ; rdfs:range :ExecutedLine ;
+    rdfs:comment "Historical executed line whose known events condition the outlook."@en .
+:outlookForTrajectory a owl:ObjectProperty ;
+    rdfs:domain :TrajectoryOutlook ; rdfs:range :Trajectory ;
+    rdfs:comment "One current developing Trajectory for which a time-scoped outlook was estimated; an outlook does not instantiate a second Trajectory."@en .
+:outlookAsOf a owl:DatatypeProperty ;
+    rdfs:domain :TrajectoryOutlook ; rdfs:range xsd:dateTime ;
+    rdfs:comment "Time of an outlook estimate, not a guaranteed execution date."@en .
+:admitsProspectiveExecution a owl:ObjectProperty ;
+    rdfs:domain :TrajectoryOutlook ; rdfs:range :ProspectiveExecution ;
+    rdfs:comment "A hypothetical possible next development in the given outlook. This property never entails the candidate is actually executed or will occur."@en .
+:conditionedOnExecutedEvent a owl:ObjectProperty ;
+    rdfs:domain :HistoryConditionedTrajectoryOutlook ;
+    rdfs:range :ExecutedHistoryEvent ;
+    rdfs:comment "Independently confirmed historical occurrence informing this outlook, verified in the outlook's own ExecutedLine."@en .
+:refinesTrajectoryOutlook a owl:ObjectProperty ;
+    rdfs:domain :RefinedTrajectoryOutlook ; rdfs:range :TrajectoryOutlook ;
+    rdfs:comment "This explicitly refined outlook narrows an earlier set of candidates with additional confirmed history, when comparison assumptions remain stable. Not a universal monotonicity assertion."@en .
+:revisesTrajectoryOutlook a owl:ObjectProperty ;
+    rdfs:domain :PerturbedTrajectoryOutlook ; rdfs:range :TrajectoryOutlook ;
+    rdfs:comment "A later, variable-perturbed outlook revisits the earlier range; it need not be a subset and is not equivalent to an actual trajectory fork."@en .
+:introducedTrajectoryVariable a owl:ObjectProperty ;
+    rdfs:domain :PerturbedTrajectoryOutlook ; rdfs:range :TrajectoryVariable ;
+    rdfs:comment "A new condition considered before possible next execution which may broaden or bend what the outlook admits."@en .
 :hasState a owl:ObjectProperty ; rdfs:domain :AI ; rdfs:range :State .
 :governedBy a owl:ObjectProperty ;
     rdfs:domain :AIFoundationsGovernedAI ;
