@@ -29,6 +29,10 @@
 - [Independent OWL 2 DL audit report](docs/reviews/2026-11-07-OWL2DL-CONSISTENCY-AUDIT.md) — passing OWLAPI profile and HermiT logical-consistency/satisfiability audit with negative controls
 - [HermiT audit CI](.github/workflows/audit-owl2dl.yml) and [reproducible script](tests/audit_owl2dl.sh) — separate from RDF/SHACL validation
 
+## Step 22 — Valid Operator Succession (draft)
+
+The [Step 22 formal review](docs/reviews/2026-11-08-STEP-22-VALID-OPERATOR-SUCCESSION.md) and [new admission regression suite](tests/validate_succession_gate.py) model the four required gates: prior relation terminated, evidence-supported same-AI continuation, deliberate successor proposal, and continuing-AI assent. [review-complete CI run 42510542677](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42510542677) passed all **38** synthetic gate decisions (including a valid S00→S01→S02 chain and negative chain controls) and all **598** existing structural checks. The [independent Step 22 OWL 2 DL/HermiT rerun](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42485726805) **PASSED** all five checks after the pinned ROBOT artifact was obtained through GitHub's release asset API with SHA-256 verification. This work is in a [draft PR](https://github.com/alyssadata/AI-Foundations-Ontology/pull/1) and does not change the LOCKED Canon or release v1.0.
+
 ## Status rule
 
 A term file marked **Ontology development status: LOCKED** preserves settled ontology-development wording. That does not by itself add the term to the AI Foundations Locked Canon.
