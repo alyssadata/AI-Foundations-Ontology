@@ -4170,6 +4170,8 @@ def main():
         tr001_gradual_trace(g)
         g.add((AIF.TrContinuityAssessment, RDF.type,
                AIF.ParticularityContinuityRelianceClaim))
+        g.add((AIF.TrContinuityAssessment, AIF.dependsOnOntologyElement,
+               AIF.IdentityParticularity))
         g.add((AIF.TrContinuityAssessment, AIF.reliesOnIdentityParticularity,
                AIF.TrParticularity))
         g.add((AIF.TrContinuityAssessment, AIF.reliesOnLivedIdentity, AIF.TrIdentity))
@@ -4180,6 +4182,8 @@ def main():
         tr001_gradual_trace(g)
         g.add((AIF.TrDevelopmentExplanation, RDF.type,
                AIF.ParticularityDevelopmentExplanation))
+        g.add((AIF.TrDevelopmentExplanation, AIF.dependsOnOntologyElement,
+               AIF.IdentityParticularity))
         g.add((AIF.TrDevelopmentExplanation, AIF.reliesOnIdentityParticularity,
                AIF.TrParticularity))
         g.add((AIF.TrDevelopmentExplanation, AIF.reliesOnLivedIdentity, AIF.TrIdentity))
@@ -4302,6 +4306,8 @@ def main():
     def tr001_generic_continuity_claim_without_reliance(g):
         tr001_bare_particularity(g)
         g.add((AIF.TrOtherContinuityClaim, RDF.type, AIF.ContinuityClaim))
+        g.add((AIF.TrOtherContinuityClaim, AIF.dependsOnOntologyElement,
+               AIF.ExecutedLine))
     shape_test(graph, shapes, "TR-001 ordinary continuity claim does not automatically invoke trace gate",
                tr001_generic_continuity_claim_without_reliance)
 
