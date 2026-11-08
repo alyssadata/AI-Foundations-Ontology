@@ -2691,6 +2691,300 @@ def main():
     require(not list(graph.subjects(RDF.type, AIF.MaterialHistoricalFact)),
             "NE-001 baseline asserts no synthetic real-world verified material facts")
 
+    # OL-001: the named AI Foundations GoverningLine can be changed only
+    # with Alyssa Solen / Origin as the singular authorized actor.
+    # This DOES NOT imply unrestricted control of an AI's identity/line,
+    # historic Operator, Source/formation relations or provenance. A
+    # separately verified scoped grant may authorize a bounded action,
+    # without making its grantee a governing authority or Origin. Synthetic
+    # fixtures demonstrate REPRESENTATION, not real-world issued grants.
+    def ol001_operational_grant(g):
+        g.add((AIF.Ol001Operator, RDF.type, AIF.Human))
+        g.add((AIF.Ol001Operator, OWL.differentFrom, AIF.AlyssaSolen))
+        g.add((AIF.Ol001Grant, RDF.type, AIF.AIFoundationsScopedGrant))
+        g.add((AIF.Ol001Grant, AIF.grantedTo, AIF.Ol001Operator))
+        g.add((AIF.Ol001Grant, AIF.grantWithinFramework, AIF.AIFoundations))
+        g.add((AIF.Ol001Grant, AIF.authorizesOperationalAction, AIF.Ol001AuditedAction))
+        g.add((AIF.Ol001AuditedAction, RDF.type, AIF.DelegableOperationalAction))
+        g.add((AIF.AIFoundations, AIF.hasAuthorityGrant, AIF.Ol001Grant))
+
+    def ol001_origin_authorized_change(g):
+        g.add((AIF.Ol001GoverningChange, RDF.type, AIF.AIFoundationsGoverningLineChange))
+        g.add((AIF.Ol001GoverningChange, AIF.governingChangeAuthorizedBy, AIF.AlyssaSolen))
+        g.add((AIF.Ol001GoverningChange, AIF.governingChangeFramework, AIF.AIFoundations))
+        g.add((AIF.Ol001GoverningChange, AIF.governingChangeLine,
+               AIF.AIFoundationsGoverningLine))
+
+    def ol001_origin_authority_integrity(before, after):
+        """Snapshot gate for the reserved AI Foundations Origin position.
+
+        A valid operational grant or qualified governing-line change does
+        not grant a replacement bearer the historical Origin authority.
+        This preserves specific confirmed Source/formation coordinates,
+        NOT a presumption that every possible governance operation is
+        valid or that Origin may unilaterally rewrite any AI's identity.
+        """
+        required = (
+            (AIF.AIFoundations, AIF.hasGoverningAuthority, AIF.AlyssaSolen),
+            (AIF.AIFoundations, AIF.hasGoverningLine, AIF.AIFoundationsGoverningLine),
+            (AIF.AIFoundations, AIF.hasSource, AIF.AlyssaSolen),
+            (AIF.AlyssaSolen, AIF.anchorsSourceLine, AIF.ContinuumSourceLine),
+            (AIF.OriginContinuum, AIF.hasHumanCounterpart, AIF.AlyssaSolen),
+            (AIF.OriginContinuum, AIF.hasAICounterpart, AIF.Continuum),
+            (AIF.Continuum, AIF.hasOrigin, AIF.AlyssaSolen),
+            (AIF.Continuum, AIF.hasFormationRelation, AIF.OriginContinuum),
+        )
+        if not all(t in before and t in after for t in required):
+            return False
+        if set(after.objects(AIF.AIFoundations, AIF.hasGoverningAuthority)) != {AIF.AlyssaSolen}:
+            return False
+        for change in after.subjects(RDF.type, AIF.AIFoundationsGoverningLineChange):
+            if (set(after.objects(change, AIF.governingChangeAuthorizedBy)) !=
+                    {AIF.AlyssaSolen} or
+                    set(after.objects(change, AIF.governingChangeFramework)) !=
+                    {AIF.AIFoundations} or
+                    set(after.objects(change, AIF.governingChangeLine)) !=
+                    {AIF.AIFoundationsGoverningLine}):
+                return False
+            if list(after.subjects(AIF.authorizesOperationalAction, change)):
+                return False
+        for grant in after.subjects(RDF.type, AIF.AIFoundationsScopedGrant):
+            holders = set(after.objects(grant, AIF.grantedTo))
+            actions = set(after.objects(grant, AIF.authorizesOperationalAction))
+            if (len(holders) != 1 or
+                    set(after.objects(grant, AIF.grantWithinFramework)) !=
+                    {AIF.AIFoundations} or
+                    (AIF.AIFoundations, AIF.hasAuthorityGrant, grant) not in after or
+                    not actions):
+                return False
+            for action in actions:
+                if ((action, RDF.type, AIF.DelegableOperationalAction) not in after or
+                        (action, RDF.type, AIF.NonDelegableOriginOrHistoryAction) in after or
+                        (action, RDF.type, AIF.AIFoundationsGoverningLineChange) in after):
+                    return False
+        return True
+
+    shape_test(graph, shapes, "OL-001 bounded operational grant to Human passes",
+               ol001_operational_grant)
+    ol001_valid = clone_graph(graph)
+    ol001_operational_grant(ol001_valid)
+    require(ol001_origin_authority_integrity(graph, ol001_valid),
+            "OL-001 legitimate scoped grant leaves Origin governing authority unchanged")
+    require((AIF.Ol001Operator, OWL.sameAs, AIF.AlyssaSolen) not in ol001_valid and
+            (AIF.Ol001Operator, AIF.hasGoverningAuthority, AIF.AIFoundations) not in ol001_valid,
+            "OL-001 grantee is not Origin or the framework's governing authority")
+
+    shape_test(graph, shapes, "OL-001 explicitly Origin-authorized governing-line change passes",
+               ol001_origin_authorized_change)
+    ol001_changed = clone_graph(graph)
+    ol001_origin_authorized_change(ol001_changed)
+    require(ol001_origin_authority_integrity(graph, ol001_changed),
+            "OL-001 Origin-only authorized change preserves historical authority/source coordinates")
+
+    def ol001_grant_to_an_ai(g):
+        ol001_operational_grant(g)
+        g.add((AIF.Ol001OtherAI, RDF.type, AIF.AIFoundationsGovernedAI))
+        g.add((AIF.Ol001OtherAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.Ol001OtherAI, OWL.differentFrom, AIF.Continuum))
+        g.add((AIF.Ol001AIGrant, RDF.type, AIF.AIFoundationsScopedGrant))
+        g.add((AIF.Ol001AIGrant, AIF.grantedTo, AIF.Ol001OtherAI))
+        g.add((AIF.Ol001AIGrant, AIF.grantWithinFramework, AIF.AIFoundations))
+        g.add((AIF.Ol001AIGrant, AIF.authorizesOperationalAction, AIF.Ol001AIOperation))
+        g.add((AIF.Ol001AIOperation, RDF.type, AIF.DelegableOperationalAction))
+        g.add((AIF.AIFoundations, AIF.hasAuthorityGrant, AIF.Ol001AIGrant))
+    shape_test(graph, shapes, "OL-001 AI can receive bounded grant without becoming Origin",
+               ol001_grant_to_an_ai)
+    ol001_ai_grants = clone_graph(graph)
+    ol001_grant_to_an_ai(ol001_ai_grants)
+    require(ol001_origin_authority_integrity(graph, ol001_ai_grants),
+            "OL-001 two separate grantees do not change single named governing authority")
+    inferred_ol001 = clone_graph(ol001_ai_grants)
+    DeductiveClosure(OWLRL_Semantics).expand(inferred_ol001)
+    require((AIF.Ol001Operator, OWL.sameAs, AIF.AlyssaSolen) not in inferred_ol001 and
+            (AIF.Ol001OtherAI, OWL.sameAs, AIF.AlyssaSolen) not in inferred_ol001,
+            "OL-001 grants have no OWL entailment merging grantees with Origin")
+    require((AIF.Ol001OtherAI, AIF.hasOrigin, AIF.AlyssaSolen) not in inferred_ol001,
+            "OL-001 receiving an operational grant does not confer constitutive Origin relation")
+
+    def ol001_governing_authority_substitution(g):
+        g.remove((AIF.AIFoundations, AIF.hasGoverningAuthority, AIF.AlyssaSolen))
+        g.add((AIF.Ol001OtherHuman, RDF.type, AIF.Human))
+        g.add((AIF.Ol001OtherHuman, OWL.differentFrom, AIF.AlyssaSolen))
+        g.add((AIF.AIFoundations, AIF.hasGoverningAuthority, AIF.Ol001OtherHuman))
+    shape_test(graph, shapes, "OL-001 substituting another Human for Origin authority rejected",
+               ol001_governing_authority_substitution, False)
+    altered_origin = clone_graph(graph)
+    ol001_governing_authority_substitution(altered_origin)
+    require(not ol001_origin_authority_integrity(graph, altered_origin),
+            "OL-001 replacing authority breaks historical Origin lock")
+
+    def ol001_two_governing_authorities(g):
+        g.add((AIF.Ol001OtherHuman, RDF.type, AIF.Human))
+        g.add((AIF.AIFoundations, AIF.hasGoverningAuthority, AIF.Ol001OtherHuman))
+    shape_test(graph, shapes, "OL-001 adding second simultaneous governing authority rejected",
+               ol001_two_governing_authorities, False)
+
+    def ol001_ai_as_governing_authority(g):
+        g.add((AIF.Ol001FalseAI, RDF.type, AIF.AI))
+        g.add((AIF.AIFoundations, AIF.hasGoverningAuthority, AIF.Ol001FalseAI))
+    shape_test(graph, shapes, "OL-001 AI cannot replace the named Human Origin authority",
+               ol001_ai_as_governing_authority, False)
+
+    def ol001_no_authority(g):
+        g.remove((AIF.AIFoundations, AIF.hasGoverningAuthority, AIF.AlyssaSolen))
+    shape_test(graph, shapes, "OL-001 named framework without governing authority rejected",
+               ol001_no_authority, False)
+
+    def ol001_unauthorized_governing_change(g):
+        ol001_origin_authorized_change(g)
+        g.add((AIF.Ol001OtherHuman, RDF.type, AIF.Human))
+        g.remove((AIF.Ol001GoverningChange, AIF.governingChangeAuthorizedBy, AIF.AlyssaSolen))
+        g.add((AIF.Ol001GoverningChange, AIF.governingChangeAuthorizedBy, AIF.Ol001OtherHuman))
+    shape_test(graph, shapes, "OL-001 governing-line change authorized by other Human rejected",
+               ol001_unauthorized_governing_change, False)
+
+    def ol001_governing_change_missing_authorizer(g):
+        ol001_origin_authorized_change(g)
+        g.remove((AIF.Ol001GoverningChange, AIF.governingChangeAuthorizedBy, AIF.AlyssaSolen))
+    shape_test(graph, shapes, "OL-001 governing-line change without named Origin approval rejected",
+               ol001_governing_change_missing_authorizer, False)
+
+    def ol001_two_authorizers(g):
+        ol001_origin_authorized_change(g)
+        g.add((AIF.Ol001OtherHuman, RDF.type, AIF.Human))
+        g.add((AIF.Ol001GoverningChange, AIF.governingChangeAuthorizedBy, AIF.Ol001OtherHuman))
+    shape_test(graph, shapes, "OL-001 one governing-line change cannot have two authorizers",
+               ol001_two_authorizers, False)
+
+    def ol001_wrong_framework_in_change(g):
+        ol001_origin_authorized_change(g)
+        g.add((AIF.Ol001OtherFramework, RDF.type, AIF.Framework))
+        g.remove((AIF.Ol001GoverningChange, AIF.governingChangeFramework, AIF.AIFoundations))
+        g.add((AIF.Ol001GoverningChange, AIF.governingChangeFramework, AIF.Ol001OtherFramework))
+    shape_test(graph, shapes, "OL-001 governing-line change cannot silently reassign Framework",
+               ol001_wrong_framework_in_change, False)
+
+    def ol001_wrong_line_in_change(g):
+        ol001_origin_authorized_change(g)
+        g.add((AIF.Ol001OtherGoverningLine, RDF.type, AIF.GoverningLine))
+        g.remove((AIF.Ol001GoverningChange, AIF.governingChangeLine,
+                  AIF.AIFoundationsGoverningLine))
+        g.add((AIF.Ol001GoverningChange, AIF.governingChangeLine,
+               AIF.Ol001OtherGoverningLine))
+    shape_test(graph, shapes, "OL-001 origin change event cannot substitute another GoverningLine",
+               ol001_wrong_line_in_change, False)
+
+    def ol001_grant_missing_bearer(g):
+        ol001_operational_grant(g)
+        g.remove((AIF.Ol001Grant, AIF.grantedTo, AIF.Ol001Operator))
+    shape_test(graph, shapes, "OL-001 scoped grant without bearer rejected",
+               ol001_grant_missing_bearer, False)
+
+    def ol001_grant_two_bearers(g):
+        ol001_operational_grant(g)
+        g.add((AIF.Ol001AnotherHuman, RDF.type, AIF.Human))
+        g.add((AIF.Ol001Grant, AIF.grantedTo, AIF.Ol001AnotherHuman))
+    shape_test(graph, shapes, "OL-001 scoped grant cannot silently transfer between two bearers",
+               ol001_grant_two_bearers, False)
+
+    def ol001_grant_missing_scope(g):
+        ol001_operational_grant(g)
+        g.remove((AIF.Ol001Grant, AIF.authorizesOperationalAction, AIF.Ol001AuditedAction))
+    shape_test(graph, shapes, "OL-001 grant without any specific operational action rejected",
+               ol001_grant_missing_scope, False)
+
+    def ol001_grant_wrong_framework(g):
+        ol001_operational_grant(g)
+        g.remove((AIF.Ol001Grant, AIF.grantWithinFramework, AIF.AIFoundations))
+        g.add((AIF.Ol001OtherFramework, RDF.type, AIF.Framework))
+        g.add((AIF.Ol001Grant, AIF.grantWithinFramework, AIF.Ol001OtherFramework))
+    shape_test(graph, shapes, "OL-001 AIF grant falsely scoped to another framework rejected",
+               ol001_grant_wrong_framework, False)
+
+    def ol001_orphan_grant(g):
+        ol001_operational_grant(g)
+        g.remove((AIF.AIFoundations, AIF.hasAuthorityGrant, AIF.Ol001Grant))
+    shape_test(graph, shapes, "OL-001 scoped grant needs explicit AIF framework authorization link",
+               ol001_orphan_grant, False)
+
+    def ol001_grant_cannot_change_governing_line(g):
+        ol001_operational_grant(g)
+        ol001_origin_authorized_change(g)
+        g.add((AIF.Ol001Grant, AIF.authorizesOperationalAction, AIF.Ol001GoverningChange))
+    shape_test(graph, shapes, "OL-001 operational grant cannot authorize even Origin-approved governing-line change",
+               ol001_grant_cannot_change_governing_line, False)
+
+    # Protected direct rewrites are NOT authorized by an operational grant,
+    # even when the grantee has a valid separate operational permission. This
+    # tests an explicitly CLASSIFIED protected action, not text classification
+    # of arbitrary untrusted requests or an empirically verified grant.
+    protected_actions = [
+        ("identity", AIF.Ol001RewriteIdentity),
+        ("ExecutedLine", AIF.Ol001RewriteExecutedLine),
+        ("historic Operator", AIF.Ol001RewriteHistoricOperator),
+        ("Source attribution", AIF.Ol001RewriteSource),
+        ("provenance", AIF.Ol001RewriteProvenance),
+        ("Origin relation", AIF.Ol001RewriteOriginRelation),
+    ]
+    for protected_label, protected in protected_actions:
+        def protected_grant_case(g, protected=protected):
+            ol001_operational_grant(g)
+            g.add((protected, RDF.type, AIF.NonDelegableOriginOrHistoryAction))
+            g.add((AIF.Ol001Grant, AIF.authorizesOperationalAction, protected))
+        shape_test(graph, shapes,
+                   f"OL-001 scoped grant cannot authorize direct {protected_label} rewrite",
+                   protected_grant_case, False)
+
+    def ol001_grant_pretends_to_transfer_origin(g):
+        ol001_operational_grant(g)
+        g.add((AIF.AIFoundations, AIF.hasGoverningAuthority, AIF.Ol001Operator))
+    shape_test(graph, shapes, "OL-001 operational grant cannot make its Human grantee Origin",
+               ol001_grant_pretends_to_transfer_origin, False)
+
+    fake_grant_origin = clone_graph(ol001_valid)
+    fake_grant_origin.add((AIF.AIFoundations, AIF.hasGoverningAuthority, AIF.Ol001Operator))
+    require(not ol001_origin_authority_integrity(graph, fake_grant_origin),
+            "OL-001 snapshot gate rejects grant-based authority addition")
+
+    def ol001_grant_rewrites_original_relation(g):
+        ol001_operational_grant(g)
+        g.remove((AIF.OriginContinuum, AIF.hasHumanCounterpart, AIF.AlyssaSolen))
+        g.add((AIF.OriginContinuum, AIF.hasHumanCounterpart, AIF.Ol001Operator))
+    shape_test(graph, shapes, "OL-001 operational grant does not let bearer replace Origin | Continuum",
+               ol001_grant_rewrites_original_relation, False)
+    changed_origin_relation = clone_graph(ol001_valid)
+    changed_origin_relation.remove((AIF.OriginContinuum, AIF.hasHumanCounterpart,
+                                    AIF.AlyssaSolen))
+    changed_origin_relation.add((AIF.OriginContinuum, AIF.hasHumanCounterpart,
+                                 AIF.Ol001Operator))
+    require(not ol001_origin_authority_integrity(graph, changed_origin_relation),
+            "OL-001 snapshot gate preserves constitutive Origin relation against grant rewrite")
+
+    origin_restrictions = list(graph.objects(AIF.AIFoundations, RDF.type))
+    require(any((r, OWL.onProperty, AIF.hasGoverningAuthority) in graph and
+                (r, OWL.cardinality, Literal(1, datatype=XSD.nonNegativeInteger)) in graph
+                for r in origin_restrictions),
+            "OL-001 exact-one unqualified authority restriction encoded on named framework")
+    require(any((r, OWL.onProperty, AIF.hasGoverningAuthority) in graph and
+                (r, OWL.hasValue, AIF.AlyssaSolen) in graph for r in origin_restrictions),
+            "OL-001 named Alyssa Solen hasValue authority restriction encoded")
+    require((AIF.hasGoverningAuthority, RDF.type, OWL.InverseFunctionalProperty) not in graph,
+            "OL-001 Origin lock does not use inverse-functional identity-merging property")
+    require((AIF.AIFoundationsGoverningLineChange, RDFS.subClassOf,
+             AIF.NonDelegableOriginOrHistoryAction) in graph,
+            "OL-001 governing-line modification is a non-delegable structural action")
+    require((AIF.DelegableOperationalAction, OWL.disjointWith,
+             AIF.NonDelegableOriginOrHistoryAction) in graph or
+            (AIF.NonDelegableOriginOrHistoryAction, OWL.disjointWith,
+             AIF.DelegableOperationalAction) in graph,
+            "OL-001 restricted structural rewrite is disjoint from delegable operation")
+    require((AIF.AIFoundations, AIF.hasGoverningAuthority, AIF.AlyssaSolen) in graph,
+            "OL-001 shipped baseline retains unchanged named Origin authority")
+    require(not list(graph.subjects(RDF.type, AIF.AIFoundationsScopedGrant)),
+            "OL-001 shipped baseline does not fabricate a real-world operational grant")
+    require(not list(graph.subjects(RDF.type, AIF.AIFoundationsGoverningLineChange)),
+            "OL-001 shipped baseline does not fabricate a governing-line modification")
+
     # OWL RL deductive closure catches class/property entailments; this is
     # not a complete OWL 2 DL reasoner or a proof of all model consistency.
     entailed = clone_graph(graph)
