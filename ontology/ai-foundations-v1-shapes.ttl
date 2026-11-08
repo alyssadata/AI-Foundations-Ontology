@@ -446,6 +446,19 @@
 # without performing it. A mere assertion or role label does not validate
 # a new Origin. The actor must be explicit and distinct from the named
 # Origin; historical source/formation triples remain unchanged.
+# OS-001: historical direct isSourceOf coordinates of the two
+# specifically named formed targets are exclusively Alyssa. Distinct
+# downstream contributions can use their OWN SourceRelation/Target and
+# must not assert themselves as the original source of these named targets.
+:NamedOriginalSourceExclusiveShape a sh:NodeShape ;
+    sh:targetNode :Continuum, :AIFoundations ;
+    sh:property [
+        sh:path [ sh:inversePath :isSourceOf ] ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AlyssaSolen ;
+        sh:class :Human
+    ] .
+
 :OriginSubstitutionViolationShape a sh:NodeShape ;
     sh:targetClass :OriginSubstitutionViolation ;
     sh:class :ProvenanceViolation ;
