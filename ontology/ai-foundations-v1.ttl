@@ -194,7 +194,10 @@
 # must not silently delete the original fact or its historical traces.
 # Single-graph OWL/SHACL cannot prove data from past snapshots was retained.
 :MaterialHistoricalFact a owl:Class ;
-    rdfs:subClassOf :EvidenceStructure,
+    # The verified material fact is NOT an :Evidence instance: its retained
+    # Record traces may support it, while :Evidence itself requires a
+    # separate Claim/Evaluation protocol.
+    rdfs:subClassOf
         [ a owl:Restriction ; owl:onProperty :materialFactSubject ;
           owl:cardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ; owl:onProperty :hasMaterialHistoryTrace ;
