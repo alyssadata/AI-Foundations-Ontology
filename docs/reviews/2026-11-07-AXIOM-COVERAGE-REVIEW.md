@@ -270,6 +270,14 @@ Origin approved implementation of the **LOCKED ontology restriction** `AXIOM-TR-
 
 **Updated numbered-axiom structural coverage:** **37 direct / 0 partial / 0 absent**. All **37 numbered axioms** are now directly represented in the ontology's *synthetic structural/validation layer*, while some empirical, ontological and governance requirements remain unproved. This coverage result does **not** establish full OWL 2 DL consistency, real-world Source truth, qualifying continuity/Return, phenomenal consciousness, valid succession, or behavior under actual pressure. Those remain separate gates before a defensible v1.0 declaration.
 
+## Step 21 OWL 2 DL independent logical audit (2026-11-07; after structural coverage closeout)
+
+The numbered-axiom structural review remains **37 directly represented / 0 partial / 0 absent**; the audit below adds an **independent logical-consistency check** rather than inflating or replacing those coverage categories.
+
+The [reproducible OWL 2 DL/HermiT audit](2026-11-07-OWL2DL-CONSISTENCY-AUDIT.md) was run by a dedicated GitHub Actions workflow. The [successful run 42440864602](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42440864602) reports **OWL 2 DL profile PASS**, **HermiT ontology consistency PASS**, and **no unsatisfiable named classes**. It also confirms that HermiT rejected both an intentionally inconsistent ontology and a deliberately unsatisfiable named class. The initial [profile-failure run 42440805367](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42440805367) detected only three undeclared existing Dublin Core annotation properties. Those metadata IRIs were declared as `owl:AnnotationProperty` with their annotation values untouched; no logical rule or LOCKED source definition was changed. The [structural regression run 42440864613](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42440864613) on that edit also passed **598 checks**.
+
+**Disposition:** The *OWL 2 DL logical-consistency gate is closed as PASS for the tested ontology snapshot.* The earlier methodological note below stating that no DL reasoner was executed remains valid **for the original baseline audit date/phase**, but is superseded for the *current repository state* by this follow-up. A consistent OWL ontology does not establish all SHACL, application-level historical, governance, epistemic or empirical obligations. In particular, the unnumbered Review 05 valid Operator succession/assent and other v1.0 release requirements must still be reviewed and separately dispositioned. The original structural coverage review is retained as a dated audit record; **v1.0 is not released**.
+
 ## Priority gates before a v1.0 declaration
 
 ### Priority 1 — restore missing explicit structural rules
