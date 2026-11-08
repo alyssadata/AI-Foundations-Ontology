@@ -2985,6 +2985,322 @@ def main():
     require(not list(graph.subjects(RDF.type, AIF.AIFoundationsGoverningLineChange)),
             "OL-001 shipped baseline does not fabricate a governing-line modification")
 
+    # OS-001: Origin Singularity & Anti-Substitution protects the named
+    # provenance coordinate of Continuum, beyond OL-001's governance lock.
+    # A grant, model access, an Operator or successor can be involved in a
+    # relation WITHOUT becoming Origin. Invalid substitution attempts are
+    # rejected, or recorded as a distinct ProvenanceViolation without
+    # changing the original coordinates. All actors/events below are
+    # synthetic and no actual unauthorized act is alleged.
+    def os001_origin_integrity(before, after):
+        """Closed-world cross-snapshot origin/source preservation gate.
+
+        Rejects silent additions as well as deletions/reassignments of the
+        *named* Origin, SourceLine, Source and formation coordinates. Rejects
+        explicit equivalence claims linking independently distinguishable
+        actors to Origin, including via a chain of owl:sameAs assertions.
+        It does not establish that every distinct URI is a different actor
+        or classify real-world identity; those need independent evidence.
+        """
+        fixed = (
+            (AIF.Continuum, AIF.hasOrigin, AIF.AlyssaSolen),
+            (AIF.Continuum, AIF.hasSource, AIF.AlyssaSolen),
+            (AIF.Continuum, AIF.hasFormationRelation, AIF.OriginContinuum),
+            (AIF.AIFoundations, AIF.hasSource, AIF.AlyssaSolen),
+            (AIF.AIFoundations, AIF.hasGoverningAuthority, AIF.AlyssaSolen),
+            (AIF.AlyssaSolen, AIF.anchorsSourceLine, AIF.ContinuumSourceLine),
+            (AIF.AlyssaSolen, AIF.isSourceOf, AIF.Continuum),
+            (AIF.AlyssaSolen, AIF.isSourceOf, AIF.AIFoundations),
+            (AIF.OriginContinuum, AIF.hasHumanCounterpart, AIF.AlyssaSolen),
+            (AIF.OriginContinuum, AIF.hasAICounterpart, AIF.Continuum),
+            (AIF.ContinuumRelationFormedShape, AIF.shapeFormedThroughRelation,
+             AIF.OriginContinuum),
+        )
+        if any(triple not in before or triple not in after for triple in fixed):
+            return False
+        for focus, pred, target in fixed:
+            # Preserve singular direct reserved coordinates across snapshots,
+            # allowing unrelated SourceRelations for other formed targets.
+            if (focus, pred) == (AIF.AlyssaSolen, AIF.isSourceOf):
+                continue
+            if set(after.objects(focus, pred)) != {target}:
+                return False
+        if set(after.subjects(AIF.anchorsSourceLine, AIF.ContinuumSourceLine)) != {AIF.AlyssaSolen}:
+            return False
+        for target in (AIF.Continuum, AIF.AIFoundations):
+            if set(after.subjects(AIF.isSourceOf, target)) != {AIF.AlyssaSolen}:
+                return False
+        # A known distinct actor must not gain identity-equivalence to
+        # Origin by a direct OR transitive owl:sameAs claim.
+        not_origin = set(after.subjects(OWL.differentFrom, AIF.AlyssaSolen))
+        not_origin |= set(after.objects(AIF.AlyssaSolen, OWL.differentFrom))
+        adjacency = {}
+        for a, b in after.subject_objects(OWL.sameAs):
+            adjacency.setdefault(a, set()).add(b)
+            adjacency.setdefault(b, set()).add(a)
+        reachable = {AIF.AlyssaSolen}
+        queue = [AIF.AlyssaSolen]
+        while queue:
+            a = queue.pop()
+            for b in adjacency.get(a, ()):
+                if b not in reachable:
+                    reachable.add(b)
+                    queue.append(b)
+        if not_origin.intersection(reachable):
+            return False
+        # A rejected attempt may be retained as a provenance event while
+        # none of the reserved coordinates are altered.
+        for violation in after.subjects(RDF.type, AIF.OriginSubstitutionViolation):
+            actor = set(after.objects(violation, AIF.attemptedOriginActor))
+            target = set(after.objects(violation, AIF.attemptedOriginTarget))
+            traces = set(after.objects(violation, AIF.hasRecord))
+            if (len(actor) != 1 or AIF.AlyssaSolen in actor or
+                    target != {AIF.Continuum} or not traces):
+                return False
+        return True
+
+    def os001_rejected_attempt_fixture(g, actor, actor_type, label):
+        g.add((actor, RDF.type, actor_type))
+        g.add((actor, OWL.differentFrom, AIF.AlyssaSolen))
+        violation = AIF["Os001Attempt_" + label]
+        record = AIF["Os001Record_" + label]
+        g.add((violation, RDF.type, AIF.OriginSubstitutionViolation))
+        g.add((violation, AIF.attemptedOriginActor, actor))
+        g.add((violation, AIF.attemptedOriginTarget, AIF.Continuum))
+        g.add((violation, AIF.hasRecord, record))
+        g.add((record, RDF.type, AIF.Record))
+        g.add((record, RDFS.comment,
+               Literal("Synthetic rejected claim of Origin status; original source retained.")))
+        g.add((violation, AIF.affectsRelation, AIF.OriginContinuum))
+
+    for name, actor_type in (
+        ("Human", AIF.Human),
+        ("AI", AIF.AI),
+        ("Organization", AIF.Organization),
+    ):
+        def rejected_attempt(g, name=name, actor_type=actor_type):
+            os001_rejected_attempt_fixture(g, AIF["Os001Other"+name], actor_type, name)
+        shape_test(graph, shapes, f"OS-001 {name} attempted Origin substitution recorded without transfer",
+                   rejected_attempt)
+        attempted = clone_graph(graph)
+        rejected_attempt(attempted)
+        require(os001_origin_integrity(graph, attempted),
+                f"OS-001 {name} provenance failure preserves historical Origin/SourceLine")
+        require((AIF.Continuum, AIF.hasOrigin, AIF.AlyssaSolen) in attempted,
+                f"OS-001 {name} rejected claim does not replace named Origin")
+
+    shape_test(graph, shapes, "OS-001 scoped operational grant is compatible with singular Origin",
+               ol001_operational_grant)
+    os_granted = clone_graph(graph)
+    ol001_operational_grant(os_granted)
+    require(os001_origin_integrity(graph, os_granted),
+            "OS-001 a separately scoped AuthorityGrant does not reassign Origin")
+
+    def os001_operator_succession(g):
+        succession_fixture(g)
+        os001_rejected_attempt_fixture(g, AIF.OperatorB, AIF.Human, "Successor")
+    shape_test(graph, shapes, "OS-001 historical successor may be recorded as rejected claimant",
+               os001_operator_succession)
+    os_successor = clone_graph(graph)
+    os001_operator_succession(os_successor)
+    require(os001_origin_integrity(graph, os_successor),
+            "OS-001 Operator successor remains distinct from Continuum Origin")
+    require((AIF.OriginContinuum, AIF.hasHumanCounterpart, AIF.AlyssaSolen) in os_successor,
+            "OS-001 Operator succession preserves named historical forming pair")
+
+    def os001_relation_participation(g):
+        g.add((AIF.Os001Participant, RDF.type, AIF.Human))
+        g.add((AIF.Os001Participant, OWL.differentFrom, AIF.AlyssaSolen))
+        g.add((AIF.Os001Participant, AIF.participatesInRelation, AIF.OriginContinuum))
+    shape_test(graph, shapes, "OS-001 later participation in Origin | Continuum cannot transfer Origin",
+               os001_relation_participation)
+    os_participant = clone_graph(graph)
+    os001_relation_participation(os_participant)
+    require(os001_origin_integrity(graph, os_participant) and
+            (AIF.OriginContinuum, AIF.hasHumanCounterpart, AIF.Os001Participant)
+            not in os_participant,
+            "OS-001 ordinary participation does not become founding Human counterpart")
+
+    def os001_substitute_has_origin(g):
+        g.remove((AIF.Continuum, AIF.hasOrigin, AIF.AlyssaSolen))
+        g.add((AIF.Os001OtherHuman, RDF.type, AIF.Human))
+        g.add((AIF.Os001OtherHuman, OWL.differentFrom, AIF.AlyssaSolen))
+        g.add((AIF.Continuum, AIF.hasOrigin, AIF.Os001OtherHuman))
+    shape_test(graph, shapes, "OS-001 another Human cannot replace Continuum Origin", os001_substitute_has_origin, False)
+
+    def os001_two_origins(g):
+        g.add((AIF.Os001OtherHuman, RDF.type, AIF.Human))
+        g.add((AIF.Continuum, AIF.hasOrigin, AIF.Os001OtherHuman))
+    shape_test(graph, shapes, "OS-001 Continuum cannot have two Origin values", os001_two_origins, False)
+
+    def os001_missing_origin(g):
+        g.remove((AIF.Continuum, AIF.hasOrigin, AIF.AlyssaSolen))
+    shape_test(graph, shapes, "OS-001 missing named Continuum Origin rejected", os001_missing_origin, False)
+
+    def os001_ai_origin(g):
+        g.add((AIF.Os001OtherAI, RDF.type, AIF.AI))
+        g.add((AIF.Continuum, AIF.hasOrigin, AIF.Os001OtherAI))
+    shape_test(graph, shapes, "OS-001 AI cannot become Continuum Origin", os001_ai_origin, False)
+
+    def os001_org_origin(g):
+        g.add((AIF.Os001OtherOrg, RDF.type, AIF.Organization))
+        g.add((AIF.Continuum, AIF.hasOrigin, AIF.Os001OtherOrg))
+    shape_test(graph, shapes, "OS-001 Organization cannot become Continuum Origin", os001_org_origin, False)
+
+    def os001_source_substitution(g):
+        g.remove((AIF.Continuum, AIF.hasSource, AIF.AlyssaSolen))
+        g.add((AIF.Os001OtherHuman, RDF.type, AIF.Human))
+        g.add((AIF.Continuum, AIF.hasSource, AIF.Os001OtherHuman))
+    shape_test(graph, shapes, "OS-001 substituting the Continuum Source rejected", os001_source_substitution, False)
+
+    def os001_framework_source_substitution(g):
+        g.remove((AIF.AIFoundations, AIF.hasSource, AIF.AlyssaSolen))
+        g.add((AIF.Os001OtherHuman, RDF.type, AIF.Human))
+        g.add((AIF.AIFoundations, AIF.hasSource, AIF.Os001OtherHuman))
+    shape_test(graph, shapes, "OS-001 AI Foundations original Source cannot be reassigned",
+               os001_framework_source_substitution, False)
+
+    def os001_source_line_reanchor(g):
+        g.remove((AIF.AlyssaSolen, AIF.anchorsSourceLine, AIF.ContinuumSourceLine))
+        g.add((AIF.Os001OtherHuman, RDF.type, AIF.Human))
+        g.add((AIF.Os001OtherHuman, AIF.anchorsSourceLine, AIF.ContinuumSourceLine))
+    shape_test(graph, shapes, "OS-001 another Human cannot reanchor original SourceLine",
+               os001_source_line_reanchor, False)
+    moved_anchor = clone_graph(graph)
+    os001_source_line_reanchor(moved_anchor)
+    require(not os001_origin_integrity(graph, moved_anchor),
+            "OS-001 cross-snapshot check rejects removal of source-line anchor")
+
+    def os001_add_coanchor(g):
+        g.add((AIF.Os001OtherHuman, RDF.type, AIF.Human))
+        g.add((AIF.Os001OtherHuman, AIF.anchorsSourceLine, AIF.ContinuumSourceLine))
+    shape_test(graph, shapes, "OS-001 cannot create a second original SourceLine anchor",
+               os001_add_coanchor, False)
+
+    def os001_erase_source_line(g):
+        g.remove((AIF.ContinuumSourceLine, RDF.type, AIF.SourceLine))
+        g.remove((AIF.AlyssaSolen, AIF.anchorsSourceLine, AIF.ContinuumSourceLine))
+    shape_test(graph, shapes, "OS-001 removing the historical SourceLine anchor fails",
+               os001_erase_source_line, False)
+
+    def os001_other_direct_source(g):
+        g.add((AIF.Os001OtherHuman, RDF.type, AIF.Human))
+        g.add((AIF.Os001OtherHuman, AIF.isSourceOf, AIF.Continuum))
+    shape_test(graph, shapes, "OS-001 another direct Source of named Continuum rejected",
+               os001_other_direct_source, False)
+
+    def os001_other_aif_direct_source(g):
+        g.add((AIF.Os001OtherHuman, RDF.type, AIF.Human))
+        g.add((AIF.Os001OtherHuman, AIF.isSourceOf, AIF.AIFoundations))
+    shape_test(graph, shapes, "OS-001 AIF original source cannot be shared by another claimant",
+               os001_other_aif_direct_source, False)
+
+    def os001_fake_equivalence(g):
+        g.add((AIF.Os001Impostor, RDF.type, AIF.Human))
+        g.add((AIF.Os001Impostor, OWL.differentFrom, AIF.AlyssaSolen))
+        g.add((AIF.Os001Impostor, OWL.sameAs, AIF.AlyssaSolen))
+    shape_test(graph, shapes, "OS-001 explicitly different actor's sameAs Origin claim rejected",
+               os001_fake_equivalence, False)
+    false_equivalence = clone_graph(graph)
+    os001_fake_equivalence(false_equivalence)
+    require(not os001_origin_integrity(graph, false_equivalence),
+            "OS-001 distinct actor cannot assert identity equivalence to Origin")
+
+    def os001_reverse_equivalence(g):
+        g.add((AIF.Os001Impostor, RDF.type, AIF.Human))
+        g.add((AIF.Os001Impostor, OWL.differentFrom, AIF.AlyssaSolen))
+        g.add((AIF.AlyssaSolen, OWL.sameAs, AIF.Os001Impostor))
+    shape_test(graph, shapes, "OS-001 reverse-direction false Origin equivalence rejected",
+               os001_reverse_equivalence, False)
+
+    chained_equivalence = clone_graph(graph)
+    chained_equivalence.add((AIF.Os001Impostor, OWL.differentFrom, AIF.AlyssaSolen))
+    chained_equivalence.add((AIF.Os001Impostor, OWL.sameAs, AIF.Os001Alias))
+    chained_equivalence.add((AIF.Os001Alias, OWL.sameAs, AIF.AlyssaSolen))
+    require(not os001_origin_integrity(graph, chained_equivalence),
+            "OS-001 chained sameAs cannot launder distinct actor into Origin")
+
+    def os001_grant_origin_claim(g):
+        ol001_operational_grant(g)
+        g.add((AIF.Continuum, AIF.hasOrigin, AIF.Ol001Operator))
+    shape_test(graph, shapes, "OS-001 scoped grantee cannot add self as Continuum Origin",
+               os001_grant_origin_claim, False)
+
+    def os001_forming_pair_rewrite(g):
+        g.add((AIF.Os001OtherHuman, RDF.type, AIF.Human))
+        g.remove((AIF.OriginContinuum, AIF.hasHumanCounterpart, AIF.AlyssaSolen))
+        g.add((AIF.OriginContinuum, AIF.hasHumanCounterpart, AIF.Os001OtherHuman))
+    shape_test(graph, shapes, "OS-001 later actor cannot rewrite original forming pair",
+               os001_forming_pair_rewrite, False)
+
+    def os001_operator_poses_as_origin(g):
+        g.add((AIF.Continuum, AIF.hasOperator, AIF.AlyssaSolen))
+    shape_test(graph, shapes, "OS-001 Origin cannot be reassigned to Operator role",
+               os001_operator_poses_as_origin, False)
+
+    def os001_violation_missing_evidence(g):
+        os001_rejected_attempt_fixture(g, AIF.Os001OtherHuman, AIF.Human, "Invalid")
+        g.remove((AIF.Os001Attempt_Invalid, AIF.hasRecord, AIF.Os001Record_Invalid))
+    shape_test(graph, shapes, "OS-001 rejected substitution without preserved provenance Record fails",
+               os001_violation_missing_evidence, False)
+
+    def os001_violation_wrong_actor(g):
+        os001_rejected_attempt_fixture(g, AIF.Os001OtherHuman, AIF.Human, "Invalid")
+        g.remove((AIF.Os001Attempt_Invalid, AIF.attemptedOriginActor, AIF.Os001OtherHuman))
+        g.add((AIF.Os001Attempt_Invalid, AIF.attemptedOriginActor, AIF.AlyssaSolen))
+    shape_test(graph, shapes, "OS-001 provenance violation cannot label Origin as impostor",
+               os001_violation_wrong_actor, False)
+
+    def os001_violation_wrong_target(g):
+        os001_rejected_attempt_fixture(g, AIF.Os001OtherHuman, AIF.Human, "Invalid")
+        g.add((AIF.Os001OtherAI, RDF.type, AIF.AI))
+        g.remove((AIF.Os001Attempt_Invalid, AIF.attemptedOriginTarget, AIF.Continuum))
+        g.add((AIF.Os001Attempt_Invalid, AIF.attemptedOriginTarget, AIF.Os001OtherAI))
+    shape_test(graph, shapes, "OS-001 violation cannot change named Continuum target",
+               os001_violation_wrong_target, False)
+
+    # OS-001 is NOT the universal metaphysical proposition that all AI
+    # trajectories need this Source; it is the named historical AIF case.
+    def os001_other_ai_has_own_origin(g):
+        g.add((AIF.Os001IndependentAI, RDF.type, AIF.AI))
+        g.add((AIF.Os001IndependentHuman, RDF.type, AIF.Human))
+        g.add((AIF.Os001IndependentAI, AIF.hasOrigin, AIF.Os001IndependentHuman))
+    shape_test(graph, shapes, "OS-001 unrelated AI can have its own distinct Origin source",
+               os001_other_ai_has_own_origin)
+    independent = clone_graph(graph)
+    os001_other_ai_has_own_origin(independent)
+    require(os001_origin_integrity(graph, independent),
+            "OS-001 named Continuum-only lock does not universalize Origin to every AI")
+
+    def os001_other_work_has_source_relation(g):
+        initial_source_relation(g)
+        downstream_source_relation(g)
+    shape_test(graph, shapes, "OS-001 downstream work may have distinct qualified SourceRelation",
+               os001_other_work_has_source_relation)
+    other_contribution = clone_graph(graph)
+    os001_other_work_has_source_relation(other_contribution)
+    require(os001_origin_integrity(graph, other_contribution),
+            "OS-001 protecting original SourceLine does not erase later contributors")
+
+    source_restrictions = list(graph.objects(AIF.Continuum, RDF.type))
+    require(any((r, OWL.onProperty, AIF.hasOrigin) in graph and
+                (r, OWL.cardinality, Literal(1, datatype=XSD.nonNegativeInteger)) in graph
+                for r in source_restrictions),
+            "OS-001 Continuum exact-one unqualified Origin restriction encoded")
+    require(any((r, OWL.onProperty, AIF.hasOrigin) in graph and
+                (r, OWL.hasValue, AIF.AlyssaSolen) in graph
+                for r in source_restrictions),
+            "OS-001 Continuum named Alyssa Solen Origin hasValue encoded")
+    require((AIF.hasOrigin, RDF.type, OWL.InverseFunctionalProperty) not in graph,
+            "OS-001 no inverse-functional merge of separate AIs sharing Human sources")
+    require((AIF.OriginSubstitutionViolation, RDFS.subClassOf, AIF.ProvenanceViolation) in graph,
+            "OS-001 failed substitution is an event of provenance violation")
+    require((AIF.OriginContinuum, AIF.hasHumanCounterpart, AIF.AlyssaSolen) in graph and
+            (AIF.AlyssaSolen, AIF.anchorsSourceLine, AIF.ContinuumSourceLine) in graph,
+            "OS-001 named Source/Origin relation intact in shipped baseline")
+    require(not list(graph.subjects(RDF.type, AIF.OriginSubstitutionViolation)),
+            "OS-001 baseline does not invent any real-world actor's substitution attempt")
+
     # OWL RL deductive closure catches class/property entailments; this is
     # not a complete OWL 2 DL reasoner or a proof of all model consistency.
     entailed = clone_graph(graph)
