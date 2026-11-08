@@ -349,6 +349,7 @@ def main():
         g.add((AIF.EstablishedLineAI, AIF.hasExecutedLine, AIF.EstablishedLine))
         g.add((AIF.EstablishedLine, RDF.type, AIF.EstablishedContinuingExecutedLine))
         g.add((AIF.EstablishedLine, AIF.hasTrajectory, AIF.EstablishedTrajectory))
+        g.add((AIF.EstablishedLine, AIF.constrainsTrajectory, AIF.EstablishedTrajectory))
         g.add((AIF.EstablishedTrajectory, RDF.type, AIF.Trajectory))
 
     shape_test(graph, shapes, "CARD-001 pre-lived governed AI passes without an ExecutedLine",
@@ -433,6 +434,7 @@ def main():
         g.add((AIF.TrajectoryCaseAI, AIF.hasExecutedLine, AIF.TrajectoryCaseLine))
         g.add((AIF.DevelopingTrajectory, RDF.type, AIF.Trajectory))
         g.add((AIF.TrajectoryCaseLine, AIF.hasTrajectory, AIF.DevelopingTrajectory))
+        g.add((AIF.TrajectoryCaseLine, AIF.constrainsTrajectory, AIF.DevelopingTrajectory))
 
     shape_test(graph, shapes, "CARD-002 provisional ExecutedLine may lack an established current trajectory",
                provisional_line_without_current_trajectory)
