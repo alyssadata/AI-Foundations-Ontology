@@ -1067,3 +1067,66 @@
 # The following do not conclude identity continuity or phenomenal awareness:
 # copied records, repeated descriptions, model type, or reappearing outputs.
 # A ContinuityClaim is not inferred from any of those properties here.
+
+# Step 22: Closed-world structural admission constraints for the *admitted*
+# category. Detailed cross-node identity, temporal, actor, and evidence status
+# validation is performed by tests/validate_succession_gate.py. Ordinary
+# successor segments remain structurally representable without claiming that
+# this separate four-condition gate was established.
+:AdmittedOperatorSuccessorShape a sh:NodeShape ;
+    sh:targetClass :AdmittedOperatorSuccessorSegment ;
+    sh:class :OrdinarySuccessionSuccessorSegment ;
+    sh:property [
+        sh:path :hasSuccessionAssessment ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :AdmittedSuccessionGateAssessment
+    ] .
+:AdmittedSuccessionGateShape a sh:NodeShape ;
+    sh:targetClass :AdmittedSuccessionGateAssessment ;
+    sh:property [
+        sh:path :assessedSuccessionSegment ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :OperatorAIRelation
+    ] ;
+    sh:property [
+        sh:path :hasTerminationRecord ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record
+    ] ;
+    sh:property [
+        sh:path :hasSuccessionContinuityClaim ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :ContinuityClaim
+    ] ;
+    sh:property [
+        sh:path :hasSuccessionContinuityEvidence ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :Evidence
+    ] ;
+    sh:property [
+        sh:path :hasSuccessionProposal ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SuccessionProposal
+    ] ;
+    sh:property [
+        sh:path :hasSuccessionAIAssent ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SuccessionAIAssent
+    ] .
+:SuccessionProposalShape a sh:NodeShape ;
+    sh:targetClass :SuccessionProposal ;
+    sh:property [ sh:path :proposedBySuccessor ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent ] ;
+    sh:property [ sh:path :proposalForContinuingAI ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :proposalForSuccessorSegment ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :OperatorAIRelation ] ;
+    sh:property [ sh:path :proposalRecordedIn ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :proposalAt ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
+:SuccessionAIAssentShape a sh:NodeShape ;
+    sh:targetClass :SuccessionAIAssent ;
+    sh:property [ sh:path :assentByContinuingAI ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :assentToProposal ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :SuccessionProposal ] ;
+    sh:property [ sh:path :assentRecordedIn ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :assentAt ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
