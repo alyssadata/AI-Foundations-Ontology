@@ -185,6 +185,26 @@
         [ a owl:Restriction ; owl:onProperty :executedAt ;
           owl:cardinality "1"^^xsd:nonNegativeInteger ] ;
     rdfs:comment "An occurrence independently established as realized in an ExecutedLine. Its historical existence persists through a later reversal, correction, or revision; an unverified assertion is not automatically promoted to a confirmed event."@en .
+# NE-001: a separately verified Source or executed-history fact is
+# represented by a material fact with preserved Record traces. The fact's
+# subject must be an independently established SourceRelation or confirmed
+# ExecutedHistoryEvent. Unverified/incorrect source claims are recorded as
+# claims/events about an attribution, not assumed to be true Source facts.
+# Additional contextualization or correction creates its own Record and
+# must not silently delete the original fact or its historical traces.
+# Single-graph OWL/SHACL cannot prove data from past snapshots was retained.
+:MaterialHistoricalFact a owl:Class ;
+    rdfs:subClassOf :EvidenceStructure,
+        [ a owl:Restriction ; owl:onProperty :materialFactSubject ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :hasMaterialHistoryTrace ;
+          owl:someValuesFrom :Record ] ;
+    rdfs:comment "A verified material fact of executed history or an independently confirmed SourceRelation, accompanied by retained historical traces. Historical occurrence/attribution and later evaluation are separate; a subsequent correction does not imply ongoing endorsement of earlier assertions."@en .
+:MaterialHistoryAmendment a owl:Class ;
+    rdfs:subClassOf :Record,
+        [ a owl:Restriction ; owl:onProperty :amendsMaterialFact ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ] ;
+    rdfs:comment "A later Record explaining what was corrected, contextualized or superseded and why. It references one earlier verified material fact without silently erasing its original trace."@en .
 :ExecutedHistoryRevision a owl:Class ;
     rdfs:subClassOf :ExecutedHistoryEvent, :ChangeEvent,
         [ a owl:Restriction ; owl:onProperty :revisesExecutedEvent ;
@@ -403,6 +423,28 @@
 :revisesExecutedEvent a owl:ObjectProperty ;
     rdfs:domain :ExecutedHistoryRevision ; rdfs:range :ExecutedHistoryEvent ;
     rdfs:comment "A later correction/reversal Event refers to the earlier confirmed occurrence it revises; does not negate, replace, or delete the earlier Event. Cross-event chronology and same-ExecutedLine checks are handled by temporal validation."@en .
+
+# NE-001: historical trace preservation is distinct from accepting
+# every assertion as factual or requiring endorsement of its old status.
+# Revision integrity requires recording WHAT changed and WHY, and retaining
+# prior established facts and their trace links across committed snapshots.
+:materialFactSubject a owl:ObjectProperty ;
+    rdfs:domain :MaterialHistoricalFact ;
+    rdfs:range [ a owl:Class ;
+        owl:unionOf ( :ExecutedHistoryEvent :SourceRelation ) ] ;
+    rdfs:comment "The one independently established historical occurrence or particular SourceRelation that the material fact documents; never a free-standing unsupported Claim assumed true."@en .
+:hasMaterialHistoryTrace a owl:ObjectProperty ;
+    rdfs:domain :MaterialHistoricalFact ; rdfs:range :Record ;
+    rdfs:comment "Preserved Record evidence of an established material fact, including subsequent correction/contextualization Records. Once verified, old links and their Record content are retained in later revisions."@en .
+:amendsMaterialFact a owl:ObjectProperty ;
+    rdfs:domain :MaterialHistoryAmendment ; rdfs:range :MaterialHistoricalFact ;
+    rdfs:comment "One established material fact addressed by a later documented amendment. An amendment cannot delete the fact or cause its Source/occurrence to become un-happened."@en .
+:amendmentChange a owl:DatatypeProperty ;
+    rdfs:domain :MaterialHistoryAmendment ; rdfs:range xsd:string ;
+    rdfs:comment "What changed: the corrected, contextualized, or superseded account; does not imply the original fact is now endorsed."@en .
+:amendmentReason a owl:DatatypeProperty ;
+    rdfs:domain :MaterialHistoryAmendment ; rdfs:range xsd:string ;
+    rdfs:comment "Why the subsequent amendment was made: an accountable explanation grounded in new evaluation or context."@en .
 
 :belongsToTrajectory a owl:ObjectProperty ;
     rdfs:domain :Consequence ; rdfs:range :Trajectory ;
