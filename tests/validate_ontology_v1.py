@@ -2532,8 +2532,9 @@ def main():
     require((AIF.IrOriginalEvent, AIF.executedAt, hist_t0) in ne_after and
             (AIF.NeEventFact, AIF.hasMaterialHistoryTrace, AIF.NeEventRecord) in ne_after,
             "NE-001 later re-evaluation does not erase earlier realized Event")
-    require((AIF.NeSourceAmendment, AIF.amendmentChange, None) not in ne_after,
-            "NE-001 amendment explanation is stored as data value, not an empty RDF node")
+    require(len(list(ne_after.objects(AIF.NeSourceAmendment, AIF.amendmentChange))) == 1 and
+            str(next(ne_after.objects(AIF.NeSourceAmendment, AIF.amendmentChange))).strip(),
+            "NE-001 amendment preserves a nonempty what-changed explanation")
 
     def unsupported_attribution_as_historical_claim(g):
         # Fact of a *claim being made* is history, NOT proof that the
