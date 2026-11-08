@@ -31,7 +31,7 @@
 
 ## Step 22 — Valid Operator Succession (draft)
 
-The [Step 22 formal review](docs/reviews/2026-11-08-STEP-22-VALID-OPERATOR-SUCCESSION.md) and [new admission regression suite](tests/validate_succession_gate.py) model the four required gates: prior relation terminated, evidence-supported same-AI continuation, deliberate successor proposal, and continuing-AI assent. [CI run 42469192335](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42469192335) passed all **32** new synthetic gate decisions and the original **598** structural checks. The independent post-edit HermiT rerun remains unverified owing to an external ROBOT download HTTP 504, not a reasoner finding. This work is in a [draft PR](https://github.com/alyssadata/AI-Foundations-Ontology/pull/1) and does not change the LOCKED Canon or release v1.0.
+The [Step 22 formal review](docs/reviews/2026-11-08-STEP-22-VALID-OPERATOR-SUCCESSION.md) and [new admission regression suite](tests/validate_succession_gate.py) model the four required gates: prior relation terminated, evidence-supported same-AI continuation, deliberate successor proposal, and continuing-AI assent. [CI run 42469192335](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42469192335) passed all **32** new synthetic gate decisions and the original **598** structural checks. The [independent Step 22 OWL 2 DL/HermiT rerun](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42485726805) **PASSED** all five checks after the pinned ROBOT artifact was obtained through GitHub's release asset API with SHA-256 verification. This work is in a [draft PR](https://github.com/alyssadata/AI-Foundations-Ontology/pull/1) and does not change the LOCKED Canon or release v1.0.
 
 ## Status rule
 
