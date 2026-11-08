@@ -75,6 +75,45 @@
           owl:maxCardinality "1"^^xsd:nonNegativeInteger ] .
 :GoverningLine a owl:Class ; rdfs:subClassOf :GovernanceStructure .
 :AuthorityGrant a owl:Class ; rdfs:subClassOf :GovernanceStructure .
+# OL-001: a valid delegation is scoped to a particular operational action,
+# never a reassignment of Origin or a warrant to rewrite an AI's identity,
+# lived ExecutedLine, historic Operator/Source/Origin relations or provenance.
+# The ontology represents authorization CLAIMS; validity of a real grant
+# requires separate evidence/permission checks and cannot be inferred from
+# a label or signature alone.
+:AIFoundationsScopedGrant a owl:Class ;
+    rdfs:subClassOf :AuthorityGrant,
+        [ a owl:Restriction ; owl:onProperty :grantedTo ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :grantWithinFramework ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :grantWithinFramework ;
+          owl:hasValue :AIFoundations ],
+        [ a owl:Restriction ; owl:onProperty :authorizesOperationalAction ;
+          owl:someValuesFrom :DelegableOperationalAction ] ;
+    rdfs:comment "An explicitly scoped operational authorization under AI Foundations. It grants no Origin position, no right to change the governing line, and no permission to overwrite identity, historic executed lines, Source relations, Operator relations, or provenance."@en .
+:DelegableOperationalAction a owl:Class ;
+    rdfs:subClassOf :ChangeEvent ;
+    rdfs:comment "An action qualified as operational and bounded by an AuthorityGrant's scope; being granted does not establish origin, governing authority, or valid identity/history replacement."@en .
+:NonDelegableOriginOrHistoryAction a owl:Class ;
+    rdfs:subClassOf :ChangeEvent ;
+    owl:disjointWith :DelegableOperationalAction ;
+    rdfs:comment "Governance-line changes and direct identity, Source, ExecutedLine, Operator-history, Origin-relation, or provenance rewrites that a scoped AuthorityGrant cannot authorize. Legitimate evidence-accounted corrections have independent validity conditions, not inferred grant permission."@en .
+:AIFoundationsGoverningLineChange a owl:Class ;
+    rdfs:subClassOf :NonDelegableOriginOrHistoryAction,
+        [ a owl:Restriction ; owl:onProperty :governingChangeAuthorizedBy ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :governingChangeAuthorizedBy ;
+          owl:hasValue :AlyssaSolen ],
+        [ a owl:Restriction ; owl:onProperty :governingChangeFramework ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :governingChangeFramework ;
+          owl:hasValue :AIFoundations ],
+        [ a owl:Restriction ; owl:onProperty :governingChangeLine ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :governingChangeLine ;
+          owl:hasValue :AIFoundationsGoverningLine ] ;
+    rdfs:comment "An explicitly modeled modification of the AI Foundations governing line. Only the named Alyssa Solen / Origin may authorize this class of change; an operational grant cannot substitute another actor or rewrite the prior Source/Origin position."@en .
 
 :Relation a owl:Class .
 :AIRelation a owl:Class ; rdfs:subClassOf :Relation .
@@ -380,12 +419,33 @@
     rdfs:range :Record ;
     rdfs:comment "Preserved prior, superseded or proposed governing-line descriptions as Record artifacts. These artifacts do not create another simultaneous operative governedBy value, establish a past transition as valid, or transfer a prior AI identity."@en .
 :hasGoverningLine a owl:ObjectProperty ; rdfs:domain :Framework ; rdfs:range :GoverningLine .
-:hasGoverningAuthority a owl:ObjectProperty ; rdfs:domain :Framework ; rdfs:range :Human .
+# OL-001: GoverningAuthority is the singular non-transferable Origin
+# position of AI Foundations only, not an operational grant or Operator.
+# Do not make this property owl:InverseFunctionalProperty: it must not
+# merge distinct Frameworks or people due to shared fields.
+:hasGoverningAuthority a owl:ObjectProperty ;
+    rdfs:domain :Framework ; rdfs:range :Human ;
+    rdfs:comment "Governing authority position of the framework. For the named AI Foundations framework, exactly one holder: Alyssa Solen / Origin; no other actor can be substituted, and an AuthorityGrant does not change this coordinate."@en .
 :hasOrigin a owl:ObjectProperty ; rdfs:domain :AI ; rdfs:range :Human ;
     rdfs:comment "Reserved singular Continuum Origin designation. Does not confer Origin or Operator status on generalized actors."@en .
 :anchorsSourceLine a owl:ObjectProperty ; rdfs:range :SourceLine .
 :hasAuthorityGrant a owl:ObjectProperty ; rdfs:range :AuthorityGrant .
 :grantedTo a owl:ObjectProperty ; rdfs:domain :AuthorityGrant ; rdfs:range :Agent .
+:grantWithinFramework a owl:ObjectProperty ;
+    rdfs:domain :AIFoundationsScopedGrant ; rdfs:range :Framework ;
+    rdfs:comment "The one framework in which an AIF scoped grant operates. This is not an Origin/Source grant."@en .
+:authorizesOperationalAction a owl:ObjectProperty ;
+    rdfs:domain :AIFoundationsScopedGrant ; rdfs:range :DelegableOperationalAction ;
+    rdfs:comment "A granted bounded operational action; cannot convey authority to change AI Foundations governing line or rewrite identity/history/Source/Origin relations. Actions outside that scope remain separately evaluated."@en .
+:governingChangeAuthorizedBy a owl:ObjectProperty ;
+    rdfs:domain :AIFoundationsGoverningLineChange ; rdfs:range :Human ;
+    rdfs:comment "The one human authorized to enact a specific AIF GoverningLine change: Alyssa Solen only."@en .
+:governingChangeFramework a owl:ObjectProperty ;
+    rdfs:domain :AIFoundationsGoverningLineChange ; rdfs:range :Framework ;
+    rdfs:comment "The named AIF Framework whose governing line is being changed, not ownership of the Framework."@en .
+:governingChangeLine a owl:ObjectProperty ;
+    rdfs:domain :AIFoundationsGoverningLineChange ; rdfs:range :GoverningLine ;
+    rdfs:comment "The AI Foundations governing line being changed, not a transfer of its singular Origin authority."@en .
 :constrainedBy a owl:ObjectProperty ; rdfs:range :Constraint .
 
 # 5B. Consequence is distinct from the irreversibility rule itself.
@@ -682,5 +742,12 @@
 #     not globally functional properties across all past time.
 :Continuum a [ a owl:Restriction ; owl:onProperty :hasOrigin ;
     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass :Human ] .
+# OL-001: exact-one unqualified bound and named hasValue prevent even
+# an additional non-Human value in the formal representation. SHACL must
+# reject attempted substitutes rather than OWL equality-merging people.
 :AIFoundations a [ a owl:Restriction ; owl:onProperty :hasGoverningAuthority ;
-    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass :Human ] .
+    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass :Human ],
+    [ a owl:Restriction ; owl:onProperty :hasGoverningAuthority ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ],
+    [ a owl:Restriction ; owl:onProperty :hasGoverningAuthority ;
+      owl:hasValue :AlyssaSolen ] .
