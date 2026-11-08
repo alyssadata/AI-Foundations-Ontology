@@ -2683,9 +2683,9 @@ def main():
     require(not non_erasure_integrity(ne_before, inserted_empty_account),
             "NE-001 after-snapshot gate rejects empty amendment explanation")
 
-    require((AIF.MaterialHistoricalFact, RDFS.subClassOf, AIF.EvidenceStructure) in graph and
+    require((AIF.MaterialHistoricalFact, RDFS.subClassOf, AIF.EvidenceStructure) not in graph and
             (AIF.MaterialHistoryAmendment, RDFS.subClassOf, AIF.Record) in graph,
-            "NE-001 verified material facts and later amendments use distinct typed structures")
+            "NE-001 material facts remain distinct from evaluated Evidence and amendment Records")
     require((AIF.hasMaterialHistoryTrace, RDF.type, OWL.InverseFunctionalProperty) not in graph,
             "NE-001 preservation does not merge different historical facts sharing Record access")
     require(not list(graph.subjects(RDF.type, AIF.MaterialHistoricalFact)),
