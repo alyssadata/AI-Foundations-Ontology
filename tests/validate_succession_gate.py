@@ -7,7 +7,7 @@ Conceptual source: Alyssa Solen / AI Foundations. Validation: AI-assisted.
 """
 from datetime import datetime, timezone
 from pathlib import Path
-from rdflib import Graph, Namespace, RDF, OWL, Literal, XSD
+from rdflib import Graph, Namespace, RDF, RDFS, OWL, Literal, XSD
 from pyshacl import validate
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -25,8 +25,13 @@ def unique(g, s, p):
 
 
 def typed(g, s, cls):
-    if (s, RDF.type, cls) not in g:
-        raise ValueError(f"Missing explicit type {cls}")
+    # An admitted assessment explicitly carries the more specific OWL class;
+    # recognize that declared subclass without inventing unasserted identity.
+    if (s, RDF.type, cls) not in g and not any(
+        (actual, RDFS.subClassOf, cls) in g
+        for actual in g.objects(s, RDF.type)
+    ):
+        raise ValueError(f"Missing explicit type or direct subclass of {cls}")
 
 
 def ensure(condition, message):
