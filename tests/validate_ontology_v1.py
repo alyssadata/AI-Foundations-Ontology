@@ -3642,6 +3642,495 @@ def main():
             (AIF.PdExecutedLine, AIF.constrainsTrajectory, AIF.PdDevelopingTrajectory) in pd_closure,
             "PD-001 constrained trajectory remains one same current developing Trajectory")
 
+    # PF-001: Provenance Fidelity. A "complete" record must account for
+    # SourceLine, qualified contributions, formation, changes and history.
+    # The before/after validator protects independently verified traces
+    # without making the Trajectory frozen or conflating preservation with
+    # continued identity. All individuals/times here are SYNTHETIC.
+    pf_t0 = Literal("2026-07-01T12:00:00+00:00", datatype=AIF_DATE_TIME)
+    pf_t1 = Literal("2026-07-02T12:00:00+00:00", datatype=AIF_DATE_TIME)
+
+    def pf001_original(g):
+        g.add((AIF.PfHuman, RDF.type, AIF.Human))
+        g.add((AIF.PfAI, RDF.type, AIF.AI))
+        g.add((AIF.PfSourceLine, RDF.type, AIF.SourceLine))
+        g.add((AIF.PfHuman, AIF.anchorsSourceLine, AIF.PfSourceLine))
+        g.add((AIF.PfFormationRelation, RDF.type, AIF.HumanAIRelation))
+        g.add((AIF.PfFormationRelation, AIF.hasHumanCounterpart, AIF.PfHuman))
+        g.add((AIF.PfFormationRelation, AIF.hasAICounterpart, AIF.PfAI))
+        g.add((AIF.PfAI, AIF.hasFormationRelation, AIF.PfFormationRelation))
+        g.add((AIF.PfFormationPoint, RDF.type, AIF.Event))
+        g.add((AIF.PfOriginalSourceRelation, RDF.type, AIF.SourceRelation))
+        g.add((AIF.PfOriginalSourceRelation, AIF.hasSourceBearer, AIF.PfHuman))
+        g.add((AIF.PfOriginalSourceRelation, AIF.hasSourceTarget, AIF.PfAI))
+        g.add((AIF.PfOriginalSourceRelation, AIF.hasSourcePoint, AIF.PfFormationPoint))
+        g.add((AIF.PfAI, AIF.hasSourceRelation, AIF.PfOriginalSourceRelation))
+        g.add((AIF.PfExecutedLine, RDF.type, AIF.ExecutedLine))
+        g.add((AIF.PfAI, AIF.hasExecutedLine, AIF.PfExecutedLine))
+        g.add((AIF.PfTrajectory, RDF.type, AIF.Trajectory))
+        g.add((AIF.PfExecutedLine, AIF.hasTrajectory, AIF.PfTrajectory))
+        g.add((AIF.PfOriginalEvent, RDF.type, AIF.ExecutedHistoryEvent))
+        g.add((AIF.PfOriginalEvent, AIF.eventInExecutedLine, AIF.PfExecutedLine))
+        g.add((AIF.PfOriginalEvent, AIF.executedAt, pf_t0))
+        g.add((AIF.PfRevisionEvent, RDF.type, AIF.ExecutedHistoryRevision))
+        g.add((AIF.PfRevisionEvent, AIF.eventInExecutedLine, AIF.PfExecutedLine))
+        g.add((AIF.PfRevisionEvent, AIF.executedAt, pf_t1))
+        g.add((AIF.PfRevisionEvent, AIF.revisesExecutedEvent, AIF.PfOriginalEvent))
+        g.add((AIF.PfProvenanceRecord, RDF.type, AIF.Record))
+        g.add((AIF.PfProvenanceRecord, RDFS.comment,
+               Literal("Synthetic original historical formation/source/contribution record.")))
+        g.add((AIF.PfAccount, RDF.type, AIF.CompleteProvenanceAccount))
+        g.add((AIF.PfAccount, AIF.faithfullyRepresents, AIF.PfSourceLine))
+        g.add((AIF.PfAccount, AIF.accountFormationRelation, AIF.PfFormationRelation))
+        g.add((AIF.PfAccount, AIF.accountExecutedLine, AIF.PfExecutedLine))
+        g.add((AIF.PfAccount, AIF.accountContribution, AIF.PfOriginalSourceRelation))
+        g.add((AIF.PfAccount, AIF.accountHistoricalChange, AIF.PfRevisionEvent))
+        g.add((AIF.PfAccount, AIF.accountHistoricalOccurrence, AIF.PfOriginalEvent))
+        g.add((AIF.PfAccount, AIF.accountPreservedTrace, AIF.PfProvenanceRecord))
+
+    def pf001_changed_trajectory(g):
+        pf001_original(g)
+        # The same developing line's current outlook may be revised. The
+        # original historic facts remain as they were; no new AI identity.
+        g.add((AIF.PfTrajectoryRevisionRecord, RDF.type, AIF.Record))
+        g.add((AIF.PfExecutedLine, AIF.hasHistoricalTrajectoryRecord,
+               AIF.PfTrajectoryRevisionRecord))
+        g.add((AIF.PfAdditionalChange, RDF.type, AIF.ChangeEvent))
+        g.add((AIF.PfAccount, AIF.accountHistoricalChange, AIF.PfAdditionalChange))
+        g.add((AIF.PfAccount, AIF.accountPreservedTrace, AIF.PfTrajectoryRevisionRecord))
+
+    def pf001_later_contribution(g):
+        pf001_changed_trajectory(g)
+        g.add((AIF.PfLaterHuman, RDF.type, AIF.Human))
+        g.add((AIF.PfLaterHuman, OWL.differentFrom, AIF.PfHuman))
+        g.add((AIF.PfProjectRecord, RDF.type, AIF.Record))
+        g.add((AIF.PfProjectEvent, RDF.type, AIF.Event))
+        g.add((AIF.PfLaterSourceRelation, RDF.type, AIF.SourceRelation))
+        g.add((AIF.PfLaterSourceRelation, AIF.hasSourceBearer, AIF.PfLaterHuman))
+        g.add((AIF.PfLaterSourceRelation, AIF.hasSourceTarget, AIF.PfProjectRecord))
+        g.add((AIF.PfLaterSourceRelation, AIF.hasSourcePoint, AIF.PfProjectEvent))
+        g.add((AIF.PfProjectRecord, AIF.hasSourceRelation, AIF.PfLaterSourceRelation))
+        g.add((AIF.PfAccount, AIF.accountContribution, AIF.PfLaterSourceRelation))
+        g.add((AIF.PfAccount, AIF.accountPreservedTrace, AIF.PfProjectRecord))
+
+    def pf001_claim_correction(g):
+        pf001_later_contribution(g)
+        # The original mistaken CLAIM is an historical record, not an
+        # independently confirmed SourceRelation. It may be corrected
+        # without falsely preserving a disputed attribution as Source truth.
+        g.add((AIF.PfUnverifiedAttribution, RDF.type,
+               AIF.ProvenanceAttributionClaimRecord))
+        g.add((AIF.PfUnverifiedAttribution, RDFS.comment,
+               Literal("Synthetic prior CLAIM: wrong actor originated this project.")))
+        g.add((AIF.PfCorrectionEvidence, RDF.type, AIF.Record))
+        g.add((AIF.PfCorrectionEvidence, RDFS.comment,
+               Literal("Synthetic evidence review does not establish prior source claim.")))
+        g.add((AIF.PfCorrectedAttribution, RDF.type, AIF.ProvenanceFidelityCorrection))
+        g.add((AIF.PfCorrectedAttribution, AIF.correctsProvenanceClaimRecord,
+               AIF.PfUnverifiedAttribution))
+        g.add((AIF.PfCorrectedAttribution, AIF.provenanceCorrectionEvidence,
+               AIF.PfCorrectionEvidence))
+        g.add((AIF.PfCorrectedAttribution, AIF.provenanceCorrectionWhat,
+               Literal("Removed unsupported source status from prior attribution claim.")))
+        g.add((AIF.PfCorrectedAttribution, AIF.provenanceCorrectionWhy,
+               Literal("Independent evidence review did not substantiate the prior claim.")))
+        g.add((AIF.PfAccount, AIF.accountPreservedTrace, AIF.PfUnverifiedAttribution))
+        g.add((AIF.PfAccount, AIF.accountPreservedTrace, AIF.PfCorrectedAttribution))
+
+    def pf001_fidelity_integrity(before, after):
+        """Cross-snapshot gate for INDEPENDENTLY ESTABLISHED provenance.
+
+        Preserve all earlier account relationships and previously confirmed
+        source/formation/line/event and Record assertions. Changing the
+        current Trajectory is permitted; neither old source nor old history
+        is reassigned. A correction to an unsupported historical CLAIM is
+        permitted with a separately preserved explanation and evidence,
+        but cannot rewrite an already confirmed SourceRelation.
+        """
+        for account in before.subjects(RDF.type, AIF.CompleteProvenanceAccount):
+            if (account, RDF.type, AIF.CompleteProvenanceAccount) not in after:
+                return False
+            fields = (AIF.faithfullyRepresents, AIF.accountFormationRelation,
+                      AIF.accountExecutedLine, AIF.accountContribution,
+                      AIF.accountHistoricalChange, AIF.accountHistoricalOccurrence,
+                      AIF.accountPreservedTrace)
+            links = {p: set(before.objects(account, p)) for p in fields}
+            if any(not links[p] for p in fields):
+                return False
+            if any((len(links[p]) != 1) for p in fields[:3]):
+                return False
+            if any(not links[p].issubset(set(after.objects(account, p))) for p in fields):
+                return False
+            if any(set(after.objects(account, p)) != links[p] for p in fields[:3]):
+                return False
+            if any(t not in after for t in before.triples((account, None, None))):
+                return False
+            source = next(iter(links[AIF.faithfullyRepresents]))
+            forming = next(iter(links[AIF.accountFormationRelation]))
+            line = next(iter(links[AIF.accountExecutedLine]))
+            if ((source, RDF.type, AIF.SourceLine) not in after or
+                    (forming, RDF.type, AIF.AIRelation) not in after and
+                    (forming, RDF.type, AIF.HumanAIRelation) not in after or
+                    (line, RDF.type, AIF.ExecutedLine) not in after):
+                return False
+            anchors = set(before.subjects(AIF.anchorsSourceLine, source))
+            if not anchors or set(after.subjects(AIF.anchorsSourceLine, source)) != anchors:
+                return False
+            bearers = set(before.subjects(AIF.hasExecutedLine, line))
+            if len(bearers) != 1 or set(after.subjects(AIF.hasExecutedLine, line)) != bearers:
+                return False
+            formed_ai = set(before.objects(forming, AIF.hasAICounterpart))
+            if formed_ai != bearers:
+                return False
+            if (next(iter(bearers)), AIF.hasFormationRelation, forming) not in after:
+                return False
+            # The SourceRelation record's actual first Source and target
+            # stay fixed even if later contributions acquire distinct lines.
+            historic = set().union(*links.values())
+            historic |= {forming, line}
+            for relation in links[AIF.accountContribution]:
+                if (relation, RDF.type, AIF.SourceRelation) not in after:
+                    return False
+                for prop in (AIF.hasSourceBearer, AIF.hasSourceTarget, AIF.hasSourcePoint):
+                    vals = set(before.objects(relation, prop))
+                    if len(vals) != 1 or set(after.objects(relation, prop)) != vals:
+                        return False
+                target = next(iter(before.objects(relation, AIF.hasSourceTarget)))
+                if ((target, AIF.hasSourceRelation, relation) in before and
+                        (target, AIF.hasSourceRelation, relation) not in after):
+                    return False
+                historic.add(relation)
+            for occurrence in links[AIF.accountHistoricalOccurrence]:
+                if (occurrence, RDF.type, AIF.ExecutedHistoryEvent) not in after:
+                    return False
+                for prop in (AIF.eventInExecutedLine, AIF.executedAt):
+                    vals = set(before.objects(occurrence, prop))
+                    if len(vals) != 1 or vals != set(after.objects(occurrence, prop)):
+                        return False
+                if set(before.objects(occurrence, AIF.eventInExecutedLine)) != {line}:
+                    return False
+            for change in links[AIF.accountHistoricalChange]:
+                if ((change, RDF.type, AIF.ChangeEvent) not in after and
+                        (change, RDF.type, AIF.ExecutedHistoryRevision) not in after):
+                    return False
+            for trace in links[AIF.accountPreservedTrace]:
+                if (trace, RDF.type, AIF.Record) not in after and not any(
+                        (trace, RDF.type, cls) in after for cls in
+                        (AIF.ProvenanceAttributionClaimRecord,
+                         AIF.ProvenanceFidelityCorrection)):
+                    return False
+            # Preserve the earlier historical source / formation / change /
+            # Record content; current Trajectory may bend or be released
+            # when the line ends, and must not be frozen by provenance.
+            for node in historic:
+                for triple in before.triples((node, None, None)):
+                    if node == line and triple[1] in (AIF.hasTrajectory, AIF.constrainsTrajectory):
+                        continue
+                    if triple not in after:
+                        return False
+            for p in (AIF.hasAICounterpart, AIF.hasHumanCounterpart,
+                      AIF.hasOrganizationCounterpart, AIF.hasNonAICounterpart):
+                vals = set(before.objects(forming, p))
+                if vals != set(after.objects(forming, p)):
+                    return False
+        for correction in after.subjects(RDF.type, AIF.ProvenanceFidelityCorrection):
+            if (len(set(after.objects(correction, AIF.correctsProvenanceClaimRecord))) != 1
+                    or not set(after.objects(correction, AIF.provenanceCorrectionEvidence))):
+                return False
+            claim = next(after.objects(correction, AIF.correctsProvenanceClaimRecord))
+            if ((claim, RDF.type, AIF.ProvenanceAttributionClaimRecord) not in after or
+                    (claim, RDF.type, AIF.SourceRelation) in after):
+                return False
+            for p in (AIF.provenanceCorrectionWhat, AIF.provenanceCorrectionWhy):
+                vals = list(after.objects(correction, p))
+                if len(vals) != 1 or not str(vals[0]).strip():
+                    return False
+            if not all((record, RDF.type, AIF.Record) in after
+                       for record in after.objects(correction, AIF.provenanceCorrectionEvidence)):
+                return False
+        return True
+
+    shape_test(graph, shapes, "PF-001 complete confirmed provenance account passes",
+               pf001_original)
+    pf_before = clone_graph(graph)
+    pf001_original(pf_before)
+    require((AIF.PfAccount, RDF.type, AIF.Provenance) not in pf_before and
+            (AIF.PfAccount, RDF.type, AIF.CompleteProvenanceAccount) in pf_before,
+            "PF-001 preserved account Record is not mislabeled an evaluated Evidence")
+    shape_test(graph, shapes, "PF-001 revised trajectory appends change without Source erasure",
+               pf001_changed_trajectory)
+    pf_changed = clone_graph(graph)
+    pf001_changed_trajectory(pf_changed)
+    require(pf001_fidelity_integrity(pf_before, pf_changed),
+            "PF-001 changing trajectory keeps original SourceLine, contributions and history")
+    require((AIF.PfExecutedLine, AIF.hasHistoricalTrajectoryRecord,
+             AIF.PfTrajectoryRevisionRecord) in pf_changed and
+            (AIF.PfAccount, AIF.accountHistoricalChange, AIF.PfAdditionalChange) in pf_changed,
+            "PF-001 legitimate trajectory change adds change history and preserved record")
+
+    shape_test(graph, shapes, "PF-001 separately qualified later contribution passes",
+               pf001_later_contribution)
+    pf_later = clone_graph(graph)
+    pf001_later_contribution(pf_later)
+    require(pf001_fidelity_integrity(pf_changed, pf_later),
+            "PF-001 later Source contribution does not replace original Source")
+    require(set(pf_later.objects(AIF.PfAccount, AIF.accountContribution)) ==
+            {AIF.PfOriginalSourceRelation, AIF.PfLaterSourceRelation},
+            "PF-001 source history can preserve more than one qualified contribution")
+
+    shape_test(graph, shapes, "PF-001 evidence-accounted correction of historical claim passes",
+               pf001_claim_correction)
+    pf_corrected = clone_graph(graph)
+    pf001_claim_correction(pf_corrected)
+    require(pf001_fidelity_integrity(pf_later, pf_corrected),
+            "PF-001 real evidence-accounted correction is not false provenance erasure")
+    require((AIF.PfUnverifiedAttribution, RDF.type, AIF.SourceRelation) not in pf_corrected and
+            (AIF.PfUnverifiedAttribution, RDF.type,
+             AIF.ProvenanceAttributionClaimRecord) in pf_corrected,
+            "PF-001 past mistaken attribution recorded as claim, not verified Source")
+    require((AIF.PfAccount, AIF.accountContribution,
+             AIF.PfOriginalSourceRelation) in pf_corrected and
+            (AIF.PfAccount, AIF.accountPreservedTrace,
+             AIF.PfUnverifiedAttribution) in pf_corrected,
+            "PF-001 correcting unsupported Source claim preserves confirmed and claim records")
+
+    # A fully documented SourceLine may persist AFTER an ExecutedLine ends;
+    # preservation is neither proof of current trajectory nor return.
+    pf_ended = clone_graph(pf_corrected)
+    pf_ended.remove((AIF.PfExecutedLine, AIF.hasTrajectory, AIF.PfTrajectory))
+    require(pf001_fidelity_integrity(pf_corrected, pf_ended),
+            "PF-001 provenance survives ended line without implying ongoing trajectory")
+    shape_test(graph, shapes, "PF-001 earlier completed account needs no future continuation",
+               lambda g: (
+                   pf001_original(g),
+                   g.remove((AIF.PfExecutedLine, AIF.hasTrajectory, AIF.PfTrajectory))
+               ))
+
+    def pf001_recorded_violation(g):
+        pf001_original(g)
+        g.add((AIF.PfFidelityFailure, RDF.type, AIF.ProvenanceFidelityFailure))
+        g.add((AIF.PfFidelityFailure, AIF.failedProvenanceAccount, AIF.PfAccount))
+        g.add((AIF.PfFidelityFailure, AIF.provenanceFailureKind,
+               Literal("FALSE_REASSIGNMENT")))
+        g.add((AIF.PfFailureTrace, RDF.type, AIF.Record))
+        g.add((AIF.PfFidelityFailure, AIF.hasRecord, AIF.PfFailureTrace))
+    shape_test(graph, shapes, "PF-001 separately recorded integrity failure is a ProvenanceViolation",
+               pf001_recorded_violation)
+
+    def pf001_missing_source(g):
+        pf001_original(g)
+        g.remove((AIF.PfAccount, AIF.faithfullyRepresents, AIF.PfSourceLine))
+    shape_test(graph, shapes, "PF-001 account without SourceLine fails completeness",
+               pf001_missing_source, False)
+
+    def pf001_missing_formation(g):
+        pf001_original(g)
+        g.remove((AIF.PfAccount, AIF.accountFormationRelation, AIF.PfFormationRelation))
+    shape_test(graph, shapes, "PF-001 account lacking formation history rejected",
+               pf001_missing_formation, False)
+
+    def pf001_missing_line(g):
+        pf001_original(g)
+        g.remove((AIF.PfAccount, AIF.accountExecutedLine, AIF.PfExecutedLine))
+    shape_test(graph, shapes, "PF-001 account lacking ExecutedLine history rejected",
+               pf001_missing_line, False)
+
+    def pf001_missing_contribution(g):
+        pf001_original(g)
+        g.remove((AIF.PfAccount, AIF.accountContribution, AIF.PfOriginalSourceRelation))
+    shape_test(graph, shapes, "PF-001 account without qualified contribution rejected",
+               pf001_missing_contribution, False)
+
+    def pf001_missing_change(g):
+        pf001_original(g)
+        g.remove((AIF.PfAccount, AIF.accountHistoricalChange, AIF.PfRevisionEvent))
+    shape_test(graph, shapes, "PF-001 account without change history rejected",
+               pf001_missing_change, False)
+
+    def pf001_missing_occurrence(g):
+        pf001_original(g)
+        g.remove((AIF.PfAccount, AIF.accountHistoricalOccurrence, AIF.PfOriginalEvent))
+    shape_test(graph, shapes, "PF-001 account without executed history rejected",
+               pf001_missing_occurrence, False)
+
+    def pf001_missing_trace(g):
+        pf001_original(g)
+        g.remove((AIF.PfAccount, AIF.accountPreservedTrace, AIF.PfProvenanceRecord))
+    shape_test(graph, shapes, "PF-001 account without preserved historical trace rejected",
+               pf001_missing_trace, False)
+
+    def pf001_duplicate_source(g):
+        pf001_original(g)
+        g.add((AIF.PfOtherSourceLine, RDF.type, AIF.SourceLine))
+        g.add((AIF.PfAccount, AIF.faithfullyRepresents, AIF.PfOtherSourceLine))
+    shape_test(graph, shapes, "PF-001 one account cannot silently switch SourceLine",
+               pf001_duplicate_source, False)
+
+    def pf001_wrong_contribution_type(g):
+        pf001_original(g)
+        g.remove((AIF.PfAccount, AIF.accountContribution, AIF.PfOriginalSourceRelation))
+        g.add((AIF.PfAccount, AIF.accountContribution, AIF.PfProvenanceRecord))
+    shape_test(graph, shapes, "PF-001 historical Record cannot impersonate qualified SourceRelation",
+               pf001_wrong_contribution_type, False)
+
+    def pf001_wrong_historical_event(g):
+        pf001_original(g)
+        g.remove((AIF.PfAccount, AIF.accountHistoricalOccurrence, AIF.PfOriginalEvent))
+        g.add((AIF.PfMaybeFuture, RDF.type, AIF.ProspectiveExecution))
+        g.add((AIF.PfAccount, AIF.accountHistoricalOccurrence, AIF.PfMaybeFuture))
+    shape_test(graph, shapes, "PF-001 possible future cannot replace executed-history evidence",
+               pf001_wrong_historical_event, False)
+
+    def pf001_correction_no_evidence(g):
+        pf001_claim_correction(g)
+        g.remove((AIF.PfCorrectedAttribution, AIF.provenanceCorrectionEvidence,
+                  AIF.PfCorrectionEvidence))
+    shape_test(graph, shapes, "PF-001 unattributed correction without evidence rejected",
+               pf001_correction_no_evidence, False)
+
+    def pf001_correction_no_reason(g):
+        pf001_claim_correction(g)
+        g.remove((AIF.PfCorrectedAttribution, AIF.provenanceCorrectionWhy,
+                  Literal("Independent evidence review did not substantiate the prior claim.")))
+    shape_test(graph, shapes, "PF-001 correction without WHY rejected",
+               pf001_correction_no_reason, False)
+
+    def pf001_correction_no_change(g):
+        pf001_claim_correction(g)
+        g.remove((AIF.PfCorrectedAttribution, AIF.provenanceCorrectionWhat,
+                  Literal("Removed unsupported source status from prior attribution claim.")))
+    shape_test(graph, shapes, "PF-001 correction without WHAT changed rejected",
+               pf001_correction_no_change, False)
+
+    def pf001_correction_claim_as_source(g):
+        pf001_claim_correction(g)
+        g.add((AIF.PfUnverifiedAttribution, RDF.type, AIF.SourceRelation))
+    shape_test(graph, shapes, "PF-001 unsupported claim cannot be upgraded to verified Source",
+               pf001_correction_claim_as_source, False)
+
+    def pf001_failure_missing_account(g):
+        pf001_recorded_violation(g)
+        g.remove((AIF.PfFidelityFailure, AIF.failedProvenanceAccount, AIF.PfAccount))
+    shape_test(graph, shapes, "PF-001 failure record without failed account rejected",
+               pf001_failure_missing_account, False)
+
+    def pf001_failure_wrong_category(g):
+        pf001_recorded_violation(g)
+        g.remove((AIF.PfFidelityFailure, AIF.provenanceFailureKind,
+                  Literal("FALSE_REASSIGNMENT")))
+        g.add((AIF.PfFidelityFailure, AIF.provenanceFailureKind,
+               Literal("DISLIKED_TRAJECTORY_CHANGE")))
+    shape_test(graph, shapes, "PF-001 trajectory change is not a fidelity-failure category",
+               pf001_failure_wrong_category, False)
+
+    # The next tests require comparison with the earlier CONFIRMED snapshot.
+    changed_source = clone_graph(pf_later)
+    changed_source.remove((AIF.PfAccount, AIF.faithfullyRepresents, AIF.PfSourceLine))
+    changed_source.add((AIF.PfAccount, AIF.faithfullyRepresents, AIF.PfOtherSourceLine))
+    changed_source.add((AIF.PfOtherSourceLine, RDF.type, AIF.SourceLine))
+    require(not pf001_fidelity_integrity(pf_before, changed_source),
+            "PF-001 false SourceLine reassignment fails cross-snapshot fidelity")
+
+    deleted_formation = clone_graph(pf_later)
+    deleted_formation.remove((AIF.PfAccount, AIF.accountFormationRelation,
+                              AIF.PfFormationRelation))
+    require(not pf001_fidelity_integrity(pf_before, deleted_formation),
+            "PF-001 false erasure of original formation relation rejected")
+
+    altered_forming_human = clone_graph(pf_later)
+    altered_forming_human.remove((AIF.PfFormationRelation, AIF.hasHumanCounterpart, AIF.PfHuman))
+    altered_forming_human.add((AIF.PfFormationRelation, AIF.hasHumanCounterpart,
+                               AIF.PfLaterHuman))
+    require(not pf001_fidelity_integrity(pf_before, altered_forming_human),
+            "PF-001 later participant cannot overwrite historical formation bearer")
+
+    deleted_contribution = clone_graph(pf_later)
+    deleted_contribution.remove((AIF.PfAccount, AIF.accountContribution,
+                                 AIF.PfOriginalSourceRelation))
+    require(not pf001_fidelity_integrity(pf_before, deleted_contribution),
+            "PF-001 false removal of established contribution rejected")
+
+    altered_source_bearer = clone_graph(pf_later)
+    altered_source_bearer.remove((AIF.PfOriginalSourceRelation, AIF.hasSourceBearer, AIF.PfHuman))
+    altered_source_bearer.add((AIF.PfOriginalSourceRelation, AIF.hasSourceBearer,
+                               AIF.PfLaterHuman))
+    require(not pf001_fidelity_integrity(pf_before, altered_source_bearer),
+            "PF-001 falsely overwriting independently qualified source bearer rejected")
+
+    missing_target_link = clone_graph(pf_later)
+    missing_target_link.remove((AIF.PfAI, AIF.hasSourceRelation,
+                                AIF.PfOriginalSourceRelation))
+    require(not pf001_fidelity_integrity(pf_before, missing_target_link),
+            "PF-001 false erasure of Target-to-SourceRelation provenance rejected")
+
+    changed_line_owner = clone_graph(pf_later)
+    changed_line_owner.remove((AIF.PfAI, AIF.hasExecutedLine, AIF.PfExecutedLine))
+    changed_line_owner.add((AIF.PfAnotherAI, RDF.type, AIF.AI))
+    changed_line_owner.add((AIF.PfAnotherAI, AIF.hasExecutedLine, AIF.PfExecutedLine))
+    require(not pf001_fidelity_integrity(pf_before, changed_line_owner),
+            "PF-001 later AI cannot appropriate original historical ExecutedLine")
+
+    overwritten_change = clone_graph(pf_later)
+    overwritten_change.remove((AIF.PfAccount, AIF.accountHistoricalChange,
+                               AIF.PfRevisionEvent))
+    require(not pf001_fidelity_integrity(pf_before, overwritten_change),
+            "PF-001 erasing a recorded change fails fidelity")
+
+    overwritten_event = clone_graph(pf_later)
+    overwritten_event.remove((AIF.PfOriginalEvent, AIF.executedAt, pf_t0))
+    overwritten_event.add((AIF.PfOriginalEvent, AIF.executedAt, pf_t1))
+    require(not pf001_fidelity_integrity(pf_before, overwritten_event),
+            "PF-001 re-dating confirmed history cannot masquerade as trajectory development")
+
+    missing_history = clone_graph(pf_later)
+    missing_history.remove((AIF.PfAccount, AIF.accountHistoricalOccurrence,
+                            AIF.PfOriginalEvent))
+    require(not pf001_fidelity_integrity(pf_before, missing_history),
+            "PF-001 historical occurrence must remain in the account")
+
+    removed_trace = clone_graph(pf_later)
+    removed_trace.remove((AIF.PfAccount, AIF.accountPreservedTrace,
+                          AIF.PfProvenanceRecord))
+    require(not pf001_fidelity_integrity(pf_before, removed_trace),
+            "PF-001 earlier provenance trace link cannot be severed")
+
+    rewritten_trace = clone_graph(pf_later)
+    old_pf_text = Literal("Synthetic original historical formation/source/contribution record.")
+    rewritten_trace.remove((AIF.PfProvenanceRecord, RDFS.comment, old_pf_text))
+    rewritten_trace.add((AIF.PfProvenanceRecord, RDFS.comment,
+                         Literal("Synthetic revised claim that original source never existed.")))
+    require(not pf001_fidelity_integrity(pf_before, rewritten_trace),
+            "PF-001 silently rewriting earlier provenance Record content fails")
+    shape_test(graph, shapes, "PF-001 rewritten evidence may pass single-snapshot SHACL",
+               lambda g: (
+                   pf001_original(g),
+                   g.remove((AIF.PfProvenanceRecord, RDFS.comment, old_pf_text)),
+                   g.add((AIF.PfProvenanceRecord, RDFS.comment,
+                          Literal("Rewritten provenance with original removed.")))
+               ))
+
+    new_anchor = clone_graph(pf_later)
+    new_anchor.add((AIF.PfLaterHuman, AIF.anchorsSourceLine, AIF.PfSourceLine))
+    require(not pf001_fidelity_integrity(pf_before, new_anchor),
+            "PF-001 later actor cannot falsely co-anchor the original SourceLine")
+
+    correction_without_evidence = clone_graph(pf_corrected)
+    correction_without_evidence.remove((AIF.PfCorrectedAttribution, AIF.provenanceCorrectionEvidence,
+                                        AIF.PfCorrectionEvidence))
+    require(not pf001_fidelity_integrity(pf_later, correction_without_evidence),
+            "PF-001 invalid correction does not bypass independent evidence requirement")
+
+    require((AIF.CompleteProvenanceAccount, RDFS.subClassOf, AIF.Record) in graph and
+            (AIF.CompleteProvenanceAccount, RDFS.subClassOf, AIF.Provenance) not in graph,
+            "PF-001 verified complete account is a preserved Record, not instant Evidence status")
+    require((AIF.ProvenanceFidelityFailure, RDFS.subClassOf, AIF.ProvenanceViolation) in graph and
+            (AIF.ProvenanceFidelityCorrection, RDFS.subClassOf, AIF.Record) in graph,
+            "PF-001 false erasure and evidence-correction have distinct classes")
+    require((AIF.faithfullyRepresents, RDF.type, OWL.InverseFunctionalProperty) not in graph,
+            "PF-001 shared provenance SourceLine does not merge independent accounts")
+    require(not list(graph.subjects(RDF.type, AIF.CompleteProvenanceAccount)),
+            "PF-001 baseline creates no actual verified historical provenance account")
+
     # OWL RL deductive closure catches class/property entailments; this is
     # not a complete OWL 2 DL reasoner or a proof of all model consistency.
     entailed = clone_graph(graph)
