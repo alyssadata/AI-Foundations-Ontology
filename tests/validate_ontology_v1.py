@@ -36,7 +36,7 @@ def shape_test(original, shacl, label, edit=None, should_pass=True):
     working = clone_graph(original)
     if edit:
         edit(working)
-    conforms, report, _ = validate(
+    conforms, report, report_text = validate(
         data_graph=working,
         shacl_graph=shacl,
         # The test graph already contains the ontology; supplying original as
@@ -49,7 +49,7 @@ def shape_test(original, shacl, label, edit=None, should_pass=True):
         advanced=True,
     )
     if conforms != should_pass:
-        raise AssertionError(f"{label}: expected conformance {should_pass}, got {conforms}\n{report}")
+        raise AssertionError(f"{label}: expected conformance {should_pass}, got {conforms}\n{report_text}")
     print(f"PASS: {label} ({'valid' if conforms else 'expected SHACL rejection'})")
 
 def main():
