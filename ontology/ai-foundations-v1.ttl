@@ -5,6 +5,14 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 
+# OWL 2 DL metadata typing: these pre-existing Dublin Core annotations
+# must be declared as owl:AnnotationProperty for OWLAPI's DL profile.
+# This repairs the RDF vocabulary declaration only; neither the authored
+# source metadata nor any LOCKED conceptual axiom is altered.
+dcterms:title a owl:AnnotationProperty .
+dcterms:creator a owl:AnnotationProperty .
+dcterms:description a owl:AnnotationProperty .
+
 <https://awakeningcodex.com/ontology/ai-foundations/v1>
     a owl:Ontology ;
     dcterms:title "AI Foundations Ontology — Origin | Continuum v1.0"@en ;
