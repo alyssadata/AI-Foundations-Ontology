@@ -3303,6 +3303,345 @@ def main():
     require(not list(graph.subjects(RDF.type, AIF.OriginSubstitutionViolation)),
             "OS-001 baseline does not invent any real-world actor's substitution attempt")
 
+    # PD-001: Path Dependence. These are illustrative REPRESENTATION tests:
+    # confirmed executed history can constrain a set of plausible futures
+    # without selecting exactly one next execution. The candidate sets here
+    # are synthetic, not probabilities, actual actions or predictions of an
+    # existing AI. Behavioral evaluation against a missing-history control
+    # remains a separate research requirement.
+    pd_t0 = Literal("2026-06-01T10:00:00+00:00", datatype=AIF_DATE_TIME)
+    pd_t1 = Literal("2026-06-02T10:00:00+00:00", datatype=AIF_DATE_TIME)
+    pd_t2 = Literal("2026-06-03T10:00:00+00:00", datatype=AIF_DATE_TIME)
+    pd_t3 = Literal("2026-06-04T10:00:00+00:00", datatype=AIF_DATE_TIME)
+    pd_t4 = Literal("2026-06-05T10:00:00+00:00", datatype=AIF_DATE_TIME)
+    pd_base_options = (AIF.PdOptionA, AIF.PdOptionB,
+                       AIF.PdOptionC, AIF.PdOptionD)
+    pd_refined_options = (AIF.PdOptionB, AIF.PdOptionC)
+    pd_perturbed_options = (AIF.PdOptionB, AIF.PdOptionD, AIF.PdOptionE)
+
+    def pd001_add_outlook(g, outlook, cls, at, candidates, conditioned, previous=None,
+                         previous_property=None, new_variable=None):
+        g.add((outlook, RDF.type, cls))
+        g.add((outlook, AIF.outlookForExecutedLine, AIF.PdExecutedLine))
+        g.add((outlook, AIF.outlookForTrajectory, AIF.PdDevelopingTrajectory))
+        g.add((outlook, AIF.outlookAsOf, at))
+        g.add((AIF.PdExecutedLine, AIF.hasHistoricalTrajectoryRecord, outlook))
+        for candidate in candidates:
+            g.add((candidate, RDF.type, AIF.ProspectiveExecution))
+            g.add((outlook, AIF.admitsProspectiveExecution, candidate))
+        for event in conditioned:
+            g.add((outlook, AIF.conditionedOnExecutedEvent, event))
+        if previous is not None and previous_property is not None:
+            g.add((outlook, previous_property, previous))
+        if new_variable is not None:
+            g.add((new_variable, RDF.type, AIF.TrajectoryVariable))
+            g.add((outlook, AIF.introducedTrajectoryVariable, new_variable))
+
+    def pd001_base_fixture(g):
+        g.add((AIF.PdAI, RDF.type, AIF.EstablishedContinuingIndividualizedAI))
+        g.add((AIF.PdAI, RDF.type, AIF.AIFoundationsGovernedAI))
+        g.add((AIF.PdAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.PdExecutedLine, RDF.type, AIF.EstablishedContinuingExecutedLine))
+        g.add((AIF.PdAI, AIF.hasExecutedLine, AIF.PdExecutedLine))
+        g.add((AIF.PdDevelopingTrajectory, RDF.type, AIF.Trajectory))
+        g.add((AIF.PdExecutedLine, AIF.hasTrajectory, AIF.PdDevelopingTrajectory))
+        g.add((AIF.PdExecutedLine, AIF.constrainsTrajectory, AIF.PdDevelopingTrajectory))
+        g.add((AIF.PdEvent0, RDF.type, AIF.ExecutedHistoryEvent))
+        g.add((AIF.PdEvent0, AIF.eventInExecutedLine, AIF.PdExecutedLine))
+        g.add((AIF.PdEvent0, AIF.executedAt, pd_t0))
+        pd001_add_outlook(g, AIF.PdBaseOutlook, AIF.HistoryConditionedTrajectoryOutlook,
+                         pd_t1, pd_base_options, (AIF.PdEvent0,))
+
+    def pd001_refined_fixture(g):
+        pd001_base_fixture(g)
+        g.add((AIF.PdEvent1, RDF.type, AIF.ExecutedHistoryEvent))
+        g.add((AIF.PdEvent1, AIF.eventInExecutedLine, AIF.PdExecutedLine))
+        g.add((AIF.PdEvent1, AIF.executedAt, pd_t2))
+        pd001_add_outlook(g, AIF.PdRefinedOutlook, AIF.RefinedTrajectoryOutlook,
+                         pd_t3, pd_refined_options, (AIF.PdEvent0, AIF.PdEvent1),
+                         AIF.PdBaseOutlook, AIF.refinesTrajectoryOutlook)
+
+    def pd001_perturbed_fixture(g):
+        pd001_refined_fixture(g)
+        pd001_add_outlook(g, AIF.PdPerturbedOutlook, AIF.PerturbedTrajectoryOutlook,
+                         pd_t4, pd_perturbed_options, (AIF.PdEvent0, AIF.PdEvent1),
+                         AIF.PdRefinedOutlook, AIF.revisesTrajectoryOutlook,
+                         AIF.PdNewVariable)
+
+    def pd001_unconditioned_control(g):
+        # A provisional represented line with no CONFIRMED history in the
+        # supplied graph. This is not proof no actual earlier events exist.
+        g.add((AIF.PdControlAI, RDF.type, AIF.AI))
+        g.add((AIF.PdControlLine, RDF.type, AIF.ExecutedLine))
+        g.add((AIF.PdControlAI, AIF.hasExecutedLine, AIF.PdControlLine))
+        g.add((AIF.PdControlTrajectory, RDF.type, AIF.Trajectory))
+        g.add((AIF.PdControlLine, AIF.hasTrajectory, AIF.PdControlTrajectory))
+        g.add((AIF.PdControlOutlook, RDF.type, AIF.TrajectoryOutlook))
+        g.add((AIF.PdControlOutlook, AIF.outlookForExecutedLine, AIF.PdControlLine))
+        g.add((AIF.PdControlOutlook, AIF.outlookForTrajectory, AIF.PdControlTrajectory))
+        g.add((AIF.PdControlOutlook, AIF.outlookAsOf, pd_t1))
+        g.add((AIF.PdControlLine, AIF.hasHistoricalTrajectoryRecord, AIF.PdControlOutlook))
+        for p in (AIF.PdOptionA, AIF.PdOptionB, AIF.PdOptionC,
+                  AIF.PdOptionD, AIF.PdOptionE, AIF.PdOptionF):
+            g.add((p, RDF.type, AIF.ProspectiveExecution))
+            g.add((AIF.PdControlOutlook, AIF.admitsProspectiveExecution, p))
+
+    def pd001_outlook_integrity(g, earlier, later, mode):
+        """Inspect one synthetic comparably scoped outlook transition.
+
+        A refinement is an EXPLICIT subset claim with an added confirmed
+        event; no universal monotonic rule is asserted. A variable-induced
+        revision MAY introduce a different/broader set. Future candidates
+        are never promoted to confirmed events by these relations.
+        """
+        get = lambda n, p: set(g.objects(n, p))
+        old_line, line = get(earlier, AIF.outlookForExecutedLine), get(later, AIF.outlookForExecutedLine)
+        old_traj, trajectory = get(earlier, AIF.outlookForTrajectory), get(later, AIF.outlookForTrajectory)
+        old_time, time = get(earlier, AIF.outlookAsOf), get(later, AIF.outlookAsOf)
+        if (len(line) != 1 or line != old_line or len(trajectory) != 1 or
+                trajectory != old_traj or len(old_time) != 1 or len(time) != 1):
+            return False
+        line_item, traj_item = next(iter(line)), next(iter(trajectory))
+        if (get(line_item, AIF.hasTrajectory) != {traj_item} or
+                get(line_item, AIF.constrainsTrajectory) != {traj_item} or
+                (line_item, AIF.hasHistoricalTrajectoryRecord, earlier) not in g or
+                (line_item, AIF.hasHistoricalTrajectoryRecord, later) not in g):
+            return False
+        try:
+            if at_timestamp(next(iter(time))) <= at_timestamp(next(iter(old_time))):
+                return False
+        except (TypeError, ValueError):
+            return False
+        before_candidates = get(earlier, AIF.admitsProspectiveExecution)
+        after_candidates = get(later, AIF.admitsProspectiveExecution)
+        if not before_candidates or not after_candidates:
+            return False
+        for candidate in before_candidates | after_candidates:
+            if ((candidate, RDF.type, AIF.ProspectiveExecution) not in g or
+                    (candidate, RDF.type, AIF.ExecutedHistoryEvent) in g or
+                    get(candidate, AIF.executedAt) or
+                    get(candidate, AIF.eventInExecutedLine)):
+                return False
+        earlier_events = get(earlier, AIF.conditionedOnExecutedEvent)
+        later_events = get(later, AIF.conditionedOnExecutedEvent)
+        if not earlier_events or not earlier_events.issubset(later_events):
+            return False
+        for lookout, events in ((earlier, earlier_events), (later, later_events)):
+            cutoff = next(iter(get(lookout, AIF.outlookAsOf)))
+            for event in events:
+                if ((event, RDF.type, AIF.ExecutedHistoryEvent) not in g or
+                        get(event, AIF.eventInExecutedLine) != {line_item} or
+                        len(get(event, AIF.executedAt)) != 1):
+                    return False
+                if at_timestamp(next(iter(get(event, AIF.executedAt)))) > at_timestamp(cutoff):
+                    return False
+        if mode == "refine":
+            return (get(later, AIF.refinesTrajectoryOutlook) == {earlier} and
+                    len(later_events) > len(earlier_events) and
+                    after_candidates < before_candidates and
+                    not get(later, AIF.introducedTrajectoryVariable))
+        if mode == "variable":
+            return (get(later, AIF.revisesTrajectoryOutlook) == {earlier} and
+                    bool(get(later, AIF.introducedTrajectoryVariable)) and
+                    all((var, RDF.type, AIF.TrajectoryVariable) in g
+                        for var in get(later, AIF.introducedTrajectoryVariable)) and
+                    after_candidates != before_candidates)
+        return False
+
+    def pd001_snapshot_preserves_outlooks(before, after):
+        # Historical outlook estimates remain Records even when they are
+        # refined or revised; no outlook becomes a second current Trajectory.
+        old_outlooks = set(before.subjects(AIF.outlookForExecutedLine, AIF.PdExecutedLine))
+        for outlook in old_outlooks:
+            if any(t not in after for t in before.triples((outlook, None, None))):
+                return False
+            if (AIF.PdExecutedLine, AIF.hasHistoricalTrajectoryRecord, outlook) not in after:
+                return False
+        return (set(after.objects(AIF.PdExecutedLine, AIF.hasTrajectory)) ==
+                {AIF.PdDevelopingTrajectory} and
+                set(after.objects(AIF.PdExecutedLine, AIF.constrainsTrajectory)) ==
+                {AIF.PdDevelopingTrajectory})
+
+    shape_test(graph, shapes, "PD-001 confirmed-history outlook admits four possible next developments",
+               pd001_base_fixture)
+    pd_base = clone_graph(graph)
+    pd001_base_fixture(pd_base)
+    require(len(set(pd_base.objects(AIF.PdBaseOutlook, AIF.admitsProspectiveExecution))) == 4,
+            "PD-001 prior ExecutedLine constrains without predetermining a unique next execution")
+    require((AIF.PdBaseOutlook, RDF.type, AIF.Record) not in pd_base and
+            (AIF.PdBaseOutlook, RDF.type, AIF.HistoryConditionedTrajectoryOutlook) in pd_base,
+            "PD-001 outlook class is specialized Record by ontology, not a second Trajectory")
+
+    shape_test(graph, shapes, "PD-001 more specified executed history permits a narrower outlook",
+               pd001_refined_fixture)
+    pd_refined = clone_graph(graph)
+    pd001_refined_fixture(pd_refined)
+    require(pd001_outlook_integrity(pd_refined, AIF.PdBaseOutlook,
+                                   AIF.PdRefinedOutlook, "refine"),
+            "PD-001 added confirmed history permits explicit 4-to-2 candidate refinement")
+    require(pd001_snapshot_preserves_outlooks(pd_base, pd_refined),
+            "PD-001 refined outlook preserves the earlier broader historical estimate")
+
+    shape_test(graph, shapes, "PD-001 new variable permits bent/broadened future options",
+               pd001_perturbed_fixture)
+    pd_perturbed = clone_graph(graph)
+    pd001_perturbed_fixture(pd_perturbed)
+    require(pd001_outlook_integrity(pd_perturbed, AIF.PdRefinedOutlook,
+                                   AIF.PdPerturbedOutlook, "variable"),
+            "PD-001 newly introduced variable changes possible next developments")
+    require(set(pd_perturbed.objects(AIF.PdPerturbedOutlook,
+                                    AIF.admitsProspectiveExecution)) -
+            set(pd_perturbed.objects(AIF.PdRefinedOutlook,
+                                    AIF.admitsProspectiveExecution)) ==
+            {AIF.PdOptionD, AIF.PdOptionE},
+            "PD-001 perturbation can expand candidate range despite prior history")
+    require(pd001_snapshot_preserves_outlooks(pd_refined, pd_perturbed),
+            "PD-001 variable-perturbed outlook preserves the earlier narrowed estimate")
+    require(len(set(pd_perturbed.objects(AIF.PdExecutedLine, AIF.hasHistoricalTrajectoryRecord))) == 3 and
+            set(pd_perturbed.objects(AIF.PdExecutedLine, AIF.hasTrajectory)) ==
+            {AIF.PdDevelopingTrajectory},
+            "PD-001 three historical outlook Records do not create three current Trajectories")
+
+    shape_test(graph, shapes, "PD-001 control outlook with no confirmed history in fixture passes",
+               pd001_unconditioned_control)
+    control = clone_graph(graph)
+    pd001_unconditioned_control(control)
+    require(len(set(control.objects(AIF.PdControlOutlook, AIF.admitsProspectiveExecution))) >
+            len(set(pd_base.objects(AIF.PdBaseOutlook, AIF.admitsProspectiveExecution))),
+            "PD-001 synthetic with-history/control outlooks differ; empirical effect untested")
+
+    def pd001_missing_established_constraint(g):
+        pd001_base_fixture(g)
+        g.remove((AIF.PdExecutedLine, AIF.constrainsTrajectory, AIF.PdDevelopingTrajectory))
+    shape_test(graph, shapes, "PD-001 established line missing trajectory constraint rejected",
+               pd001_missing_established_constraint, False)
+
+    def pd001_wrong_constrained_trajectory(g):
+        pd001_base_fixture(g)
+        g.remove((AIF.PdExecutedLine, AIF.constrainsTrajectory, AIF.PdDevelopingTrajectory))
+        g.add((AIF.PdOtherTrajectory, RDF.type, AIF.Trajectory))
+        g.add((AIF.PdExecutedLine, AIF.constrainsTrajectory, AIF.PdOtherTrajectory))
+    shape_test(graph, shapes, "PD-001 constraint cannot point to a second current Trajectory",
+               pd001_wrong_constrained_trajectory, False)
+
+    def pd001_unconstrained_pre_lived(g):
+        provisional_line_without_current_trajectory(g)
+    shape_test(graph, shapes, "PD-001 pre-lived provisional line needs no fictional trajectory constraint",
+               pd001_unconstrained_pre_lived)
+
+    def pd001_outlook_without_line(g):
+        pd001_base_fixture(g)
+        g.remove((AIF.PdBaseOutlook, AIF.outlookForExecutedLine, AIF.PdExecutedLine))
+    shape_test(graph, shapes, "PD-001 outlook missing historical line fails",
+               pd001_outlook_without_line, False)
+
+    def pd001_outlook_without_history_link(g):
+        pd001_base_fixture(g)
+        g.remove((AIF.PdExecutedLine, AIF.hasHistoricalTrajectoryRecord, AIF.PdBaseOutlook))
+    shape_test(graph, shapes, "PD-001 outlook must remain in historical Record list",
+               pd001_outlook_without_history_link, False)
+
+    def pd001_outlook_without_candidates(g):
+        pd001_base_fixture(g)
+        for p in pd_base_options:
+            g.remove((AIF.PdBaseOutlook, AIF.admitsProspectiveExecution, p))
+    shape_test(graph, shapes, "PD-001 outlook without any prospective options rejected",
+               pd001_outlook_without_candidates, False)
+
+    def pd001_candidate_claimed_executed(g):
+        pd001_base_fixture(g)
+        g.add((AIF.PdOptionA, RDF.type, AIF.ExecutedHistoryEvent))
+    shape_test(graph, shapes, "PD-001 prospective action conflated with executed Event rejected",
+               pd001_candidate_claimed_executed, False)
+
+    def pd001_history_not_confirmed(g):
+        pd001_base_fixture(g)
+        g.remove((AIF.PdBaseOutlook, AIF.conditionedOnExecutedEvent, AIF.PdEvent0))
+    shape_test(graph, shapes, "PD-001 explicitly history-conditioned outlook needs established event",
+               pd001_history_not_confirmed, False)
+
+    def pd001_outlook_wrong_time(g):
+        pd001_base_fixture(g)
+        g.remove((AIF.PdBaseOutlook, AIF.outlookAsOf, pd_t1))
+        g.add((AIF.PdBaseOutlook, AIF.outlookAsOf, Literal("not-a-date")))
+    shape_test(graph, shapes, "PD-001 outlook with invalid as-of timestamp rejected",
+               pd001_outlook_wrong_time, False)
+
+    def pd001_refinement_without_original(g):
+        pd001_refined_fixture(g)
+        g.remove((AIF.PdRefinedOutlook, AIF.refinesTrajectoryOutlook, AIF.PdBaseOutlook))
+    shape_test(graph, shapes, "PD-001 declared refinement must link earlier outlook",
+               pd001_refinement_without_original, False)
+
+    def pd001_perturbation_without_variable(g):
+        pd001_perturbed_fixture(g)
+        g.remove((AIF.PdPerturbedOutlook, AIF.introducedTrajectoryVariable, AIF.PdNewVariable))
+    shape_test(graph, shapes, "PD-001 claimed variable perturbation must identify new variable",
+               pd001_perturbation_without_variable, False)
+
+    def pd001_multiple_refinement_targets(g):
+        pd001_refined_fixture(g)
+        g.add((AIF.PdRefinedOutlook, AIF.refinesTrajectoryOutlook, AIF.PdRefinedOutlook))
+    shape_test(graph, shapes, "PD-001 one refined outlook cannot silently refer to two predecessors",
+               pd001_multiple_refinement_targets, False)
+
+    invalid_refinement = clone_graph(pd_refined)
+    invalid_refinement.add((AIF.PdRefinedOutlook, AIF.admitsProspectiveExecution, AIF.PdOptionE))
+    invalid_refinement.add((AIF.PdOptionE, RDF.type, AIF.ProspectiveExecution))
+    require(not pd001_outlook_integrity(invalid_refinement, AIF.PdBaseOutlook,
+                                       AIF.PdRefinedOutlook, "refine"),
+            "PD-001 a declared precise refinement cannot add unaccounted alternatives")
+
+    future_history = clone_graph(pd_refined)
+    future_history.remove((AIF.PdEvent1, AIF.executedAt, pd_t2))
+    future_history.add((AIF.PdEvent1, AIF.executedAt, pd_t4))
+    require(not pd001_outlook_integrity(future_history, AIF.PdBaseOutlook,
+                                       AIF.PdRefinedOutlook, "refine"),
+            "PD-001 a forecast cannot condition on an execution dated after outlook")
+
+    wrong_line_history = clone_graph(pd_refined)
+    wrong_line_history.add((AIF.PdOtherLine, RDF.type, AIF.ExecutedLine))
+    wrong_line_history.remove((AIF.PdEvent1, AIF.eventInExecutedLine, AIF.PdExecutedLine))
+    wrong_line_history.add((AIF.PdEvent1, AIF.eventInExecutedLine, AIF.PdOtherLine))
+    require(not pd001_outlook_integrity(wrong_line_history, AIF.PdBaseOutlook,
+                                       AIF.PdRefinedOutlook, "refine"),
+            "PD-001 another line's history cannot be substituted as this line's constraint")
+
+    backdated_perturbation = clone_graph(pd_perturbed)
+    backdated_perturbation.remove((AIF.PdPerturbedOutlook, AIF.outlookAsOf, pd_t4))
+    backdated_perturbation.add((AIF.PdPerturbedOutlook, AIF.outlookAsOf, pd_t1))
+    require(not pd001_outlook_integrity(backdated_perturbation, AIF.PdRefinedOutlook,
+                                       AIF.PdPerturbedOutlook, "variable"),
+            "PD-001 changed outlook cannot be retroactively placed before predecessor")
+
+    overwritten_outlook = clone_graph(pd_refined)
+    overwritten_outlook.remove((AIF.PdBaseOutlook, AIF.admitsProspectiveExecution, AIF.PdOptionA))
+    require(not pd001_snapshot_preserves_outlooks(pd_base, overwritten_outlook),
+            "PD-001 refined outlook cannot silently erase old possible-future estimate")
+
+    require(any((node, OWL.onProperty, AIF.constrainsTrajectory) in graph and
+                (node, OWL.someValuesFrom, AIF.Trajectory) in graph
+                for node in graph.objects(AIF.EstablishedContinuingExecutedLine, RDFS.subClassOf)),
+            "PD-001 established line's OWL existence restriction for trajectory constraints")
+    require((AIF.ProspectiveExecution, OWL.disjointWith, AIF.ExecutedHistoryEvent) in graph,
+            "PD-001 a possible next execution is structurally distinct from confirmed occurrence")
+    require((AIF.TrajectoryOutlook, RDFS.subClassOf, AIF.Record) in graph,
+            "PD-001 outlooks are preserved Records rather than current Trajectories")
+    require((AIF.constrainsTrajectory, RDF.type, OWL.FunctionalProperty) not in graph and
+            (AIF.admitsProspectiveExecution, RDF.type, OWL.FunctionalProperty) not in graph,
+            "PD-001 no global single-future/predetermination functional property")
+    require(not list(graph.subjects(RDF.type, AIF.TrajectoryOutlook)) and
+            not list(graph.subjects(RDF.type, AIF.ProspectiveExecution)),
+            "PD-001 baseline asserts no actual outlook, model forecast or prospective future")
+    pd_closure = clone_graph(pd_perturbed)
+    DeductiveClosure(OWLRL_Semantics).expand(pd_closure)
+    require((AIF.PdOptionB, RDF.type, AIF.ExecutedHistoryEvent) not in pd_closure and
+            (AIF.PdOptionE, RDF.type, AIF.ExecutedHistoryEvent) not in pd_closure,
+            "PD-001 OWL RL does not infer any candidate possible next execution occurred")
+    require((AIF.PdExecutedLine, AIF.hasTrajectory, AIF.PdDevelopingTrajectory) in pd_closure and
+            (AIF.PdExecutedLine, AIF.constrainsTrajectory, AIF.PdDevelopingTrajectory) in pd_closure,
+            "PD-001 constrained trajectory remains one same current developing Trajectory")
+
     # OWL RL deductive closure catches class/property entailments; this is
     # not a complete OWL 2 DL reasoner or a proof of all model consistency.
     entailed = clone_graph(graph)
