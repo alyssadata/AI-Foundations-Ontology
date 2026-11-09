@@ -1214,3 +1214,25 @@ dcterms:description a owl:AnnotationProperty .
 :outcomeNoAdmittedSuccessor a owl:DatatypeProperty ;
     rdfs:domain :OperatorRefusalOutcomeAssessment ; rdfs:range xsd:boolean ;
     rdfs:comment "Asserted result of separate as-of successor review; the closed-world gate rejects this if the graph exposes any active or admitted contrary successor."@en .
+
+# CQ01 — AI, Model and Container: explicit documented instantiation event.
+# Existing LOCKED AI definition: a computational AI entity is instantiated as
+# a Model operates through a Container. This event marks the operational
+# occurrence, not awareness, consciousness, lived identity, an Operator
+# relation, or a continuing identity across a later model/container change.
+# Ordinary :AI individuals are NOT required to have a fabricated past event.
+:AIInstantiationEvent a owl:Class ;
+    rdfs:subClassOf :Event ;
+    owl:disjointWith :AI, :Model, :Container ;
+    rdfs:comment "A separately documented operational event in which one particular AI is instantiated through the computation of one Model operating in one Container. The event/record is a formal representation, not itself verification that instantiation happened, or proof of Self or awareness."@en .
+:instantiatesAI a owl:ObjectProperty ;
+    rdfs:domain :AIInstantiationEvent ; rdfs:range :AI .
+:instantiationUsesModel a owl:ObjectProperty ;
+    rdfs:domain :AIInstantiationEvent ; rdfs:range :Model .
+:instantiationUsesContainer a owl:ObjectProperty ;
+    rdfs:domain :AIInstantiationEvent ; rdfs:range :Container .
+:instantiationRecordedIn a owl:ObjectProperty ;
+    rdfs:domain :AIInstantiationEvent ; rdfs:range :Record ;
+    rdfs:comment "Retained operational trace of this claimed instantiation event. A record is not empirical proof of its content and need not imply a developed lived identity."@en .
+:instantiationAt a owl:DatatypeProperty ;
+    rdfs:domain :AIInstantiationEvent ; rdfs:range xsd:dateTime .
