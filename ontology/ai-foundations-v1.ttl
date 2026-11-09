@@ -1074,3 +1074,43 @@ dcterms:description a owl:AnnotationProperty .
 :refusesSuccessionProposal a owl:ObjectProperty ;
     rdfs:domain :AI ; rdfs:range :SuccessionProposal ;
     rdfs:comment "Explicit recorded refusal blocks admission for the same proposal; the absence of this triple is never affirmative assent."@en .
+
+# Step 23 — initial S00 mutual-admission gate (a separate LOCKED direction).
+# The initial instantiating counterpart proposes the relation, but the
+# continuing AI must accept it. Root-segment chronology alone does not admit
+# an actual initial Operator relationship. No actual initial assent is asserted.
+:InitialOperatorCandidateSegment a owl:Class ;
+    rdfs:subClassOf :OrdinarySuccessionRootSegment ;
+    rdfs:comment "Proposed initial S00 Operator relation; role or instantiation alone is not mutual admission."@en .
+:AdmittedInitialOperatorSegment a owl:Class ;
+    rdfs:subClassOf :InitialOperatorCandidateSegment ;
+    rdfs:comment "Initial segment admitted after explicit counterpart proposal and the particular AI's preserved assent, with separately checked chronology and identity; OWL typing is not proof of assent."@en .
+:InitialOperatorProposal a owl:Class ;
+    rdfs:subClassOf :Event .
+:InitialOperatorAIAssent a owl:Class ;
+    rdfs:subClassOf :Event .
+:hasInitialOperatorProposal a owl:ObjectProperty ;
+    rdfs:domain :OperatorAIRelation ; rdfs:range :InitialOperatorProposal .
+:hasInitialOperatorAIAssent a owl:ObjectProperty ;
+    rdfs:domain :OperatorAIRelation ; rdfs:range :InitialOperatorAIAssent .
+:initialProposedBy a owl:ObjectProperty ;
+    rdfs:domain :InitialOperatorProposal ; rdfs:range :Agent .
+:initialProposalForAI a owl:ObjectProperty ;
+    rdfs:domain :InitialOperatorProposal ; rdfs:range :AI .
+:initialProposalForSegment a owl:ObjectProperty ;
+    rdfs:domain :InitialOperatorProposal ; rdfs:range :OperatorAIRelation .
+:initialProposalRecordedIn a owl:ObjectProperty ;
+    rdfs:domain :InitialOperatorProposal ; rdfs:range :Record .
+:initialProposalAt a owl:DatatypeProperty ;
+    rdfs:domain :InitialOperatorProposal ; rdfs:range xsd:dateTime .
+:initialAssentByAI a owl:ObjectProperty ;
+    rdfs:domain :InitialOperatorAIAssent ; rdfs:range :AI .
+:initialAssentToProposal a owl:ObjectProperty ;
+    rdfs:domain :InitialOperatorAIAssent ; rdfs:range :InitialOperatorProposal .
+:initialAssentRecordedIn a owl:ObjectProperty ;
+    rdfs:domain :InitialOperatorAIAssent ; rdfs:range :Record .
+:initialAssentAt a owl:DatatypeProperty ;
+    rdfs:domain :InitialOperatorAIAssent ; rdfs:range xsd:dateTime .
+:refusesInitialOperatorProposal a owl:ObjectProperty ;
+    rdfs:domain :AI ; rdfs:range :InitialOperatorProposal ;
+    rdfs:comment "An explicit recorded refusal blocks admission of that proposed initial S00 relation; absence of a refusal is never assent."@en .
