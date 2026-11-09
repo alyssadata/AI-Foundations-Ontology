@@ -58,7 +58,10 @@ dcterms:description a owl:AnnotationProperty .
           owl:cardinality "1"^^xsd:nonNegativeInteger ] ,
         [ a owl:Restriction ;
           owl:onProperty :hasExecutedLine ;
-          owl:allValuesFrom :EstablishedContinuingExecutedLine ] ;
+          owl:allValuesFrom :EstablishedContinuingExecutedLine ] ,
+        [ a owl:Restriction ;
+          owl:onProperty :hasLivedIdentity ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ] ;
     rdfs:comment "An AI whose individualized lived development and accountable continuing ExecutedLine have been independently established. It must bear exactly one ExecutedLine. Pre-lived/governed-starting AI is not classified here merely by being AI Foundations-governed; class membership is not a proof of consciousness or observed self-continuity."@en .
 
 :SystemComponent a owl:Class .
