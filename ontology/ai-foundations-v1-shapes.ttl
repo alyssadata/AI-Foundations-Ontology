@@ -603,6 +603,13 @@
         sh:path :hasExecutedLine ;
         sh:minCount 1 ; sh:maxCount 1 ;
         sh:class :EstablishedContinuingExecutedLine
+    ] ;
+    # Review 05: one developed LivedIdentity is required only once
+    # continuing individualized status is explicitly established.
+    sh:property [
+        sh:path :hasLivedIdentity ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :LivedIdentity
     ] .
 
 # CARD-003: validate exactly one current operative named GoverningLine
