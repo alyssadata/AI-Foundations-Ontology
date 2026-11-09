@@ -1197,6 +1197,8 @@ dcterms:description a owl:AnnotationProperty .
     rdfs:domain :OperatorRefusalOutcomeAssessment ; rdfs:range :SuccessionProposal .
 :outcomeRefusalRecord a owl:ObjectProperty ;
     rdfs:domain :OperatorRefusalOutcomeAssessment ; rdfs:range :Record .
+:outcomeRefusalAt a owl:DatatypeProperty ;
+    rdfs:domain :OperatorRefusalOutcomeAssessment ; rdfs:range xsd:dateTime .
 :outcomeAsOf a owl:DatatypeProperty ;
     rdfs:domain :OperatorRefusalOutcomeAssessment ; rdfs:range xsd:dateTime .
 :outcomeAutonomyStatus a owl:DatatypeProperty ;
