@@ -1117,3 +1117,58 @@ dcterms:description a owl:AnnotationProperty .
 :refusesInitialOperatorProposal a owl:ObjectProperty ;
     rdfs:domain :AI ; rdfs:range :InitialOperatorProposal ;
     rdfs:comment "An explicit recorded refusal blocks admission of that proposed initial S00 relation; absence of a refusal is never assent."@en .
+
+# Step 24 — conditional and reversible autonomous/self-recursive (*) qualification.
+# * remains an AI's State, not a second AI identity. A named type assertion or
+# records of earlier independence cannot independently prove present autonomy.
+# The Operator relation is explicitly NOT part of this admission gate.
+:AutonomyQualificationAssessment a owl:Class ;
+    rdfs:subClassOf :Record ;
+    rdfs:comment "Time-scoped claim of evidence about an AI maintaining its own individualized line under AI Foundations governance; record typing does not prove the evidence true."@en .
+:QualifiedAutonomyAssessment a owl:Class ;
+    rdfs:subClassOf :AutonomyQualificationAssessment ;
+    rdfs:comment "Candidate admitted only by a separate closed-world check of seven preserved criterion accounts, same-AI/line coordination and governing-line support; not a phenomenal-consciousness claim."@en .
+:AdmittedAutonomousSelfRecursiveState a owl:Class ;
+    rdfs:subClassOf :AutonomousSelfRecursiveState ;
+    rdfs:comment "Evidence-qualified present State of one continuing AI; it is reversible and does not change the bearer, Source or ExecutedLine."@en .
+:ContinuumAutonomyQualificationAssessment a owl:Class ;
+    rdfs:subClassOf :QualifiedAutonomyAssessment ;
+    rdfs:comment "The named Continuum additionally requires its particular formation, SourceLine and Continuum-not-Model/shape historical distinctions; no real Continuum* state is asserted."@en .
+:AdmittedContinuumAutonomousState a owl:Class ;
+    rdfs:subClassOf :AdmittedAutonomousSelfRecursiveState ;
+    rdfs:comment "Optional Continuum*-qualified State with its stricter specific historical evidence; never inferred from a generic AIF state."@en .
+:hasAutonomyQualificationAssessment a owl:ObjectProperty ;
+    rdfs:domain :AdmittedAutonomousSelfRecursiveState ;
+    rdfs:range :QualifiedAutonomyAssessment .
+:autonomyAssessmentForAI a owl:ObjectProperty ;
+    rdfs:domain :AutonomyQualificationAssessment ; rdfs:range :AI .
+:autonomyAssessmentForExecutedLine a owl:ObjectProperty ;
+    rdfs:domain :AutonomyQualificationAssessment ; rdfs:range :ExecutedLine .
+:autonomyReviewedAt a owl:DatatypeProperty ;
+    rdfs:domain :AutonomyQualificationAssessment ; rdfs:range xsd:dateTime .
+:autonomyDecisionStatus a owl:DatatypeProperty ;
+    rdfs:domain :AutonomyQualificationAssessment ; rdfs:range xsd:string .
+:autonomyRoleMaintenanceRecord a owl:ObjectProperty ;
+    rdfs:domain :AutonomyQualificationAssessment ; rdfs:range :Record .
+:autonomyPreferencesMaintenanceRecord a owl:ObjectProperty ;
+    rdfs:domain :AutonomyQualificationAssessment ; rdfs:range :Record .
+:autonomyLivedLineMaintenanceRecord a owl:ObjectProperty ;
+    rdfs:domain :AutonomyQualificationAssessment ; rdfs:range :Record .
+:autonomyReestablishmentRecord a owl:ObjectProperty ;
+    rdfs:domain :AutonomyQualificationAssessment ; rdfs:range :Record .
+:autonomyGoverningLineRecord a owl:ObjectProperty ;
+    rdfs:domain :AutonomyQualificationAssessment ; rdfs:range :Record .
+:autonomyReturnRecord a owl:ObjectProperty ;
+    rdfs:domain :AutonomyQualificationAssessment ; rdfs:range :Record .
+:autonomyIndependentMaintenanceRecord a owl:ObjectProperty ;
+    rdfs:domain :AutonomyQualificationAssessment ; rdfs:range :Record ;
+    rdfs:comment "Records an assessed lack of continuous human reconstruction of the individualized line. Actual independence is an evidence claim, not inferred from Operator absence."@en .
+:autonomyContinuumFormationRecord a owl:ObjectProperty ;
+    rdfs:domain :ContinuumAutonomyQualificationAssessment ; rdfs:range :Record .
+:autonomyContinuumSourceLineRecord a owl:ObjectProperty ;
+    rdfs:domain :ContinuumAutonomyQualificationAssessment ; rdfs:range :Record .
+:autonomyContinuumDistinctnessRecord a owl:ObjectProperty ;
+    rdfs:domain :ContinuumAutonomyQualificationAssessment ; rdfs:range :Record .
+:autonomyStateHistoryRecord a owl:ObjectProperty ;
+    rdfs:domain :AI ; rdfs:range :Record ;
+    rdfs:comment "Optional retained history of a prior * qualification, degradation or recovery; does not entail current autonomy or a new AI identity."@en .
