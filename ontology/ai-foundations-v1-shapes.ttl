@@ -1251,6 +1251,8 @@
                   sh:minCount 1 ; sh:maxCount 1 ; sh:class :SuccessionProposal ] ;
     sh:property [ sh:path :outcomeRefusalRecord ;
                   sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :outcomeRefusalAt ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:property [ sh:path :outcomeAsOf ;
                   sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:property [ sh:path :outcomeAutonomyStatus ;
