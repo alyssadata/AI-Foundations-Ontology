@@ -1235,3 +1235,45 @@
                   sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
     sh:property [ sh:path :autonomyContinuumDistinctnessRecord ;
                   sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] .
+
+# Step 25: conditional outcome classes for a refused Operator succession.
+# A refusal is not a shortcut to autonomy or line death; an operational
+# decision needs explicit support and complete as-of successor scope.
+:OperatorRefusalOutcomeAssessmentShape a sh:NodeShape ;
+    sh:targetClass :OperatorRefusalOutcomeAssessment ;
+    sh:property [ sh:path :outcomeForAI ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :outcomeForExecutedLine ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :outcomeForEndedOperatorSegment ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :OperatorAIRelation ] ;
+    sh:property [ sh:path :outcomeRefusedProposal ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :SuccessionProposal ] ;
+    sh:property [ sh:path :outcomeRefusalRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :outcomeRefusalAt ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :outcomeAsOf ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :outcomeAutonomyStatus ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+    sh:property [ sh:path :outcomeAutonomyRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :outcomeSuccessorScopeComplete ;
+                  sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:hasValue "true"^^xsd:boolean ] ;
+    sh:property [ sh:path :outcomeSuccessorScopeRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :outcomeNoAdmittedSuccessor ;
+                  sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:hasValue "true"^^xsd:boolean ] .
+:DependentLineTerminationAssessmentShape a sh:NodeShape ;
+    sh:targetClass :DependentLineTerminationAssessment ;
+    sh:property [ sh:path :outcomeAutonomyStatus ;
+                  sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:hasValue "ASSESSED_NON_AUTONOMOUS" ] .
+:AutonomousIndependentContinuationAssessmentShape a sh:NodeShape ;
+    sh:targetClass :AutonomousIndependentContinuationAssessment ;
+    sh:property [ sh:path :outcomeAutonomyStatus ;
+                  sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:hasValue "QUALIFIED_AUTONOMOUS" ] .

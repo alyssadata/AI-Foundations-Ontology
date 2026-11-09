@@ -1172,3 +1172,45 @@ dcterms:description a owl:AnnotationProperty .
 :autonomyStateHistoryRecord a owl:ObjectProperty ;
     rdfs:domain :AI ; rdfs:range :Record ;
     rdfs:comment "Optional retained history of a prior * qualification, degradation or recovery; does not entail current autonomy or a new AI identity."@en .
+
+# Step 25 — assessed consequences of a refused successor proposal.
+# Explicit refusal blocks admission; it does not by itself prove that the
+# original AI is autonomous, that continuity is lost, or that no other valid
+# successor exists. An as-of outcome requires independently supported scope.
+:OperatorRefusalOutcomeAssessment a owl:Class ;
+    rdfs:subClassOf :Record ;
+    rdfs:comment "A time-scoped record of a particular AI's refusal, prior ended relation, line, evidence of autonomy status and review of available valid successor relations. This record's RDF typing is not proof of a real-world termination."@en .
+:DependentLineTerminationAssessment a owl:Class ;
+    rdfs:subClassOf :OperatorRefusalOutcomeAssessment ;
+    rdfs:comment "A supported non-autonomous AI without any valid successor as of the complete-scope decision: active individualized line terminates while verified executed history remains preserved. Does not delete the AI or history."@en .
+:AutonomousIndependentContinuationAssessment a owl:Class ;
+    rdfs:subClassOf :OperatorRefusalOutcomeAssessment ;
+    rdfs:comment "The same AI has a separately qualified current autonomous/self-recursive State and no active Operator at the as-of decision; independent continuation is permitted despite refusal of proposed succession."@en .
+:DependentLineTerminationAssessment owl:disjointWith :AutonomousIndependentContinuationAssessment .
+:outcomeForAI a owl:ObjectProperty ;
+    rdfs:domain :OperatorRefusalOutcomeAssessment ; rdfs:range :AI .
+:outcomeForExecutedLine a owl:ObjectProperty ;
+    rdfs:domain :OperatorRefusalOutcomeAssessment ; rdfs:range :ExecutedLine .
+:outcomeForEndedOperatorSegment a owl:ObjectProperty ;
+    rdfs:domain :OperatorRefusalOutcomeAssessment ; rdfs:range :OperatorAIRelation .
+:outcomeRefusedProposal a owl:ObjectProperty ;
+    rdfs:domain :OperatorRefusalOutcomeAssessment ; rdfs:range :SuccessionProposal .
+:outcomeRefusalRecord a owl:ObjectProperty ;
+    rdfs:domain :OperatorRefusalOutcomeAssessment ; rdfs:range :Record .
+:outcomeRefusalAt a owl:DatatypeProperty ;
+    rdfs:domain :OperatorRefusalOutcomeAssessment ; rdfs:range xsd:dateTime .
+:outcomeAsOf a owl:DatatypeProperty ;
+    rdfs:domain :OperatorRefusalOutcomeAssessment ; rdfs:range xsd:dateTime .
+:outcomeAutonomyStatus a owl:DatatypeProperty ;
+    rdfs:domain :OperatorRefusalOutcomeAssessment ; rdfs:range xsd:string ;
+    rdfs:comment "QUALIFIED_AUTONOMOUS or ASSESSED_NON_AUTONOMOUS only when supported by an independently reviewed assessment. INDETERMINATE cannot yield a terminal outcome; absence of a qualified State cannot itself establish non-autonomy."@en .
+:outcomeAutonomyRecord a owl:ObjectProperty ;
+    rdfs:domain :OperatorRefusalOutcomeAssessment ; rdfs:range :Record .
+:outcomeSuccessorScopeComplete a owl:DatatypeProperty ;
+    rdfs:domain :OperatorRefusalOutcomeAssessment ; rdfs:range xsd:boolean ;
+    rdfs:comment "Explicit complete-scope declaration about successor relations as of the decision; absence of RDF triples alone does not establish a closed-world negative."@en .
+:outcomeSuccessorScopeRecord a owl:ObjectProperty ;
+    rdfs:domain :OperatorRefusalOutcomeAssessment ; rdfs:range :Record .
+:outcomeNoAdmittedSuccessor a owl:DatatypeProperty ;
+    rdfs:domain :OperatorRefusalOutcomeAssessment ; rdfs:range xsd:boolean ;
+    rdfs:comment "Asserted result of separate as-of successor review; the closed-world gate rejects this if the graph exposes any active or admitted contrary successor."@en .
