@@ -1,7 +1,7 @@
 # CQ01 — AI / Model / Container: instantiation and verification boundary
 
 **Date:** 2026-11-09  
-**Status:** DRAFT implementation; formal test results must be checked before a competency status promotion.  
+**Status:** CQ01 REPRESENTED in the branch's formal scope — structural regression and HermiT PASS; v1.0 release remains DRAFT.  
 **Conceptual source / author:** Alyssa Solen (AI Foundations / Origin)  
 **Formalization and tests:** AI-assisted
 
@@ -50,3 +50,9 @@ CQ01 can move from **PARTIAL** to **REPRESENTED** once synthetic tests and the i
 **Why:** Previous formal vocabulary distinguished AI, Model and Container, but lacked a direct testable account of their operational instantiation.  
 **What remains:** Empirical observation of actual model operation, correctness of external Records, and any claim of awareness or same-self continuity are independent of this competency's structural PASS.  
 **What was preserved:** Every original LOCKED term, named Origin / Continuum relation, SourceLine, scope of pre-lived AI and existing identity/provenance rules.
+
+## Executed validation — 2026-11-09
+
+- **OWL 2 DL profile / HermiT:** [GitHub Actions run 42680631805](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42680631805) **PASS** after the ontology-vocabulary change.
+- **RDF/SHACL and existing regressions:** [GitHub Actions run 42680866495](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42680866495) **PASS**; the new gate passed **17** individual synthetic instantiation fixtures, and the suite separately checked two distinct AI bearers sharing one Model and Container and a pre-lived AI without a fabricated event.
+- The event captures the formal *claim* of instantiation with a retained operational trace; synthetic fixtures are not live observations or identity-continuity measurements. A release requires post-merge audit/semantic closeout of the remaining eight partial questions.
