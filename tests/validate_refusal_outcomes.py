@@ -66,8 +66,11 @@ def fixture(autonomous=False):
         g.add((OUTCOME, p, v))
     if not autonomous:
         g.remove((AI, A.hasState, A.Gate24AutonomyState))
-        # Previous synthetic autonomy records are allowed to remain in history;
-        # they cannot establish current qualified autonomy without a State.
+        g.remove((A.Gate24AutonomyState, A.hasAutonomyQualificationAssessment, None))
+        g.remove((A.Gate24AutonomyState, RDF.type, A.AdmittedAutonomousSelfRecursiveState))
+        g.add((AI, A.autonomyStateHistoryRecord, A.Gate24AutonomyReview))
+        # The earlier synthetic qualification is a historical Record, not
+        # a present admitted State. No new identity or line is created.
     return g
 
 
@@ -81,7 +84,7 @@ def admission(g, outcome=OUTCOME):
                "Outcome cannot transfer another AI's ExecutedLine")
         typed(g, line, A.ExecutedLine)
         old = unique(g, outcome, A.outcomeForEndedOperatorSegment)
-        typed(g, old, A.OperatorAIRelation)
+        typed(g, old, A.AdmittedOperatorSuccessorSegment)
         ensure(unique(g, old, A.hasAICounterpart) == ai and
                unique(g, old, A.segmentOfExecutedLine) == line,
                "Outcome cannot rewrite its historical Operator's AI/line")
