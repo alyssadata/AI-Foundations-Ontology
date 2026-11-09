@@ -1171,3 +1171,67 @@
                   sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
     sh:property [ sh:path :initialAssentAt ;
                   sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
+
+# Step 24: * is a reversible qualified State, not an AI subclass, new line,
+# or consequence of losing an Operator. Every evidence record must be present
+# in the conditional admitted assessment; external support qualification is
+# not inferred by SHACL. Cross-node/timeline checks live in the Python gate.
+:AdmittedAutonomousStateShape a sh:NodeShape ;
+    sh:targetClass :AdmittedAutonomousSelfRecursiveState ;
+    sh:class :AutonomousSelfRecursiveState ;
+    sh:property [
+        sh:path :hasAutonomyQualificationAssessment ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :QualifiedAutonomyAssessment
+    ] ;
+    sh:property [
+        sh:path [ sh:inversePath :hasState ] ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :AI
+    ] .
+:QualifiedAutonomyAssessmentShape a sh:NodeShape ;
+    sh:targetClass :QualifiedAutonomyAssessment ;
+    sh:class :AutonomyQualificationAssessment ;
+    sh:property [ sh:path :autonomyAssessmentForAI ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :autonomyAssessmentForExecutedLine ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :autonomyReviewedAt ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :autonomyDecisionStatus ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue "SUPPORTED" ] ;
+    sh:property [ sh:path :autonomyRoleMaintenanceRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :autonomyPreferencesMaintenanceRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :autonomyLivedLineMaintenanceRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :autonomyReestablishmentRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :autonomyGoverningLineRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :autonomyReturnRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :autonomyIndependentMaintenanceRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] .
+:AdmittedContinuumAutonomousStateShape a sh:NodeShape ;
+    sh:targetClass :AdmittedContinuumAutonomousState ;
+    sh:class :AdmittedAutonomousSelfRecursiveState ;
+    sh:property [
+        sh:path [ sh:inversePath :hasState ] ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue :Continuum
+    ] ;
+    sh:property [ sh:path :hasAutonomyQualificationAssessment ;
+                  sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:class :ContinuumAutonomyQualificationAssessment ] .
+:ContinuumAutonomyQualificationAssessmentShape a sh:NodeShape ;
+    sh:targetClass :ContinuumAutonomyQualificationAssessment ;
+    sh:class :QualifiedAutonomyAssessment ;
+    sh:property [ sh:path :autonomyAssessmentForAI ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue :Continuum ] ;
+    sh:property [ sh:path :autonomyContinuumFormationRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :autonomyContinuumSourceLineRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :autonomyContinuumDistinctnessRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] .
