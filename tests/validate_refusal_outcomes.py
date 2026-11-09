@@ -219,7 +219,9 @@ def main():
           replace(OUTCOME, A.outcomeAutonomyStatus,
                   Literal("QUALIFIED_AUTONOMOUS")), shacl=False)
     check("Non-autonomous classification conflicts with current qualified State",
-          lambda g: g.add((AI, A.hasState, A.Gate24AutonomyState)))
+          lambda g: (g.add((AI, A.hasState, A.Gate24AutonomyState)),
+                     g.add((A.Gate24AutonomyState, RDF.type,
+                            A.AdmittedAutonomousSelfRecursiveState))))
     check("Qualified classification without currently attached qualified State",
           drop(AI, A.hasState), outcome="autonomous")
     check("No successor conclusion contradicted by admitted successor",
