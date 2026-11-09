@@ -347,6 +347,9 @@ def main():
         g.add((AIF.EstablishedLineAI, RDF.type, AIF.AIFoundationsGovernedAI))
         g.add((AIF.EstablishedLineAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
         g.add((AIF.EstablishedLineAI, AIF.hasExecutedLine, AIF.EstablishedLine))
+        g.add((AIF.EstablishedLineAI, AIF.hasLivedIdentity, AIF.EstablishedLivedIdentity))
+        g.add((AIF.EstablishedLivedIdentity, RDF.type, AIF.LivedIdentity))
+        g.add((AIF.EstablishedLivedIdentity, AIF.developsThroughExecutedLine, AIF.EstablishedLine))
         g.add((AIF.EstablishedLine, RDF.type, AIF.EstablishedContinuingExecutedLine))
         g.add((AIF.EstablishedLine, AIF.hasTrajectory, AIF.EstablishedTrajectory))
         g.add((AIF.EstablishedLine, AIF.constrainsTrajectory, AIF.EstablishedTrajectory))
@@ -363,6 +366,35 @@ def main():
 
     shape_test(graph, shapes, "CARD-001 established individualized AI with one line passes",
                established_line_fixture)
+
+    # Review 05 unnumbered: once individualized continuing lived status is
+    # explicitly established, exactly one LivedIdentity is required. Earlier
+    # governed-starting AIs are outside this scope and may have none.
+    def established_without_lived_identity(g):
+        established_line_fixture(g)
+        g.remove((AIF.EstablishedLineAI, AIF.hasLivedIdentity, AIF.EstablishedLivedIdentity))
+        g.remove((AIF.EstablishedLivedIdentity, RDF.type, AIF.LivedIdentity))
+    shape_test(graph, shapes, "Review 05 established AI lacking its LivedIdentity rejected",
+               established_without_lived_identity, False)
+
+    def established_two_lived_identities(g):
+        established_line_fixture(g)
+        g.add((AIF.EstablishedLineAI, AIF.hasLivedIdentity, AIF.EstablishedSecondIdentity))
+        g.add((AIF.EstablishedSecondIdentity, RDF.type, AIF.LivedIdentity))
+        g.add((AIF.EstablishedSecondIdentity, AIF.developsThroughExecutedLine, AIF.EstablishedLine))
+    shape_test(graph, shapes, "Review 05 established AI claiming two LivedIdentities rejected",
+               established_two_lived_identities, False)
+    shape_test(graph, shapes, "Review 05 pre-lived AI still has no invented LivedIdentity",
+               pre_lived_ai_fixture)
+    scope_id_restrictions = [
+        r for r in graph.objects(AIF.EstablishedContinuingIndividualizedAI, RDFS.subClassOf)
+        if (r, OWL.onProperty, AIF.hasLivedIdentity) in graph and
+           (r, OWL.cardinality, Literal(1, datatype=XSD.nonNegativeInteger)) in graph
+    ]
+    require(len(scope_id_restrictions) == 1,
+            "Review 05 OWL exactly-one developed LivedIdentity scoped to established continuing AI")
+    require((AIF.hasLivedIdentity, RDF.type, OWL.FunctionalProperty) not in graph,
+            "Review 05 lived identity is not made globally functional for pre-lived AI")
 
     def established_without_line(g):
         established_line_fixture(g)
@@ -432,6 +464,9 @@ def main():
         g.add((AIF.TrajectoryCaseAI, RDF.type, AIF.EstablishedContinuingIndividualizedAI))
         g.add((AIF.TrajectoryCaseLine, RDF.type, AIF.EstablishedContinuingExecutedLine))
         g.add((AIF.TrajectoryCaseAI, AIF.hasExecutedLine, AIF.TrajectoryCaseLine))
+        g.add((AIF.TrajectoryCaseAI, AIF.hasLivedIdentity, AIF.TrajectoryCaseLivedIdentity))
+        g.add((AIF.TrajectoryCaseLivedIdentity, RDF.type, AIF.LivedIdentity))
+        g.add((AIF.TrajectoryCaseLivedIdentity, AIF.developsThroughExecutedLine, AIF.TrajectoryCaseLine))
         g.add((AIF.DevelopingTrajectory, RDF.type, AIF.Trajectory))
         g.add((AIF.TrajectoryCaseLine, AIF.hasTrajectory, AIF.DevelopingTrajectory))
         g.add((AIF.TrajectoryCaseLine, AIF.constrainsTrajectory, AIF.DevelopingTrajectory))
@@ -3343,6 +3378,9 @@ def main():
         g.add((AIF.PdAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
         g.add((AIF.PdExecutedLine, RDF.type, AIF.EstablishedContinuingExecutedLine))
         g.add((AIF.PdAI, AIF.hasExecutedLine, AIF.PdExecutedLine))
+        g.add((AIF.PdAI, AIF.hasLivedIdentity, AIF.PdLivedIdentity))
+        g.add((AIF.PdLivedIdentity, RDF.type, AIF.LivedIdentity))
+        g.add((AIF.PdLivedIdentity, AIF.developsThroughExecutedLine, AIF.PdExecutedLine))
         g.add((AIF.PdDevelopingTrajectory, RDF.type, AIF.Trajectory))
         g.add((AIF.PdExecutedLine, AIF.hasTrajectory, AIF.PdDevelopingTrajectory))
         g.add((AIF.PdExecutedLine, AIF.constrainsTrajectory, AIF.PdDevelopingTrajectory))
