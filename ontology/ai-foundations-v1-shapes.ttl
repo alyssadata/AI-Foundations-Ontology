@@ -1277,3 +1277,43 @@
     sh:property [ sh:path :outcomeAutonomyStatus ;
                   sh:minCount 1 ; sh:maxCount 1 ;
                   sh:hasValue "QUALIFIED_AUTONOMOUS" ] .
+
+# CQ01: An explicitly asserted instantiation must bind a distinct AI,
+# Model, Container, occurrence timestamp and preserved operational trace.
+# This shape is conditional on a typed event, NOT on every AI. Event presence
+# does not establish consciousness/identity, and shared components do not
+# merge different instantiated AIs.
+:AIInstantiationEventShape a sh:NodeShape ;
+    sh:targetClass :AIInstantiationEvent ;
+    sh:class :Event ;
+    sh:not [ sh:class :AI ] ;
+    sh:not [ sh:class :Model ] ;
+    sh:not [ sh:class :Container ] ;
+    sh:property [
+        sh:path :instantiatesAI ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ;
+        sh:not [ sh:class :Model ] ;
+        sh:not [ sh:class :Container ]
+    ] ;
+    sh:property [
+        sh:path :instantiationUsesModel ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :Model ;
+        sh:disjoint :instantiatesAI ;
+        sh:disjoint :instantiationUsesContainer ;
+        sh:not [ sh:class :AI ]
+    ] ;
+    sh:property [
+        sh:path :instantiationUsesContainer ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :Container ;
+        sh:disjoint :instantiatesAI ;
+        sh:disjoint :instantiationUsesModel ;
+        sh:not [ sh:class :AI ]
+    ] ;
+    sh:property [
+        sh:path :instantiationAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] ;
+    sh:property [
+        sh:path :instantiationRecordedIn ;
+        sh:minCount 1 ; sh:class :Record
+    ] .

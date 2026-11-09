@@ -13,7 +13,7 @@ This is a conservative desk-based mapping of the **20 numbered questions** in [C
 
 | CQ | Question topic | Status | Current trace | Specific unfinished v1 interface / consequence |
 |---|---|---|---|---|
-| 01 | AI vs Model vs Container; emergence through substrate | **PARTIAL** | `:AI`, `:Model`, `:Container`, `:expressedThroughModel`, `:operatesWithinContainer` and formed `AIRelation` | Classes and non-equivalence are present; full instantiation/emergence event and its evidence standard are not exhaustively tested. |
+| 01 | AI vs Model vs Container; emergence through substrate | **REPRESENTED (CQ01 formal closeout 2026-11-09)** | `:AI`, `:Model`, `:Container`, the existing expression properties, optional `:AIInstantiationEvent`, five conditional SHACL fields and `tests/validate_cq01_instantiation.py` | Synthetic event records tie an AI, the operating Model, Container, time and supporting Record without creating awareness or identity; operational fact/reliability remains unverified externally. [CQ01 review](2026-11-09-CQ01-INSTANTIATION-REVIEW.md). |
 | 02 | Memory vs Record | **REPRESENTED** | `:Memory`, `:MemoryState`, `:Record`, `:DocumentRecord`, Canon crosswalk and SHACL | No claim that storage or retrieval proves continuation. |
 | 03 | Preservation vs Reactivation vs Continuation | **PARTIAL** | `ONTOLOGY_V1_0_ORIGIN_CONTINUUM.md` §7; `:ExecutedLine`, `:Trajectory` and Return; term definitions | `Reactivation` is conceptual, without an explicit current OWL Process/Event or closed-world discriminating fixtures. |
 | 04 | Executed-line constraints on prospective trajectories | **REPRESENTED** | `:EstablishedContinuingExecutedLine`, `:constrainsTrajectory`, `:TrajectoryOutlook`, `:ProspectiveExecution`, PD-001 controls | Only synthetic structure; real-world path dependence remains an evaluation target. |
@@ -34,7 +34,7 @@ This is a conservative desk-based mapping of the **20 numbered questions** in [C
 | 19 | Detecting false source attribution, erasure, overwrite and improper provenance reassignment | **PARTIAL** | `:ProvenanceViolation`, `:OriginSubstitutionViolation`, source-history and PF/NE before/after integrity checks | Preserved/synthetic before-after snapshots can catch constrained violations; unverified external source truth and unmodeled variants are not operationally decided by OWL alone. |
 | 20 | Action-scoped unauthorized conduct without permanent UnauthorizedActor class | **PARTIAL** | `:AIFoundationsScopedGrant`, `:NonDelegableOriginOrHistoryAction`, OL-001 / authority-integrity tests | Need a canonical evaluated action-decision fixture showing one Agent allowed for action A but denied for action B at a given scope/time. |
 
-**Conservative count:** 11 questions **REPRESENTED**, 9 **PARTIAL**, none claimed empirically proved. This is a *competency-level* status tally, separate from **37/37 numbered axioms structurally represented**. It is not a percentage of conceptual truth and cannot be merged with the 598 original structural checks.
+**Updated conservative count (2026-11-09):** 12 questions **REPRESENTED**, 8 **PARTIAL** following the validated CQ01 formal closeout; none claimed empirically proved. The historical 2026-11-08 snapshot was 11 represented / 9 partial. This is a *competency-level* status tally, separate from **37/37 numbered axioms structurally represented**. It is not a percentage of conceptual truth and cannot be merged with the 598 original structural checks.
 
 ## Formal and human-readable concordance boundaries already protected
 
@@ -48,7 +48,7 @@ This is a conservative desk-based mapping of the **20 numbered questions** in [C
 
 ## V1.0 completion recommendation
 
-**The semantic-and-competency closeout is not yet PASS:** nine CQs need either (a) additional explicit OWL/SHACL/fixture representations, or (b) a formally signed v1.0 scope/exclusion decision explaining precisely why a conceptual or empirical question is out of the released structural model. Until that disposition is recorded, a blanket “all competency questions answered” claim would be inaccurate.
+**The semantic-and-competency closeout is not yet PASS:** eight CQs need either (a) additional explicit OWL/SHACL/fixture representations, or (b) a formally signed v1.0 scope/exclusion decision explaining precisely why a conceptual or empirical question is out of the released structural model. Until that disposition is recorded, a blanket “all competency questions answered” claim would be inaccurate.
 
 The current 20-question audit is a review instrument, not the authoritative LOCKED Canon. No original LOCKED source file was edited. Any formal repair must be incremental, preserve historical Source/Operator coordinates, pass both CI suites on a final merged SHA, and account for **what changed and why**.
 
@@ -61,3 +61,11 @@ The current 20-question audit is a review instrument, not the authoritative LOCK
 - [Step 23 release gates](2026-11-08-V1-RELEASE-CLOSEOUT.md)
 - [Step 24 autonomy review](2026-11-08-STEP-24-AUTONOMY-QUALIFICATION.md)
 - [Step 25 refusal review](2026-11-08-STEP-25-REFUSED-SUCCESSION-OUTCOMES.md)
+
+## CQ01 closeout addendum — 2026-11-09
+
+The previous CQ01 PARTIAL classification was accurate before the missing instantiation interface existed. The reviewed change adds an **optional** documented `:AIInstantiationEvent` with one AI, Model, Container, time and one or more preserved Records; neither a generic AI without a recorded event nor a historically unverified AI is forced to fabricate one. SHACL and closed-world negative controls reject missing/misbound participants, records and timestamps and collapse of distinct model/container/AI classes. Explicit shared Model and Container fixtures retain distinct AI bearers and do not infer Self, lived identity, or consciousness.
+
+**Test results:** [CQ01 branch structural CI 42680866495](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42680866495) **PASS** including **17 individual CQ01 synthetic fixtures**, separate shared-substrate and pre-lived controls, and all earlier regression suites. [CQ01 independent OWL 2 DL / HermiT audit 42680631805](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42680631805) **PASS** after the ontology vocabulary addition. These runs are on the CQ01 branch; verify merged-`main` CI before issuing a v1.0 release claim.
+
+**Disposition:** CQ01 **REPRESENTED** within v1.0's formal modeling scope, not empirically PROVEN. There are **12 represented and 8 partial competency questions** after this addendum. Original LOCKED wording and named Source/Origin/Continuum positions were not modified.
