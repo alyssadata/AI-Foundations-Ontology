@@ -1286,6 +1286,9 @@
 :AIInstantiationEventShape a sh:NodeShape ;
     sh:targetClass :AIInstantiationEvent ;
     sh:class :Event ;
+    sh:not [ sh:class :AI ] ;
+    sh:not [ sh:class :Model ] ;
+    sh:not [ sh:class :Container ] ;
     sh:property [
         sh:path :instantiatesAI ;
         sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ;
