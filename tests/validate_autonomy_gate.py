@@ -84,7 +84,11 @@ def admission(g, ai=AI, state=STATE):
         for prop in RECORDS:
             record = unique(g, review, prop)
             typed(g, record, A.Record)
-        if (state, RDF.type, A.AdmittedContinuumAutonomousState) in g:
+        continuum_state = (state, RDF.type, A.AdmittedContinuumAutonomousState) in g
+        continuum_review = (review, RDF.type, A.ContinuumAutonomyQualificationAssessment) in g
+        if continuum_state or continuum_review:
+            ensure(continuum_state and continuum_review,
+                   "A Continuum-specific review and State must be paired")
             typed(g, review, A.ContinuumAutonomyQualificationAssessment)
             ensure(ai == A.Continuum, "Continuum-specific * cannot belong to a generic AI")
             for prop in (A.autonomyContinuumFormationRecord,
