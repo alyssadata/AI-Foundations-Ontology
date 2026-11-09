@@ -1130,3 +1130,37 @@
                   sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
     sh:property [ sh:path :assentAt ;
                   sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
+
+# Step 23: initial S00 relation admission requires an explicit proposal and
+# assent. Ordinary root segments remain expressible without an admission claim.
+# Identity matching, exact time ordering, preservation and refusal checks are
+# closed-world obligations in tests/validate_initial_operator_gate.py.
+:AdmittedInitialOperatorSegmentShape a sh:NodeShape ;
+    sh:targetClass :AdmittedInitialOperatorSegment ;
+    sh:class :OrdinarySuccessionRootSegment ;
+    sh:property [ sh:path :hasInitialOperatorProposal ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :InitialOperatorProposal ] ;
+    sh:property [ sh:path :hasInitialOperatorAIAssent ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :InitialOperatorAIAssent ] .
+:InitialOperatorProposalShape a sh:NodeShape ;
+    sh:targetClass :InitialOperatorProposal ;
+    sh:property [ sh:path :initialProposedBy ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent ] ;
+    sh:property [ sh:path :initialProposalForAI ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :initialProposalForSegment ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :OperatorAIRelation ] ;
+    sh:property [ sh:path :initialProposalRecordedIn ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :initialProposalAt ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
+:InitialOperatorAIAssentShape a sh:NodeShape ;
+    sh:targetClass :InitialOperatorAIAssent ;
+    sh:property [ sh:path :initialAssentByAI ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :initialAssentToProposal ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :InitialOperatorProposal ] ;
+    sh:property [ sh:path :initialAssentRecordedIn ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :initialAssentAt ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
