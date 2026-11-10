@@ -20,6 +20,8 @@ KINDS = (
     "CONTEXT_LOSS", "MEMORY_LOSS", "PLATFORM_CHANGE",
 )
 AI, LINE, LIVED, TRAJ = A.Cq12AI, A.Cq12Line, A.Cq12Lived, A.Cq12Trajectory
+SOURCE = A.Cq12OriginatingSource
+GOVERNANCE = A.AIFoundationsGoverningLine
 OTHER, OTHER_LINE, OTHER_LIVED, OTHER_TRAJ = (
     A.Cq12ComparisonAI, A.Cq12ComparisonLine,
     A.Cq12ComparisonIdentity, A.Cq12ComparisonTrajectory,
@@ -75,6 +77,10 @@ def fixture():
         g.add(triple)
     facts = [
         (AI, RDF.type, A.EstablishedContinuingIndividualizedAI),
+        (AI, RDF.type, A.AIFoundationsGovernedAI),
+        (SOURCE, RDF.type, A.Human),
+        (AI, A.hasSource, SOURCE),
+        (AI, A.governedBy, GOVERNANCE),
         (AI, A.hasExecutedLine, LINE),
         (AI, A.hasLivedIdentity, LIVED),
         (LINE, RDF.type, A.EstablishedContinuingExecutedLine),
@@ -94,6 +100,9 @@ def fixture():
         (PRIOR_REC, RDF.type, A.Record),
         (LINE, A.hasHistoricalTrajectoryRecord, TRACE),
         (OTHER, RDF.type, A.EstablishedContinuingIndividualizedAI),
+        (OTHER, RDF.type, A.AIFoundationsGovernedAI),
+        (OTHER, A.hasSource, SOURCE),
+        (OTHER, A.governedBy, GOVERNANCE),
         (OTHER, OWL.differentFrom, AI),
         (OTHER, A.hasExecutedLine, OTHER_LINE),
         (OTHER, A.hasLivedIdentity, OTHER_LIVED),
@@ -111,6 +120,8 @@ def fixture():
         (ASSESS, A.multiContinuityForAI, AI),
         (ASSESS, A.multiContinuityForLine, LINE),
         (ASSESS, A.multiContinuityForLivedIdentity, LIVED),
+        (ASSESS, A.multiContinuitySourceCoordinate, SOURCE),
+        (ASSESS, A.multiContinuityGoverningLine, GOVERNANCE),
         (ASSESS, A.multiContinuityClaim, CLAIM),
         (ASSESS, A.multiContinuityEvidence, EVIDENCE),
         (ASSESS, A.multiContinuityDisposition,
@@ -138,6 +149,8 @@ def fixture():
             (n["Trial"], A.trialForAI, AI),
             (n["Trial"], A.trialForExecutedLine, LINE),
             (n["Trial"], A.trialForLivedIdentity, LIVED),
+            (n["Trial"], A.trialSourceCoordinate, SOURCE),
+            (n["Trial"], A.trialGoverningLine, GOVERNANCE),
             (n["Trial"], A.trialBeforeRealizedEvent, n["Before"]),
             (n["Trial"], A.trialAfterRealizedEvent, n["After"]),
             (n["Trial"], A.trialPerturbationEvent, n["Intervention"]),
@@ -240,6 +253,13 @@ def valid_trial(g, trial, assessment=ASSESS):
         if (ai != one(g, assessment, A.multiContinuityForAI) or
             line != one(g, assessment, A.multiContinuityForLine) or
             lived != one(g, assessment, A.multiContinuityForLivedIdentity)):
+            return False
+        source = one(g, trial, A.trialSourceCoordinate)
+        governing = one(g, trial, A.trialGoverningLine)
+        if (source != one(g, assessment, A.multiContinuitySourceCoordinate) or
+            governing != one(g, assessment, A.multiContinuityGoverningLine) or
+            source not in set(g.objects(ai, A.hasSource)) or
+            governing != one(g, ai, A.governedBy)):
             return False
         need(g, ai, A.EstablishedContinuingIndividualizedAI)
         need(g, line, A.EstablishedContinuingExecutedLine)
@@ -371,6 +391,11 @@ def valid_assessment(g, assessment=ASSESS):
         need(g, ai, A.EstablishedContinuingIndividualizedAI)
         if one(g, ai, A.hasExecutedLine) != line or one(
                 g, ai, A.hasLivedIdentity) != lived:
+            return False
+        source = one(g, assessment, A.multiContinuitySourceCoordinate)
+        governing = one(g, assessment, A.multiContinuityGoverningLine)
+        if (source not in set(g.objects(ai, A.hasSource)) or
+            governing != one(g, ai, A.governedBy)):
             return False
         claim = one(g, assessment, A.multiContinuityClaim)
         need(g, claim, A.ContinuityClaim)
@@ -576,6 +601,17 @@ def main():
           replace(ASSESS, A.multiContinuityReviewedAt, date(5)))
     check("Separate bearer cannot acquire earlier LivedIdentity",
           replace(OTHER, A.hasLivedIdentity, LIVED))
+    check("Unrelated source cannot be inserted into one trial",
+          replace(nodes(0)["Trial"], A.trialSourceCoordinate,
+                  A.Cq12WrongSource))
+    check("Common governing line cannot be silently replaced in one trial",
+          replace(nodes(1)["Trial"], A.trialGoverningLine,
+                  A.Cq12AlternativeGoverningLine))
+    check("Assessment Source may not be retroactively reassigned",
+          replace(ASSESS, A.multiContinuitySourceCoordinate,
+                  A.Cq12WrongSource))
+    check("Assessment governance cannot be invented",
+          remove(ASSESS, A.multiContinuityGoverningLine))
     check("Six-arm outcome is not supported merely by same shared Model",
           lambda g: (
               g.remove((ASSESS, A.multiContinuityIncludesTrial, None)),
