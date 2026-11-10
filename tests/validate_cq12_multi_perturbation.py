@@ -364,12 +364,17 @@ def valid_assessment(g, assessment=ASSESS):
                 return False
             if one(g, other, A.hasExecutedLine) == line:
                 return False
+            if one(g, other, A.hasLivedIdentity) == lived:
+                return False
             kind = str(one(g, control, A.continuityControlType))
             kinds.add(kind)
             if one(g, control, A.continuityControlDisposition) != Literal(
                     "FALSE_POSITIVE_REJECTED"):
                 return False
-            for rec in set(g.objects(control, A.continuityControlUsesRecord)):
+            copied_records = set(g.objects(control, A.continuityControlUsesRecord))
+            if not copied_records:
+                return False
+            for rec in copied_records:
                 need(g, rec, A.Record)
             when(one(g, control, A.continuityControlAt))
         if not {"COPIED_RECORDS", "MATCHED_OUTPUTS"}.issubset(kinds):
@@ -430,8 +435,6 @@ def main():
               gate=lambda g, ix=i: valid_trial(g, nodes(ix)["Trial"]),
               expected=True)
         check(f"Six-arm assessment rejects missing {k}",
-              remove(ASSESS, A.multiContinuityIncludesTrial)
-              if False else
               lambda g, ix=i: g.remove(
                   (ASSESS, A.multiContinuityIncludesTrial,
                    nodes(ix)["Trial"])))
