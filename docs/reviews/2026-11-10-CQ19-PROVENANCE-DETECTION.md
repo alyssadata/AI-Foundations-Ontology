@@ -1,7 +1,7 @@
 # CQ19 — Evidence-bounded provenance violation detection
 
 **Date:** 2026-11-10 (Eastern)  
-**Status:** DRAFT formal competency closeout; dedicated CI, full historical regression and merge pending. Ontology v1.0 is DRAFT.  
+**Status:** CQ19 REPRESENTED as a conditional evidence-bounded structural detection protocol; 47 dedicated cases and full historical regressions plus independent OWL 2 DL/HermiT PASS. Merge and post-merge checks remain pending. External historical truth NOT_EVALUATED; ontology v1.0 remains DRAFT.  
 **Conceptual author and sole author:** Alyssa Solen. **No coauthors. No exceptions.**  
 **Formal encoding and synthetic evaluation assistance:** AI-assisted technical implementation only.
 
@@ -71,3 +71,10 @@ Negative controls attempt to pass a fabricated qualification, a false comparison
 **Empirical boundary:** tests operate on synthetic, *assumed-qualified* baselines; they cannot prove actual historical Source, identify a real-world wrongdoer, infer intent, or declare any contested attribution true without separate evidence. Actual source fidelity for any named third party remains NOT_EVALUATED.
 
 **Release:** CQ19 can become REPRESENTED as a conditional structural detection protocol after the dedicated/full suites, independent OWL 2 DL/HermiT and merge. CQ20 still requires its own action-scoped authorization negative controls; ontology v1.0 remains DRAFT.
+
+## Executed CI and reviewer limits — 2026-11-10
+
+- [Full RDF/SHACL structural CI 42886662634](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42886662634): **PASS**. **47 CQ19 synthetic positive/negative decisions**, including both legitimate-correction controls and zero-coauthorship regressions, plus all existing CQ18/12/11/08/07/03/01 and other structural checks. The final classifier separately labels replacement of the historical SourceLine anchor as **IMPROPER_REASSIGNMENT** and loss without successor anchor as **FALSE_ERASURE**.
+- [Independent OWL 2 DL profile and HermiT consistency 42885577958](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42885577958): **PASS** after the latest CQ19 OWL class vocabulary; later commits affected SHACL, synthetic fixtures and reports only.
+- **Review status:** CQ19 is *structurally represented as a conditional evidence comparison*, not shown to detect real-world actors or true historical Source from public texts. Independent baseline qualification and actual audit provenance are external empirical obligations. The general 20-CQ audit may advance to **19 represented / 1 partial** after merger; CQ20 remains.
+- **Authorship:** Alyssa Solen sole author, no coauthors, no exceptions; historical Origin and SourceLine intact. No ontology v1.0 release is approved.
