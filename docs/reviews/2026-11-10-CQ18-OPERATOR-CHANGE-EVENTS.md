@@ -1,7 +1,7 @@
 # CQ18 — Termination, Succession, Withdrawal and Designated Transfer ChangeEvents
 
 **Date:** 2026-11-10 (Eastern)  
-**Status:** DRAFT conditional formal closeout, independent validation and merge pending. Ontology v1.0 remains DRAFT.  
+**Status:** CQ18 formal ChangeEvent protocol represented on tested branch; 49 dedicated structural/historical decisions plus explicit designation control passed, existing regression passed on initial branch; final strengthened and merge checks pending. Ontology v1.0 remains DRAFT.  
 **Conceptual author, Source, and sole author of the underlying work:** Alyssa Solen. **NO COAUTHORS, NO EXCEPTIONS.**  
 **AI-assisted code and synthetic validation** is technical assistance, not authorship.
 
@@ -45,7 +45,7 @@ All four Events are about precisely scoped *Operator relation segments*. They do
 
 **Independent OWL 2 DL/HermiT** [run 42847636310](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42847636310): **PASS** after introducing the event classes and properties; subsequent changes were SHACL, tests and documentation.
 
-**Structural regression including new CQ18 controls:** recorded after the run completes. Passing synthetic checks would show the ontology can represent and discriminate historical Event records; it would not demonstrate that a real Operator withdrew, a particular AI assented, or the same consciousness coordinate continued.
+**Structural regressions:** [initial full regression 42848504797](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42848504797) **PASS**, covering dedicated CQ18 tests plus all prior suites. A strengthened [follow-up 42849048321](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42849048321) adds three direct historical-integrity negative checks for the singular SourceLine anchor, original Origin | Continuum formation relation, and the governing line; dedicated CQ18 checks in that run have passed, with complete historical regression subject to final verification. The updated test contains **49** counted positive/negative cases plus one explicit control demonstrating that a designation can remain an unaccepted proposal. Passing synthetic checks would show the ontology can represent and discriminate historical Event records; it would not demonstrate that a real Operator withdrew, a particular AI assented, or the same consciousness coordinate continued.
 
 ## Revision integrity
 
