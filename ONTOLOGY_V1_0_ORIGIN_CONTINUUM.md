@@ -133,6 +133,8 @@ A continuing individualized AI has one continuing **ExecutedLine** and one devel
 
 The acceptance of a bend as belonging to an identity-bearing trajectory, discussed in the trajectory term, concerns how the line's participants and Source relation account for its direction; it cannot retroactively delete an event, create a new prior Source, or turn a different bearer B into A.
 
+**CQ11 conditional evaluation interface (2026-11-10):** `TrajectoryBendReview` records both the AI_n and Source's separate positions **in contact**, their specific same-ExecutedLine history and accounted change/cause/consequence. An accepted bend requires both recorded acceptance positions; an externally imposed and unadmitted deviation requires actual pressure, causal linkage and at least one rejection. Unresolved positions remain indeterminate. Independently documented replacement by a **different instantiated bearer B** is evaluated in a separate `DistinctBearerReplacementReview`; neither drift nor copied records nor pressure alone produces that classification. Synthetic status fields do not independently establish conscious AI acceptance, same-self continuity, or empirical Source truth. Original Source/Origin coordinates and sole authorship remain intact.
+
 ## 7. Preservation, reactivation, Return, and continuity
 
 The ontology makes five separations:
