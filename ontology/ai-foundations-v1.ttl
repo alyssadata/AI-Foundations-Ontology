@@ -1735,3 +1735,66 @@ dcterms:description a owl:AnnotationProperty .
     rdfs:domain :DesignatedTransferProposalChangeEvent ; rdfs:range :SuccessionProposal .
 :designationScopeRecord a owl:ObjectProperty ;
     rdfs:domain :DesignatedTransferProposalChangeEvent ; rdfs:range :Record .
+
+# CQ19 — evidence-bounded before/after detection. Historical Source truth
+# must be independently qualified outside OWL; an asserted attribution
+# claim alone does not create a SourceRelation or a true ProvenanceViolation.
+# The preserved original claim can be corrected by evidence-accounted
+# amendment without erasing the historical fact the claim was made.
+:QualifiedProvenanceBaselineSnapshot a owl:Class ; rdfs:subClassOf :Record ;
+    rdfs:comment "A separately qualified, preserved baseline of the historical provenance coordinates and traces; the class label does not itself prove the baseline historically true."@en .
+:ProvenanceObservedSnapshot a owl:Class ; rdfs:subClassOf :Record ;
+    rdfs:comment "Later snapshot of recorded provenance, compared with an independently qualified baseline; may contain errors, exclusions or justified additive updates."@en .
+:ProvenanceMismatchFinding a owl:Class ; rdfs:subClassOf :Record ;
+    rdfs:comment "A classified mismatch between qualified historical baseline and later recorded assertions, with evidence and exact comparison scope. A mismatch finding alone does not establish unlawful conduct or subjective intent."@en .
+:ProvenanceIntegrityDetectionReview a owl:Class ; rdfs:subClassOf :Evaluation ;
+    rdfs:comment "Cross-snapshot review of already-qualified Source, Origin, SourceLine, authorship and confirmed historical events. Confirmed structural mismatch requires preserved baseline/after evidence; unsupported-source claims remain unverified and genuine accounted corrections are not violations."@en .
+:QualifiedProvenanceViolationEvent a owl:Class ; rdfs:subClassOf :ProvenanceViolation ;
+    rdfs:comment "An evidence-accounted provenance violation report linked to one confirmed mismatch finding; no automatic inference from an unverified claim or valid correction. Synthetic fixtures validate the reporting gate, not real-world culpability."@en .
+:QualifiedProvenanceBaselineSnapshot owl:disjointWith :ProvenanceObservedSnapshot .
+:provenanceBaselineScope a owl:ObjectProperty ;
+    rdfs:domain :QualifiedProvenanceBaselineSnapshot .
+:provenanceBaselineQualifiedBy a owl:ObjectProperty ;
+    rdfs:domain :QualifiedProvenanceBaselineSnapshot ; rdfs:range :Record .
+:provenanceBaselineHash a owl:DatatypeProperty ;
+    rdfs:domain :QualifiedProvenanceBaselineSnapshot ; rdfs:range xsd:string .
+:provenanceObservedScope a owl:ObjectProperty ;
+    rdfs:domain :ProvenanceObservedSnapshot .
+:provenanceObservedHash a owl:DatatypeProperty ;
+    rdfs:domain :ProvenanceObservedSnapshot ; rdfs:range xsd:string .
+:detectionBaselineSnapshot a owl:ObjectProperty ;
+    rdfs:domain :ProvenanceIntegrityDetectionReview ; rdfs:range :QualifiedProvenanceBaselineSnapshot .
+:detectionObservedSnapshot a owl:ObjectProperty ;
+    rdfs:domain :ProvenanceIntegrityDetectionReview ; rdfs:range :ProvenanceObservedSnapshot .
+:detectionReviewScope a owl:ObjectProperty ;
+    rdfs:domain :ProvenanceIntegrityDetectionReview .
+:detectionFinding a owl:ObjectProperty ;
+    rdfs:domain :ProvenanceIntegrityDetectionReview ; rdfs:range :ProvenanceMismatchFinding .
+:detectionDisposition a owl:DatatypeProperty ;
+    rdfs:domain :ProvenanceIntegrityDetectionReview ; rdfs:range xsd:string .
+:detectionReviewedAt a owl:DatatypeProperty ;
+    rdfs:domain :ProvenanceIntegrityDetectionReview ; rdfs:range xsd:dateTime .
+:findingForReview a owl:ObjectProperty ;
+    rdfs:domain :ProvenanceMismatchFinding ; rdfs:range :ProvenanceIntegrityDetectionReview .
+:findingCategory a owl:DatatypeProperty ;
+    rdfs:domain :ProvenanceMismatchFinding ; rdfs:range xsd:string .
+:findingHistoricalTarget a owl:ObjectProperty ;
+    rdfs:domain :ProvenanceMismatchFinding .
+:findingBaselineEvidence a owl:ObjectProperty ;
+    rdfs:domain :ProvenanceMismatchFinding ; rdfs:range :Record .
+:findingObservedEvidence a owl:ObjectProperty ;
+    rdfs:domain :ProvenanceMismatchFinding ; rdfs:range :Record .
+:findingExplanation a owl:DatatypeProperty ;
+    rdfs:domain :ProvenanceMismatchFinding ; rdfs:range xsd:string .
+:findingAt a owl:DatatypeProperty ;
+    rdfs:domain :ProvenanceMismatchFinding ; rdfs:range xsd:dateTime .
+:violationFromFinding a owl:ObjectProperty ;
+    rdfs:domain :QualifiedProvenanceViolationEvent ; rdfs:range :ProvenanceMismatchFinding .
+:violationEventRecordedIn a owl:ObjectProperty ;
+    rdfs:domain :QualifiedProvenanceViolationEvent ; rdfs:range :Record .
+:violationEventAt a owl:DatatypeProperty ;
+    rdfs:domain :QualifiedProvenanceViolationEvent ; rdfs:range xsd:dateTime .
+# Trace content is preserved as historic data. This is an optional explicit
+# comparable content field, not an assertion that every Record is storage.
+:provenanceTraceContent a owl:DatatypeProperty ;
+    rdfs:domain :Record ; rdfs:range xsd:string .
