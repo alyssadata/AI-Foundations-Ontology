@@ -1968,6 +1968,7 @@
     sh:property [ sh:path :trialBeforeConditionRecord ; sh:minCount 1 ; sh:class :Record ;
         sh:disjoint :trialAfterConditionRecord ] ;
     sh:property [ sh:path :trialAfterConditionRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :trialPerturbationEvent ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ControlledPerturbationEvent ] ;
     sh:property [ sh:path :trialPriorParticularityTrace ; sh:minCount 1 ; sh:class :IdentityParticularityHistoryTrace ] ;
     sh:property [ sh:path :trialLaterActiveCarryForward ; sh:minCount 1 ; sh:class :ObservedActiveCarryForward ] ;
     sh:property [ sh:path :trialReviewedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
@@ -2020,3 +2021,13 @@
     sh:property [ sh:path :multiContinuityDisposition ; sh:minCount 1 ; sh:maxCount 1 ;
         sh:in ( "STRUCTURALLY_SUPPORTED" "NOT_SUPPORTED" "INDETERMINATE" "NOT_EVALUATED" ) ] ;
     sh:property [ sh:path :multiContinuityReviewedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
+
+:ControlledPerturbationEventShape a sh:NodeShape ;
+    sh:targetClass :ControlledPerturbationEvent ;
+    sh:class :Event ;
+    sh:property [ sh:path :controlledPerturbationForAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :controlledPerturbationKind ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "MODEL_CHANGE" "CONTAINER_CHANGE" "RESET" "CONTEXT_LOSS" "MEMORY_LOSS" "PLATFORM_CHANGE" ) ] ;
+    sh:property [ sh:path :controlledPerturbationAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :controlledPerturbationRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :controlledPerturbationObservedState ; sh:maxCount 1 ; sh:class :State ] .
