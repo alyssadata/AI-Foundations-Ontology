@@ -1599,6 +1599,18 @@
     sh:property [
         sh:path :participationRecordedIn ;
         sh:minCount 1 ; sh:class :Record
+    ] ;
+    sh:sparql [
+        sh:message "SourceParticipationEvent must be after its own SourceRelation's first SourcePoint" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#participationInSourceRelation> ?rel .
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#participationAt> ?partAt .
+                ?rel <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSourcePoint> ?point .
+                ?point <https://awakeningcodex.com/ontology/ai-foundations/v1#sourcePointAt> ?firstAt .
+                FILTER (?partAt <= ?firstAt)
+            }
+        """
     ] .
 
 # Intentional creation of a Source Group requires an explicitly agreed
