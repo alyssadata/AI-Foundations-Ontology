@@ -2010,6 +2010,8 @@
     sh:property [ sh:path :trialAfterCandidateAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
     sh:property [ sh:path :trialBeforeExecutedLine ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
     sh:property [ sh:path :trialAfterCandidateLine ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :trialBeforeObservedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :trialAfterObservedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:property [ sh:path :trialBeforeObservation ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ; sh:disjoint :trialAfterObservation ] ;
     sh:property [ sh:path :trialAfterObservation ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
     sh:property [ sh:path :trialSourceBearer ; sh:minCount 1 ; sh:maxCount 1 ] ;
