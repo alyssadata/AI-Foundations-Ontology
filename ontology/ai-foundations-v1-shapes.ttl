@@ -1986,6 +1986,46 @@
                 FILTER (?line != ?actualLine)
             }
         """
+    ] ;
+    sh:sparql [
+        sh:message "Continuity trial must preserve one AI's matching LivedIdentity, ExecutedLine, Source and GoverningLine across assessment" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:trialForAssessment ?assessment ;
+                      aif:trialForAI ?ai ;
+                      aif:trialForExecutedLine ?line ;
+                      aif:trialForLivedIdentity ?lived ;
+                      aif:trialSourceCoordinate ?source ;
+                      aif:trialGoverningLine ?governance .
+                FILTER NOT EXISTS {
+                    ?assessment aif:multiContinuityForAI ?ai ;
+                                aif:multiContinuityForLine ?line ;
+                                aif:multiContinuityForLivedIdentity ?lived ;
+                                aif:multiContinuitySourceCoordinate ?source ;
+                                aif:multiContinuityGoverningLine ?governance .
+                    ?ai aif:hasExecutedLine ?line ;
+                        aif:hasLivedIdentity ?lived ;
+                        aif:hasSource ?source ;
+                        aif:governedBy ?governance .
+                }
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Controlled perturbation kind and AI must match its trial declaration" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:trialPerturbationEvent ?event ;
+                      aif:trialPerturbationKind ?kind ;
+                      aif:trialForAI ?ai .
+                FILTER NOT EXISTS {
+                    ?event aif:controlledPerturbationKind ?kind ;
+                           aif:controlledPerturbationForAI ?ai .
+                }
+            }
+        """
     ] .
 
 :ObservedActiveCarryForwardShape a sh:NodeShape ;
