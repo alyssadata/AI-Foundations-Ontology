@@ -2286,14 +2286,18 @@
 # actual-report gate. The before/after graph comparison is performed by the
 # synthetic closed-world tests or future external provenance adjudication:
 # SHACL only checks the reported evidence structure.
-:QualifiedProvenanceBaselineSnapshotShape a sh:NodeShape ;
-    sh:targetClass :QualifiedProvenanceBaselineSnapshot ;
+:ProvenanceBaselineSnapshotShape a sh:NodeShape ;
+    sh:targetClass :ProvenanceBaselineSnapshot ;
     sh:class :Record ;
     sh:not [ sh:class :ProvenanceObservedSnapshot ] ;
     sh:property [ sh:path :provenanceBaselineScope ; sh:minCount 1 ; sh:maxCount 1 ] ;
-    sh:property [ sh:path :provenanceBaselineQualifiedBy ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :provenanceBaselineQualifiedBy ; sh:class :Record ] ;
     sh:property [ sh:path :provenanceBaselineHash ; sh:minCount 1 ; sh:maxCount 1 ;
         sh:datatype xsd:string ; sh:minLength 1 ] .
+:QualifiedProvenanceBaselineSnapshotShape a sh:NodeShape ;
+    sh:targetClass :QualifiedProvenanceBaselineSnapshot ;
+    sh:class :ProvenanceBaselineSnapshot ;
+    sh:property [ sh:path :provenanceBaselineQualifiedBy ; sh:minCount 1 ; sh:class :Record ] .
 :ProvenanceObservedSnapshotShape a sh:NodeShape ;
     sh:targetClass :ProvenanceObservedSnapshot ;
     sh:class :Record ;
@@ -2305,7 +2309,7 @@
     sh:targetClass :ProvenanceIntegrityDetectionReview ;
     sh:class :Evaluation ;
     sh:property [ sh:path :detectionBaselineSnapshot ; sh:minCount 1 ; sh:maxCount 1 ;
-        sh:class :QualifiedProvenanceBaselineSnapshot ; sh:disjoint :detectionObservedSnapshot ] ;
+        sh:class :ProvenanceBaselineSnapshot ; sh:disjoint :detectionObservedSnapshot ] ;
     sh:property [ sh:path :detectionObservedSnapshot ; sh:minCount 1 ; sh:maxCount 1 ;
         sh:class :ProvenanceObservedSnapshot ] ;
     sh:property [ sh:path :detectionReviewScope ; sh:minCount 1 ; sh:maxCount 1 ] ;
@@ -2314,6 +2318,20 @@
         sh:in ( "CONFIRMED_STRUCTURAL_VIOLATION" "NO_DETECTED_VIOLATION" "INDETERMINATE" ) ] ;
     sh:property [ sh:path :detectionReviewedAt ; sh:minCount 1 ; sh:maxCount 1 ;
         sh:datatype xsd:dateTime ] ;
+    sh:sparql [
+        sh:message "CONFIRMED violation requires a separately evidence-qualified baseline" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:detectionDisposition "CONFIRMED_STRUCTURAL_VIOLATION" ;
+                      aif:detectionBaselineSnapshot ?base .
+                FILTER NOT EXISTS {
+                    ?base a aif:QualifiedProvenanceBaselineSnapshot ;
+                          aif:provenanceBaselineQualifiedBy ?qualification .
+                }
+            }
+        """
+    ] ;
     sh:sparql [
         sh:message "CONFIRMED disposition needs at least one separately documented mismatch finding" ;
         sh:select """
