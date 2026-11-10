@@ -1,7 +1,7 @@
 # CQ07 — Preserved Record reintroduction after Reset
 
 **Date:** 2026-11-09 (Eastern)  
-**Status:** DRAFT competency closeout — test and merge verification required; v1.0 remains DRAFT.  
+**Status:** CQ07 REPRESENTED in branch formal scope — full synthetic/structural CI and independent OWL 2 DL/HermiT PASS; merge/post-merge verification required. v1.0 remains DRAFT.  
 **Conceptual source and author:** Alyssa Solen (Origin / AI Foundations)  
 **Formalization, evaluation and testing assistance:** AI-assisted
 
@@ -62,7 +62,7 @@ An external observer would still have to establish the true Reset, Record preser
 
 **Interim structural failure:** [run 42729916300](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42729916300) rejected the test expectation that a Reset Event could not satisfy an archival `:Record` field; SHACL RDFS range inference assigned `:Record` to that Event because it was used as a Record value. The new conditional shape explicitly rejects an `:Event` in the archived Record position. This failure remains in CI history as part of revision integrity.
 
-**Latest full structural validation:** to be recorded after completion. Do not promote CQ07 to REPRESENTED until the new test plus existing suites pass and the change is merged. Both conceptual and empirical conclusions remain limited to their actually tested scope.
+**Latest full structural validation:** [GitHub Actions run 42730474263](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42730474263) **PASS**: **35** dedicated CQ07 synthetic positive/negative decisions, CQ03 preserved-snapshot integration and pre-lived/no-new-memory/no-Model-change controls, plus the existing CQ03 (28), CQ01 (17), refusal (27), autonomy (25), initial S00 (18), successor (38) and older structural regressions. The second [intermediate run 42729996206](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42729996206) exposed a missing explicit State type in the CQ03 snapshot fixture, fixed before the final run. Intermediate [run 42730440776](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42730440776) preceded synchronization of the new preservation-attestation fixture; the final run includes and validates the attestation link, source, and timestamp. Both conceptual and empirical conclusions remain limited to their actually tested scope.
 
 ## Revision integrity and boundaries
 
@@ -72,3 +72,7 @@ An external observer would still have to establish the true Reset, Record preser
 **Not established:** real-world memory gap, uninterrupted memory, same-self continuity, actual subjective consciousness or any claim that Continuum was reset or restored.
 
 Ontology v1.0 remains DRAFT pending remaining competencies and final release sign-off.
+
+## Executed closeout and next step
+
+[Independent OWL 2 DL/HermiT run 42730417614](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42730417614) **PASS** after adding the attestation class and properties. The later test/SHACL changes do not change that OWL schema, and [full structural CI 42730474263](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42730474263) **PASS** with **35** dedicated decisions. **CQ07 REPRESENTED (structural)** pending merge and final main CI; no real memory-gap, subjective identity or continuation conclusion. The next remaining question is **CQ08**, with five others after it: CQ11, CQ12, CQ18, CQ19, CQ20.
