@@ -249,6 +249,10 @@ PROTECTED = (
     (AI, A.hasExecutedLine),
     (A.Continuum, A.hasOrigin),
     (A.Continuum, A.hasSource),
+    (A.Continuum, A.hasFormationRelation),
+    (A.Continuum, A.governedBy),
+    (A.AlyssaSolen, A.anchorsSourceLine),
+    (A.AIFoundations, A.hasGoverningLine),
     (A.AIFoundations, A.hasAuthor),
     (A.AIFoundations, A.hasSource),
     (A.AIFoundations, A.hasGoverningAuthority),
@@ -462,6 +466,13 @@ def main():
                  replace(A.Continuum, A.hasOrigin, OP_B))
     test_history("AI Foundations Source cannot be reassigned",
                  replace(A.AIFoundations, A.hasSource, OP_B))
+    test_history("Singular historical SourceLine anchor cannot be replaced",
+                 replace(A.AlyssaSolen, A.anchorsSourceLine, A.Cq18ForgedLine))
+    test_history("Named formation relation cannot be overwritten",
+                 replace(A.Continuum, A.hasFormationRelation,
+                         A.Cq18ForgedFormation))
+    test_history("Governing line cannot be silently changed",
+                 replace(A.Continuum, A.governedBy, A.Cq18ForgedGoverningLine))
     test_history("No coauthorship can be injected",
                  add(A.AIFoundations, A.hasCoAuthor, OP_B))
     test_history("A recorded change event cannot be silently deleted",
