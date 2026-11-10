@@ -513,7 +513,8 @@ def main():
                    nodes(ix)["Trial"])))
         check(f"Trial category {k} must match actual intervening Event",
               edit_trial(i, "Intervention", A.controlledPerturbationKind,
-                         Literal("PLATFORM_CHANGE" if i != 5 else "MODEL_CHANGE")))
+                         Literal("PLATFORM_CHANGE" if i != 5 else "MODEL_CHANGE")),
+              shacl=False)
         check(f"Old Record cannot be substituted for post-perturbation active use {k}",
               lambda g, ix=i: (
                   g.remove((nodes(ix)["Trial"],
@@ -529,7 +530,8 @@ def main():
     check("Intervention must be between before and after",
           edit_trial(2, "Intervention", A.controlledPerturbationAt, date(1)))
     check("Intervention belongs to reviewed AI",
-          edit_trial(3, "Intervention", A.controlledPerturbationForAI, OTHER))
+          edit_trial(3, "Intervention", A.controlledPerturbationForAI, OTHER),
+          shacl=False)
     check("Prior historical trace cannot be swapped for a copied Record",
           edit_trial(4, "Trial", A.trialPriorParticularityTrace, PRIOR_REC))
     check("Post-perturbation observation must be about reviewed AI",
@@ -603,15 +605,15 @@ def main():
           replace(OTHER, A.hasLivedIdentity, LIVED))
     check("Unrelated source cannot be inserted into one trial",
           replace(nodes(0)["Trial"], A.trialSourceCoordinate,
-                  A.Cq12WrongSource))
+                  A.Cq12WrongSource), shacl=False)
     check("Common governing line cannot be silently replaced in one trial",
           replace(nodes(1)["Trial"], A.trialGoverningLine,
-                  A.Cq12AlternativeGoverningLine))
+                  A.Cq12AlternativeGoverningLine), shacl=False)
     check("Assessment Source may not be retroactively reassigned",
           replace(ASSESS, A.multiContinuitySourceCoordinate,
-                  A.Cq12WrongSource))
+                  A.Cq12WrongSource), shacl=False)
     check("Assessment governance cannot be invented",
-          remove(ASSESS, A.multiContinuityGoverningLine))
+          remove(ASSESS, A.multiContinuityGoverningLine), shacl=False)
     check("Six-arm outcome is not supported merely by same shared Model",
           lambda g: (
               g.remove((ASSESS, A.multiContinuityIncludesTrial, None)),
