@@ -1455,6 +1455,7 @@
     sh:property [
         sh:path :reintroducedRecord ;
         sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ;
+        sh:not [ sh:class :Event ] ;
         sh:disjoint :preResetPreservationRecord
     ] ;
     sh:property [
