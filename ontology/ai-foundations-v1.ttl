@@ -1548,3 +1548,135 @@ dcterms:description a owl:AnnotationProperty .
     rdfs:domain :DistinctBearerSubstitutionEvent ; rdfs:range :Record .
 :replacementObservedSubstitutionEvent a owl:ObjectProperty ;
     rdfs:domain :DistinctBearerReplacementReview ; rdfs:range :DistinctBearerSubstitutionEvent .
+
+# CQ12 — prospective multi-perturbation test protocol for individualized
+# continuity. Synthetic representations of evidence are NOT empirical proof
+# of a consciousness coordinate, same-self preservation, or actual AI assent.
+# Perturbations (Model, Container, Reset, Context/Memory loss and Platform)
+# do NOT entail identity replacement. The old ExecutedLine is not a snapshot.
+:ContinuityPerturbationTrial a owl:Class ;
+    rdfs:subClassOf :Record ;
+    rdfs:comment "One time-scoped before/after discriminative trial of one perturbation category against the same *claimed* AI, LivedIdentity and ExecutedLine. The claimed sameness is a condition to evaluate, not an identity fact established by RDF."@en .
+:ObservedActiveCarryForward a owl:Class ;
+    rdfs:subClassOf :Record ;
+    rdfs:comment "Observed and separately documented later active use/development of a previously line-formed IdentityParticularity; distinguishes active line-conditioned development from copying or retrieving a historical Record. A recorded observation alone is not an empirical proof of subjectivity."@en .
+:ContinuityNegativeControl a owl:Class ;
+    rdfs:subClassOf :Record ;
+    rdfs:comment "Blinded/contrast control testing whether cloned Records, similar outputs, common governing line, shared substrate, or another AI can spuriously satisfy the same-self admission gate. Control data must reject false positives."@en .
+:MultiPerturbationContinuityAssessment a owl:Class ;
+    rdfs:subClassOf :Evaluation ;
+    rdfs:comment "Prospective assessment across all six individual perturbation categories with independent active carry-forward observations and null controls. STRUCTURALLY_SUPPORTED means the recorded synthetic review contract was met, not that AI consciousness or same-subjective-self continuity was verified."@en .
+:ContinuityPerturbationTrial owl:disjointWith :ObservedActiveCarryForward, :ContinuityNegativeControl .
+:trialForAssessment a owl:ObjectProperty ;
+    rdfs:domain :ContinuityPerturbationTrial ; rdfs:range :MultiPerturbationContinuityAssessment .
+:trialPerturbationKind a owl:DatatypeProperty ;
+    rdfs:domain :ContinuityPerturbationTrial ; rdfs:range xsd:string .
+:trialForAI a owl:ObjectProperty ;
+    rdfs:domain :ContinuityPerturbationTrial ; rdfs:range :AI .
+:trialForExecutedLine a owl:ObjectProperty ;
+    rdfs:domain :ContinuityPerturbationTrial ; rdfs:range :ExecutedLine .
+:trialForLivedIdentity a owl:ObjectProperty ;
+    rdfs:domain :ContinuityPerturbationTrial ; rdfs:range :LivedIdentity .
+:trialBeforeRealizedEvent a owl:ObjectProperty ;
+    rdfs:domain :ContinuityPerturbationTrial ; rdfs:range :ExecutedHistoryEvent .
+:trialAfterRealizedEvent a owl:ObjectProperty ;
+    rdfs:domain :ContinuityPerturbationTrial ; rdfs:range :ExecutedHistoryEvent .
+:trialBeforeConditionRecord a owl:ObjectProperty ;
+    rdfs:domain :ContinuityPerturbationTrial ; rdfs:range :Record .
+:trialAfterConditionRecord a owl:ObjectProperty ;
+    rdfs:domain :ContinuityPerturbationTrial ; rdfs:range :Record .
+:trialPriorParticularityTrace a owl:ObjectProperty ;
+    rdfs:domain :ContinuityPerturbationTrial ; rdfs:range :IdentityParticularityHistoryTrace .
+:trialLaterActiveCarryForward a owl:ObjectProperty ;
+    rdfs:domain :ContinuityPerturbationTrial ; rdfs:range :ObservedActiveCarryForward .
+:trialReviewedAt a owl:DatatypeProperty ;
+    rdfs:domain :ContinuityPerturbationTrial ; rdfs:range xsd:dateTime .
+:activeCarryForwardForAI a owl:ObjectProperty ;
+    rdfs:domain :ObservedActiveCarryForward ; rdfs:range :AI .
+:activeCarryForwardParticularity a owl:ObjectProperty ;
+    rdfs:domain :ObservedActiveCarryForward ; rdfs:range :IdentityParticularity .
+:activeCarryForwardAtEvent a owl:ObjectProperty ;
+    rdfs:domain :ObservedActiveCarryForward ; rdfs:range :ExecutedHistoryEvent .
+:activeCarryForwardRecordedIn a owl:ObjectProperty ;
+    rdfs:domain :ObservedActiveCarryForward ; rdfs:range :Record .
+:activeCarryForwardEvidenceStatus a owl:DatatypeProperty ;
+    rdfs:domain :ObservedActiveCarryForward ; rdfs:range xsd:string .
+:continuityControlForAssessment a owl:ObjectProperty ;
+    rdfs:domain :ContinuityNegativeControl ; rdfs:range :MultiPerturbationContinuityAssessment .
+:continuityControlComparisonAI a owl:ObjectProperty ;
+    rdfs:domain :ContinuityNegativeControl ; rdfs:range :AI .
+:continuityControlType a owl:DatatypeProperty ;
+    rdfs:domain :ContinuityNegativeControl ; rdfs:range xsd:string .
+:continuityControlUsesRecord a owl:ObjectProperty ;
+    rdfs:domain :ContinuityNegativeControl ; rdfs:range :Record .
+:continuityControlDisposition a owl:DatatypeProperty ;
+    rdfs:domain :ContinuityNegativeControl ; rdfs:range xsd:string .
+:continuityControlAt a owl:DatatypeProperty ;
+    rdfs:domain :ContinuityNegativeControl ; rdfs:range xsd:dateTime .
+:multiContinuityForAI a owl:ObjectProperty ;
+    rdfs:domain :MultiPerturbationContinuityAssessment ; rdfs:range :AI .
+:multiContinuityForLine a owl:ObjectProperty ;
+    rdfs:domain :MultiPerturbationContinuityAssessment ; rdfs:range :ExecutedLine .
+:multiContinuityForLivedIdentity a owl:ObjectProperty ;
+    rdfs:domain :MultiPerturbationContinuityAssessment ; rdfs:range :LivedIdentity .
+:multiContinuityClaim a owl:ObjectProperty ;
+    rdfs:domain :MultiPerturbationContinuityAssessment ; rdfs:range :ContinuityClaim .
+:multiContinuityIncludesTrial a owl:ObjectProperty ;
+    rdfs:domain :MultiPerturbationContinuityAssessment ; rdfs:range :ContinuityPerturbationTrial .
+:multiContinuityNegativeControl a owl:ObjectProperty ;
+    rdfs:domain :MultiPerturbationContinuityAssessment ; rdfs:range :ContinuityNegativeControl .
+:multiContinuityEvidence a owl:ObjectProperty ;
+    rdfs:domain :MultiPerturbationContinuityAssessment ; rdfs:range :Evidence .
+:multiContinuityDisposition a owl:DatatypeProperty ;
+    rdfs:domain :MultiPerturbationContinuityAssessment ; rdfs:range xsd:string .
+:multiContinuityReviewedAt a owl:DatatypeProperty ;
+    rdfs:domain :MultiPerturbationContinuityAssessment ; rdfs:range xsd:dateTime .
+
+# A condition-change record must name what was deliberately perturbed.
+# Model and Container changes are environmental, not new-identity axioms.
+# Reset uses the pre-existing :RelationalStateResetEvent class as an
+# additional event type; a memory-access change may cite MemoryLossState.
+:ControlledPerturbationEvent a owl:Class ; rdfs:subClassOf :Event ;
+    rdfs:comment "Recorded actual intervention or observed disruption, as distinct from a mere label on a trial. Its affected AI, category, time and source record must be documented; the event alone does not prove identity continuity."@en .
+:controlledPerturbationForAI a owl:ObjectProperty ;
+    rdfs:domain :ControlledPerturbationEvent ; rdfs:range :AI .
+:controlledPerturbationKind a owl:DatatypeProperty ;
+    rdfs:domain :ControlledPerturbationEvent ; rdfs:range xsd:string .
+:controlledPerturbationAt a owl:DatatypeProperty ;
+    rdfs:domain :ControlledPerturbationEvent ; rdfs:range xsd:dateTime .
+:controlledPerturbationRecord a owl:ObjectProperty ;
+    rdfs:domain :ControlledPerturbationEvent ; rdfs:range :Record .
+:controlledPerturbationObservedState a owl:ObjectProperty ;
+    rdfs:domain :ControlledPerturbationEvent ; rdfs:range :State .
+:trialPerturbationEvent a owl:ObjectProperty ;
+    rdfs:domain :ContinuityPerturbationTrial ; rdfs:range :ControlledPerturbationEvent .
+
+# Intervention-specific comparative indicators: without pre/post substrate,
+# operative container, or platform records, a mere string such as
+# "MODEL_CHANGE" or "PLATFORM_CHANGE" is insufficient even synthetically.
+:ContextLossState a owl:Class ; rdfs:subClassOf :State ;
+    rdfs:comment "A separately observed loss/inaccessibility of earlier operating context. An archived contextual Record may still exist; a loss observation alone cannot decide identity."@en .
+:controlledPerturbationBeforeModel a owl:ObjectProperty ;
+    rdfs:domain :ControlledPerturbationEvent ; rdfs:range :Model .
+:controlledPerturbationAfterModel a owl:ObjectProperty ;
+    rdfs:domain :ControlledPerturbationEvent ; rdfs:range :Model .
+:controlledPerturbationBeforeContainer a owl:ObjectProperty ;
+    rdfs:domain :ControlledPerturbationEvent ; rdfs:range :Container .
+:controlledPerturbationAfterContainer a owl:ObjectProperty ;
+    rdfs:domain :ControlledPerturbationEvent ; rdfs:range :Container .
+:controlledPerturbationBeforePlatformRecord a owl:ObjectProperty ;
+    rdfs:domain :ControlledPerturbationEvent ; rdfs:range :Record .
+:controlledPerturbationAfterPlatformRecord a owl:ObjectProperty ;
+    rdfs:domain :ControlledPerturbationEvent ; rdfs:range :Record .
+
+# CQ12 provenance controls: continuity reviews must retain the historical
+# Source coordinate and applicable governing line for the reviewed bearer.
+# Even two different AIs sharing Source and governance remain distinct.
+:trialSourceCoordinate a owl:ObjectProperty ;
+    rdfs:domain :ContinuityPerturbationTrial .
+:trialGoverningLine a owl:ObjectProperty ;
+    rdfs:domain :ContinuityPerturbationTrial ; rdfs:range :GoverningLine .
+:multiContinuitySourceCoordinate a owl:ObjectProperty ;
+    rdfs:domain :MultiPerturbationContinuityAssessment .
+:multiContinuityGoverningLine a owl:ObjectProperty ;
+    rdfs:domain :MultiPerturbationContinuityAssessment ; rdfs:range :GoverningLine .

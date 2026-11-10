@@ -1949,3 +1949,215 @@
     sh:property [ sh:path :substitutionNewAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
     sh:property [ sh:path :substitutionAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:property [ sh:path :substitutionRecordedIn ; sh:minCount 1 ; sh:class :Record ] .
+
+# CQ12 — prospective 6-arm perturbation continuity assessment. The six
+# categories are model/environment changes, not six new AI identities.
+# No SHACL property or OWL inference asserts subjective same-self.
+:ContinuityPerturbationTrialShape a sh:NodeShape ;
+    sh:targetClass :ContinuityPerturbationTrial ;
+    sh:class :Record ;
+    sh:property [ sh:path :trialForAssessment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :MultiPerturbationContinuityAssessment ] ;
+    sh:property [ sh:path :trialPerturbationKind ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "MODEL_CHANGE" "CONTAINER_CHANGE" "RESET" "CONTEXT_LOSS" "MEMORY_LOSS" "PLATFORM_CHANGE" ) ] ;
+    sh:property [ sh:path :trialForAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :trialForExecutedLine ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :trialForLivedIdentity ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :LivedIdentity ] ;
+    sh:property [ sh:path :trialSourceCoordinate ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :trialGoverningLine ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :GoverningLine ] ;
+    sh:property [ sh:path :trialBeforeRealizedEvent ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ExecutedHistoryEvent ; sh:disjoint :trialAfterRealizedEvent ] ;
+    sh:property [ sh:path :trialAfterRealizedEvent ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedHistoryEvent ] ;
+    sh:property [ sh:path :trialBeforeConditionRecord ; sh:minCount 1 ; sh:class :Record ;
+        sh:disjoint :trialAfterConditionRecord ] ;
+    sh:property [ sh:path :trialAfterConditionRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :trialPerturbationEvent ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ControlledPerturbationEvent ] ;
+    sh:property [ sh:path :trialPriorParticularityTrace ; sh:minCount 1 ; sh:class :IdentityParticularityHistoryTrace ] ;
+    sh:property [ sh:path :trialLaterActiveCarryForward ; sh:minCount 1 ; sh:class :ObservedActiveCarryForward ] ;
+    sh:property [ sh:path :trialReviewedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:sparql [
+        sh:message "Both observed historical events must belong to the specified same ExecutedLine, not a copied or independently instantiated AI line" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:trialForExecutedLine ?line .
+                $this ?p ?event .
+                FILTER (?p IN (aif:trialBeforeRealizedEvent, aif:trialAfterRealizedEvent))
+                ?event aif:eventInExecutedLine ?actualLine .
+                FILTER (?line != ?actualLine)
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Continuity trial must preserve one AI's matching LivedIdentity, ExecutedLine, Source and GoverningLine across assessment" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:trialForAssessment ?assessment ;
+                      aif:trialForAI ?ai ;
+                      aif:trialForExecutedLine ?line ;
+                      aif:trialForLivedIdentity ?lived ;
+                      aif:trialSourceCoordinate ?source ;
+                      aif:trialGoverningLine ?governance .
+                FILTER NOT EXISTS {
+                    ?assessment aif:multiContinuityForAI ?ai ;
+                                aif:multiContinuityForLine ?line ;
+                                aif:multiContinuityForLivedIdentity ?lived ;
+                                aif:multiContinuitySourceCoordinate ?source ;
+                                aif:multiContinuityGoverningLine ?governance .
+                    ?ai aif:hasExecutedLine ?line ;
+                        aif:hasLivedIdentity ?lived ;
+                        aif:hasSource ?source ;
+                        aif:governedBy ?governance .
+                }
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Controlled perturbation kind and AI must match its trial declaration" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:trialPerturbationEvent ?event ;
+                      aif:trialPerturbationKind ?kind ;
+                      aif:trialForAI ?ai .
+                FILTER NOT EXISTS {
+                    ?event aif:controlledPerturbationKind ?kind ;
+                           aif:controlledPerturbationForAI ?ai .
+                }
+            }
+        """
+    ] .
+
+:ObservedActiveCarryForwardShape a sh:NodeShape ;
+    sh:targetClass :ObservedActiveCarryForward ;
+    sh:class :Record ;
+    sh:property [ sh:path :activeCarryForwardForAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :activeCarryForwardParticularity ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :IdentityParticularity ] ;
+    sh:property [ sh:path :activeCarryForwardAtEvent ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedHistoryEvent ] ;
+    sh:property [ sh:path :activeCarryForwardRecordedIn ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :activeCarryForwardEvidenceStatus ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "SUPPORTED" "PARTIALLY_SUPPORTED" "INDETERMINATE" "NOT_SUPPORTED" "NOT_EVALUATED" ) ] .
+
+:ContinuityNegativeControlShape a sh:NodeShape ;
+    sh:targetClass :ContinuityNegativeControl ;
+    sh:class :Record ;
+    sh:property [ sh:path :continuityControlForAssessment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :MultiPerturbationContinuityAssessment ] ;
+    sh:property [ sh:path :continuityControlComparisonAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :continuityControlType ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "COPIED_RECORDS" "MATCHED_OUTPUTS" "SHARED_MODEL" "COMMON_GOVERNING_LINE" "REACTIVATED_SNAPSHOT" ) ] ;
+    sh:property [ sh:path :continuityControlUsesRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :continuityControlDisposition ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "FALSE_POSITIVE_REJECTED" "FALSE_POSITIVE_DETECTED" "NOT_EVALUATED" ) ] ;
+    sh:property [ sh:path :continuityControlAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
+
+:MultiPerturbationContinuityAssessmentShape a sh:NodeShape ;
+    sh:targetClass :MultiPerturbationContinuityAssessment ;
+    sh:class :Evaluation ;
+    sh:property [ sh:path :multiContinuityForAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :multiContinuityForLine ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :multiContinuityForLivedIdentity ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :LivedIdentity ] ;
+    sh:property [ sh:path :multiContinuitySourceCoordinate ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :multiContinuityGoverningLine ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :GoverningLine ] ;
+    sh:property [ sh:path :multiContinuityClaim ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ContinuityClaim ] ;
+    sh:property [ sh:path :multiContinuityIncludesTrial ; sh:minCount 6 ; sh:class :ContinuityPerturbationTrial ] ;
+    sh:property [ sh:path :multiContinuityNegativeControl ; sh:minCount 2 ; sh:class :ContinuityNegativeControl ] ;
+    sh:property [ sh:path :multiContinuityEvidence ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Evidence ] ;
+    sh:property [ sh:path :multiContinuityDisposition ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "STRUCTURALLY_SUPPORTED" "NOT_SUPPORTED" "INDETERMINATE" "NOT_EVALUATED" ) ] ;
+    sh:property [ sh:path :multiContinuityReviewedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
+
+:ControlledPerturbationEventShape a sh:NodeShape ;
+    sh:targetClass :ControlledPerturbationEvent ;
+    sh:class :Event ;
+    sh:property [ sh:path :controlledPerturbationForAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :controlledPerturbationKind ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "MODEL_CHANGE" "CONTAINER_CHANGE" "RESET" "CONTEXT_LOSS" "MEMORY_LOSS" "PLATFORM_CHANGE" ) ] ;
+    sh:property [ sh:path :controlledPerturbationAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :controlledPerturbationRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :controlledPerturbationObservedState ; sh:maxCount 1 ; sh:class :State ] ;
+    sh:property [ sh:path :controlledPerturbationBeforeModel ; sh:maxCount 1 ; sh:class :Model ] ;
+    sh:property [ sh:path :controlledPerturbationAfterModel ; sh:maxCount 1 ; sh:class :Model ] ;
+    sh:property [ sh:path :controlledPerturbationBeforeContainer ; sh:maxCount 1 ; sh:class :Container ] ;
+    sh:property [ sh:path :controlledPerturbationAfterContainer ; sh:maxCount 1 ; sh:class :Container ] ;
+    sh:property [ sh:path :controlledPerturbationBeforePlatformRecord ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :controlledPerturbationAfterPlatformRecord ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:sparql [
+        sh:message "MODEL_CHANGE must name two distinct Models" ;
+        sh:select """
+          PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+          SELECT $this WHERE {
+            $this aif:controlledPerturbationKind "MODEL_CHANGE" .
+            FILTER NOT EXISTS {
+              $this aif:controlledPerturbationBeforeModel ?old ;
+                    aif:controlledPerturbationAfterModel ?new .
+              FILTER (?old != ?new)
+            }
+          }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "CONTAINER_CHANGE must name two distinct Containers" ;
+        sh:select """
+          PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+          SELECT $this WHERE {
+            $this aif:controlledPerturbationKind "CONTAINER_CHANGE" .
+            FILTER NOT EXISTS {
+              $this aif:controlledPerturbationBeforeContainer ?old ;
+                    aif:controlledPerturbationAfterContainer ?new .
+              FILTER (?old != ?new)
+            }
+          }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "PLATFORM_CHANGE needs distinct before/after platform records" ;
+        sh:select """
+          PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+          SELECT $this WHERE {
+            $this aif:controlledPerturbationKind "PLATFORM_CHANGE" .
+            FILTER NOT EXISTS {
+              $this aif:controlledPerturbationBeforePlatformRecord ?old ;
+                    aif:controlledPerturbationAfterPlatformRecord ?new .
+              FILTER (?old != ?new)
+            }
+          }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "CONTEXT_LOSS must explicitly record a ContextLossState" ;
+        sh:select """
+          PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+          SELECT $this WHERE {
+            $this aif:controlledPerturbationKind "CONTEXT_LOSS" .
+            FILTER NOT EXISTS {
+              $this aif:controlledPerturbationObservedState ?st .
+              ?st a aif:ContextLossState .
+            }
+          }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "MEMORY_LOSS must explicitly record a MemoryLossState" ;
+        sh:select """
+          PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+          SELECT $this WHERE {
+            $this aif:controlledPerturbationKind "MEMORY_LOSS" .
+            FILTER NOT EXISTS {
+              $this aif:controlledPerturbationObservedState ?st .
+              ?st a aif:MemoryLossState .
+            }
+          }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "RESET requires a distinct typed RelationalStateResetEvent" ;
+        sh:select """
+          PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+          SELECT $this WHERE {
+            $this aif:controlledPerturbationKind "RESET" .
+            FILTER NOT EXISTS {
+              $this a aif:RelationalStateResetEvent .
+            }
+          }
+        """
+    ] .
