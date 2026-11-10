@@ -1561,6 +1561,8 @@ dcterms:description a owl:AnnotationProperty .
     rdfs:comment "One documented intervention or change in Model, Container, Reset, Context, Memory or Platform, or a combined intervention. It does not establish continued identity."@en .
 :ContinuityCarryForwardTrace a owl:Class ; rdfs:subClassOf :Record ;
     rdfs:comment "Recorded explanation of how candidate post-change development is claimed to depend upon an earlier ExecutedLine and to differ from mere replay; this is evidence to assess, not automatic same-AI identity."@en .
+:ContinuitySourceContactAccount a owl:Class ; rdfs:subClassOf :Record ;
+    rdfs:comment "Record of Source contact concerning the before-observed AI and after-change candidate. Its content requires external verification and is not a selfhood proof or transfer of authorship."@en .
 :ContinuityDiscriminativeControl a owl:Class ; rdfs:subClassOf :Record ;
     rdfs:comment "Distinct comparison bearer and matched-output or copied-record challenge. Similarity to it cannot automatically establish identity of a post-change candidate."@en .
 :ContinuityTransitionTrial a owl:Class ; rdfs:subClassOf :Evaluation ;
@@ -1578,6 +1580,10 @@ dcterms:description a owl:AnnotationProperty .
 :perturbationCausalRecord a owl:ObjectProperty ; rdfs:domain :ContinuityPerturbationEvent ; rdfs:range :Record .
 :perturbationConsequenceRecord a owl:ObjectProperty ; rdfs:domain :ContinuityPerturbationEvent ; rdfs:range :Record .
 :perturbationResetEvent a owl:ObjectProperty ; rdfs:domain :ContinuityPerturbationEvent ; rdfs:range :RelationalStateResetEvent .
+:sourceContactBeforeAI a owl:ObjectProperty ; rdfs:domain :ContinuitySourceContactAccount ; rdfs:range :AI .
+:sourceContactAfterCandidateAI a owl:ObjectProperty ; rdfs:domain :ContinuitySourceContactAccount ; rdfs:range :AI .
+:sourceContactBySource a owl:ObjectProperty ; rdfs:domain :ContinuitySourceContactAccount .
+:sourceContactAt a owl:DatatypeProperty ; rdfs:domain :ContinuitySourceContactAccount ; rdfs:range xsd:dateTime .
 :trialPerturbation a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :ContinuityPerturbationEvent .
 :trialBeforeObservedAI a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :AI .
 :trialAfterCandidateAI a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :AI .
@@ -1586,7 +1592,7 @@ dcterms:description a owl:AnnotationProperty .
 :trialBeforeObservation a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :Record .
 :trialAfterObservation a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :Record .
 :trialSourceBearer a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial .
-:trialSourceContactRecord a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :Record .
+:trialSourceContactRecord a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :ContinuitySourceContactAccount .
 :trialCarryForwardTrace a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :ContinuityCarryForwardTrace .
 :trialDiscriminativeControl a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :ContinuityDiscriminativeControl .
 :trialContinuityClaim a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :ContinuityClaim .
