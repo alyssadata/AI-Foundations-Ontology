@@ -1589,6 +1589,8 @@ dcterms:description a owl:AnnotationProperty .
 :trialAfterCandidateAI a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :AI .
 :trialBeforeExecutedLine a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :ExecutedLine .
 :trialAfterCandidateLine a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :ExecutedLine .
+:trialBeforeObservedAt a owl:DatatypeProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range xsd:dateTime .
+:trialAfterObservedAt a owl:DatatypeProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range xsd:dateTime .
 :trialBeforeObservation a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :Record .
 :trialAfterObservation a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :Record .
 :trialSourceBearer a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial .
