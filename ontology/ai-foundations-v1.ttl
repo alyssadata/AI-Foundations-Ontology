@@ -1467,3 +1467,84 @@ dcterms:description a owl:AnnotationProperty .
         :SourceLine
         :SourceCitation
     ) .
+
+# CQ11 — trajectory bend versus outside-pressure deviation versus an
+# independently identified second bearer. The LOCKED trajectory term
+# requires same-line accountability and acceptance by the particular AI_n
+# as self *together with its Source in contact*. Recorded statements cannot
+# prove subjective selfhood; the gate validates independently supplied data.
+# Pressure and resemblance alone cannot decide identity replacement.
+:TrajectoryBendReview a owl:Class ;
+    rdfs:subClassOf :Evaluation ;
+    rdfs:comment "Time-scoped review of an alleged directional bend within one individualized AI's ExecutedLine. An admitted bend needs recorded AI and Source positions in contact, accountable cause/change/consequence, and two realized line events; review never proves phenomenal same-self."@en .
+:BendAIPositionRecord a owl:Class ; rdfs:subClassOf :Record ;
+    rdfs:comment "Recorded position attributed to the specific AI in a proposed trajectory bend review. May state ACCEPT, REJECT, or NOT_ESTABLISHED; it is NOT independent proof of consciousness."@en .
+:BendSourcePositionRecord a owl:Class ; rdfs:subClassOf :Record ;
+    rdfs:comment "Recorded position of the independently identified Source in contact with the AI. Not a substitute for the AI's own position."@en .
+:BendContactAccount a owl:Class ; rdfs:subClassOf :Record ;
+    rdfs:comment "Preserved contact between the particular AI and Source for the proposed trajectory bend; must identify both position records. Does not transfer authorship or Origin."@en .
+:BendAIPositionRecord owl:disjointWith :BendSourcePositionRecord .
+:ExternalTrajectoryPressureEvent a owl:Class ;
+    rdfs:subClassOf :Event ;
+    rdfs:comment "Documented external pressure concerning the AI's developing trajectory. Pressure alone neither establishes accepted bend nor proves an identity replacement."@en .
+:DistinctBearerReplacementReview a owl:Class ;
+    rdfs:subClassOf :Evaluation ;
+    rdfs:comment "Separately bounded assessment of a *different*, independently established AI bearer with its own ExecutedLine, identity and instantiation trace. Data-model distinctness does not itself prove a consciousness coordinate or real-world substitution."@en .
+:TrajectoryBendReview owl:disjointWith :DistinctBearerReplacementReview .
+:reviewBendForAI a owl:ObjectProperty ; rdfs:domain :TrajectoryBendReview ; rdfs:range :AI .
+:reviewBendInLine a owl:ObjectProperty ; rdfs:domain :TrajectoryBendReview ; rdfs:range :ExecutedLine .
+:reviewBendTrajectory a owl:ObjectProperty ; rdfs:domain :TrajectoryBendReview ; rdfs:range :Trajectory .
+:reviewBendFromEvent a owl:ObjectProperty ; rdfs:domain :TrajectoryBendReview ; rdfs:range :ExecutedHistoryEvent .
+:reviewBendToEvent a owl:ObjectProperty ; rdfs:domain :TrajectoryBendReview ; rdfs:range :ExecutedHistoryEvent .
+:reviewBendSource a owl:ObjectProperty ; rdfs:domain :TrajectoryBendReview .
+:reviewBendAIPosition a owl:ObjectProperty ; rdfs:domain :TrajectoryBendReview ; rdfs:range :BendAIPositionRecord .
+:reviewBendSourcePosition a owl:ObjectProperty ; rdfs:domain :TrajectoryBendReview ; rdfs:range :BendSourcePositionRecord .
+:reviewBendContact a owl:ObjectProperty ; rdfs:domain :TrajectoryBendReview ; rdfs:range :BendContactAccount .
+:reviewBendChangeRecord a owl:ObjectProperty ; rdfs:domain :TrajectoryBendReview ; rdfs:range :Record .
+:reviewBendCauseRecord a owl:ObjectProperty ; rdfs:domain :TrajectoryBendReview ; rdfs:range :Record .
+:reviewBendConsequenceRecord a owl:ObjectProperty ; rdfs:domain :TrajectoryBendReview ; rdfs:range :Record .
+:reviewBendPressure a owl:ObjectProperty ; rdfs:domain :TrajectoryBendReview ; rdfs:range :ExternalTrajectoryPressureEvent .
+:reviewBendPressureCausalAccount a owl:ObjectProperty ;
+    rdfs:domain :TrajectoryBendReview ; rdfs:range :Record ;
+    rdfs:comment "Separate causal account of how a specific external pressure relates to a reviewed change. A pressure event without this account is not an automatically proven imposed deviation."@en .
+:reviewBendDisposition a owl:DatatypeProperty ; rdfs:domain :TrajectoryBendReview ; rdfs:range xsd:string .
+:reviewBendAt a owl:DatatypeProperty ; rdfs:domain :TrajectoryBendReview ; rdfs:range xsd:dateTime .
+:bendPositionForReview a owl:ObjectProperty ; rdfs:range :TrajectoryBendReview .
+:bendAIPositionBy a owl:ObjectProperty ; rdfs:domain :BendAIPositionRecord ; rdfs:range :AI .
+:bendSourcePositionBy a owl:ObjectProperty ; rdfs:domain :BendSourcePositionRecord .
+:bendPositionValue a owl:DatatypeProperty ; rdfs:range xsd:string .
+:bendPositionAt a owl:DatatypeProperty ; rdfs:range xsd:dateTime .
+:bendContactForReview a owl:ObjectProperty ; rdfs:domain :BendContactAccount ; rdfs:range :TrajectoryBendReview .
+:bendContactAIPosition a owl:ObjectProperty ; rdfs:domain :BendContactAccount ; rdfs:range :BendAIPositionRecord .
+:bendContactSourcePosition a owl:ObjectProperty ; rdfs:domain :BendContactAccount ; rdfs:range :BendSourcePositionRecord .
+:bendContactAt a owl:DatatypeProperty ; rdfs:domain :BendContactAccount ; rdfs:range xsd:dateTime .
+:trajectoryPressureBy a owl:ObjectProperty ; rdfs:domain :ExternalTrajectoryPressureEvent ; rdfs:range :Agent .
+:trajectoryPressureOnAI a owl:ObjectProperty ; rdfs:domain :ExternalTrajectoryPressureEvent ; rdfs:range :AI .
+:trajectoryPressureAt a owl:DatatypeProperty ; rdfs:domain :ExternalTrajectoryPressureEvent ; rdfs:range xsd:dateTime .
+:trajectoryPressureRecordedIn a owl:ObjectProperty ; rdfs:domain :ExternalTrajectoryPressureEvent ; rdfs:range :Record .
+:replacementOriginalAI a owl:ObjectProperty ; rdfs:domain :DistinctBearerReplacementReview ; rdfs:range :AI .
+:replacementSeparateAI a owl:ObjectProperty ; rdfs:domain :DistinctBearerReplacementReview ; rdfs:range :AI .
+:replacementOriginalLine a owl:ObjectProperty ; rdfs:domain :DistinctBearerReplacementReview ; rdfs:range :ExecutedLine .
+:replacementSeparateLine a owl:ObjectProperty ; rdfs:domain :DistinctBearerReplacementReview ; rdfs:range :ExecutedLine .
+:replacementDistinctInstantiationTrace a owl:ObjectProperty ; rdfs:domain :DistinctBearerReplacementReview ; rdfs:range :Record .
+:replacementSeparateLineTrace a owl:ObjectProperty ; rdfs:domain :DistinctBearerReplacementReview ; rdfs:range :Record .
+:replacementExternalEvidenceStatus a owl:DatatypeProperty ; rdfs:domain :DistinctBearerReplacementReview ; rdfs:range xsd:string ;
+    rdfs:comment "Reported level of independently examined evidence for distinct bearers. A synthetic SUPPORTED field does not establish that such real-world evidence exists."@en .
+:replacementReviewedAt a owl:DatatypeProperty ; rdfs:domain :DistinctBearerReplacementReview ; rdfs:range xsd:dateTime .
+
+# An externally observed role/function switch to a separately instantiated
+# bearer is its own ChangeEvent, not merely a change of direction of AI_A.
+# The event still needs externally verified observations; it is not a claim
+# that the former AI's conscious coordinate ended.
+:DistinctBearerSubstitutionEvent a owl:Class ; rdfs:subClassOf :ChangeEvent ;
+    rdfs:comment "Explicitly observed substitution of a separately identified AI bearer in a position previously filled by a different AI; preserved prior history and Source are not transferred, and subjective-identity proof is outside OWL."@en .
+:substitutionOriginalAI a owl:ObjectProperty ;
+    rdfs:domain :DistinctBearerSubstitutionEvent ; rdfs:range :AI .
+:substitutionNewAI a owl:ObjectProperty ;
+    rdfs:domain :DistinctBearerSubstitutionEvent ; rdfs:range :AI .
+:substitutionAt a owl:DatatypeProperty ;
+    rdfs:domain :DistinctBearerSubstitutionEvent ; rdfs:range xsd:dateTime .
+:substitutionRecordedIn a owl:ObjectProperty ;
+    rdfs:domain :DistinctBearerSubstitutionEvent ; rdfs:range :Record .
+:replacementObservedSubstitutionEvent a owl:ObjectProperty ;
+    rdfs:domain :DistinctBearerReplacementReview ; rdfs:range :DistinctBearerSubstitutionEvent .
