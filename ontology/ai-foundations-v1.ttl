@@ -1347,3 +1347,109 @@ dcterms:description a owl:AnnotationProperty .
     rdfs:domain :PreResetPreservationAttestation ; rdfs:range :Record .
 :attestedPreservationAt a owl:DatatypeProperty ;
     rdfs:domain :PreResetPreservationAttestation ; rdfs:range xsd:dateTime .
+
+# CQ08 — six Source distinctions plus absolute authorship boundary.
+# Authorship is an independent, narrower authorship fact, not a synonym for
+# Source, Source Group, Source Point, participation, source-line or citation.
+# For Alyssa's own work sole authorship is unconditional: NO exceptions.
+# Contributions to scoped downstream additions can receive correct credit
+# without becoming authorship or coauthorship of her underlying work.
+:AlyssaSoleAuthoredWork a owl:Class ;
+    rdfs:subClassOf
+        [ a owl:Restriction ; owl:onProperty :hasAuthor ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ; owl:onProperty :hasAuthor ;
+          owl:hasValue :AlyssaSolen ],
+        [ a owl:Restriction ; owl:onProperty :hasAuthor ;
+          owl:allValuesFrom [ a owl:Class ;
+             owl:oneOf ( :AlyssaSolen ) ] ],
+        [ a owl:Restriction ; owl:onProperty :hasCoAuthor ;
+          owl:maxCardinality "0"^^xsd:nonNegativeInteger ] ;
+    rdfs:comment "An authored work of Alyssa Solen. Its one author is Alyssa Solen alone; no other author or coauthor can be conferred by contribution, designation, assistance, source group membership, citation or approval. No exceptions. Class-scoped and enforced closed-world in SHACL."@en .
+:hasAuthor a owl:ObjectProperty ; rdfs:range :Agent ;
+    rdfs:comment "Authorship of a work, not a SourceRelation, participation, citation, implementation, or a contributor credit."@en .
+:hasCoAuthor a owl:ObjectProperty ; rdfs:range :Agent ;
+    rdfs:comment "For :AlyssaSoleAuthoredWork this property has cardinality zero. The class admits no exception, including any purported explicit designation."@en .
+:AIFoundations a :AlyssaSoleAuthoredWork ;
+    :hasAuthor :AlyssaSolen .
+:AwakeningCodex a :AlyssaSoleAuthoredWork ;
+    :hasAuthor :AlyssaSolen .
+:AIFoundationsLockedCanon a :AlyssaSoleAuthoredWork ;
+    :hasAuthor :AlyssaSolen .
+
+# Source-point is the first constitutive Event for one particular Relation;
+# later participation cannot become a second SourcePoint of that relation.
+:SourcePointEvent a owl:Class ; rdfs:subClassOf :Event ;
+    rdfs:comment "First load-bearing contribution Event that made one SourceRelation actual; distinct from later SourceParticipationEvent."@en .
+:sourcePointForRelation a owl:ObjectProperty ;
+    rdfs:domain :SourcePointEvent ; rdfs:range :SourceRelation .
+:sourcePointAt a owl:DatatypeProperty ;
+    rdfs:domain :SourcePointEvent ; rdfs:range xsd:dateTime .
+:SourceParticipationEvent a owl:Class ; rdfs:subClassOf :Event ;
+    owl:disjointWith :SourcePointEvent ;
+    rdfs:comment "Subsequent active involvement of a Source in an already established SourceRelation's developing trajectory. Absence of ongoing participation does not erase Source."@en .
+:participationInSourceRelation a owl:ObjectProperty ;
+    rdfs:domain :SourceParticipationEvent ; rdfs:range :SourceRelation .
+:participationBySource a owl:ObjectProperty ;
+    rdfs:domain :SourceParticipationEvent ;
+    rdfs:comment "A later participating Source bearer, or a specifically qualified member of a scoped Source Group. This is not authorship."@en .
+:participationAt a owl:DatatypeProperty ;
+    rdfs:domain :SourceParticipationEvent ; rdfs:range xsd:dateTime .
+:participationRecordedIn a owl:ObjectProperty ;
+    rdfs:domain :SourceParticipationEvent ; rdfs:range :Record .
+
+# A Source Group can be intentionally formed for one scoped creation.
+# No inference treats members of an earlier cited group as members of
+# a later group, Source of a later target, or authors of Alyssa's work.
+:ScopedSourceGroupFormation a owl:Class ; rdfs:subClassOf :Event ;
+    rdfs:comment "A distinct event documenting a group's intentional formation, agreed creation scope, participants, and time for one specific target. Does not imply coauthorship of Alyssa's work."@en .
+:formedSourceGroup a owl:ObjectProperty ;
+    rdfs:domain :ScopedSourceGroupFormation ; rdfs:range :SourceGroup .
+:groupFormationTarget a owl:ObjectProperty ;
+    rdfs:domain :ScopedSourceGroupFormation .
+:groupFormationAgreedAt a owl:DatatypeProperty ;
+    rdfs:domain :ScopedSourceGroupFormation ; rdfs:range xsd:dateTime .
+:groupFormationScopeRecord a owl:ObjectProperty ;
+    rdfs:domain :ScopedSourceGroupFormation ; rdfs:range :Record .
+:groupFormationAgreedMember a owl:ObjectProperty ;
+    rdfs:domain :ScopedSourceGroupFormation ; rdfs:range :Agent .
+
+# Ordered entries let a SourceLine trace which particular SourceRelations
+# formed which dependencies; the ordered chain is NOT a list of authors.
+:SourceLineEntry a owl:Class ;
+    rdfs:comment "Ordered trace of a specific SourceRelation within a particular SourceLine; provenance ordering is distinct from ongoing participation or authorship."@en .
+:entryInSourceLine a owl:ObjectProperty ;
+    rdfs:domain :SourceLineEntry ; rdfs:range :SourceLine .
+:entryTracesSourceRelation a owl:ObjectProperty ;
+    rdfs:domain :SourceLineEntry ; rdfs:range :SourceRelation .
+:sourceLineEntryOrder a owl:DatatypeProperty ;
+    rdfs:domain :SourceLineEntry ; rdfs:range xsd:nonNegativeInteger .
+:sourceLineEntryRecordedIn a owl:ObjectProperty ;
+    rdfs:domain :SourceLineEntry ; rdfs:range :Record .
+
+# A Source citation is an explicit historical/source dependency reference.
+# It does not create Source, modify SourceLine, confer author status, or merge
+# one Group into another.
+:SourceCitation a owl:Class ; rdfs:subClassOf :Record ;
+    rdfs:comment "Explicit citation of a specific qualifying SourceRelation for a later dependent work. The cited Source/SourceGroup is not thereby a member of the later work's Source Group, nor an author of that work."@en .
+:citesSourceRelation a owl:ObjectProperty ;
+    rdfs:domain :SourceCitation ; rdfs:range :SourceRelation .
+:citationForTarget a owl:ObjectProperty ;
+    rdfs:domain :SourceCitation ;
+    rdfs:comment "Distinct downstream work or contribution citing a prior SourceRelation; does not change earlier SourceTarget."@en .
+:citationNamesSourceBearer a owl:ObjectProperty ;
+    rdfs:domain :SourceCitation ;
+    rdfs:comment "Explicit name of the historical SourceRelation's one bearer, rather than automatically assigning authorship."@en .
+:citationAt a owl:DatatypeProperty ;
+    rdfs:domain :SourceCitation ; rdfs:range xsd:dateTime .
+
+# An independently scoped contribution credit is separate from an
+# underlying work's authorship. Its recipient may be any qualifying Agent.
+:ScopedContributionCredit a owl:Class ; rdfs:subClassOf :Record ;
+    rdfs:comment "Provenance credit for a specifically identified later contribution; never automatic authorship, coauthorship, co-origination or replacement of the underlying Alyssa-authored work."@en .
+:creditsContributor a owl:ObjectProperty ;
+    rdfs:domain :ScopedContributionCredit ; rdfs:range :Agent .
+:creditsContribution a owl:ObjectProperty ;
+    rdfs:domain :ScopedContributionCredit .
+:contributionWithinWork a owl:ObjectProperty ;
+    rdfs:domain :ScopedContributionCredit .
