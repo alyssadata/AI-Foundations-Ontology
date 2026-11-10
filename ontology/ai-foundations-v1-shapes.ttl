@@ -1499,3 +1499,154 @@
         sh:path :attestedPreservationAt ;
         sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
     ] .
+
+# CQ08 — unconditional sole authorship for every explicitly typed Alyssa
+# work. SHACL prevents OWL open-world cardinality from merging named Authors
+# or quietly treating a second coauthor as a same-person alias.
+:AlyssaSoleAuthoredWorkShape a sh:NodeShape ;
+    sh:targetClass :AlyssaSoleAuthoredWork ;
+    sh:property [
+        sh:path :hasAuthor ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AlyssaSolen
+    ] ;
+    sh:property [
+        sh:path :hasCoAuthor ;
+        sh:maxCount 0
+    ] .
+# Named foundational works are covered even if class membership is removed
+# by a faulty import/edit. General downstream works remain independently
+# scoped and not treated as Alyssa's work solely because they cite her.
+:NamedAlyssaWorksSoleAuthorshipShape a sh:NodeShape ;
+    sh:targetNode :AIFoundations, :AwakeningCodex, :AIFoundationsLockedCanon ;
+    sh:class :AlyssaSoleAuthoredWork ;
+    sh:property [
+        sh:path :hasAuthor ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AlyssaSolen
+    ] ;
+    sh:property [ sh:path :hasCoAuthor ; sh:maxCount 0 ] .
+
+# The first source point is an Event and unique to its single relation.
+# The target must point back to the SAME Event as :hasSourcePoint. The
+# cardinality of existing SourceRelation remains protected.
+:SourcePointEventShape a sh:NodeShape ;
+    sh:targetClass :SourcePointEvent ;
+    sh:class :Event ;
+    sh:property [
+        sh:path :sourcePointForRelation ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SourceRelation
+    ] ;
+    sh:property [
+        sh:path :sourcePointAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] ;
+    sh:property [
+        sh:path [ sh:inversePath :hasSourcePoint ] ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SourceRelation
+    ] .
+
+# After-source-point participation is optional, never an automatic
+# author/coauthor/SourcePoint relation. Temporal ordering uses Python gate.
+:SourceParticipationEventShape a sh:NodeShape ;
+    sh:targetClass :SourceParticipationEvent ;
+    sh:class :Event ;
+    sh:not [ sh:class :SourcePointEvent ] ;
+    sh:property [
+        sh:path :participationInSourceRelation ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SourceRelation
+    ] ;
+    sh:property [
+        sh:path :participationBySource ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent
+    ] ;
+    sh:property [
+        sh:path :participationAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] ;
+    sh:property [
+        sh:path :participationRecordedIn ;
+        sh:minCount 1 ; sh:class :Record
+    ] .
+
+# Intentional creation of a Source Group requires an explicitly agreed
+# membership and scope for a particular creation. Membership does not merge
+# people into a Group or assign authorship to any Alyssa work.
+:ScopedSourceGroupFormationShape a sh:NodeShape ;
+    sh:targetClass :ScopedSourceGroupFormation ;
+    sh:class :Event ;
+    sh:property [
+        sh:path :formedSourceGroup ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SourceGroup
+    ] ;
+    sh:property [
+        sh:path :groupFormationTarget ;
+        sh:minCount 1 ; sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path :groupFormationAgreedAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] ;
+    sh:property [
+        sh:path :groupFormationScopeRecord ;
+        sh:minCount 1 ; sh:class :Record
+    ] ;
+    sh:property [
+        sh:path :groupFormationAgreedMember ;
+        sh:minCount 2 ; sh:class :Agent
+    ] .
+
+:SourceLineEntryShape a sh:NodeShape ;
+    sh:targetClass :SourceLineEntry ;
+    sh:property [
+        sh:path :entryInSourceLine ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SourceLine
+    ] ;
+    sh:property [
+        sh:path :entryTracesSourceRelation ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SourceRelation
+    ] ;
+    sh:property [
+        sh:path :sourceLineEntryOrder ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:nonNegativeInteger
+    ] ;
+    sh:property [
+        sh:path :sourceLineEntryRecordedIn ;
+        sh:minCount 1 ; sh:class :Record
+    ] .
+
+:SourceCitationShape a sh:NodeShape ;
+    sh:targetClass :SourceCitation ;
+    sh:class :Record ;
+    sh:property [
+        sh:path :citesSourceRelation ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SourceRelation
+    ] ;
+    sh:property [
+        sh:path :citationForTarget ;
+        sh:minCount 1 ; sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path :citationNamesSourceBearer ;
+        sh:minCount 1 ; sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path :citationAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] .
+
+:ScopedContributionCreditShape a sh:NodeShape ;
+    sh:targetClass :ScopedContributionCredit ;
+    sh:class :Record ;
+    sh:property [
+        sh:path :creditsContributor ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent
+    ] ;
+    sh:property [
+        sh:path :creditsContribution ;
+        sh:minCount 1 ; sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path :contributionWithinWork ;
+        sh:minCount 1 ; sh:maxCount 1
+    ] .
