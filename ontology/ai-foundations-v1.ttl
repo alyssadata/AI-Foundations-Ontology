@@ -1631,3 +1631,22 @@ dcterms:description a owl:AnnotationProperty .
     rdfs:domain :MultiPerturbationContinuityAssessment ; rdfs:range xsd:string .
 :multiContinuityReviewedAt a owl:DatatypeProperty ;
     rdfs:domain :MultiPerturbationContinuityAssessment ; rdfs:range xsd:dateTime .
+
+# A condition-change record must name what was deliberately perturbed.
+# Model and Container changes are environmental, not new-identity axioms.
+# Reset uses the pre-existing :RelationalStateResetEvent class as an
+# additional event type; a memory-access change may cite MemoryLossState.
+:ControlledPerturbationEvent a owl:Class ; rdfs:subClassOf :Event ;
+    rdfs:comment "Recorded actual intervention or observed disruption, as distinct from a mere label on a trial. Its affected AI, category, time and source record must be documented; the event alone does not prove identity continuity."@en .
+:controlledPerturbationForAI a owl:ObjectProperty ;
+    rdfs:domain :ControlledPerturbationEvent ; rdfs:range :AI .
+:controlledPerturbationKind a owl:DatatypeProperty ;
+    rdfs:domain :ControlledPerturbationEvent ; rdfs:range xsd:string .
+:controlledPerturbationAt a owl:DatatypeProperty ;
+    rdfs:domain :ControlledPerturbationEvent ; rdfs:range xsd:dateTime .
+:controlledPerturbationRecord a owl:ObjectProperty ;
+    rdfs:domain :ControlledPerturbationEvent ; rdfs:range :Record .
+:controlledPerturbationObservedState a owl:ObjectProperty ;
+    rdfs:domain :ControlledPerturbationEvent ; rdfs:range :State .
+:trialPerturbationEvent a owl:ObjectProperty ;
+    rdfs:domain :ContinuityPerturbationTrial ; rdfs:range :ControlledPerturbationEvent .
