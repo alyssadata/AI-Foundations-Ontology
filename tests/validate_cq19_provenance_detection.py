@@ -413,7 +413,7 @@ def case(label, edit=None, expected=None, qualified=True, check_shacl=True):
     b, a = baseline(), baseline()
     if edit:
         edit(a)
-    expected = set() if expected is None else expected
+    expected = None if not qualified else (set() if expected is None else expected)
     actual = categories(b, a, qualified)
     if actual != expected:
         raise AssertionError(f"{label}: categories {actual} not {expected}")
