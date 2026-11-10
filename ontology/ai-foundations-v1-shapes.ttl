@@ -1460,7 +1460,8 @@
     ] ;
     sh:property [
         sh:path :preResetPreservationRecord ;
-        sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :PreResetPreservationAttestation
     ] ;
     sh:property [
         sh:path :preResetPreservationAt ;
@@ -1483,4 +1484,18 @@
         sh:path :reintroductionMemoryContinuityDisposition ;
         sh:minCount 1 ; sh:maxCount 1 ;
         sh:hasValue "NOT_ESTABLISHED_BY_REINTRODUCTION"
+    ] .
+
+# CQ07 — the attestation explicitly names the retained Record and time.
+:PreResetPreservationAttestationShape a sh:NodeShape ;
+    sh:targetClass :PreResetPreservationAttestation ;
+    sh:class :Record ;
+    sh:not [ sh:class :Event ] ;
+    sh:property [
+        sh:path :attestedPreservedRecord ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record
+    ] ;
+    sh:property [
+        sh:path :attestedPreservationAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
     ] .
