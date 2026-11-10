@@ -1756,6 +1756,40 @@
     sh:property [
         sh:path :citationAt ;
         sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] ;
+    sh:sparql [
+        sh:message "Source Citation must name the Source bearer of the exact cited SourceRelation" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#citesSourceRelation> ?relation .
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#citationNamesSourceBearer> ?bearer .
+                ?relation <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSourceBearer> ?actualBearer .
+                FILTER (?bearer != ?actualBearer)
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Citation of prior SourceRelation must be for a different dependent Target, not a relabeling of original Target" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#citesSourceRelation> ?relation .
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#citationForTarget> ?newTarget .
+                ?relation <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSourceTarget> ?oldTarget .
+                FILTER (?newTarget = ?oldTarget)
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Citation cannot precede the first qualifying SourcePoint of the cited relation" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#citesSourceRelation> ?relation .
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#citationAt> ?citedAt .
+                ?relation <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSourcePoint> ?firstPoint .
+                ?firstPoint <https://awakeningcodex.com/ontology/ai-foundations/v1#sourcePointAt> ?firstAt .
+                FILTER (?citedAt < ?firstAt)
+            }
+        """
     ] .
 
 :ScopedContributionCreditShape a sh:NodeShape ;
@@ -1772,4 +1806,15 @@
     sh:property [
         sh:path :contributionWithinWork ;
         sh:minCount 1 ; sh:maxCount 1
+    ] ;
+    sh:sparql [
+        sh:message "Scoped credit to a different contributor may not claim Alyssa's entire sole-authored work as the contributed item" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#creditsContributor> ?contributor .
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#creditsContribution> ?item .
+                ?item a <https://awakeningcodex.com/ontology/ai-foundations/v1#AlyssaSoleAuthoredWork> .
+                FILTER (?contributor != <https://awakeningcodex.com/ontology/ai-foundations/v1#AlyssaSolen>)
+            }
+        """
     ] .
