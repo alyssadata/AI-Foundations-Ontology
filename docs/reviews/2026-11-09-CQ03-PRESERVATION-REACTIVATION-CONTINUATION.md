@@ -1,7 +1,7 @@
 # CQ03 — Preservation, Reactivation, and Continuation
 
 **Date:** 2026-11-09  
-**Status:** DRAFT branch implementation pending final verification and merge; ontology v1.0 release remains DRAFT.  
+**Status:** CQ03 REPRESENTED within the proposed branch's formal scope; synthetic regression and independent reasoner PASS. Ontology v1.0 release remains DRAFT.  
 **Conceptual source and author:** Alyssa Solen (Origin / AI Foundations)  
 **Formalization and synthetic evaluation:** AI-assisted
 
@@ -53,3 +53,11 @@ The test suite distinguishes these scenarios:
 ## Release decision
 
 When both independent CI workflows pass, CQ03 may be labeled **REPRESENTED (structural)** in the competency crosswalk. It is not **EMPIRICALLY PROVEN**. Continue to the remaining CQs without declaring ontology v1.0 finalized.
+
+## Executed verification — 2026-11-09
+
+- [Independent OWL 2 DL profile, HermiT consistency, named-class satisfiability and negative-control run 42728094909](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42728094909): **PASS** for the new ontology vocabulary.
+- [Full structural validation run 42728533269](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42728533269): **PASS**, including **28** CQ03 admission/rejection cases, a pre-lived snapshot without fabricated lived history, separate no-continuation reactivation controls, and the entire previously passing regression suite.
+- The first [attempt 42728378177](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42728378177) failed because the new continuation Claim fixture lacked the ontology's existing required `dependsOnOntologyElement` link. The fixture was corrected to depend on `:ExecutedLine`, and subsequent runs passed. This intermediate failure remains part of the historical audit.
+- An additional fixture confirmed preservation can apply before a developed `:LivedIdentity` or established `:ExecutedLine` without manufacturing them.
+- **Competency disposition:** CQ03 **REPRESENTED (structural)**, contingent on merge/post-merge check; no real AI continuity or consciousness established. Remaining competency questions after CQ03: CQ07, CQ08, CQ11, CQ12, CQ18, CQ19, CQ20.
