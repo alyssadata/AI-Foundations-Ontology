@@ -624,10 +624,19 @@ def main():
     check("SUPPORTED evidence can't automatically claim same Self",
           edit=mutate(A.trialEvidenceBoundaryDisposition,
                       Literal("SAME_SELF_PROVEN")))
-    check("Undeclared author status is not part of continuity protocol",
-          edit=lambda g,t: g.add((
-              A.AIFoundations, A.hasCoAuthor, A.Cq12UnrelatedOperator)),
-          expected=True, check_shacl=False)
+    # CQ08 invariants are global, and cannot be escaped by wrapping a
+    # disputed author assertion in a CQ12 trial that otherwise passes.
+    contaminated, contamination_trial = original("MODEL")
+    contaminated.add((
+        A.AIFoundations, A.hasCoAuthor, A.Cq12UnrelatedOperator))
+    assert trial_gate(contaminated, contamination_trial), (
+        "trial evidence remains independently checkable")
+    conforms, _, report = validate(
+        data_graph=contaminated, shacl_graph=SHAPES,
+        inference="rdfs", advanced=True, abort_on_first=False)
+    assert not conforms, (
+        "CQ08 global no-coauthor invariant must reject contaminated graph")
+    print("PASS: CQ08 sole authorship still rejects invalid coauthor even within CQ12")
 
     # Bounded synthetic provisional evidence can be expressed, but does
     # not prove any actual continuum of subjective identity.
