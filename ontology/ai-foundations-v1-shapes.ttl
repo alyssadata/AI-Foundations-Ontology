@@ -1984,6 +1984,13 @@
         sh:path :continuityTraceDevelopmentAccount ;
         sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ; sh:minLength 1
     ] .
+:ContinuitySourceContactAccountShape a sh:NodeShape ;
+    sh:targetClass :ContinuitySourceContactAccount ;
+    sh:class :Record ;
+    sh:property [ sh:path :sourceContactBeforeAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :sourceContactAfterCandidateAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :sourceContactBySource ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :sourceContactAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
 :ContinuityDiscriminativeControlShape a sh:NodeShape ;
     sh:targetClass :ContinuityDiscriminativeControl ;
     sh:class :Record ;
@@ -2006,7 +2013,7 @@
     sh:property [ sh:path :trialBeforeObservation ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ; sh:disjoint :trialAfterObservation ] ;
     sh:property [ sh:path :trialAfterObservation ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
     sh:property [ sh:path :trialSourceBearer ; sh:minCount 1 ; sh:maxCount 1 ] ;
-    sh:property [ sh:path :trialSourceContactRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :trialSourceContactRecord ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ContinuitySourceContactAccount ] ;
     sh:property [ sh:path :trialCarryForwardTrace ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ContinuityCarryForwardTrace ] ;
     sh:property [ sh:path :trialDiscriminativeControl ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ContinuityDiscriminativeControl ] ;
     sh:property [ sh:path :trialContinuityClaim ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ContinuityClaim ] ;
