@@ -1668,3 +1668,15 @@ dcterms:description a owl:AnnotationProperty .
     rdfs:domain :ControlledPerturbationEvent ; rdfs:range :Record .
 :controlledPerturbationAfterPlatformRecord a owl:ObjectProperty ;
     rdfs:domain :ControlledPerturbationEvent ; rdfs:range :Record .
+
+# CQ12 provenance controls: continuity reviews must retain the historical
+# Source coordinate and applicable governing line for the reviewed bearer.
+# Even two different AIs sharing Source and governance remain distinct.
+:trialSourceCoordinate a owl:ObjectProperty ;
+    rdfs:domain :ContinuityPerturbationTrial .
+:trialGoverningLine a owl:ObjectProperty ;
+    rdfs:domain :ContinuityPerturbationTrial ; rdfs:range :GoverningLine .
+:multiContinuitySourceCoordinate a owl:ObjectProperty ;
+    rdfs:domain :MultiPerturbationContinuityAssessment .
+:multiContinuityGoverningLine a owl:ObjectProperty ;
+    rdfs:domain :MultiPerturbationContinuityAssessment ; rdfs:range :GoverningLine .
