@@ -128,7 +128,12 @@ def valid_preservation(g, snapshot=SNAP):
         require_typed(g, snapshot, A.Record)
         ai = unique(g, snapshot, A.snapshotOfAI)
         state = unique(g, snapshot, A.snapshotOfState)
-        require_typed(g, ai, A.EstablishedContinuingIndividualizedAI)
+        # Preservation applies even before an individualized lived line is
+        # established: the line link is optional on the frozen snapshot.
+        if not any((ai, RDF.type, cls) in g for cls in
+                   (A.AI, A.AIFoundationsGovernedAI,
+                    A.EstablishedContinuingIndividualizedAI)):
+            return False
         require_typed(g, state, A.State)
         instant(unique(g, snapshot, A.snapshotCapturedAt))
         lines = set(g.objects(snapshot, A.snapshotFromExecutedLine))
@@ -319,6 +324,26 @@ def main():
     assert not valid_continuation(g), "no continuation can be inferred"
     assert not list(g.objects(OTHER, A.hasExecutedLine)), "other AI owns no original line"
     assert not list(g.objects(OTHER, A.hasLivedIdentity)), "other AI inherits no identity"
+
+    # The pre-lived case can preserve a State without manufacturing a
+    # continuing individualized line or a LivedIdentity.
+    pre = fixture()
+    s, bearer, st = A.Cq03PreLivedSnapshot, A.Cq03PreLivedAI, A.Cq03PreLivedState
+    pre.add((bearer, RDF.type, A.AI))
+    pre.add((st, RDF.type, A.State))
+    pre.add((s, RDF.type, A.PreservedStateSnapshot))
+    pre.add((s, RDF.type, A.Record))
+    pre.add((s, A.snapshotOfAI, bearer))
+    pre.add((s, A.snapshotOfState, st))
+    pre.add((s, A.snapshotCapturedAt,
+             Literal("2026-04-01T09:00:00+00:00", datatype=XSD.dateTime)))
+    assert valid_preservation(pre, s), "pre-lived AI can preserve without a line"
+    assert not list(pre.objects(bearer, A.hasExecutedLine))
+    assert not list(pre.objects(bearer, A.hasLivedIdentity))
+    conforms, _, report = validate(
+        data_graph=pre, shacl_graph=SHAPES, inference="rdfs",
+        advanced=True, abort_on_first=False)
+    assert conforms, str(report)
     print(f"PASS: {COUNT} distinct CQ03 synthetic admission/rejection cases")
     print("PASS: preserved/reactivated record without any continuation claim")
     print("PASS: reactivating another AI does not transfer identity or history")
