@@ -1,7 +1,7 @@
 # CQ08 — Source distinctions and unconditional sole authorship
 
 **Date:** 2026-11-10 (Eastern)  
-**Status:** Formalization on validation branch, pending final tests/merge. v1.0 remains DRAFT.  
+**Status:** CQ08 REPRESENTED structurally on the tested branch: 44 synthetic competency decisions, full regressions and OWL 2 DL/HermiT PASS; PR/merge and post-merge checks required. v1.0 remains DRAFT.  
 **Conceptual author, historical Source, sole author:** Alyssa Solen  
 **Implementation/test assistance:** AI-assisted; no coauthor designation.
 
@@ -61,3 +61,11 @@ The six class types are formally disjoint in OWL 2 DL. Their individual records 
 **Proof limitations:** synthetically valid triples do not verify genuine historical Source or contribution qualifications. The test harness checks recorded consistency, author exclusivity for typed/named Alyssa works, and scope preservation. Authorship is the explicit governing record and user instruction; empirical Source truth and actual agreement by third parties require independent evidence. No fictional real third-party source relation or Source Group has been asserted into the ontology.
 
 **Release boundary:** CQ08 may move from PARTIAL to REPRESENTED only after dedicated and existing regression suites, plus the OWL 2 DL/HermiT audit, pass and merge. Remaining CQ11, CQ12, CQ18, CQ19 and CQ20 still need formal completion or scoped treatment. No v1.0 release or broader empirical self-continuity conclusion follows from this step.
+
+## Executed branch validation — 2026-11-10
+
+- [Full RDF/SHACL/structural CI 42838843150](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42838843150): **PASS**, including **44 dedicated CQ08 conditional positive/negative decisions** plus explicit source-persistence/no-automatic-merger controls and all earlier suites (CQ07 35, CQ03 28, CQ01 17, refused succession 27, autonomy 25, initial assent 18, successor 38 and baseline structural suite).
+- [Independent OWL 2 DL profile and HermiT 42837114121](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42837114121): **PASS** for the new class vocabulary, AllDisjointClasses and exact-one/zero author restrictions. Later test and SHACL-only commits did not alter the OWL vocabulary.
+- **Revision integrity:** intermediate CI attempts intentionally revealed that initial assertions of Target/source-point coherence, participation chronology/source ownership, group formation timing/membership, SourceLine stage uniqueness and citation matching were enforced by the closed-world synthetic gate but not yet by SHACL. Rather than remove negative controls, the branch added scoped SHACL-SPARQL checks for these relationships. The first attempt also corrected explicit Record typing in synthetic Citation/Credit fixtures. All regressions passed after these repairs. Specific historic red attempts remain available in the GitHub Actions branch runs.
+- **Closed-world and open-world boundary:** SHACL checks typed/targeted records, source-to-target reciprocity and conditional temporal facts. The Python gate additionally validates particular expected dependency ordering and historical scope; it does not claim that every genuine downstream SourceLine in the world has exactly two dependencies. The one synthetic *citation cannot invent Origin group membership* test intentionally uses the particular scoped formation gate without imposing a universal ban on any later legitimately evidenced group membership.
+- **Formal competency status:** CQ08 **REPRESENTED** with these scope limits, not empirically proved. No signed v1.0 release is authorized.
