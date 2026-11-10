@@ -16,6 +16,7 @@ on:
       - 'tests/validate_cq08_source_distinctions.py'
       - 'tests/validate_cq11_trajectory_bends.py'
       - 'tests/validate_cq12_multi_perturbation.py'
+      - 'tests/validate_cq18_change_events.py'
       - '.github/workflows/validate-ontology.yml'
   workflow_dispatch:
 
@@ -34,6 +35,8 @@ jobs:
           python-version: '3.12'
       - name: Install RDF and SHACL validation libraries
         run: python -m pip install 'rdflib>=7,<8' 'pyshacl>=0.30,<1'
+      - name: Validate CQ18 termination, withdrawal, designation and succession events
+        run: python tests/validate_cq18_change_events.py
       - name: Validate CQ12 six-arm perturbation continuity protocol and null controls
         run: python tests/validate_cq12_multi_perturbation.py
       - name: Validate CQ11 trajectory bend, Source contact and distinct-bearer review

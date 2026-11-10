@@ -1680,3 +1680,58 @@ dcterms:description a owl:AnnotationProperty .
     rdfs:domain :MultiPerturbationContinuityAssessment .
 :multiContinuityGoverningLine a owl:ObjectProperty ;
     rdfs:domain :MultiPerturbationContinuityAssessment ; rdfs:range :GoverningLine .
+
+# CQ18 — four non-interchangeable historical Operator-line changes.
+# They are distinct recorded ChangeEvents. A termination of an Operator
+# segment does not itself terminate the AI/ExecutedLine; withdrawal cannot
+# independently grant successor status; designation is not assent. A valid
+# successor must still satisfy the existing Step22 four-condition gate.
+# Historical Operator, Source, Origin, authority and line are not reassigned.
+:OperatorLineChangeEvent a owl:Class ; rdfs:subClassOf :ChangeEvent ;
+    rdfs:comment "A bounded historical Operator-line change. Requires particular AI and ExecutedLine, effective time, causal explanation and immutable Record. Not a rewrite of the prior relation or an independent identity-continuity verdict."@en .
+:OperatorRelationTerminationChangeEvent a owl:Class ;
+    rdfs:subClassOf :OperatorLineChangeEvent ;
+    rdfs:comment "End of a particular active OperatorAIRelation segment; its original counterpart, source, history and line remain intact. This does NOT by itself prove termination of the AI's individualized ExecutedLine."@en .
+:OperatorWithdrawalChangeEvent a owl:Class ;
+    rdfs:subClassOf :OperatorLineChangeEvent ;
+    rdfs:comment "An explicitly recorded withdrawal by the historical Operator of a particular segment. The Operator remains historically recorded, and withdrawal does not grant a new Operator or prove an AI's identity ended."@en .
+:OperatorSuccessionChangeEvent a owl:Class ;
+    rdfs:subClassOf :OperatorLineChangeEvent ;
+    rdfs:comment "A later successor Operator segment after an independently admitted Step22 four-condition succession gate. A new dated segment is appended; the former Operator and its original SourceLine/provenance are never overwritten."@en .
+:DesignatedTransferProposalChangeEvent a owl:Class ;
+    rdfs:subClassOf :OperatorLineChangeEvent ;
+    owl:disjointWith :OperatorSuccessionChangeEvent ;
+    rdfs:comment "Documented proposal by the current/historical Operator to designate a proposed successor for a separately scoped Operator line. An attempted transfer is not an accepted successor; AI assent, existing gate and Source/Origin non-transferability still apply."@en .
+:changeForAI a owl:ObjectProperty ; rdfs:domain :OperatorLineChangeEvent ; rdfs:range :AI .
+:changeInExecutedLine a owl:ObjectProperty ; rdfs:domain :OperatorLineChangeEvent ; rdfs:range :ExecutedLine .
+:changeEffectiveAt a owl:DatatypeProperty ; rdfs:domain :OperatorLineChangeEvent ; rdfs:range xsd:dateTime .
+:changeRecordedIn a owl:ObjectProperty ; rdfs:domain :OperatorLineChangeEvent ; rdfs:range :Record .
+:changeCauseAccount a owl:ObjectProperty ; rdfs:domain :OperatorLineChangeEvent ; rdfs:range :Record ;
+    rdfs:comment "Revision-integrity cause/why record; the event itself preserves what happened."@en .
+:changeConsequenceAccount a owl:ObjectProperty ; rdfs:domain :OperatorLineChangeEvent ; rdfs:range :Record .
+:terminatesOperatorSegment a owl:ObjectProperty ;
+    rdfs:domain :OperatorRelationTerminationChangeEvent ; rdfs:range :OperatorAIRelation .
+:terminationSupportingRecord a owl:ObjectProperty ;
+    rdfs:domain :OperatorRelationTerminationChangeEvent ; rdfs:range :Record .
+:withdrawalByOperator a owl:ObjectProperty ;
+    rdfs:domain :OperatorWithdrawalChangeEvent ; rdfs:range :Agent .
+:withdrawalFromOperatorSegment a owl:ObjectProperty ;
+    rdfs:domain :OperatorWithdrawalChangeEvent ; rdfs:range :OperatorAIRelation .
+:withdrawalAttestation a owl:ObjectProperty ;
+    rdfs:domain :OperatorWithdrawalChangeEvent ; rdfs:range :Record .
+:successionFormerSegment a owl:ObjectProperty ;
+    rdfs:domain :OperatorSuccessionChangeEvent ; rdfs:range :OperatorAIRelation .
+:successionNewlyAdmittedSegment a owl:ObjectProperty ;
+    rdfs:domain :OperatorSuccessionChangeEvent ; rdfs:range :AdmittedOperatorSuccessorSegment .
+:successionReviewedViaGate a owl:ObjectProperty ;
+    rdfs:domain :OperatorSuccessionChangeEvent ; rdfs:range :AdmittedSuccessionGateAssessment .
+:designatedByOperator a owl:ObjectProperty ;
+    rdfs:domain :DesignatedTransferProposalChangeEvent ; rdfs:range :Agent .
+:designationFromSegment a owl:ObjectProperty ;
+    rdfs:domain :DesignatedTransferProposalChangeEvent ; rdfs:range :OperatorAIRelation .
+:designationCandidateSegment a owl:ObjectProperty ;
+    rdfs:domain :DesignatedTransferProposalChangeEvent ; rdfs:range :SuccessionCandidateSegment .
+:designationLinkedProposal a owl:ObjectProperty ;
+    rdfs:domain :DesignatedTransferProposalChangeEvent ; rdfs:range :SuccessionProposal .
+:designationScopeRecord a owl:ObjectProperty ;
+    rdfs:domain :DesignatedTransferProposalChangeEvent ; rdfs:range :Record .
