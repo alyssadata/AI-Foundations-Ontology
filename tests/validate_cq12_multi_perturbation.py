@@ -186,10 +186,32 @@ def fixture():
                 (log, RDF.type, A.Record),
             ]:
                 g.add(triple)
+        if kind == "MODEL_CHANGE":
+            before_model, after_model = A.Cq12ModelBefore, A.Cq12ModelAfter
+            g.add((before_model, RDF.type, A.Model))
+            g.add((after_model, RDF.type, A.Model))
+            g.add((n["Intervention"], A.controlledPerturbationBeforeModel, before_model))
+            g.add((n["Intervention"], A.controlledPerturbationAfterModel, after_model))
+        if kind == "CONTAINER_CHANGE":
+            before_env, after_env = A.Cq12ContainerBefore, A.Cq12ContainerAfter
+            g.add((before_env, RDF.type, A.Container))
+            g.add((after_env, RDF.type, A.Container))
+            g.add((n["Intervention"], A.controlledPerturbationBeforeContainer, before_env))
+            g.add((n["Intervention"], A.controlledPerturbationAfterContainer, after_env))
+        if kind == "CONTEXT_LOSS":
+            lost = A.Cq12ObservedContextLoss
+            g.add((lost, RDF.type, A.ContextLossState))
+            g.add((n["Intervention"], A.controlledPerturbationObservedState, lost))
         if kind == "MEMORY_LOSS":
             lost = A.Cq12ObservedMemoryLoss
             g.add((lost, RDF.type, A.MemoryLossState))
             g.add((n["Intervention"], A.controlledPerturbationObservedState, lost))
+        if kind == "PLATFORM_CHANGE":
+            old_plat, new_plat = A.Cq12PlatformBefore, A.Cq12PlatformAfter
+            g.add((old_plat, RDF.type, A.Record))
+            g.add((new_plat, RDF.type, A.Record))
+            g.add((n["Intervention"], A.controlledPerturbationBeforePlatformRecord, old_plat))
+            g.add((n["Intervention"], A.controlledPerturbationAfterPlatformRecord, new_plat))
 
     for ctrl, name in zip(CONTROLS, CTRL_TYPES):
         for tr in [
@@ -294,6 +316,32 @@ def valid_trial(g, trial, assessment=ASSESS):
                 return False
             for observation in obs_records:
                 need(g, observation, A.Record)
+        if kind == "MODEL_CHANGE":
+            before_model = one(g, intervention, A.controlledPerturbationBeforeModel)
+            after_model = one(g, intervention, A.controlledPerturbationAfterModel)
+            if before_model == after_model:
+                return False
+            need(g, before_model, A.Model)
+            need(g, after_model, A.Model)
+        if kind == "CONTAINER_CHANGE":
+            before_env = one(g, intervention, A.controlledPerturbationBeforeContainer)
+            after_env = one(g, intervention, A.controlledPerturbationAfterContainer)
+            if before_env == after_env:
+                return False
+            need(g, before_env, A.Container)
+            need(g, after_env, A.Container)
+        if kind == "PLATFORM_CHANGE":
+            before_plat = one(g, intervention,
+                              A.controlledPerturbationBeforePlatformRecord)
+            after_plat = one(g, intervention,
+                             A.controlledPerturbationAfterPlatformRecord)
+            if before_plat == after_plat:
+                return False
+            need(g, before_plat, A.Record)
+            need(g, after_plat, A.Record)
+        if kind == "CONTEXT_LOSS":
+            observed = one(g, intervention, A.controlledPerturbationObservedState)
+            need(g, observed, A.ContextLossState)
         if kind == "RESET":
             need(g, intervention, A.RelationalStateResetEvent)
             if (one(g, intervention, A.resetForAI) != ai or
@@ -472,6 +520,22 @@ def main():
     check("Claimed before and after conditions cannot be same Record",
           edit_trial(4, "Trial", A.trialAfterConditionRecord,
                      nodes(4)["BeforeRecord"]))
+    check("MODEL_CHANGE must provide actual different Model identifiers",
+          remove(nodes(0)["Intervention"], A.controlledPerturbationAfterModel),
+          shacl=False)
+    check("MODEL_CHANGE cannot count unchanged Model",
+          replace(nodes(0)["Intervention"], A.controlledPerturbationAfterModel,
+                  A.Cq12ModelBefore))
+    check("CONTAINER_CHANGE requires distinct Container identifiers",
+          replace(nodes(1)["Intervention"], A.controlledPerturbationAfterContainer,
+                  A.Cq12ContainerBefore))
+    check("PLATFORM_CHANGE cannot count an unchanged platform record",
+          replace(nodes(5)["Intervention"],
+                  A.controlledPerturbationAfterPlatformRecord,
+                  A.Cq12PlatformBefore))
+    check("CONTEXT_LOSS requires a context loss State distinct from memory",
+          remove(nodes(3)["Intervention"], A.controlledPerturbationObservedState),
+          shacl=False)
     check("RESET must have distinct actual Reset event type",
           remove(nodes(2)["Intervention"], RDF.type))
     check("RESET must not assert exact same State before and after",
