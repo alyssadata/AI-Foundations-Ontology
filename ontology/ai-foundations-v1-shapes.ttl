@@ -1712,6 +1712,30 @@
     sh:property [
         sh:path :sourceLineEntryRecordedIn ;
         sh:minCount 1 ; sh:class :Record
+    ] ;
+    sh:sparql [
+        sh:message "Two separate entries of the same SourceLine must not repeat one SourceRelation as independent dependency stages" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#entryInSourceLine> ?line .
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#entryTracesSourceRelation> ?relation .
+                ?other <https://awakeningcodex.com/ontology/ai-foundations/v1#entryInSourceLine> ?line .
+                ?other <https://awakeningcodex.com/ontology/ai-foundations/v1#entryTracesSourceRelation> ?relation .
+                FILTER (?other != $this)
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Within a SourceLine each order number must identify one single entry" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#entryInSourceLine> ?line .
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#sourceLineEntryOrder> ?order .
+                ?other <https://awakeningcodex.com/ontology/ai-foundations/v1#entryInSourceLine> ?line .
+                ?other <https://awakeningcodex.com/ontology/ai-foundations/v1#sourceLineEntryOrder> ?order .
+                FILTER (?other != $this)
+            }
+        """
     ] .
 
 :SourceCitationShape a sh:NodeShape ;
