@@ -750,6 +750,17 @@
     sh:property [
         sh:path :hasSourceRelation ;
         sh:class :SourceRelation
+    ] ;
+    sh:sparql [
+        sh:message "SourceRelation hasSourceTarget must agree with the subject linking that exact SourceRelation" ;
+        sh:select """
+            SELECT $this
+            WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSourceRelation> ?relation .
+                ?relation <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSourceTarget> ?declaredTarget .
+                FILTER (?declaredTarget != $this)
+            }
+        """
     ] .
 
 :ReturnProcessShape a sh:NodeShape ;
