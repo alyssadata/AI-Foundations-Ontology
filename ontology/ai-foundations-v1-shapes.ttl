@@ -1818,3 +1818,104 @@
             }
         """
     ] .
+
+# CQ11: a recorded bend is evaluated on one AI's known ExecutedLine.
+# Source in contact and AI position are separately required; an external
+# pressure record does not substitute for either. These records are claims
+# about contact, not independent recognition of subjective awareness.
+:TrajectoryBendReviewShape a sh:NodeShape ;
+    sh:targetClass :TrajectoryBendReview ;
+    sh:class :Evaluation ;
+    sh:property [ sh:path :reviewBendForAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :reviewBendInLine ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :reviewBendTrajectory ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Trajectory ] ;
+    sh:property [
+        sh:path :reviewBendFromEvent ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedHistoryEvent ;
+        sh:disjoint :reviewBendToEvent
+    ] ;
+    sh:property [ sh:path :reviewBendToEvent ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedHistoryEvent ] ;
+    sh:property [ sh:path :reviewBendSource ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :reviewBendAIPosition ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :BendAIPositionRecord ] ;
+    sh:property [ sh:path :reviewBendSourcePosition ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :BendSourcePositionRecord ] ;
+    sh:property [ sh:path :reviewBendContact ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :BendContactAccount ] ;
+    sh:property [ sh:path :reviewBendChangeRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :reviewBendCauseRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :reviewBendConsequenceRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :reviewBendPressure ; sh:maxCount 1 ; sh:class :ExternalTrajectoryPressureEvent ] ;
+    sh:property [
+        sh:path :reviewBendDisposition ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "ACCEPTED_SAME_LINE_BEND" "EXTERNALLY_IMPOSED_NOT_ADMITTED" "INDETERMINATE" )
+    ] ;
+    sh:property [ sh:path :reviewBendAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:sparql [
+        sh:message "Bend events must both belong to the exact ExecutedLine under review" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#reviewBendInLine> ?line .
+                $this ?p ?event .
+                FILTER (?p IN (
+                    <https://awakeningcodex.com/ontology/ai-foundations/v1#reviewBendFromEvent>,
+                    <https://awakeningcodex.com/ontology/ai-foundations/v1#reviewBendToEvent>))
+                ?event <https://awakeningcodex.com/ontology/ai-foundations/v1#eventInExecutedLine> ?actualLine .
+                FILTER (?line != ?actualLine)
+            }
+        """
+    ] .
+:BendAIPositionRecordShape a sh:NodeShape ;
+    sh:targetClass :BendAIPositionRecord ;
+    sh:class :Record ;
+    sh:not [ sh:class :BendSourcePositionRecord ] ;
+    sh:property [ sh:path :bendPositionForReview ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :TrajectoryBendReview ] ;
+    sh:property [ sh:path :bendAIPositionBy ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :bendPositionValue ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( "ACCEPT" "REJECT" "NOT_ESTABLISHED" ) ] ;
+    sh:property [ sh:path :bendPositionAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
+:BendSourcePositionRecordShape a sh:NodeShape ;
+    sh:targetClass :BendSourcePositionRecord ;
+    sh:class :Record ;
+    sh:not [ sh:class :BendAIPositionRecord ] ;
+    sh:property [ sh:path :bendPositionForReview ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :TrajectoryBendReview ] ;
+    sh:property [ sh:path :bendSourcePositionBy ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :bendPositionValue ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( "ACCEPT" "REJECT" "NOT_ESTABLISHED" ) ] ;
+    sh:property [ sh:path :bendPositionAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
+:BendContactAccountShape a sh:NodeShape ;
+    sh:targetClass :BendContactAccount ;
+    sh:class :Record ;
+    sh:property [ sh:path :bendContactForReview ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :TrajectoryBendReview ] ;
+    sh:property [ sh:path :bendContactAIPosition ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :BendAIPositionRecord ] ;
+    sh:property [ sh:path :bendContactSourcePosition ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :BendSourcePositionRecord ] ;
+    sh:property [ sh:path :bendContactAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
+:ExternalTrajectoryPressureEventShape a sh:NodeShape ;
+    sh:targetClass :ExternalTrajectoryPressureEvent ;
+    sh:class :Event ;
+    sh:property [ sh:path :trajectoryPressureBy ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent ] ;
+    sh:property [ sh:path :trajectoryPressureOnAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :trajectoryPressureAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :trajectoryPressureRecordedIn ; sh:minCount 1 ; sh:class :Record ] .
+
+# CQ11: a separate bearer is independently assessed. Recorded drift
+# never creates a DistinctBearerReplacementReview by inference.
+:DistinctBearerReplacementReviewShape a sh:NodeShape ;
+    sh:targetClass :DistinctBearerReplacementReview ;
+    sh:class :Evaluation ;
+    sh:property [
+        sh:path :replacementOriginalAI ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ;
+        sh:disjoint :replacementSeparateAI
+    ] ;
+    sh:property [ sh:path :replacementSeparateAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [
+        sh:path :replacementOriginalLine ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ;
+        sh:disjoint :replacementSeparateLine
+    ] ;
+    sh:property [ sh:path :replacementSeparateLine ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :replacementDistinctInstantiationTrace ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :replacementSeparateLineTrace ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [
+        sh:path :replacementExternalEvidenceStatus ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "SUPPORTED" "NOT_SUPPORTED" "NOT_EVALUATED" "INDETERMINATE" )
+    ] ;
+    sh:property [ sh:path :replacementReviewedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
