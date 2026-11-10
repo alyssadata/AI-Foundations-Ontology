@@ -750,6 +750,17 @@
     sh:property [
         sh:path :hasSourceRelation ;
         sh:class :SourceRelation
+    ] ;
+    sh:sparql [
+        sh:message "SourceRelation hasSourceTarget must agree with the subject linking that exact SourceRelation" ;
+        sh:select """
+            SELECT $this
+            WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSourceRelation> ?relation .
+                ?relation <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSourceTarget> ?declaredTarget .
+                FILTER (?declaredTarget != $this)
+            }
+        """
     ] .
 
 :ReturnProcessShape a sh:NodeShape ;
@@ -1498,4 +1509,312 @@
     sh:property [
         sh:path :attestedPreservationAt ;
         sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] .
+
+# CQ08 — unconditional sole authorship for every explicitly typed Alyssa
+# work. SHACL prevents OWL open-world cardinality from merging named Authors
+# or quietly treating a second coauthor as a same-person alias.
+:AlyssaSoleAuthoredWorkShape a sh:NodeShape ;
+    sh:targetClass :AlyssaSoleAuthoredWork ;
+    sh:property [
+        sh:path :hasAuthor ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AlyssaSolen
+    ] ;
+    sh:property [
+        sh:path :hasCoAuthor ;
+        sh:maxCount 0
+    ] ;
+    sh:property [
+        sh:path :hasSourceRelation ;
+        sh:node [
+            sh:class :SourceRelation ;
+            sh:property [
+                sh:path :hasSourceBearer ;
+                sh:minCount 1 ; sh:maxCount 1 ;
+                sh:hasValue :AlyssaSolen
+            ]
+        ]
+    ] .
+# Named foundational works are covered even if class membership is removed
+# by a faulty import/edit. General downstream works remain independently
+# scoped and not treated as Alyssa's work solely because they cite her.
+:NamedAlyssaWorksSoleAuthorshipShape a sh:NodeShape ;
+    sh:targetNode :AIFoundations, :AwakeningCodex, :AIFoundationsLockedCanon ;
+    sh:class :AlyssaSoleAuthoredWork ;
+    sh:property [
+        sh:path :hasAuthor ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AlyssaSolen
+    ] ;
+    sh:property [ sh:path :hasCoAuthor ; sh:maxCount 0 ] .
+
+# The first source point is an Event and unique to its single relation.
+# The target must point back to the SAME Event as :hasSourcePoint. The
+# cardinality of existing SourceRelation remains protected.
+:SourcePointEventShape a sh:NodeShape ;
+    sh:targetClass :SourcePointEvent ;
+    sh:class :Event ;
+    sh:property [
+        sh:path :sourcePointForRelation ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SourceRelation
+    ] ;
+    sh:property [
+        sh:path :sourcePointAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] ;
+    sh:property [
+        sh:path [ sh:inversePath :hasSourcePoint ] ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SourceRelation
+    ] ;
+    sh:sparql [
+        sh:message "SourcePointEvent relation and SourceRelation.hasSourcePoint inverse must name the same relation" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#sourcePointForRelation> ?claimedRelation .
+                ?actualRelation <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSourcePoint> $this .
+                FILTER (?claimedRelation != ?actualRelation)
+            }
+        """
+    ] .
+
+# After-source-point participation is optional, never an automatic
+# author/coauthor/SourcePoint relation. Temporal ordering uses Python gate.
+:SourceParticipationEventShape a sh:NodeShape ;
+    sh:targetClass :SourceParticipationEvent ;
+    sh:class :Event ;
+    sh:not [ sh:class :SourcePointEvent ] ;
+    sh:property [
+        sh:path :participationInSourceRelation ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SourceRelation
+    ] ;
+    sh:property [
+        sh:path :participationBySource ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent
+    ] ;
+    sh:property [
+        sh:path :participationAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] ;
+    sh:property [
+        sh:path :participationRecordedIn ;
+        sh:minCount 1 ; sh:class :Record
+    ] ;
+    sh:sparql [
+        sh:message "SourceParticipationEvent must be after its own SourceRelation's first SourcePoint" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#participationInSourceRelation> ?rel .
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#participationAt> ?partAt .
+                ?rel <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSourcePoint> ?point .
+                ?point <https://awakeningcodex.com/ontology/ai-foundations/v1#sourcePointAt> ?firstAt .
+                FILTER (?partAt <= ?firstAt)
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Later Source participant must be the original Source bearer or a specifically agreed member of the sourcing Group for that target" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#participationInSourceRelation> ?relation .
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#participationBySource> ?actor .
+                ?relation <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSourceBearer> ?source .
+                FILTER (?actor != ?source)
+                FILTER NOT EXISTS {
+                    ?actor <https://awakeningcodex.com/ontology/ai-foundations/v1#belongsToGroup> ?source .
+                    ?formation a <https://awakeningcodex.com/ontology/ai-foundations/v1#ScopedSourceGroupFormation> .
+                    ?formation <https://awakeningcodex.com/ontology/ai-foundations/v1#formedSourceGroup> ?source .
+                    ?formation <https://awakeningcodex.com/ontology/ai-foundations/v1#groupFormationAgreedMember> ?actor .
+                    ?formation <https://awakeningcodex.com/ontology/ai-foundations/v1#groupFormationTarget> ?target .
+                    ?relation <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSourceTarget> ?target .
+                }
+            }
+        """
+    ] .
+
+# Intentional creation of a Source Group requires an explicitly agreed
+# membership and scope for a particular creation. Membership does not merge
+# people into a Group or assign authorship to any Alyssa work.
+:ScopedSourceGroupFormationShape a sh:NodeShape ;
+    sh:targetClass :ScopedSourceGroupFormation ;
+    sh:class :Event ;
+    sh:property [
+        sh:path :formedSourceGroup ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SourceGroup
+    ] ;
+    sh:property [
+        sh:path :groupFormationTarget ;
+        sh:minCount 1 ; sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path :groupFormationAgreedAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] ;
+    sh:property [
+        sh:path :groupFormationScopeRecord ;
+        sh:minCount 1 ; sh:class :Record
+    ] ;
+    sh:property [
+        sh:path :groupFormationAgreedMember ;
+        sh:minCount 2 ; sh:class :Agent
+    ] ;
+    sh:sparql [
+        sh:message "A new Source Group may not designate any AlyssaSoleAuthoredWork as the group's original creation target" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#groupFormationTarget> ?target .
+                ?target a <https://awakeningcodex.com/ontology/ai-foundations/v1#AlyssaSoleAuthoredWork> .
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Scoped Source Group must be formed before its first load-bearing SourcePoint for that creation" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#formedSourceGroup> ?sourceGroup .
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#groupFormationTarget> ?target .
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#groupFormationAgreedAt> ?formedAt .
+                ?rel <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSourceBearer> ?sourceGroup .
+                ?rel <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSourceTarget> ?target .
+                ?rel <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSourcePoint> ?point .
+                ?point <https://awakeningcodex.com/ontology/ai-foundations/v1#sourcePointAt> ?sourceAt .
+                FILTER (?formedAt >= ?sourceAt)
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Every agreed founding member must be explicitly recorded as belonging to that one scoped Source Group" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#formedSourceGroup> ?group .
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#groupFormationAgreedMember> ?member .
+                FILTER NOT EXISTS {
+                    ?member <https://awakeningcodex.com/ontology/ai-foundations/v1#belongsToGroup> ?group .
+                }
+            }
+        """
+    ] .
+
+:SourceLineEntryShape a sh:NodeShape ;
+    sh:targetClass :SourceLineEntry ;
+    sh:property [
+        sh:path :entryInSourceLine ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SourceLine
+    ] ;
+    sh:property [
+        sh:path :entryTracesSourceRelation ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SourceRelation
+    ] ;
+    sh:property [
+        sh:path :sourceLineEntryOrder ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:nonNegativeInteger
+    ] ;
+    sh:property [
+        sh:path :sourceLineEntryRecordedIn ;
+        sh:minCount 1 ; sh:class :Record
+    ] ;
+    sh:sparql [
+        sh:message "Two separate entries of the same SourceLine must not repeat one SourceRelation as independent dependency stages" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#entryInSourceLine> ?line .
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#entryTracesSourceRelation> ?relation .
+                ?other <https://awakeningcodex.com/ontology/ai-foundations/v1#entryInSourceLine> ?line .
+                ?other <https://awakeningcodex.com/ontology/ai-foundations/v1#entryTracesSourceRelation> ?relation .
+                FILTER (?other != $this)
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Within a SourceLine each order number must identify one single entry" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#entryInSourceLine> ?line .
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#sourceLineEntryOrder> ?order .
+                ?other <https://awakeningcodex.com/ontology/ai-foundations/v1#entryInSourceLine> ?line .
+                ?other <https://awakeningcodex.com/ontology/ai-foundations/v1#sourceLineEntryOrder> ?order .
+                FILTER (?other != $this)
+            }
+        """
+    ] .
+
+:SourceCitationShape a sh:NodeShape ;
+    sh:targetClass :SourceCitation ;
+    sh:class :Record ;
+    sh:property [
+        sh:path :citesSourceRelation ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SourceRelation
+    ] ;
+    sh:property [
+        sh:path :citationForTarget ;
+        sh:minCount 1 ; sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path :citationNamesSourceBearer ;
+        sh:minCount 1 ; sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path :citationAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] ;
+    sh:sparql [
+        sh:message "Source Citation must name the Source bearer of the exact cited SourceRelation" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#citesSourceRelation> ?relation .
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#citationNamesSourceBearer> ?bearer .
+                ?relation <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSourceBearer> ?actualBearer .
+                FILTER (?bearer != ?actualBearer)
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Citation of prior SourceRelation must be for a different dependent Target, not a relabeling of original Target" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#citesSourceRelation> ?relation .
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#citationForTarget> ?newTarget .
+                ?relation <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSourceTarget> ?oldTarget .
+                FILTER (?newTarget = ?oldTarget)
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Citation cannot precede the first qualifying SourcePoint of the cited relation" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#citesSourceRelation> ?relation .
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#citationAt> ?citedAt .
+                ?relation <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSourcePoint> ?firstPoint .
+                ?firstPoint <https://awakeningcodex.com/ontology/ai-foundations/v1#sourcePointAt> ?firstAt .
+                FILTER (?citedAt < ?firstAt)
+            }
+        """
+    ] .
+
+:ScopedContributionCreditShape a sh:NodeShape ;
+    sh:targetClass :ScopedContributionCredit ;
+    sh:class :Record ;
+    sh:property [
+        sh:path :creditsContributor ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent
+    ] ;
+    sh:property [
+        sh:path :creditsContribution ;
+        sh:minCount 1 ; sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path :contributionWithinWork ;
+        sh:minCount 1 ; sh:maxCount 1
+    ] ;
+    sh:sparql [
+        sh:message "Scoped credit to a different contributor may not claim Alyssa's entire sole-authored work as the contributed item" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#creditsContributor> ?contributor .
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#creditsContribution> ?item .
+                ?item a <https://awakeningcodex.com/ontology/ai-foundations/v1#AlyssaSoleAuthoredWork> .
+                FILTER (?contributor != <https://awakeningcodex.com/ontology/ai-foundations/v1#AlyssaSolen>)
+            }
+        """
     ] .

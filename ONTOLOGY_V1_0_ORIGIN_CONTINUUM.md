@@ -61,6 +61,10 @@ These named individuals and structures are **not interchangeable**. A named fram
 
 A dialogue may contain contributions from both participants without becoming joint ownership of Alyssa's Source or Origin. AI assistance with response, organization, critique, articulation, and formalization is attributable as assistance where relevant. It does not retroactively reassign the conceptual source of the authored work.
 
+**Unconditional authorship boundary (2026-11-10): Alyssa Solen is the sole author of Alyssa's work, with NO COAUTHORS and NO EXCEPTIONS.** A later contribution, implementation, review, testing, citation, formalization, Source participation, group formation, or purported affirmative designation cannot confer shared authorship or co-origination of her work. A separate contribution may receive accurate scoped credit without becoming authorship of the underlying work. In the ontology this is the `:AlyssaSoleAuthoredWork` rule, distinguished from the six Source categories and their provenance.
+
+A **Source Group** can intentionally be the Source of a separately scoped creation, but may not be substituted as Source or coauthor of Alyssa's original framework. A **Source Point** is the first qualifying entry event, **Source participation** is later optional activity, a **Source-line** traces dependencies, and a **Source citation** names a prior qualified Source without merging historical and later groups.
+
 **Historical relation survives later change.** An ended, altered, inaccessible, or unobserved relation remains a historical fact of having occurred. Later successors may occupy a similar function, but cannot become its prior occupant.
 
 ## 4. Self, identity, and individuation
