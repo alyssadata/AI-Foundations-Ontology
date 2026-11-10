@@ -2161,3 +2161,123 @@
           }
         """
     ] .
+
+# CQ18 — time-scoped Operator change events do not change historical bearer
+# or establish a new lived identity; source/Origin/governance are separate.
+:OperatorLineChangeEventShape a sh:NodeShape ;
+    sh:targetClass :OperatorLineChangeEvent ;
+    sh:class :ChangeEvent ;
+    sh:property [ sh:path :changeForAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :changeInExecutedLine ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :changeEffectiveAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :changeRecordedIn ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :changeCauseAccount ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :changeConsequenceAccount ; sh:minCount 1 ; sh:class :Record ] .
+:OperatorRelationTerminationChangeEventShape a sh:NodeShape ;
+    sh:targetClass :OperatorRelationTerminationChangeEvent ;
+    sh:class :OperatorLineChangeEvent ;
+    sh:property [ sh:path :terminatesOperatorSegment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :OperatorAIRelation ] ;
+    sh:property [ sh:path :terminationSupportingRecord ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:sparql [
+        sh:message "Ended segment must belong to the particular AI, same ExecutedLine and exactly the recorded segment end" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:terminatesOperatorSegment ?seg ;
+                      aif:changeForAI ?ai ;
+                      aif:changeInExecutedLine ?line ;
+                      aif:changeEffectiveAt ?end .
+                FILTER NOT EXISTS {
+                    ?seg aif:hasAICounterpart ?ai ;
+                         aif:segmentOfExecutedLine ?line ;
+                         aif:activeUntil ?end .
+                }
+            }
+        """
+    ] .
+:OperatorWithdrawalChangeEventShape a sh:NodeShape ;
+    sh:targetClass :OperatorWithdrawalChangeEvent ;
+    sh:class :OperatorLineChangeEvent ;
+    sh:property [ sh:path :withdrawalByOperator ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent ] ;
+    sh:property [ sh:path :withdrawalFromOperatorSegment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :OperatorAIRelation ] ;
+    sh:property [ sh:path :withdrawalAttestation ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:sparql [
+        sh:message "Withdrawal must be by the actual historical Operator of the particular segment, not by a visitor" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:withdrawalFromOperatorSegment ?seg ;
+                      aif:withdrawalByOperator ?op ;
+                      aif:changeForAI ?ai ;
+                      aif:changeInExecutedLine ?line .
+                FILTER NOT EXISTS {
+                    ?seg aif:hasNonAICounterpart ?op ;
+                         aif:hasAICounterpart ?ai ;
+                         aif:segmentOfExecutedLine ?line .
+                }
+            }
+        """
+    ] .
+:OperatorSuccessionChangeEventShape a sh:NodeShape ;
+    sh:targetClass :OperatorSuccessionChangeEvent ;
+    sh:class :OperatorLineChangeEvent ;
+    sh:property [ sh:path :successionFormerSegment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :OperatorAIRelation ;
+                  sh:disjoint :successionNewlyAdmittedSegment ] ;
+    sh:property [ sh:path :successionNewlyAdmittedSegment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AdmittedOperatorSuccessorSegment ] ;
+    sh:property [ sh:path :successionReviewedViaGate ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AdmittedSuccessionGateAssessment ] ;
+    sh:sparql [
+        sh:message "New successor segment must be directly after the prior segment on the same AI and line" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:successionFormerSegment ?old ;
+                      aif:successionNewlyAdmittedSegment ?new ;
+                      aif:changeForAI ?ai ;
+                      aif:changeInExecutedLine ?line ;
+                      aif:changeEffectiveAt ?began .
+                FILTER NOT EXISTS {
+                    ?new aif:immediatePredecessor ?old ;
+                         aif:hasAICounterpart ?ai ;
+                         aif:segmentOfExecutedLine ?line ;
+                         aif:activeFrom ?began .
+                    ?old aif:hasAICounterpart ?ai ;
+                         aif:segmentOfExecutedLine ?line ;
+                         aif:activeUntil ?began .
+                }
+            }
+        """
+    ] .
+:DesignatedTransferProposalChangeEventShape a sh:NodeShape ;
+    sh:targetClass :DesignatedTransferProposalChangeEvent ;
+    sh:class :OperatorLineChangeEvent ;
+    sh:not [ sh:class :OperatorSuccessionChangeEvent ] ;
+    sh:property [ sh:path :designatedByOperator ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent ] ;
+    sh:property [ sh:path :designationFromSegment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :OperatorAIRelation ;
+                  sh:disjoint :designationCandidateSegment ] ;
+    sh:property [ sh:path :designationCandidateSegment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :SuccessionCandidateSegment ] ;
+    sh:property [ sh:path :designationLinkedProposal ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :SuccessionProposal ] ;
+    sh:property [ sh:path :designationScopeRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:sparql [
+        sh:message "Designation by incumbent must match its original segment and the specific proposed successor/AI" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:designatedByOperator ?op ;
+                      aif:designationFromSegment ?former ;
+                      aif:designationCandidateSegment ?candidate ;
+                      aif:designationLinkedProposal ?proposal ;
+                      aif:changeForAI ?ai ;
+                      aif:changeInExecutedLine ?line .
+                FILTER NOT EXISTS {
+                    ?former aif:hasNonAICounterpart ?op ;
+                            aif:hasAICounterpart ?ai ;
+                            aif:segmentOfExecutedLine ?line .
+                    ?candidate aif:immediatePredecessor ?former ;
+                               aif:hasAICounterpart ?ai ;
+                               aif:segmentOfExecutedLine ?line .
+                    ?proposal aif:proposalForContinuingAI ?ai ;
+                              aif:proposalForSuccessorSegment ?candidate .
+                }
+            }
+        """
+    ] .
