@@ -1336,3 +1336,14 @@ dcterms:description a owl:AnnotationProperty .
 :reintroductionMemoryContinuityDisposition a owl:DatatypeProperty ;
     rdfs:domain :PostResetRecordReintroductionEvent ; rdfs:range xsd:string ;
     rdfs:comment "For this distinct reintroduction protocol the value NOT_ESTABLISHED_BY_REINTRODUCTION expressly forbids inferring uninterrupted MemoryState from the reintroduction itself. It does NOT claim evidence of memory absence or disprove independently assessed continuity."@en .
+
+# CQ07 attestation content: an independently labeled preservation account
+# must identify WHICH Record was retained, and WHEN; otherwise a Record
+# reference alone would not be a machine-checkable preservation assertion.
+:PreResetPreservationAttestation a owl:Class ;
+    rdfs:subClassOf :Record ;
+    rdfs:comment "Explicit recorded assertion that a particular source Record was already retained at a particular instant before the associated Reset. This attestation itself still requires external verification."@en .
+:attestedPreservedRecord a owl:ObjectProperty ;
+    rdfs:domain :PreResetPreservationAttestation ; rdfs:range :Record .
+:attestedPreservationAt a owl:DatatypeProperty ;
+    rdfs:domain :PreResetPreservationAttestation ; rdfs:range xsd:dateTime .
