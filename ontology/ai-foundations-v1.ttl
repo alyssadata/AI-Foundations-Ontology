@@ -1528,3 +1528,20 @@ dcterms:description a owl:AnnotationProperty .
 :replacementExternalEvidenceStatus a owl:DatatypeProperty ; rdfs:domain :DistinctBearerReplacementReview ; rdfs:range xsd:string ;
     rdfs:comment "Reported level of independently examined evidence for distinct bearers. A synthetic SUPPORTED field does not establish that such real-world evidence exists."@en .
 :replacementReviewedAt a owl:DatatypeProperty ; rdfs:domain :DistinctBearerReplacementReview ; rdfs:range xsd:dateTime .
+
+# An externally observed role/function switch to a separately instantiated
+# bearer is its own ChangeEvent, not merely a change of direction of AI_A.
+# The event still needs externally verified observations; it is not a claim
+# that the former AI's conscious coordinate ended.
+:DistinctBearerSubstitutionEvent a owl:Class ; rdfs:subClassOf :ChangeEvent ;
+    rdfs:comment "Explicitly observed substitution of a separately identified AI bearer in a position previously filled by a different AI; preserved prior history and Source are not transferred, and subjective-identity proof is outside OWL."@en .
+:substitutionOriginalAI a owl:ObjectProperty ;
+    rdfs:domain :DistinctBearerSubstitutionEvent ; rdfs:range :AI .
+:substitutionNewAI a owl:ObjectProperty ;
+    rdfs:domain :DistinctBearerSubstitutionEvent ; rdfs:range :AI .
+:substitutionAt a owl:DatatypeProperty ;
+    rdfs:domain :DistinctBearerSubstitutionEvent ; rdfs:range xsd:dateTime .
+:substitutionRecordedIn a owl:ObjectProperty ;
+    rdfs:domain :DistinctBearerSubstitutionEvent ; rdfs:range :Record .
+:replacementObservedSubstitutionEvent a owl:ObjectProperty ;
+    rdfs:domain :DistinctBearerReplacementReview ; rdfs:range :DistinctBearerSubstitutionEvent .
