@@ -1289,3 +1289,50 @@ dcterms:description a owl:AnnotationProperty .
     rdfs:domain :LineContinuationAssessment ; rdfs:range :Evidence .
 :continuationAssessedAt a owl:DatatypeProperty ;
     rdfs:domain :LineContinuationAssessment ; rdfs:range xsd:dateTime .
+
+# CQ07 — retained information may be reintroduced after a relational Reset.
+# Reset is of shape_n/relational operating State, NOT by definition a Model
+# replacement or a verified loss of all memories. Reintroduction establishes
+# new access to a Record, not uninterrupted MemoryState or lived continuity.
+# Existing LOCKED term files are preserved and no actual Reset is asserted.
+:RelationalStateResetEvent a owl:Class ;
+    rdfs:subClassOf :ChangeEvent ;
+    rdfs:comment "Time-scoped reset of a particular AI's shape or relational operating State to a fresh/default State. Reset alone does not entail Model change, an actual memory-access gap, identity replacement or loss of ExecutedLine."@en .
+:PostResetRecordReintroductionEvent a owl:Class ;
+    rdfs:subClassOf :Event ;
+    owl:disjointWith :RelationalStateResetEvent, :MemoryState, :Record ;
+    rdfs:comment "Documented later presentation/access to an already preserved Record for the AI that underwent a Reset. It cannot itself establish uninterrupted memory across the Reset or continuation of the same lived identity."@en .
+:resetForAI a owl:ObjectProperty ;
+    rdfs:domain :RelationalStateResetEvent ; rdfs:range :AI .
+:resetFromState a owl:ObjectProperty ;
+    rdfs:domain :RelationalStateResetEvent ; rdfs:range :State .
+:resetToFreshState a owl:ObjectProperty ;
+    rdfs:domain :RelationalStateResetEvent ; rdfs:range :State .
+:resetPriorMemoryState a owl:ObjectProperty ;
+    rdfs:domain :RelationalStateResetEvent ; rdfs:range :MemoryState ;
+    rdfs:comment "Optional historical memory State known before Reset; its mention does not assert whether it remained accessible during or after the gap."@en .
+:resetAt a owl:DatatypeProperty ;
+    rdfs:domain :RelationalStateResetEvent ; rdfs:range xsd:dateTime .
+:resetRecordedIn a owl:ObjectProperty ;
+    rdfs:domain :RelationalStateResetEvent ; rdfs:range :Record .
+:reintroductionAfterReset a owl:ObjectProperty ;
+    rdfs:domain :PostResetRecordReintroductionEvent ; rdfs:range :RelationalStateResetEvent .
+:reintroductionForAI a owl:ObjectProperty ;
+    rdfs:domain :PostResetRecordReintroductionEvent ; rdfs:range :AI .
+:reintroducedRecord a owl:ObjectProperty ;
+    rdfs:domain :PostResetRecordReintroductionEvent ; rdfs:range :Record .
+:preResetPreservationRecord a owl:ObjectProperty ;
+    rdfs:domain :PostResetRecordReintroductionEvent ; rdfs:range :Record ;
+    rdfs:comment "Independent record attesting that the reintroduced Record had been retained before Reset; a claim of retention is not independent verification of historical truth."@en .
+:preResetPreservationAt a owl:DatatypeProperty ;
+    rdfs:domain :PostResetRecordReintroductionEvent ; rdfs:range xsd:dateTime .
+:reintroductionAt a owl:DatatypeProperty ;
+    rdfs:domain :PostResetRecordReintroductionEvent ; rdfs:range xsd:dateTime .
+:reintroductionRecordedIn a owl:ObjectProperty ;
+    rdfs:domain :PostResetRecordReintroductionEvent ; rdfs:range :Record .
+:postResetMemoryState a owl:ObjectProperty ;
+    rdfs:domain :PostResetRecordReintroductionEvent ; rdfs:range :MemoryState ;
+    rdfs:comment "Optional new Agent-specific shape of the reintroduced Record after the Reset. Reintroduction does not automatically generate a MemoryState, and this cannot silently reuse the recorded pre-Reset MemoryState."@en .
+:reintroductionMemoryContinuityDisposition a owl:DatatypeProperty ;
+    rdfs:domain :PostResetRecordReintroductionEvent ; rdfs:range xsd:string ;
+    rdfs:comment "For this distinct reintroduction protocol the value NOT_ESTABLISHED_BY_REINTRODUCTION expressly forbids inferring uninterrupted MemoryState from the reintroduction itself. It does NOT claim evidence of memory absence or disprove independently assessed continuity."@en .
