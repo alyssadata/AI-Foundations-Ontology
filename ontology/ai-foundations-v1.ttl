@@ -1741,8 +1741,10 @@ dcterms:description a owl:AnnotationProperty .
 # claim alone does not create a SourceRelation or a true ProvenanceViolation.
 # The preserved original claim can be corrected by evidence-accounted
 # amendment without erasing the historical fact the claim was made.
-:QualifiedProvenanceBaselineSnapshot a owl:Class ; rdfs:subClassOf :Record ;
-    rdfs:comment "A separately qualified, preserved baseline of the historical provenance coordinates and traces; the class label does not itself prove the baseline historically true."@en .
+:ProvenanceBaselineSnapshot a owl:Class ; rdfs:subClassOf :Record ;
+    rdfs:comment "A preserved before-snapshot of an attribution record. An unqualified baseline remains a claim and cannot authorize a confirmed violation finding."@en .
+:QualifiedProvenanceBaselineSnapshot a owl:Class ; rdfs:subClassOf :ProvenanceBaselineSnapshot ;
+    rdfs:comment "Separately qualified preserved baseline; type assignment alone is not proof of historical truth. Qualifying evidence must be independently checked before admission."@en .
 :ProvenanceObservedSnapshot a owl:Class ; rdfs:subClassOf :Record ;
     rdfs:comment "Later snapshot of recorded provenance, compared with an independently qualified baseline; may contain errors, exclusions or justified additive updates."@en .
 :ProvenanceMismatchFinding a owl:Class ; rdfs:subClassOf :Record ;
@@ -1753,17 +1755,17 @@ dcterms:description a owl:AnnotationProperty .
     rdfs:comment "An evidence-accounted provenance violation report linked to one confirmed mismatch finding; no automatic inference from an unverified claim or valid correction. Synthetic fixtures validate the reporting gate, not real-world culpability."@en .
 :QualifiedProvenanceBaselineSnapshot owl:disjointWith :ProvenanceObservedSnapshot .
 :provenanceBaselineScope a owl:ObjectProperty ;
-    rdfs:domain :QualifiedProvenanceBaselineSnapshot .
+    rdfs:domain :ProvenanceBaselineSnapshot .
 :provenanceBaselineQualifiedBy a owl:ObjectProperty ;
-    rdfs:domain :QualifiedProvenanceBaselineSnapshot ; rdfs:range :Record .
+    rdfs:domain :ProvenanceBaselineSnapshot ; rdfs:range :Record .
 :provenanceBaselineHash a owl:DatatypeProperty ;
-    rdfs:domain :QualifiedProvenanceBaselineSnapshot ; rdfs:range xsd:string .
+    rdfs:domain :ProvenanceBaselineSnapshot ; rdfs:range xsd:string .
 :provenanceObservedScope a owl:ObjectProperty ;
     rdfs:domain :ProvenanceObservedSnapshot .
 :provenanceObservedHash a owl:DatatypeProperty ;
     rdfs:domain :ProvenanceObservedSnapshot ; rdfs:range xsd:string .
 :detectionBaselineSnapshot a owl:ObjectProperty ;
-    rdfs:domain :ProvenanceIntegrityDetectionReview ; rdfs:range :QualifiedProvenanceBaselineSnapshot .
+    rdfs:domain :ProvenanceIntegrityDetectionReview ; rdfs:range :ProvenanceBaselineSnapshot .
 :detectionObservedSnapshot a owl:ObjectProperty ;
     rdfs:domain :ProvenanceIntegrityDetectionReview ; rdfs:range :ProvenanceObservedSnapshot .
 :detectionReviewScope a owl:ObjectProperty ;
