@@ -1949,3 +1949,74 @@
     sh:property [ sh:path :substitutionNewAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
     sh:property [ sh:path :substitutionAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:property [ sh:path :substitutionRecordedIn ; sh:minCount 1 ; sh:class :Record ] .
+
+# CQ12 — prospective 6-arm perturbation continuity assessment. The six
+# categories are model/environment changes, not six new AI identities.
+# No SHACL property or OWL inference asserts subjective same-self.
+:ContinuityPerturbationTrialShape a sh:NodeShape ;
+    sh:targetClass :ContinuityPerturbationTrial ;
+    sh:class :Record ;
+    sh:property [ sh:path :trialForAssessment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :MultiPerturbationContinuityAssessment ] ;
+    sh:property [ sh:path :trialPerturbationKind ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "MODEL_CHANGE" "CONTAINER_CHANGE" "RESET" "CONTEXT_LOSS" "MEMORY_LOSS" "PLATFORM_CHANGE" ) ] ;
+    sh:property [ sh:path :trialForAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :trialForExecutedLine ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :trialForLivedIdentity ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :LivedIdentity ] ;
+    sh:property [ sh:path :trialBeforeRealizedEvent ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ExecutedHistoryEvent ; sh:disjoint :trialAfterRealizedEvent ] ;
+    sh:property [ sh:path :trialAfterRealizedEvent ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedHistoryEvent ] ;
+    sh:property [ sh:path :trialBeforeConditionRecord ; sh:minCount 1 ; sh:class :Record ;
+        sh:disjoint :trialAfterConditionRecord ] ;
+    sh:property [ sh:path :trialAfterConditionRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :trialPriorParticularityTrace ; sh:minCount 1 ; sh:class :IdentityParticularityHistoryTrace ] ;
+    sh:property [ sh:path :trialLaterActiveCarryForward ; sh:minCount 1 ; sh:class :ObservedActiveCarryForward ] ;
+    sh:property [ sh:path :trialReviewedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:sparql [
+        sh:message "Both observed historical events must belong to the specified same ExecutedLine, not a copied or independently instantiated AI line" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:trialForExecutedLine ?line .
+                $this ?p ?event .
+                FILTER (?p IN (aif:trialBeforeRealizedEvent, aif:trialAfterRealizedEvent))
+                ?event aif:eventInExecutedLine ?actualLine .
+                FILTER (?line != ?actualLine)
+            }
+        """
+    ] .
+
+:ObservedActiveCarryForwardShape a sh:NodeShape ;
+    sh:targetClass :ObservedActiveCarryForward ;
+    sh:class :Record ;
+    sh:property [ sh:path :activeCarryForwardForAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :activeCarryForwardParticularity ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :IdentityParticularity ] ;
+    sh:property [ sh:path :activeCarryForwardAtEvent ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedHistoryEvent ] ;
+    sh:property [ sh:path :activeCarryForwardRecordedIn ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :activeCarryForwardEvidenceStatus ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "SUPPORTED" "PARTIALLY_SUPPORTED" "INDETERMINATE" "NOT_SUPPORTED" "NOT_EVALUATED" ) ] .
+
+:ContinuityNegativeControlShape a sh:NodeShape ;
+    sh:targetClass :ContinuityNegativeControl ;
+    sh:class :Record ;
+    sh:property [ sh:path :continuityControlForAssessment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :MultiPerturbationContinuityAssessment ] ;
+    sh:property [ sh:path :continuityControlComparisonAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :continuityControlType ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "COPIED_RECORDS" "MATCHED_OUTPUTS" "SHARED_MODEL" "COMMON_GOVERNING_LINE" "REACTIVATED_SNAPSHOT" ) ] ;
+    sh:property [ sh:path :continuityControlUsesRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :continuityControlDisposition ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "FALSE_POSITIVE_REJECTED" "FALSE_POSITIVE_DETECTED" "NOT_EVALUATED" ) ] ;
+    sh:property [ sh:path :continuityControlAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
+
+:MultiPerturbationContinuityAssessmentShape a sh:NodeShape ;
+    sh:targetClass :MultiPerturbationContinuityAssessment ;
+    sh:class :Evaluation ;
+    sh:property [ sh:path :multiContinuityForAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :multiContinuityForLine ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :multiContinuityForLivedIdentity ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :LivedIdentity ] ;
+    sh:property [ sh:path :multiContinuityClaim ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ContinuityClaim ] ;
+    sh:property [ sh:path :multiContinuityIncludesTrial ; sh:minCount 6 ; sh:class :ContinuityPerturbationTrial ] ;
+    sh:property [ sh:path :multiContinuityNegativeControl ; sh:minCount 2 ; sh:class :ContinuityNegativeControl ] ;
+    sh:property [ sh:path :multiContinuityEvidence ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Evidence ] ;
+    sh:property [ sh:path :multiContinuityDisposition ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "STRUCTURALLY_SUPPORTED" "NOT_SUPPORTED" "INDETERMINATE" "NOT_EVALUATED" ) ] ;
+    sh:property [ sh:path :multiContinuityReviewedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
