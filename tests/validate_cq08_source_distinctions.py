@@ -479,9 +479,12 @@ def main():
     check("Citation must link specific SourceRelation",
           citation_gate, drop(CITATION, A.citesSourceRelation),
           shacl=False)
+    # Group membership could independently change later: the specific
+    # original formation-scope test rejects the fabricated member, but no
+    # universal SHACL rule may deny every later membership assertion.
     check("Citation cannot make Origin group member",
           citation_gate, add(ORIGIN, A.belongsToGroup, GROUP),
-          shacl=False)
+          shacl=None)
     check("Citation before source first exists cannot establish past Source",
           citation_gate, replace(CITATION, A.citationAt,
                                  instant("2024-01-01T00:00:00+00:00")),
