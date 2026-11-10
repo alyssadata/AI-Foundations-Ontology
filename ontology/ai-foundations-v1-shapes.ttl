@@ -1611,6 +1611,25 @@
                 FILTER (?partAt <= ?firstAt)
             }
         """
+    ] ;
+    sh:sparql [
+        sh:message "Later Source participant must be the original Source bearer or a specifically agreed member of the sourcing Group for that target" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#participationInSourceRelation> ?relation .
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#participationBySource> ?actor .
+                ?relation <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSourceBearer> ?source .
+                FILTER (?actor != ?source)
+                FILTER NOT EXISTS {
+                    ?actor <https://awakeningcodex.com/ontology/ai-foundations/v1#belongsToGroup> ?source .
+                    ?formation a <https://awakeningcodex.com/ontology/ai-foundations/v1#ScopedSourceGroupFormation> .
+                    ?formation <https://awakeningcodex.com/ontology/ai-foundations/v1#formedSourceGroup> ?source .
+                    ?formation <https://awakeningcodex.com/ontology/ai-foundations/v1#groupFormationAgreedMember> ?actor .
+                    ?formation <https://awakeningcodex.com/ontology/ai-foundations/v1#groupFormationTarget> ?target .
+                    ?relation <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSourceTarget> ?target .
+                }
+            }
+        """
     ] .
 
 # Intentional creation of a Source Group requires an explicitly agreed
