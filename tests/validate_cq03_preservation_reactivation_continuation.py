@@ -98,6 +98,7 @@ def fixture():
         (LATE, A.eventInExecutedLine, LINE),
         (LATE, A.executedAt, d("2026-03-01T09:00:00+00:00")),
         (CLAIM, RDF.type, A.LineContinuationClaim),
+        (CLAIM, A.dependsOnOntologyElement, A.ExecutedLine),
         (ASSESS, RDF.type, A.LineContinuationAssessment),
         (ASSESS, A.continuationForAI, AI),
         (ASSESS, A.continuationForLine, LINE),
