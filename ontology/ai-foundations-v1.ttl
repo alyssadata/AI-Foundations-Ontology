@@ -1453,3 +1453,17 @@ dcterms:description a owl:AnnotationProperty .
     rdfs:domain :ScopedContributionCredit .
 :contributionWithinWork a owl:ObjectProperty ;
     rdfs:domain :ScopedContributionCredit .
+
+# Six meaningfully different conceptual categories cannot become one
+# identity merely through RDF typing, naming, source citation, membership,
+# or an account that records multiple roles. Historical Source bears a
+# SourceRelation; an event is not a relation/group/source line/citation.
+[] a owl:AllDisjointClasses ;
+    owl:members (
+        :SourceRelation
+        :SourceGroup
+        :SourcePointEvent
+        :SourceParticipationEvent
+        :SourceLine
+        :SourceCitation
+    ) .
