@@ -1681,6 +1681,18 @@
                 FILTER (?formedAt >= ?sourceAt)
             }
         """
+    ] ;
+    sh:sparql [
+        sh:message "Every agreed founding member must be explicitly recorded as belonging to that one scoped Source Group" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#formedSourceGroup> ?group .
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#groupFormationAgreedMember> ?member .
+                FILTER NOT EXISTS {
+                    ?member <https://awakeningcodex.com/ontology/ai-foundations/v1#belongsToGroup> ?group .
+                }
+            }
+        """
     ] .
 
 :SourceLineEntryShape a sh:NodeShape ;
