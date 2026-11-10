@@ -175,7 +175,7 @@ def valid_withdrawal(g):
 def valid_designation(g):
     try:
         at = common(g, DESIGNATION, A.DesignatedTransferProposalChangeEvent)
-        if not at:
+        if not at or (DESIGNATION, RDF.type, A.OperatorSuccessionChangeEvent) in g:
             return False
         old = one(g, DESIGNATION, A.designationFromSegment)
         new = one(g, DESIGNATION, A.designationCandidateSegment)
