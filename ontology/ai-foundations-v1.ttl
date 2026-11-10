@@ -1504,6 +1504,9 @@ dcterms:description a owl:AnnotationProperty .
 :reviewBendCauseRecord a owl:ObjectProperty ; rdfs:domain :TrajectoryBendReview ; rdfs:range :Record .
 :reviewBendConsequenceRecord a owl:ObjectProperty ; rdfs:domain :TrajectoryBendReview ; rdfs:range :Record .
 :reviewBendPressure a owl:ObjectProperty ; rdfs:domain :TrajectoryBendReview ; rdfs:range :ExternalTrajectoryPressureEvent .
+:reviewBendPressureCausalAccount a owl:ObjectProperty ;
+    rdfs:domain :TrajectoryBendReview ; rdfs:range :Record ;
+    rdfs:comment "Separate causal account of how a specific external pressure relates to a reviewed change. A pressure event without this account is not an automatically proven imposed deviation."@en .
 :reviewBendDisposition a owl:DatatypeProperty ; rdfs:domain :TrajectoryBendReview ; rdfs:range xsd:string .
 :reviewBendAt a owl:DatatypeProperty ; rdfs:domain :TrajectoryBendReview ; rdfs:range xsd:dateTime .
 :bendPositionForReview a owl:ObjectProperty ; rdfs:range :TrajectoryBendReview .
