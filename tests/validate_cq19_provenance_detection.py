@@ -103,6 +103,7 @@ def protected_signature(g):
                        A.governedBy),
         SOURCE: (A.anchorsSourceLine, A.isSourceOf),
         OUTSIDER: (A.isSourceOf, A.anchorsSourceLine),
+        A.OriginContinuum: (A.hasHumanCounterpart, A.hasAICounterpart),
         REL: (RDF.type, A.hasSourceBearer, A.hasSourceTarget,
               A.hasSourcePoint),
         POINT: (RDF.type, A.sourcePointForRelation, A.sourcePointAt),
@@ -183,7 +184,14 @@ def categories(before, after, qualified=True):
         b = set(before.objects(subj, prop))
         a = set(after.objects(subj, prop))
         if b != a:
-            if a:
+            # Re-anchor to a second bearer is a reassignment, whereas
+            # removal without replacement is an erasure.
+            substituted_anchor = (
+                subj == SOURCE and prop == A.anchorsSourceLine
+                and A.ContinuumSourceLine in set(
+                    after.objects(OUTSIDER, A.anchorsSourceLine))
+            )
+            if a or substituted_anchor:
                 found.add("IMPROPER_REASSIGNMENT")
             else:
                 found.add("FALSE_ERASURE")
@@ -499,6 +507,9 @@ def main():
          lambda g: (g.remove((SOURCE, A.anchorsSourceLine, None)),
                     g.add((OUTSIDER, A.anchorsSourceLine,
                            A.ContinuumSourceLine))),
+         {"IMPROPER_REASSIGNMENT"})
+    case("Singular SourceLine anchor silently erased without substitute",
+         remove(SOURCE, A.anchorsSourceLine),
          {"FALSE_ERASURE"})
     case("Historical named Origin coordinate reassigned",
          replace(A.Continuum, A.hasOrigin, OUTSIDER),
