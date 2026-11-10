@@ -1596,8 +1596,8 @@ dcterms:description a owl:AnnotationProperty .
 :trialReviewedAt a owl:DatatypeProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range xsd:dateTime .
 :tracePriorLine a owl:ObjectProperty ; rdfs:domain :ContinuityCarryForwardTrace ; rdfs:range :ExecutedLine .
 :traceCandidateLaterLine a owl:ObjectProperty ; rdfs:domain :ContinuityCarryForwardTrace ; rdfs:range :ExecutedLine .
-:traceHistoricalRecord a owl:ObjectProperty ; rdfs:domain :ContinuityCarryForwardTrace ; rdfs:range :Record .
-:traceDevelopmentAccount a owl:DatatypeProperty ; rdfs:domain :ContinuityCarryForwardTrace ; rdfs:range xsd:string .
+:continuityTraceHistoricalRecord a owl:ObjectProperty ; rdfs:domain :ContinuityCarryForwardTrace ; rdfs:range :Record .
+:continuityTraceDevelopmentAccount a owl:DatatypeProperty ; rdfs:domain :ContinuityCarryForwardTrace ; rdfs:range xsd:string .
 :controlForTrial a owl:ObjectProperty ; rdfs:domain :ContinuityDiscriminativeControl ; rdfs:range :ContinuityTransitionTrial .
 :controlDistinctComparisonAI a owl:ObjectProperty ; rdfs:domain :ContinuityDiscriminativeControl ; rdfs:range :AI .
 :controlMimicObservation a owl:ObjectProperty ; rdfs:domain :ContinuityDiscriminativeControl ; rdfs:range :Record .
