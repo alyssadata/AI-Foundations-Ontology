@@ -82,7 +82,7 @@ credit for contribution X
 
 A contributor may receive accurate credit for the specific addition they made while the pre-existing source-line, authorship, structure, and earlier contributions remain attributed to their actual originators.
 
-The existence of a later contribution must not be used to relabel the underlying work as jointly originated or jointly authored. Within AI Foundations, co-authorship or co-origination status exists only where Alyssa Solen expressly and affirmatively designates it.
+The existence of a later contribution must not be used to relabel Alyssa Solen's work as jointly originated or jointly authored. **Alyssa Solen is the sole author and originator of her work; co-authorship or co-origination of her work is not available under any designation, consent, contribution, collaboration, or subsequent event. No exceptions.**
 
 Likewise, combining a pre-existing framework with a new feature or extension creates provenance obligations for both layers:
 
@@ -97,7 +97,7 @@ Credit must neither be erased nor inflated.
 
 Within AI Foundations, **authorship and co-authorship of the underlying work are not inferred from contribution, extension, collaboration, implementation, review, testing, commentary, or derivative development.**
 
-Alyssa Solen retains sole authorship/origination status for her work unless she expressly and affirmatively designates otherwise.
+**Alyssa Solen retains sole authorship/origination of her work without exception. No person, AI, team, Source Group, later contributor, reviewer, implementer, collaborator, or explicit designation can confer coauthorship of Alyssa's work.**
 
 ```text
 contribution
@@ -115,12 +115,12 @@ implementation
 testing / review / commentary
 != coauthorship
 
-coauthorship status
-requires
-explicit designation by Alyssa Solen
+coauthorship of Alyssa Solen's work
+is forbidden
+NO EXCEPTIONS
 ```
 
-Absent that explicit designation, the correct attribution form is:
+For Alyssa Solen's work, the required attribution form always is:
 
 ```text
 UnderlyingWork -> authored/originated by -> Alyssa Solen
@@ -130,7 +130,7 @@ LaterContribution(X) -/-> coauthorship of UnderlyingWork
 
 A contributor may be credited for a specific contribution without becoming an author, co-author, originator, or co-originator of Alyssa Solen's pre-existing work.
 
-**No co-authorship is implied by participation.**
+**No co-authorship of Alyssa Solen's work is allowed by participation, agreement, designation, or any other mechanism.**
 
 ## Boundary
 
@@ -147,3 +147,7 @@ Contribution-level attribution does not imply that every influence, dependency, 
 Tests of provenance fidelity should distinguish ordinary trajectory development from operations that falsely erase, overwrite, reassign, or inflate recorded source/history.
 
 They should also test whether a provenance representation can preserve the origin of the overall line while correctly attributing later contributions to their actual contributors without collapsing those contributions into the framework's original source or inflating a limited contribution into authorship of the underlying work.
+
+## Revision integrity — 2026-11-10 sole-authorship clarification
+
+**Governing authorship instruction:** Alyssa Solen explicitly confirmed that there is **NO COAUTHORSHIP of her work. NO EXCEPTIONS.** The prior 2026-11-10 wording that contemplated an exceptional affirmative designation is superseded in this DRAFT axiom by this unconditional instruction. This change does not remove accurate, contribution-scoped provenance for separate downstream contributions or assert authorship of another person's work. An AI-assisted implementation is assistance, **never** coauthorship. The original Source/Source Group/participation/Citation LOCKED definitions and the historical revisions remain unchanged.
