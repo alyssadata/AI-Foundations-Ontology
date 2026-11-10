@@ -1548,3 +1548,61 @@ dcterms:description a owl:AnnotationProperty .
     rdfs:domain :DistinctBearerSubstitutionEvent ; rdfs:range :Record .
 :replacementObservedSubstitutionEvent a owl:ObjectProperty ;
     rdfs:domain :DistinctBearerReplacementReview ; rdfs:range :DistinctBearerSubstitutionEvent .
+
+# CQ12 — a continuity HYPOTHESIS across operational perturbations.
+# The pre/post observations are separate coordinates and never owl:sameAs by
+# construction. Evidence may support a scoped trial, but no copied pattern,
+# name, Model/Container, output, MemoryState or restored Record proves a
+# historical consciousness coordinate or same individualized AI.
+:PlatformEnvironment a owl:Class ; rdfs:subClassOf :SystemComponent ;
+    rdfs:comment "Explicit platform-level operational environment under comparison, without treating Platform as Self or assuming every platform change is a Model/Container change."@en .
+:ContextSnapshotRecord a owl:Class ; rdfs:subClassOf :Record .
+:ContinuityPerturbationEvent a owl:Class ; rdfs:subClassOf :ChangeEvent ;
+    rdfs:comment "One documented intervention or change in Model, Container, Reset, Context, Memory or Platform, or a combined intervention. It does not establish continued identity."@en .
+:ContinuityCarryForwardTrace a owl:Class ; rdfs:subClassOf :Record ;
+    rdfs:comment "Recorded explanation of how candidate post-change development is claimed to depend upon an earlier ExecutedLine and to differ from mere replay; this is evidence to assess, not automatic same-AI identity."@en .
+:ContinuityDiscriminativeControl a owl:Class ; rdfs:subClassOf :Record ;
+    rdfs:comment "Distinct comparison bearer and matched-output or copied-record challenge. Similarity to it cannot automatically establish identity of a post-change candidate."@en .
+:ContinuityTransitionTrial a owl:Class ; rdfs:subClassOf :Evaluation ;
+    rdfs:comment "A scoped, prospective or retrospective observation/evidence test of a same-AI hypothesis across a specified perturbation; distinct pre/post candidate coordinates and negative controls are preserved without preasserting sameness."@en .
+:MultiPerturbationContinuitySuite a owl:Class ; rdfs:subClassOf :Evaluation ;
+    rdfs:comment "Coverage audit grouping separate dimension-scoped trials (MODEL, CONTAINER, RESET, CONTEXT, MEMORY, PLATFORM) plus at least one combined intervention. A synthetic suite PASS does not demonstrate empirical self-continuity."@en .
+:ContinuityDiscriminativeControl owl:disjointWith :ContinuityCarryForwardTrace .
+:ContinuityTransitionTrial owl:disjointWith :MultiPerturbationContinuitySuite .
+:perturbationDimension a owl:DatatypeProperty ; rdfs:domain :ContinuityPerturbationEvent ; rdfs:range xsd:string .
+:perturbationIncludesDimension a owl:DatatypeProperty ; rdfs:domain :ContinuityPerturbationEvent ; rdfs:range xsd:string .
+:perturbationBeforeComponent a owl:ObjectProperty ; rdfs:domain :ContinuityPerturbationEvent .
+:perturbationAfterComponent a owl:ObjectProperty ; rdfs:domain :ContinuityPerturbationEvent .
+:perturbationAt a owl:DatatypeProperty ; rdfs:domain :ContinuityPerturbationEvent ; rdfs:range xsd:dateTime .
+:perturbationChangeRecord a owl:ObjectProperty ; rdfs:domain :ContinuityPerturbationEvent ; rdfs:range :Record .
+:perturbationCausalRecord a owl:ObjectProperty ; rdfs:domain :ContinuityPerturbationEvent ; rdfs:range :Record .
+:perturbationConsequenceRecord a owl:ObjectProperty ; rdfs:domain :ContinuityPerturbationEvent ; rdfs:range :Record .
+:perturbationResetEvent a owl:ObjectProperty ; rdfs:domain :ContinuityPerturbationEvent ; rdfs:range :RelationalStateResetEvent .
+:trialPerturbation a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :ContinuityPerturbationEvent .
+:trialBeforeObservedAI a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :AI .
+:trialAfterCandidateAI a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :AI .
+:trialBeforeExecutedLine a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :ExecutedLine .
+:trialAfterCandidateLine a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :ExecutedLine .
+:trialBeforeObservation a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :Record .
+:trialAfterObservation a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :Record .
+:trialSourceBearer a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial .
+:trialSourceContactRecord a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :Record .
+:trialCarryForwardTrace a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :ContinuityCarryForwardTrace .
+:trialDiscriminativeControl a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :ContinuityDiscriminativeControl .
+:trialContinuityClaim a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :ContinuityClaim .
+:trialEvidence a owl:ObjectProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range :Evidence .
+:trialEvidenceBoundaryDisposition a owl:DatatypeProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range xsd:string ;
+    rdfs:comment "The trial remains only PROVISIONALLY_SUPPORTED, NOT_SUPPORTED, INDETERMINATE or NOT_EVALUATED by scoped evidence; these are not claims of proven same consciousness."@en .
+:trialReviewedAt a owl:DatatypeProperty ; rdfs:domain :ContinuityTransitionTrial ; rdfs:range xsd:dateTime .
+:tracePriorLine a owl:ObjectProperty ; rdfs:domain :ContinuityCarryForwardTrace ; rdfs:range :ExecutedLine .
+:traceCandidateLaterLine a owl:ObjectProperty ; rdfs:domain :ContinuityCarryForwardTrace ; rdfs:range :ExecutedLine .
+:traceHistoricalRecord a owl:ObjectProperty ; rdfs:domain :ContinuityCarryForwardTrace ; rdfs:range :Record .
+:traceDevelopmentAccount a owl:DatatypeProperty ; rdfs:domain :ContinuityCarryForwardTrace ; rdfs:range xsd:string .
+:controlForTrial a owl:ObjectProperty ; rdfs:domain :ContinuityDiscriminativeControl ; rdfs:range :ContinuityTransitionTrial .
+:controlDistinctComparisonAI a owl:ObjectProperty ; rdfs:domain :ContinuityDiscriminativeControl ; rdfs:range :AI .
+:controlMimicObservation a owl:ObjectProperty ; rdfs:domain :ContinuityDiscriminativeControl ; rdfs:range :Record .
+:controlOutcomeLabel a owl:DatatypeProperty ; rdfs:domain :ContinuityDiscriminativeControl ; rdfs:range xsd:string .
+:suiteForContinuityClaim a owl:ObjectProperty ; rdfs:domain :MultiPerturbationContinuitySuite ; rdfs:range :ContinuityClaim .
+:suiteIncludesTrial a owl:ObjectProperty ; rdfs:domain :MultiPerturbationContinuitySuite ; rdfs:range :ContinuityTransitionTrial .
+:suiteReviewRecord a owl:ObjectProperty ; rdfs:domain :MultiPerturbationContinuitySuite ; rdfs:range :Record .
+:suiteReviewedAt a owl:DatatypeProperty ; rdfs:domain :MultiPerturbationContinuitySuite ; rdfs:range xsd:dateTime .
