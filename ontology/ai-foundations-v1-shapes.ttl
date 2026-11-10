@@ -1666,6 +1666,21 @@
                 ?target a <https://awakeningcodex.com/ontology/ai-foundations/v1#AlyssaSoleAuthoredWork> .
             }
         """
+    ] ;
+    sh:sparql [
+        sh:message "Scoped Source Group must be formed before its first load-bearing SourcePoint for that creation" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#formedSourceGroup> ?sourceGroup .
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#groupFormationTarget> ?target .
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#groupFormationAgreedAt> ?formedAt .
+                ?rel <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSourceBearer> ?sourceGroup .
+                ?rel <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSourceTarget> ?target .
+                ?rel <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSourcePoint> ?point .
+                ?point <https://awakeningcodex.com/ontology/ai-foundations/v1#sourcePointAt> ?sourceAt .
+                FILTER (?formedAt >= ?sourceAt)
+            }
+        """
     ] .
 
 :SourceLineEntryShape a sh:NodeShape ;
