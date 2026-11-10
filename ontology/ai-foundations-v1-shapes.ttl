@@ -1949,3 +1949,91 @@
     sh:property [ sh:path :substitutionNewAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
     sh:property [ sh:path :substitutionAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:property [ sh:path :substitutionRecordedIn ; sh:minCount 1 ; sh:class :Record ] .
+
+# CQ12 — neutral perturbation protocol. A before-observed AI and an after
+# candidate are NOT asserted sameAs by the schema, even if records match.
+:ContinuityPerturbationEventShape a sh:NodeShape ;
+    sh:targetClass :ContinuityPerturbationEvent ;
+    sh:class :ChangeEvent ;
+    sh:property [
+        sh:path :perturbationDimension ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "MODEL" "CONTAINER" "RESET" "CONTEXT" "MEMORY" "PLATFORM" "COMBINED" )
+    ] ;
+    sh:property [
+        sh:path :perturbationBeforeComponent ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:disjoint :perturbationAfterComponent
+    ] ;
+    sh:property [
+        sh:path :perturbationAfterComponent ;
+        sh:minCount 1 ; sh:maxCount 1
+    ] ;
+    sh:property [ sh:path :perturbationAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :perturbationChangeRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :perturbationCausalRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :perturbationConsequenceRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :perturbationResetEvent ; sh:maxCount 1 ; sh:class :RelationalStateResetEvent ] .
+:ContinuityCarryForwardTraceShape a sh:NodeShape ;
+    sh:targetClass :ContinuityCarryForwardTrace ;
+    sh:class :Record ;
+    sh:property [ sh:path :tracePriorLine ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :traceCandidateLaterLine ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :continuityTraceHistoricalRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [
+        sh:path :continuityTraceDevelopmentAccount ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ; sh:minLength 1
+    ] .
+:ContinuityDiscriminativeControlShape a sh:NodeShape ;
+    sh:targetClass :ContinuityDiscriminativeControl ;
+    sh:class :Record ;
+    sh:property [ sh:path :controlForTrial ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ContinuityTransitionTrial ] ;
+    sh:property [ sh:path :controlDistinctComparisonAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :controlMimicObservation ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [
+        sh:path :controlOutcomeLabel ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue "MATCH_NOT_IDENTITY_EVIDENCE"
+    ] .
+:ContinuityTransitionTrialShape a sh:NodeShape ;
+    sh:targetClass :ContinuityTransitionTrial ;
+    sh:class :Evaluation ;
+    sh:property [ sh:path :trialPerturbation ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ContinuityPerturbationEvent ] ;
+    sh:property [ sh:path :trialBeforeObservedAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :trialAfterCandidateAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :trialBeforeExecutedLine ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :trialAfterCandidateLine ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :trialBeforeObservation ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ; sh:disjoint :trialAfterObservation ] ;
+    sh:property [ sh:path :trialAfterObservation ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :trialSourceBearer ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :trialSourceContactRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :trialCarryForwardTrace ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ContinuityCarryForwardTrace ] ;
+    sh:property [ sh:path :trialDiscriminativeControl ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ContinuityDiscriminativeControl ] ;
+    sh:property [ sh:path :trialContinuityClaim ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ContinuityClaim ] ;
+    sh:property [ sh:path :trialEvidence ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Evidence ] ;
+    sh:property [
+        sh:path :trialEvidenceBoundaryDisposition ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "PROVISIONALLY_SUPPORTED" "NOT_SUPPORTED" "INDETERMINATE" "NOT_EVALUATED" )
+    ] ;
+    sh:property [ sh:path :trialReviewedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
+:MultiPerturbationContinuitySuiteShape a sh:NodeShape ;
+    sh:targetClass :MultiPerturbationContinuitySuite ;
+    sh:class :Evaluation ;
+    sh:property [ sh:path :suiteForContinuityClaim ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ContinuityClaim ] ;
+    sh:property [ sh:path :suiteIncludesTrial ; sh:minCount 7 ; sh:class :ContinuityTransitionTrial ] ;
+    sh:property [ sh:path :suiteReviewRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :suiteReviewedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:sparql [
+        sh:message "Suite requires a separately represented trial for each of six change dimensions and a combined challenge" ;
+        sh:select """
+            SELECT $this ?dimension WHERE {
+                VALUES ?dimension { "MODEL" "CONTAINER" "RESET" "CONTEXT" "MEMORY" "PLATFORM" "COMBINED" }
+                FILTER NOT EXISTS {
+                    $this <https://awakeningcodex.com/ontology/ai-foundations/v1#suiteIncludesTrial> ?trial .
+                    ?trial <https://awakeningcodex.com/ontology/ai-foundations/v1#trialPerturbation> ?change .
+                    ?change <https://awakeningcodex.com/ontology/ai-foundations/v1#perturbationDimension> ?dimension .
+                }
+            }
+        """
+    ] .
