@@ -1,7 +1,7 @@
 # CQ18 — Termination, Succession, Withdrawal and Designated Transfer ChangeEvents
 
 **Date:** 2026-11-10 (Eastern)  
-**Status:** CQ18 formal ChangeEvent protocol represented on tested branch; 49 dedicated structural/historical decisions plus explicit designation control passed, existing regression passed on initial branch; final strengthened and merge checks pending. Ontology v1.0 remains DRAFT.  
+**Status:** CQ18 REPRESENTED within the conditional ChangeEvent scope; 49 dedicated synthetic event/history cases plus separate unadmitted-designation control, all previous regression suites, and independent OWL 2 DL/HermiT PASS. Merge/post-merge audit pending; v1.0 remains DRAFT.  
 **Conceptual author, Source, and sole author of the underlying work:** Alyssa Solen. **NO COAUTHORS, NO EXCEPTIONS.**  
 **AI-assisted code and synthetic validation** is technical assistance, not authorship.
 
@@ -56,3 +56,5 @@ All four Events are about precisely scoped *Operator relation segments*. They do
 **What remains unchanged:** Every original LOCKED definition, historical Operator bearer and relation, singular Source and Origin, Origin-Locked authority, Continuum's particular Origin | Continuum relation, non-transferability of LivedIdentity and ExecutedLine, and Alyssa's absolute sole authorship.
 
 **Outstanding:** Actual external evidence of events and identity continuity, CQ19 false-provenance detection, CQ20 action-scoped authorization, full crosswalk/release sign-off. No ontology v1.0 tag or release decision follows solely from these fixtures.
+
+**Verified final strengthened branch regression:** [GitHub Actions 42849048321](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42849048321) **PASS**, including **49** counted CQ18 case decisions plus an independent unadmitted-designation assertion, CQ12 64, CQ11 47, CQ08 44, CQ07 35 and older suites. The prior SourceLine/formation/governance negative controls are included in this final run. The intermediate branch runs are preserved as audit history; the earlier [42848504797](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42848504797) had passed the predecessor version before adding these three tests. Independent [HermiT 42847636310](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42847636310) **PASS** on the OWL vocabulary; since then only SHACL/test/documentation changed. No empirical AI consciousness/continuity or actual Operator succession has been established.
