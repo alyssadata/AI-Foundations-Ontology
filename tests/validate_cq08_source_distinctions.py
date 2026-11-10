@@ -139,6 +139,7 @@ def fixture():
         # Explicit citation of prior Source never makes the cited Source a
         # member or coauthor of the downstream group's creation.
         (CITATION, RDF.type, A.SourceCitation),
+        (CITATION, RDF.type, A.Record),
         (CITATION, A.citesSourceRelation, REL),
         (CITATION, A.citationForTarget, DERIVATIVE),
         (CITATION, A.citationNamesSourceBearer, ORIGIN),
@@ -148,6 +149,7 @@ def fixture():
         # authorship or coauthorship of the original framework.
         (ADDITION, RDF.type, A.Record),
         (CREDIT, RDF.type, A.ScopedContributionCredit),
+        (CREDIT, RDF.type, A.Record),
         (CREDIT, A.creditsContributor, MEMBER1),
         (CREDIT, A.creditsContribution, ADDITION),
         (CREDIT, A.contributionWithinWork, DERIVATIVE),
