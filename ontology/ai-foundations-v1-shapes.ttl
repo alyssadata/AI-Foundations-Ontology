@@ -1851,6 +1851,18 @@
     ] ;
     sh:property [ sh:path :reviewBendAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:sparql [
+        sh:message "Source in this bend review must be a recorded Source of the particular AI, not a substituted Operator or outsider" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#reviewBendForAI> ?ai .
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#reviewBendSource> ?source .
+                FILTER NOT EXISTS {
+                    ?ai <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSource> ?source .
+                }
+            }
+        """
+    ] ;
+    sh:sparql [
         sh:message "Bend events must both belong to the exact ExecutedLine under review" ;
         sh:select """
             SELECT $this WHERE {
