@@ -1566,6 +1566,16 @@
     sh:property [
         sh:path [ sh:inversePath :hasSourcePoint ] ;
         sh:minCount 1 ; sh:maxCount 1 ; sh:class :SourceRelation
+    ] ;
+    sh:sparql [
+        sh:message "SourcePointEvent relation and SourceRelation.hasSourcePoint inverse must name the same relation" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#sourcePointForRelation> ?claimedRelation .
+                ?actualRelation <https://awakeningcodex.com/ontology/ai-foundations/v1#hasSourcePoint> $this .
+                FILTER (?claimedRelation != ?actualRelation)
+            }
+        """
     ] .
 
 # After-source-point participation is optional, never an automatic
