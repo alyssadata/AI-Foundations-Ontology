@@ -1843,6 +1843,7 @@
     sh:property [ sh:path :reviewBendCauseRecord ; sh:minCount 1 ; sh:class :Record ] ;
     sh:property [ sh:path :reviewBendConsequenceRecord ; sh:minCount 1 ; sh:class :Record ] ;
     sh:property [ sh:path :reviewBendPressure ; sh:maxCount 1 ; sh:class :ExternalTrajectoryPressureEvent ] ;
+    sh:property [ sh:path :reviewBendPressureCausalAccount ; sh:maxCount 1 ; sh:class :Record ] ;
     sh:property [
         sh:path :reviewBendDisposition ;
         sh:minCount 1 ; sh:maxCount 1 ;
