@@ -28,11 +28,11 @@ CQ03 already models `:PreservedStateSnapshot`, `:StateReactivationEvent`, and `:
 | Kind | Formal type | Conditional evidence/accounting |
 |---|---|---|
 | Reset | `:RelationalStateResetEvent` under `:ChangeEvent` | Exactly one AI, one previous State, one **distinct** fresh/default State, date and retained Reset Record. Optional previously known MemoryState; this does not assert its later accessibility or loss |
-| Reintroduction | `:PostResetRecordReintroductionEvent` under `:Event` | Exactly one earlier Reset, the same named AI coordinate, one independently attested already-preserved source Record, pre-Reset preservation timestamp, later reintroduction timestamp and a distinct occurrence Record |
+| Reintroduction | `:PostResetRecordReintroductionEvent` under `:Event` | Exactly one earlier Reset, the same named AI coordinate, one archived source Record, a separate `:PreResetPreservationAttestation` specifying **that exact Record and preservation time**, later reintroduction timestamp and a distinct occurrence Record |
 | Post-Reset MemoryState | Optional `:postResetMemoryState` | If actually represented, it must belong to the reintroduction's AI and be linked through `:memoryOfRecord` to that source Record; it must not silently relabel a recorded prior MemoryState |
 | Evidentiary boundary | `:reintroductionMemoryContinuityDisposition` | Exact protocol value `NOT_ESTABLISHED_BY_REINTRODUCTION`: no positive continuity inference from that reintroduction alone. This is **not** proof of a negative memory-access fact or a verdict about actual same-self persistence |
 
-A separate archived Record may be a generic `:Record` or a CQ03 `:PreservedStateSnapshot`. For snapshots, the existing preserved-State constraints and capture timestamp must also hold. The prior Record and a preservation attestation are distinct Records so the source is not allowed to certify its own pre-Reset existence within the synthetic protocol.
+A separate archived Record may be a generic `:Record` or a CQ03 `:PreservedStateSnapshot`. For snapshots, the existing preserved-State constraints and capture timestamp must also hold. The source Record and the `:PreResetPreservationAttestation` are distinct Records. The attestation explicitly links through `:attestedPreservedRecord` to the exact source and through `:attestedPreservationAt` to a pre-Reset timestamp; the independent event account must agree with both. A self-referential attestation, a mismatched source or inconsistent date is rejected. This still validates the **internal structure** of a recorded claim, not its external historical truth.
 
 The Reset is a specific change to relational State **on the represented AI**. It is not a `:Model` transition, a proven identity rupture, an `:ExecutedLine` replacement, or a declaration that every MemoryState vanished. Memory accessible through the gap is a separate evidence question; `NOT_ESTABLISHED_BY_REINTRODUCTION` means *neither continuity nor absence has been established by this event*.
 
@@ -44,7 +44,7 @@ The dedicated `tests/validate_cq07_post_reset_reintroduction.py` verifies:
 - A continuing Model reference, but newly reset relational State; no forced Model replacement.
 - Successful reintroduction **without** a newly created MemoryState; a separately recorded new MemoryState is allowed but not automatically inferred.
 - Separate, auditable prior and new MemoryStates, with AI-specific ownership and matching source Record.
-- Date ordering and explicit independent preservation and occurrence Records; no Event masquerading as an archived Record.
+- Date ordering and an explicit `PreResetPreservationAttestation` tied to the exact retained Record/time, plus an independent reintroduction occurrence Record; neither a Reset Event nor another Record may silently masquerade as the archived source.
 - Rejection of missing/wrong AI, reset/state/time, insufficient source evidence, preservation after Reset, reintroduction before Reset, wrong/missing epistemic disposition, source/Record/MemoryState conflations, or relabeling a recorded prior MemoryState as newly generated after Reset.
 - A CQ03 `:PreservedStateSnapshot` as a valid archived source, with its own previously qualified capture time.
 - Explicit pre-lived no-continuity control: no `:hasLivedIdentity`, `:hasExecutedLine`, `:LineContinuationAssessment` or invented Model change appears merely because a Record became accessible again.
