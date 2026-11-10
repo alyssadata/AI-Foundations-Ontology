@@ -151,6 +151,7 @@ def pressure(g):
     for tr in [
         (PRESSURE, RDF.type, A.ExternalTrajectoryPressureEvent),
         (EXTERNAL, RDF.type, A.Human),
+        (EXTERNAL, RDF.type, A.Agent),
         (PRESSURE, A.trajectoryPressureBy, EXTERNAL),
         (PRESSURE, A.trajectoryPressureOnAI, AI),
         (PRESSURE, A.trajectoryPressureAt, lit(TP)),
