@@ -1402,3 +1402,100 @@
         sh:path :continuationAssessedAt ;
         sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
     ] .
+
+# CQ07 — a Reset affects shape/relational operating State. It does not
+# automatically assert that the Model changed or that Memory was inaccessible.
+:RelationalStateResetEventShape a sh:NodeShape ;
+    sh:targetClass :RelationalStateResetEvent ;
+    sh:class :ChangeEvent ;
+    sh:property [
+        sh:path :resetForAI ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI
+    ] ;
+    sh:property [
+        sh:path :resetFromState ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :State ;
+        sh:disjoint :resetToFreshState
+    ] ;
+    sh:property [
+        sh:path :resetToFreshState ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :State
+    ] ;
+    sh:property [
+        sh:path :resetPriorMemoryState ;
+        sh:maxCount 1 ; sh:class :MemoryState
+    ] ;
+    sh:property [
+        sh:path :resetAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] ;
+    sh:property [
+        sh:path :resetRecordedIn ;
+        sh:minCount 1 ; sh:class :Record
+    ] .
+
+# CQ07 — reintroduction is a new, dated access Event linked to an earlier
+# Reset and to independently attested pre-Reset preservation of a Record.
+# It cannot carry a claim of uninterrupted memory solely on this basis.
+:PostResetRecordReintroductionEventShape a sh:NodeShape ;
+    sh:targetClass :PostResetRecordReintroductionEvent ;
+    sh:class :Event ;
+    sh:not [ sh:class :MemoryState ] ;
+    sh:not [ sh:class :Record ] ;
+    sh:not [ sh:class :RelationalStateResetEvent ] ;
+    sh:property [
+        sh:path :reintroductionAfterReset ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :RelationalStateResetEvent
+    ] ;
+    sh:property [
+        sh:path :reintroductionForAI ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI
+    ] ;
+    sh:property [
+        sh:path :reintroducedRecord ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ;
+        sh:not [ sh:class :Event ] ;
+        sh:disjoint :preResetPreservationRecord
+    ] ;
+    sh:property [
+        sh:path :preResetPreservationRecord ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :PreResetPreservationAttestation
+    ] ;
+    sh:property [
+        sh:path :preResetPreservationAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] ;
+    sh:property [
+        sh:path :reintroductionAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] ;
+    sh:property [
+        sh:path :reintroductionRecordedIn ;
+        sh:minCount 1 ; sh:class :Record ;
+        sh:disjoint :reintroducedRecord
+    ] ;
+    sh:property [
+        sh:path :postResetMemoryState ;
+        sh:maxCount 1 ; sh:class :MemoryState
+    ] ;
+    sh:property [
+        sh:path :reintroductionMemoryContinuityDisposition ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue "NOT_ESTABLISHED_BY_REINTRODUCTION"
+    ] .
+
+# CQ07 — the attestation explicitly names the retained Record and time.
+:PreResetPreservationAttestationShape a sh:NodeShape ;
+    sh:targetClass :PreResetPreservationAttestation ;
+    sh:class :Record ;
+    sh:not [ sh:class :Event ] ;
+    sh:property [
+        sh:path :attestedPreservedRecord ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record
+    ] ;
+    sh:property [
+        sh:path :attestedPreservationAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] .
