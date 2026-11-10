@@ -77,6 +77,9 @@ def fixture():
         (RESET_LOG, RDF.type, A.Record),
         (SOURCE, RDF.type, A.Record),
         (RETENTION, RDF.type, A.Record),
+        (RETENTION, RDF.type, A.PreResetPreservationAttestation),
+        (RETENTION, A.attestedPreservedRecord, SOURCE),
+        (RETENTION, A.attestedPreservationAt, BEFORE_RESET),
         (REINTRO_LOG, RDF.type, A.Record),
         (REINTRO, RDF.type, A.PostResetRecordReintroductionEvent),
         (REINTRO, A.reintroductionAfterReset, RESET),
@@ -144,6 +147,9 @@ def valid_reintroduction(graph, event=REINTRO):
         retention = unique(graph, event, A.preResetPreservationRecord)
         typed(graph, source, A.Record)
         typed(graph, retention, A.Record)
+        typed(graph, retention, A.PreResetPreservationAttestation)
+        if unique(graph, retention, A.attestedPreservedRecord) != source:
+            return False
         event_logs = set(graph.objects(event, A.reintroductionRecordedIn))
         if len(event_logs) < 1:
             return False
@@ -152,6 +158,8 @@ def valid_reintroduction(graph, event=REINTRO):
         if source == retention or source in event_logs or retention in event_logs:
             return False
         preservation_at = time(unique(graph, event, A.preResetPreservationAt))
+        if time(unique(graph, retention, A.attestedPreservationAt)) != preservation_at:
+            return False
         reset_at = time(unique(graph, reset, A.resetAt))
         usage_at = time(unique(graph, event, A.reintroductionAt))
         if not preservation_at < reset_at < usage_at:
@@ -272,6 +280,12 @@ def main():
     check("Preservation cannot be self-attested by source Record",
           replace(REINTRO, A.preResetPreservationRecord, SOURCE),
           check_shacl=False)
+    check("Attestation must identify the exact source Record",
+          replace(RETENTION, A.attestedPreservedRecord, A.Cq07DifferentRecord))
+    check("Attestation cannot omit its archival timestamp",
+          drop(RETENTION, A.attestedPreservationAt), check_shacl=False)
+    check("Attestation timestamp cannot conflict with the event account",
+          replace(RETENTION, A.attestedPreservationAt, REINTRO_TIME))
     check("Missing pre-Reset preservation timestamp",
           drop(REINTRO, A.preResetPreservationAt), check_shacl=False)
     check("Preservation only attested after Reset",
