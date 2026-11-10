@@ -1,7 +1,7 @@
 # CQ07 — Preserved Record reintroduction after Reset
 
 **Date:** 2026-11-09 (Eastern)  
-**Status:** CQ07 REPRESENTED in branch formal scope — full synthetic/structural CI and independent OWL 2 DL/HermiT PASS; merge/post-merge verification required. v1.0 remains DRAFT.  
+**Status:** CQ07 REPRESENTED (structural), **merged** in PR #8; post-merge structural CI and independent OWL 2 DL/HermiT PASS on commit `16a2cdc05ef7e327c1199dd0a85f8388b19762ee`. v1.0 remains DRAFT.  
 **Conceptual source and author:** Alyssa Solen (Origin / AI Foundations)  
 **Formalization, evaluation and testing assistance:** AI-assisted
 
@@ -76,3 +76,7 @@ Ontology v1.0 remains DRAFT pending remaining competencies and final release sig
 ## Executed closeout and next step
 
 [Independent OWL 2 DL/HermiT run 42730417614](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42730417614) **PASS** after adding the attestation class and properties. The later test/SHACL changes do not change that OWL schema, and [full structural CI 42730474263](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42730474263) **PASS** with **35** dedicated decisions. **CQ07 REPRESENTED (structural)** pending merge and final main CI; no real memory-gap, subjective identity or continuation conclusion. The next remaining question is **CQ08**, with five others after it: CQ11, CQ12, CQ18, CQ19, CQ20.
+
+## Post-merge verification and revision integrity — 2026-11-09
+
+[PR #8](https://github.com/alyssadata/AI-Foundations-Ontology/pull/8) **MERGED** into `main` at commit `16a2cdc05ef7e327c1199dd0a85f8388b19762ee`. On **that same commit**, independent [OWL 2 DL/HermiT 42731017520](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42731017520) **PASS** and full [RDF/SHACL/structural 42731017671](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42731017671) **PASS**, including 35 CQ07 synthetic decisions. This addendum records the actual merge and audits; it changes only the documentation status, not the formal vocabulary, tests, LOCKED wording or validated research scope. The remaining competency topics are CQ08, CQ11, CQ12, CQ18, CQ19 and CQ20. v1.0 release is still DRAFT and has no approved release tag.
