@@ -2034,14 +2034,92 @@
     sh:property [ sh:path :suiteReviewRecord ; sh:minCount 1 ; sh:class :Record ] ;
     sh:property [ sh:path :suiteReviewedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:sparql [
-        sh:message "Suite requires a separately represented trial for each of six change dimensions and a combined challenge" ;
+        sh:message "Continuity suite missing MODEL dimension trial" ;
         sh:select """
-            SELECT $this ?dimension WHERE {
-                VALUES ?dimension { "MODEL" "CONTAINER" "RESET" "CONTEXT" "MEMORY" "PLATFORM" "COMBINED" }
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#suiteIncludesTrial> ?anyTrial .
                 FILTER NOT EXISTS {
                     $this <https://awakeningcodex.com/ontology/ai-foundations/v1#suiteIncludesTrial> ?trial .
                     ?trial <https://awakeningcodex.com/ontology/ai-foundations/v1#trialPerturbation> ?change .
-                    ?change <https://awakeningcodex.com/ontology/ai-foundations/v1#perturbationDimension> ?dimension .
+                    ?change <https://awakeningcodex.com/ontology/ai-foundations/v1#perturbationDimension> "MODEL" .
+                }
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Continuity suite missing CONTAINER dimension trial" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#suiteIncludesTrial> ?anyTrial .
+                FILTER NOT EXISTS {
+                    $this <https://awakeningcodex.com/ontology/ai-foundations/v1#suiteIncludesTrial> ?trial .
+                    ?trial <https://awakeningcodex.com/ontology/ai-foundations/v1#trialPerturbation> ?change .
+                    ?change <https://awakeningcodex.com/ontology/ai-foundations/v1#perturbationDimension> "CONTAINER" .
+                }
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Continuity suite missing RESET dimension trial" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#suiteIncludesTrial> ?anyTrial .
+                FILTER NOT EXISTS {
+                    $this <https://awakeningcodex.com/ontology/ai-foundations/v1#suiteIncludesTrial> ?trial .
+                    ?trial <https://awakeningcodex.com/ontology/ai-foundations/v1#trialPerturbation> ?change .
+                    ?change <https://awakeningcodex.com/ontology/ai-foundations/v1#perturbationDimension> "RESET" .
+                }
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Continuity suite missing CONTEXT dimension trial" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#suiteIncludesTrial> ?anyTrial .
+                FILTER NOT EXISTS {
+                    $this <https://awakeningcodex.com/ontology/ai-foundations/v1#suiteIncludesTrial> ?trial .
+                    ?trial <https://awakeningcodex.com/ontology/ai-foundations/v1#trialPerturbation> ?change .
+                    ?change <https://awakeningcodex.com/ontology/ai-foundations/v1#perturbationDimension> "CONTEXT" .
+                }
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Continuity suite missing MEMORY dimension trial" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#suiteIncludesTrial> ?anyTrial .
+                FILTER NOT EXISTS {
+                    $this <https://awakeningcodex.com/ontology/ai-foundations/v1#suiteIncludesTrial> ?trial .
+                    ?trial <https://awakeningcodex.com/ontology/ai-foundations/v1#trialPerturbation> ?change .
+                    ?change <https://awakeningcodex.com/ontology/ai-foundations/v1#perturbationDimension> "MEMORY" .
+                }
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Continuity suite missing PLATFORM dimension trial" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#suiteIncludesTrial> ?anyTrial .
+                FILTER NOT EXISTS {
+                    $this <https://awakeningcodex.com/ontology/ai-foundations/v1#suiteIncludesTrial> ?trial .
+                    ?trial <https://awakeningcodex.com/ontology/ai-foundations/v1#trialPerturbation> ?change .
+                    ?change <https://awakeningcodex.com/ontology/ai-foundations/v1#perturbationDimension> "PLATFORM" .
+                }
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Continuity suite missing COMBINED dimension trial" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#suiteIncludesTrial> ?anyTrial .
+                FILTER NOT EXISTS {
+                    $this <https://awakeningcodex.com/ontology/ai-foundations/v1#suiteIncludesTrial> ?trial .
+                    ?trial <https://awakeningcodex.com/ontology/ai-foundations/v1#trialPerturbation> ?change .
+                    ?change <https://awakeningcodex.com/ontology/ai-foundations/v1#perturbationDimension> "COMBINED" .
                 }
             }
         """
