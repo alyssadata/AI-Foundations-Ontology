@@ -1513,6 +1513,17 @@
     sh:property [
         sh:path :hasCoAuthor ;
         sh:maxCount 0
+    ] ;
+    sh:property [
+        sh:path :hasSourceRelation ;
+        sh:node [
+            sh:class :SourceRelation ;
+            sh:property [
+                sh:path :hasSourceBearer ;
+                sh:minCount 1 ; sh:maxCount 1 ;
+                sh:hasValue :AlyssaSolen
+            ]
+        ]
     ] .
 # Named foundational works are covered even if class membership is removed
 # by a faulty import/edit. General downstream works remain independently
