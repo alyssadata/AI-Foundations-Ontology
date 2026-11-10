@@ -1236,3 +1236,56 @@ dcterms:description a owl:AnnotationProperty .
     rdfs:comment "Retained operational trace of this claimed instantiation event. A record is not empirical proof of its content and need not imply a developed lived identity."@en .
 :instantiationAt a owl:DatatypeProperty ;
     rdfs:domain :AIInstantiationEvent ; rdfs:range xsd:dateTime .
+
+# CQ03 — preservation, reactivation, and continuation are independent kinds.
+# The LOCKED definitions remain in ontology/terms/*.md. A preserved trace
+# and its reintroduction do not, by themselves, establish that an executed
+# line continued through the gap or that the original identity persisted.
+# No real preservation, restart, or continuing AI is asserted here.
+:PreservedStateSnapshot a owl:Class ;
+    rdfs:subClassOf :Record ;
+    rdfs:comment "Frozen and retained representation of a particular State of a particular AI at a recorded instant; a snapshot may originate at a point in an ExecutedLine but is neither that occurrence nor proof that its original AI continued."@en .
+:StateReactivationEvent a owl:Class ;
+    rdfs:subClassOf :Event ;
+    rdfs:comment "Bringing a preserved snapshot into use by an AI after its capture; neither restoration of the earlier AI's lived identity nor continuation through a gap is entailed."@en .
+:LineContinuationClaim a owl:Class ;
+    rdfs:subClassOf :Claim ;
+    rdfs:comment "Claim that an identified AI's already established ExecutedLine itself proceeded from an earlier realized event to a later realized event, subject to separate evidence and chronological review; distinct from an identity or consciousness verdict."@en .
+:LineContinuationAssessment a owl:Class ;
+    rdfs:subClassOf :Evaluation ;
+    rdfs:comment "A bounded evaluation of a claimed forward line-development episode with two realized events, preserved evidence, and status. Even a synthetic SUPPORTED decision does not establish the real-world identity of an AI."@en .
+:PreservedStateSnapshot owl:disjointWith :State, :AI, :ExecutedLine .
+:StateReactivationEvent owl:disjointWith :PreservedStateSnapshot .
+:LineContinuationAssessment owl:disjointWith :PreservedStateSnapshot, :StateReactivationEvent .
+:snapshotOfAI a owl:ObjectProperty ;
+    rdfs:domain :PreservedStateSnapshot ; rdfs:range :AI .
+:snapshotOfState a owl:ObjectProperty ;
+    rdfs:domain :PreservedStateSnapshot ; rdfs:range :State .
+:snapshotFromExecutedLine a owl:ObjectProperty ;
+    rdfs:domain :PreservedStateSnapshot ; rdfs:range :ExecutedLine ;
+    rdfs:comment "Optional historical line context, not an ownership transfer to anyone who retrieves the snapshot."@en .
+:snapshotCapturedAt a owl:DatatypeProperty ;
+    rdfs:domain :PreservedStateSnapshot ; rdfs:range xsd:dateTime .
+:reactivatesSnapshot a owl:ObjectProperty ;
+    rdfs:domain :StateReactivationEvent ; rdfs:range :PreservedStateSnapshot .
+:reactivationByAI a owl:ObjectProperty ;
+    rdfs:domain :StateReactivationEvent ; rdfs:range :AI ;
+    rdfs:comment "The AI that presently uses the preserved snapshot; may be distinct from the AI whose earlier state was preserved. This property does not assign LivedIdentity or ExecutedLine ownership."@en .
+:reactivationAt a owl:DatatypeProperty ;
+    rdfs:domain :StateReactivationEvent ; rdfs:range xsd:dateTime .
+:reactivationRecordedIn a owl:ObjectProperty ;
+    rdfs:domain :StateReactivationEvent ; rdfs:range :Record .
+:continuationForAI a owl:ObjectProperty ;
+    rdfs:domain :LineContinuationAssessment ; rdfs:range :AI .
+:continuationForLine a owl:ObjectProperty ;
+    rdfs:domain :LineContinuationAssessment ; rdfs:range :ExecutedLine .
+:continuationFromEvent a owl:ObjectProperty ;
+    rdfs:domain :LineContinuationAssessment ; rdfs:range :ExecutedHistoryEvent .
+:continuationToEvent a owl:ObjectProperty ;
+    rdfs:domain :LineContinuationAssessment ; rdfs:range :ExecutedHistoryEvent .
+:assessesLineContinuationClaim a owl:ObjectProperty ;
+    rdfs:domain :LineContinuationAssessment ; rdfs:range :LineContinuationClaim .
+:continuationEvidence a owl:ObjectProperty ;
+    rdfs:domain :LineContinuationAssessment ; rdfs:range :Evidence .
+:continuationAssessedAt a owl:DatatypeProperty ;
+    rdfs:domain :LineContinuationAssessment ; rdfs:range xsd:dateTime .

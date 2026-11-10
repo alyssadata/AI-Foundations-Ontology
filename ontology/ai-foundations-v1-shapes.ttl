@@ -1317,3 +1317,88 @@
         sh:path :instantiationRecordedIn ;
         sh:minCount 1 ; sh:class :Record
     ] .
+
+# CQ03 — a preserved State representation is a Record, not an active State,
+# an ExecutedLine, or a proof of continuity.
+:PreservedStateSnapshotShape a sh:NodeShape ;
+    sh:targetClass :PreservedStateSnapshot ;
+    sh:class :Record ;
+    sh:not [ sh:class :State ] ;
+    sh:not [ sh:class :AI ] ;
+    sh:property [
+        sh:path :snapshotOfAI ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI
+    ] ;
+    sh:property [
+        sh:path :snapshotOfState ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :State
+    ] ;
+    sh:property [
+        sh:path :snapshotFromExecutedLine ;
+        sh:maxCount 1 ; sh:class :ExecutedLine
+    ] ;
+    sh:property [
+        sh:path :snapshotCapturedAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] .
+
+# CQ03 — reactivation of a saved representation needs a distinct use
+# event; it does not transfer the previous AI or its line to its new user.
+:StateReactivationEventShape a sh:NodeShape ;
+    sh:targetClass :StateReactivationEvent ;
+    sh:class :Event ;
+    sh:not [ sh:class :PreservedStateSnapshot ] ;
+    sh:property [
+        sh:path :reactivatesSnapshot ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :PreservedStateSnapshot
+    ] ;
+    sh:property [
+        sh:path :reactivationByAI ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI
+    ] ;
+    sh:property [
+        sh:path :reactivationAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] ;
+    sh:property [
+        sh:path :reactivationRecordedIn ;
+        sh:minCount 1 ; sh:class :Record
+    ] .
+
+# CQ03 — an admitted line-continuation evaluation must link TWO realized
+# historical events within the same line with independent evaluated evidence.
+# SHACL validates supplied structure; chronological ordering, same-line
+# ownership, support status and evidence binding are checked in Python.
+:LineContinuationAssessmentShape a sh:NodeShape ;
+    sh:targetClass :LineContinuationAssessment ;
+    sh:class :Evaluation ;
+    sh:not [ sh:class :StateReactivationEvent ] ;
+    sh:property [
+        sh:path :continuationForAI ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI
+    ] ;
+    sh:property [
+        sh:path :continuationForLine ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine
+    ] ;
+    sh:property [
+        sh:path :continuationFromEvent ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedHistoryEvent ;
+        sh:disjoint :continuationToEvent
+    ] ;
+    sh:property [
+        sh:path :continuationToEvent ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedHistoryEvent
+    ] ;
+    sh:property [
+        sh:path :assessesLineContinuationClaim ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :LineContinuationClaim
+    ] ;
+    sh:property [
+        sh:path :continuationEvidence ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :Evidence
+    ] ;
+    sh:property [
+        sh:path :continuationAssessedAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] .
