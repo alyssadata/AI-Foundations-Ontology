@@ -1,7 +1,7 @@
 # CQ08 — Source distinctions and unconditional sole authorship
 
 **Date:** 2026-11-10 (Eastern)  
-**Status:** CQ08 REPRESENTED structurally on the tested branch: 44 synthetic competency decisions, full regressions and OWL 2 DL/HermiT PASS; PR/merge and post-merge checks required. v1.0 remains DRAFT.  
+**Status:** CQ08 REPRESENTED structurally and MERGED in PR #9; post-merge structural and independent OWL 2 DL/HermiT PASS at tested main commit `31f0419d9a7a9ee7a4c92f17fede557089b02175`. Ontology v1.0 remains DRAFT.  
 **Conceptual author, historical Source, sole author:** Alyssa Solen  
 **Implementation/test assistance:** AI-assisted; no coauthor designation.
 
@@ -69,3 +69,7 @@ The six class types are formally disjoint in OWL 2 DL. Their individual records 
 - **Revision integrity:** intermediate CI attempts intentionally revealed that initial assertions of Target/source-point coherence, participation chronology/source ownership, group formation timing/membership, SourceLine stage uniqueness and citation matching were enforced by the closed-world synthetic gate but not yet by SHACL. Rather than remove negative controls, the branch added scoped SHACL-SPARQL checks for these relationships. The first attempt also corrected explicit Record typing in synthetic Citation/Credit fixtures. All regressions passed after these repairs. Specific historic red attempts remain available in the GitHub Actions branch runs.
 - **Closed-world and open-world boundary:** SHACL checks typed/targeted records, source-to-target reciprocity and conditional temporal facts. The Python gate additionally validates particular expected dependency ordering and historical scope; it does not claim that every genuine downstream SourceLine in the world has exactly two dependencies. The one synthetic *citation cannot invent Origin group membership* test intentionally uses the particular scoped formation gate without imposing a universal ban on any later legitimately evidenced group membership.
 - **Formal competency status:** CQ08 **REPRESENTED** with these scope limits, not empirically proved. No signed v1.0 release is authorized.
+
+## Verified post-merge checks — 2026-11-10
+
+[Pull Request #9](https://github.com/alyssadata/AI-Foundations-Ontology/pull/9) **MERGED** (squash) to `main` at commit `31f0419d9a7a9ee7a4c92f17fede557089b02175`. On **that identical commit**, independent [OWL 2 DL/HermiT run 42839861856](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42839861856) **PASS** and full [RDF/SHACL/structural CI 42839861431](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42839861431) **PASS**, including 44 new CQ08 cases and the existing regression suite. These runs establish formal schema consistency and synthetic gate behavior, not an independent historical proof that every asserted Source event occurred. The updated competency count is **15 represented / 5 partial**, and the remaining CQ11, CQ12, CQ18, CQ19 and CQ20 require formal completion or explicit reviewed scope decisions. No release version/tag was issued. This post-merge addendum is a documentation-only status update and does not alter the tested ontology/test files.
