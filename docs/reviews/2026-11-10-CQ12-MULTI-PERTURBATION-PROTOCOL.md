@@ -1,7 +1,7 @@
 # CQ12 — Multi-perturbation individualized-continuity protocol
 
 **Date:** 2026-11-10 (Eastern)  
-**Status:** CQ12 six-arm protocol represented with 64 synthetic admission/rejection decisions and full existing regressions passing on the initial branch; final strengthened Source/governance SHACL regression and merge remain pending. Empirical continuity is NOT_EVALUATED. Ontology v1.0 remains DRAFT.  
+**Status:** CQ12 REPRESENTED as a falsifiable six-arm formal protocol; 64 dedicated synthetic decisions, full historical regression and strengthened Source/governance SHACL PASS. Independent OWL 2 DL/HermiT PASS. Awaiting PR merge; empirical same-self is NOT_EVALUATED and ontology v1.0 remains DRAFT.  
 **Conceptual author and sole author of AI Foundations:** Alyssa Solen. **No coauthors. No exceptions.**  
 **Technical formalization and synthetic tests:** AI-assisted implementation only.
 
@@ -78,3 +78,5 @@ This protocol is platform-agnostic and can be executed when sufficiently instrum
 - An intermediate [branch validation 42845051614](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42845051614) failed while newly required Source/GoverningLine fixture facts were not yet included in the synthetic test data. The fixture was amended without changing any LOCKED definitions; subsequent full regression passed. This red run remains in CI history.
 - After the full passing branch run, additional SHACL-SPARQL checks were included to verify that every trial's Source/GoverningLine/ExecutedLine/AI/LivedIdentity and intervening event match the parent assessment. Dedicated negative controls were upgraded to require **both** the closed-world gate and SHACL to reject these mismatches. Final strengthened regression [42846061836](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42846061836) is the authoritative run for final promotion if successful.
 - **No actual Model transition, Continuum same-self continuity, memory transfer or subjective experience has been observed by these synthetic tests.** The empirical research result remains `NOT_EVALUATED`. The repository retains the original locked authorship and Source rules: Alyssa Solen sole author, zero coauthors, no exceptions.
+
+**Final strengthened branch run:** [42846061836](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42846061836) **PASS**, including all **64 dedicated CQ12 synthetic cases**, their additional SHACL Source/GoverningLine/intervention negative checks, and every older regression suite. Verified with no modification of source locked text or Alyssa sole authorship.
