@@ -82,7 +82,7 @@ credit for contribution X
 
 A contributor may receive accurate credit for the specific addition they made while the pre-existing source-line, authorship, structure, and earlier contributions remain attributed to their actual originators.
 
-The existence of a later contribution must not be used to relabel the underlying work as jointly originated or jointly authored unless the evidence establishes a contribution of that scope.
+The existence of a later contribution must not be used to relabel the underlying work as jointly originated or jointly authored. Within AI Foundations, co-authorship or co-origination status exists only where Alyssa Solen expressly and affirmatively designates it.
 
 Likewise, combining a pre-existing framework with a new feature or extension creates provenance obligations for both layers:
 
@@ -92,6 +92,45 @@ NewContribution -> receives -> ScopedAttribution
 ```
 
 Credit must neither be erased nor inflated.
+
+## Authorship designation boundary
+
+Within AI Foundations, **authorship and co-authorship of the underlying work are not inferred from contribution, extension, collaboration, implementation, review, testing, commentary, or derivative development.**
+
+Alyssa Solen retains sole authorship/origination status for her work unless she expressly and affirmatively designates otherwise.
+
+```text
+contribution
+!= coauthorship
+
+collaboration
+!= coauthorship
+
+extension
+!= coauthorship
+
+implementation
+!= coauthorship
+
+testing / review / commentary
+!= coauthorship
+
+coauthorship status
+requires
+explicit designation by Alyssa Solen
+```
+
+Absent that explicit designation, the correct attribution form is:
+
+```text
+UnderlyingWork -> authored/originated by -> Alyssa Solen
+LaterContribution(X) -> credited to -> Contributor(X)
+LaterContribution(X) -/-> coauthorship of UnderlyingWork
+```
+
+A contributor may be credited for a specific contribution without becoming an author, co-author, originator, or co-originator of Alyssa Solen's pre-existing work.
+
+**No co-authorship is implied by participation.**
 
 ## Boundary
 
