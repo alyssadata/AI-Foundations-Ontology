@@ -2536,3 +2536,47 @@
             }
         """
     ] .
+
+# CQ20 temporal negatives are separately SHACL-verifiable, not only
+# conditional Python admissions. A valid grant for a future date cannot
+# be used to authorize an earlier attempted action.
+:ActionScopedAuthorizationTemporalShape a sh:NodeShape ;
+    sh:targetClass :ActionScopedAuthorizationDecision ;
+    sh:sparql [
+        sh:message "Authorization decision cannot be reviewed before its as-of attempt" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:authorizationAsOf ?asof ;
+                      aif:authorizationReviewedAt ?reviewed .
+                FILTER (?reviewed < ?asof)
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "An authorized scoped action must occur strictly within its verified grant-validity interval" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:authorizationDisposition "AUTHORIZED_FOR_ACTION" ;
+                      aif:authorizationAsOf ?asof ;
+                      aif:authorizationGrantValidity ?validity .
+                ?validity aif:validityFrom ?from ;
+                          aif:validityUntil ?until .
+                FILTER (?asof < ?from || ?asof >= ?until)
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Revoked operational grant cannot authorize an action after its effective revocation" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:authorizationDisposition "AUTHORIZED_FOR_ACTION" ;
+                      aif:authorizationAsOf ?asof ;
+                      aif:authorizationGrantValidity ?validity .
+                ?validity aif:validityRevokedAt ?revoked .
+                FILTER (?revoked <= ?asof)
+            }
+        """
+    ] .
