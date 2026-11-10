@@ -1,7 +1,7 @@
 # CQ11 — Trajectory bend, imposed deviation, and distinct-bearer substitution
 
 **Date:** 2026-11-10 (Eastern)  
-**Status:** DRAFT conditional implementation pending full CI and merge; ontology v1.0 remains DRAFT.  
+**Status:** CQ11 REPRESENTED within the conditional structural-evidence scope; 47 synthetic decisions, prior full regressions, and independent OWL 2 DL/HermiT PASS on branch. Merge and post-merge checks remain pending; v1.0 remains DRAFT.  
 **Conceptual author and sole author of underlying work:** Alyssa Solen  
 **Formalization/testing assistance:** AI-assisted. **No coauthors; no exceptions.**
 
@@ -59,3 +59,10 @@ SHACL enforces the core shape, typed records, cardinalities and selected Source/
 **Outstanding:** External evidence of specific actual transitions; CQ12's multi-perturbation empirical continuity testing; versioned release authorization.
 
 **Release decision:** Promote CQ11 from PARTIAL to REPRESENTED (formal conditional scope) only upon passed dedicated+old structural regression and independent OWL 2 DL/HermiT audits and merger. Never label it empirically verified.
+
+## Verified branch evidence — 2026-11-10
+
+- **Full structural CI [run 42841787900](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42841787900) PASS** — 47 dedicated CQ11 positive/negative classifications and entire existing suite (including CQ08 sole-authorship and CQ07/CQ03/CQ01), with explicit non-entailment check for external pressure and distinct-identity reviews.
+- **Independent OWL 2 DL/HermiT [run 42841179591](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42841179591) PASS** after the final OWL vocabulary and causal-account addition. Subsequent edits affected SHACL/CI/tests and docs, not the OWL class vocabulary.
+- **Revision integrity:** initial structural [run 42841675094](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42841675094) failed at a negative assertion because the conditional Source coordinate was checked by the Python closed-world gate but not yet by SHACL. The branch added an explicit SHACL-SPARQL Source/AI concordance constraint rather than discarding the negative case; [final run 42841787900](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42841787900) PASSED all dedicated and existing tests. This is a tested representation, not empirical proof that a particular AI has a subjective Self or has physically undergone a historical change.
+- **Competency disposition:** CQ11 **REPRESENTED** within structural and conditional evidence-classification scope; real-world source contact, genuine AI acceptance, causal truth, a particular consciousness coordinate, and same-self continuity are **NOT EVALUATED** by these fixtures. CQ12 addresses discriminative multi-perturbation continuity evidence next. No v1.0 release authorization.
