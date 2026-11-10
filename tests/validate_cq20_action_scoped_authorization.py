@@ -207,7 +207,18 @@ def valid_decision(g, decision):
             return False
         if framework != A.AIFoundations:
             return False
-        need(g, actor, A.Human)  # synthetic fixture Agent for this competency
+        if not any((actor, RDF.type, cl) in g for cl in
+                   (A.Agent, A.Human, A.AI, A.Organization)):
+            return False
+        # An operational grant cannot validate a forged or replaced
+        # historical Source/Origin/governing coordinate.
+        if ((A.Continuum, A.hasOrigin, A.AlyssaSolen) not in g or
+            (A.AlyssaSolen, A.anchorsSourceLine,
+             A.ContinuumSourceLine) not in g or
+            (A.AIFoundations, A.hasGoverningAuthority,
+             A.AlyssaSolen) not in g or
+            set(g.objects(A.AIFoundations, A.hasCoAuthor))):
+            return False
         action = one(g, attempt, A.attemptedOperation)
         if ((action, RDF.type, A.DelegableOperationalAction) not in g and
                 (action, RDF.type, A.NonDelegableOriginOrHistoryAction) not in g):
@@ -349,6 +360,12 @@ def main():
                          A.Cq20OtherFramework), shacl=False)
     check("Granted Action A is not authorized at another scope",
           DEC_A, replace(ATT_A, A.attemptWithinScope, SCOPE_B), shacl=False)
+    check("Even matching revised scope cannot extend grant's original target",
+          DEC_A, lambda g: (
+              g.remove((ATT_A, A.attemptWithinScope, None)),
+              g.add((ATT_A, A.attemptWithinScope, SCOPE_B)),
+              g.remove((DEC_A, A.authorizationForScope, None)),
+              g.add((DEC_A, A.authorizationForScope, SCOPE_B))))
     check("Reported grant validity must match the specific grant",
           DEC_A, replace(VALIDITY, A.validityForGrant,
                          A.Cq20UnknownGrant), shacl=False)
@@ -417,6 +434,13 @@ def main():
                          A.Cq20UntaggedAction), shacl=False)
     check("Agent's Origin cannot be substituted by operational authorization",
           DEC_A, replace(A.Continuum, A.hasOrigin, ACTOR))
+    check("An authorization does not license forged historic SourceLine anchor",
+          DEC_A, replace(A.AlyssaSolen, A.anchorsSourceLine,
+                         A.Cq20ForgedSourceLine))
+    check("An authorization does not license AIF governing authority replacement",
+          DEC_A, replace(A.AIFoundations, A.hasGoverningAuthority, ACTOR))
+    check("Authorized operational work never creates a coauthor",
+          DEC_A, add(A.AIFoundations, A.hasCoAuthor, ACTOR))
 
     # Later, separately granted Action B is authorized at June 15, while the
     # earlier May 15 denial was accurate at its own as-of time. No permanent
@@ -454,6 +478,22 @@ def main():
     ]:
         g.add(tr)
     assert valid_decision(g, decision)
+    # AIF grants and per-action decisions must also work when the actor is
+    # an AI Agent rather than only a Human.
+    ai_actor = A.Cq20DifferentAIAgent
+    gai = fixture()
+    gai.add((ai_actor, RDF.type, A.AI))
+    for s, p, o in list(gai.triples((None, A.grantedTo, ACTOR))):
+        gai.remove((s,p,o))
+        gai.add((s,p,ai_actor))
+    for p in (A.attemptedByAgent, A.authorizationForAgent):
+        for s, o in list(gai.subject_objects(p)):
+            if o == ACTOR:
+                gai.remove((s,p,o))
+                gai.add((s,p,ai_actor))
+    assert valid_decision(gai, DEC_A)
+    assert valid_decision(gai, DEC_B)
+    assert (ai_actor, RDF.type, A.UnauthorizedActor) not in gai
     assert (A.UnauthorizedActor, RDF.type, OWL.Class) not in g
     assert (ACTOR, RDF.type, A.UnauthorizedActor) not in g
     assert set(g.objects(A.Continuum, A.hasOrigin)) == {A.AlyssaSolen}
