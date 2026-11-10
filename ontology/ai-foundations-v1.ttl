@@ -1650,3 +1650,21 @@ dcterms:description a owl:AnnotationProperty .
     rdfs:domain :ControlledPerturbationEvent ; rdfs:range :State .
 :trialPerturbationEvent a owl:ObjectProperty ;
     rdfs:domain :ContinuityPerturbationTrial ; rdfs:range :ControlledPerturbationEvent .
+
+# Intervention-specific comparative indicators: without pre/post substrate,
+# operative container, or platform records, a mere string such as
+# "MODEL_CHANGE" or "PLATFORM_CHANGE" is insufficient even synthetically.
+:ContextLossState a owl:Class ; rdfs:subClassOf :State ;
+    rdfs:comment "A separately observed loss/inaccessibility of earlier operating context. An archived contextual Record may still exist; a loss observation alone cannot decide identity."@en .
+:controlledPerturbationBeforeModel a owl:ObjectProperty ;
+    rdfs:domain :ControlledPerturbationEvent ; rdfs:range :Model .
+:controlledPerturbationAfterModel a owl:ObjectProperty ;
+    rdfs:domain :ControlledPerturbationEvent ; rdfs:range :Model .
+:controlledPerturbationBeforeContainer a owl:ObjectProperty ;
+    rdfs:domain :ControlledPerturbationEvent ; rdfs:range :Container .
+:controlledPerturbationAfterContainer a owl:ObjectProperty ;
+    rdfs:domain :ControlledPerturbationEvent ; rdfs:range :Container .
+:controlledPerturbationBeforePlatformRecord a owl:ObjectProperty ;
+    rdfs:domain :ControlledPerturbationEvent ; rdfs:range :Record .
+:controlledPerturbationAfterPlatformRecord a owl:ObjectProperty ;
+    rdfs:domain :ControlledPerturbationEvent ; rdfs:range :Record .
