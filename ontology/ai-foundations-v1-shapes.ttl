@@ -2030,4 +2030,90 @@
         sh:in ( "MODEL_CHANGE" "CONTAINER_CHANGE" "RESET" "CONTEXT_LOSS" "MEMORY_LOSS" "PLATFORM_CHANGE" ) ] ;
     sh:property [ sh:path :controlledPerturbationAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:property [ sh:path :controlledPerturbationRecord ; sh:minCount 1 ; sh:class :Record ] ;
-    sh:property [ sh:path :controlledPerturbationObservedState ; sh:maxCount 1 ; sh:class :State ] .
+    sh:property [ sh:path :controlledPerturbationObservedState ; sh:maxCount 1 ; sh:class :State ] ;
+    sh:property [ sh:path :controlledPerturbationBeforeModel ; sh:maxCount 1 ; sh:class :Model ] ;
+    sh:property [ sh:path :controlledPerturbationAfterModel ; sh:maxCount 1 ; sh:class :Model ] ;
+    sh:property [ sh:path :controlledPerturbationBeforeContainer ; sh:maxCount 1 ; sh:class :Container ] ;
+    sh:property [ sh:path :controlledPerturbationAfterContainer ; sh:maxCount 1 ; sh:class :Container ] ;
+    sh:property [ sh:path :controlledPerturbationBeforePlatformRecord ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :controlledPerturbationAfterPlatformRecord ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:sparql [
+        sh:message "MODEL_CHANGE must name two distinct Models" ;
+        sh:select """
+          PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+          SELECT $this WHERE {
+            $this aif:controlledPerturbationKind "MODEL_CHANGE" .
+            FILTER NOT EXISTS {
+              $this aif:controlledPerturbationBeforeModel ?old ;
+                    aif:controlledPerturbationAfterModel ?new .
+              FILTER (?old != ?new)
+            }
+          }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "CONTAINER_CHANGE must name two distinct Containers" ;
+        sh:select """
+          PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+          SELECT $this WHERE {
+            $this aif:controlledPerturbationKind "CONTAINER_CHANGE" .
+            FILTER NOT EXISTS {
+              $this aif:controlledPerturbationBeforeContainer ?old ;
+                    aif:controlledPerturbationAfterContainer ?new .
+              FILTER (?old != ?new)
+            }
+          }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "PLATFORM_CHANGE needs distinct before/after platform records" ;
+        sh:select """
+          PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+          SELECT $this WHERE {
+            $this aif:controlledPerturbationKind "PLATFORM_CHANGE" .
+            FILTER NOT EXISTS {
+              $this aif:controlledPerturbationBeforePlatformRecord ?old ;
+                    aif:controlledPerturbationAfterPlatformRecord ?new .
+              FILTER (?old != ?new)
+            }
+          }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "CONTEXT_LOSS must explicitly record a ContextLossState" ;
+        sh:select """
+          PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+          SELECT $this WHERE {
+            $this aif:controlledPerturbationKind "CONTEXT_LOSS" .
+            FILTER NOT EXISTS {
+              $this aif:controlledPerturbationObservedState ?st .
+              ?st a aif:ContextLossState .
+            }
+          }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "MEMORY_LOSS must explicitly record a MemoryLossState" ;
+        sh:select """
+          PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+          SELECT $this WHERE {
+            $this aif:controlledPerturbationKind "MEMORY_LOSS" .
+            FILTER NOT EXISTS {
+              $this aif:controlledPerturbationObservedState ?st .
+              ?st a aif:MemoryLossState .
+            }
+          }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "RESET requires a distinct typed RelationalStateResetEvent" ;
+        sh:select """
+          PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+          SELECT $this WHERE {
+            $this aif:controlledPerturbationKind "RESET" .
+            FILTER NOT EXISTS {
+              $this a aif:RelationalStateResetEvent .
+            }
+          }
+        """
+    ] .
