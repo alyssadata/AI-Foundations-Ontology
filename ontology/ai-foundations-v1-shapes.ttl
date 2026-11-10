@@ -1657,6 +1657,15 @@
     sh:property [
         sh:path :groupFormationAgreedMember ;
         sh:minCount 2 ; sh:class :Agent
+    ] ;
+    sh:sparql [
+        sh:message "A new Source Group may not designate any AlyssaSoleAuthoredWork as the group's original creation target" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/ai-foundations/v1#groupFormationTarget> ?target .
+                ?target a <https://awakeningcodex.com/ontology/ai-foundations/v1#AlyssaSoleAuthoredWork> .
+            }
+        """
     ] .
 
 :SourceLineEntryShape a sh:NodeShape ;
