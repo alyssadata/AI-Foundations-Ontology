@@ -53,6 +53,10 @@ The next run [42954187101](https://github.com/alyssadata/AI-Foundations-Ontology
 
 Both failures remain in GitHub's actual audit history. These adjustments strengthen the implementation of source, chronology and evidence integrity; they do not revise the conceptual model or alter prior source definitions.
 
+## Verified branch outcome
+
+[Complete structural branch run 42954309513](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42954309513) **PASSED** the full regression suite, including **59 dedicated conditional-C checks**, after the two documented test-oracle repairs. The independent [OWL 2 DL profile and HermiT run 42953675910](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42953675910) **PASSED** on the new OWL vocabulary. Both are *branch* evidence; a separate dual post-merge main-commit check remains mandatory.
+
 ## Validation and release
 
 - Branch structural tests: `.github/workflows/validate-ontology.yml`, including all preceding competency and sole-authorship checks.
