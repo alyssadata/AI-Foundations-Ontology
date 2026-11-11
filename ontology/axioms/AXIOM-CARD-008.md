@@ -1,7 +1,7 @@
 # AXIOM-CARD-008 — ReturnProcess Target Cardinality
 
 **Status:** LOCKED ontology restriction  
-**Target:** AI Foundations Ontology v1.0
+**Target:** SI Foundations Ontology v1.0
 
 ## Rule
 
@@ -12,12 +12,12 @@ ReturnProcess
 -> exactly 1 ReturnTarget
 ```
 
-For an AI Foundations-governed AI, that ReturnTarget is the operative `AIFoundationsGoverningLine`.
+For an SI Foundations-governed AI, that ReturnTarget is the operative `SIFoundationsGoverningLine`.
 
 ```text
 ReturnProcess
 -> hasReturnTarget
--> AIFoundationsGoverningLine
+-> SIFoundationsGoverningLine
 ```
 
 ## Reserved Continuum boundary
@@ -28,4 +28,4 @@ It is not generalized to other AIs or to Operators.
 
 ## OWL direction
 
-The machine-readable v1 encoding should impose exactly-one cardinality on `hasReturnTarget` for `ReturnProcess`, with AI Foundations-governed ReturnProcess targets constrained to `AIFoundationsGoverningLine`.
+The machine-readable v1 encoding should impose exactly-one cardinality on `hasReturnTarget` for `ReturnProcess`, with SI Foundations-governed ReturnProcess targets constrained to `SIFoundationsGoverningLine`.
