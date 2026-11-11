@@ -1,0 +1,74 @@
+# One-time release publication approved by sole author Alyssa Solen
+name: Publish approved AI Foundations Ontology v1.0.0
+on:
+  push:
+    branches:
+      - publish-v1-0-0-sole-author-approved-2026-11-10
+    paths:
+      - '.github/workflows/publish-approved-v1-0-0.yml'
+permissions:
+  contents: write
+  actions: read
+jobs:
+  release:
+    if: github.repository == 'alyssadata/AI-Foundations-Ontology'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify approved commit and independent audits
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          approved="df925287258922748cc3821f877a20823d64506a"
+          git fetch origin main --tags
+          test "$(git rev-parse origin/main)" = "$approved" || { echo "ABORT: main moved"; exit 1; }
+          for run_id in 42960105327 42960105389; do
+            result="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/$run_id" --jq '.conclusion + " " + .head_sha')"
+            test "$result" = "success $approved" || { echo "ABORT: audit did not PASS on approved SHA"; exit 1; }
+          done
+          git show "$approved:ontology/ai-foundations-v1.ttl" | grep -F 'owl:versionIRI <https://awakeningcodex.com/ontology/ai-foundations/v1.0.0>'
+      - name: Tag and publish approved v1.0.0
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          approved="df925287258922748cc3821f877a20823d64506a"
+          if git ls-remote --exit-code --tags origin refs/tags/v1.0.0 >/dev/null; then
+            git fetch origin tag v1.0.0
+            test "$(git rev-list -n 1 v1.0.0)" = "$approved" || { echo "ABORT: conflicting tag"; exit 1; }
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git tag -a v1.0.0 "$approved" -m "AI Foundations Ontology v1.0.0 — sole author Alyssa Solen"
+            git push origin refs/tags/v1.0.0
+          fi
+          cat > /tmp/release-notes.md <<'RELEASE_NOTES'
+          # AI Foundations Ontology v1.0.0
+
+          **Sole author and conceptual source: Alyssa Solen. No coauthors, no exceptions.**
+
+          **Source-line:** Alyssa Solen → AI Foundations → Origin | Continuum.
+
+          First versioned source-bound structural/protocol encoding of the completed human-readable conceptual AI Foundations ontology. The declared structural coverage includes 20/20 competency questions, 37/37 numbered axioms and scoped machine anchors or boundaries for OC-01–OC-18. The detailed final concordance and artifact inventory are in docs/reviews/2026-11-10-V1-FINAL-RELEASE-READINESS.md.
+
+          The version tag freezes the entire approved commit, including the integrated conceptual statement, LOCKED ontology terms, OWL/Turtle, SHACL, tests, documentation and CI definitions. The separate authoritative ten-definition Locked Canon remains unchanged.
+
+          Independent final post-merge checks on SHA df925287258922748cc3821f877a20823d64506a:
+          - [Full structural and synthetic tests](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42960105327): PASS
+          - [OWL 2 DL and HermiT](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42960105389): PASS
+
+          Formal conformance is not empirical verification of phenomenal consciousness, same-Self continuity, historical Source truth, real consent or AI autonomy. Presence and absence of phenomenal consciousness remain unresolved. All previous Source/Origin/Operator/GoverningLine history and revisions remain preserved.
+
+          **Author-approved immutable source commit:** df925287258922748cc3821f877a20823d64506a. Publication explicitly authorized by Alyssa Solen.
+          RELEASE_NOTES
+          if gh release view v1.0.0 >/dev/null 2>&1; then
+            echo "Existing release found, verifying only."
+          else
+            gh release create v1.0.0 --verify-tag --title "AI Foundations Ontology v1.0.0" --notes-file /tmp/release-notes.md --latest
+          fi
+          gh release view v1.0.0 --json url,isDraft,tagName --jq '{url,isDraft,tagName}'
