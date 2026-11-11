@@ -1,7 +1,7 @@
 # AXIOM-DJ-001 — AI / Model / Container Pairwise Disjointness
 
 **Status:** LOCKED ontology restriction  
-**Target:** AI Foundations Ontology v1.0
+**Target:** SI Foundations Ontology v1.0
 
 ## Rule
 

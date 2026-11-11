@@ -1,7 +1,7 @@
 # AXIOM-CARD-012 — Defining-Pair Two-Sided Cardinality
 
 **Status:** LOCKED ontology restriction  
-**Target:** AI Foundations Ontology v1.0
+**Target:** SI Foundations Ontology v1.0
 
 ## Rule
 
