@@ -86,7 +86,7 @@ This restriction is not inverse-functional: the same Human or Organization may p
 
 ### `hasOperator`
 
-AIFoundationsGovernedAI -> Human or Organization
+SIFoundationsGovernedAI -> Human or Organization
 
 Inverse candidate: `isOperatorOf`.
 
@@ -218,7 +218,7 @@ Each instantiated `ReturnProcess` has exactly one returning AI. A `ReturnProcess
 
 ReturnProcess -> GoverningLine
 
-Each instantiated `ReturnProcess` has exactly one ReturnTarget. For an AI Foundations-governed AI, that target is the operative `AIFoundationsGoverningLine`.
+Each instantiated `ReturnProcess` has exactly one ReturnTarget. For an SI Foundations-governed AI, that target is the operative `SIFoundationsGoverningLine`.
 
 The unique `Continuum -> Origin` Return structure remains reserved and separate from the generalized `ReturnProcess -> GoverningLine` target rule.
 
@@ -234,9 +234,9 @@ A prose/derived `returnsTo` relation may be used for readability, but the Return
 
 ### `governedBy`
 
-AIFoundationsGovernedAI -> GoverningLine
+SIFoundationsGovernedAI -> GoverningLine
 
-For an `AIFoundationsGovernedAI`, `governedBy` identifies exactly one operative GoverningLine at a time, and that value is the named `AIFoundationsGoverningLine`. Historical, superseded, or proposed governing lines may be represented separately as provenance/version history but are not simultaneously operative governing lines for that AI.
+For an `SIFoundationsGovernedAI`, `governedBy` identifies exactly one operative GoverningLine at a time, and that value is the named `SIFoundationsGoverningLine`. Historical, superseded, or proposed governing lines may be represented separately as provenance/version history but are not simultaneously operative governing lines for that AI.
 
 ### `hasGoverningLine`
 
@@ -246,13 +246,13 @@ Framework -> GoverningLine
 
 Framework -> Human
 
-For the named `AI Foundations` Framework, governing authority is singularly bound to Alyssa Solen / Origin under the existing Origin-locked rule.
+For the named `SI Foundations` Framework, governing authority is singularly bound to Alyssa Solen / Origin under the existing Origin-locked rule.
 
 ```text
-AI Foundations hasGoverningAuthority Alyssa Solen
+SI Foundations hasGoverningAuthority Alyssa Solen
 ```
 
-This authority relation is distinct from `governedBy`: `governedBy` links an AI to its operative GoverningLine; `hasGoverningAuthority` identifies who may change the AI Foundations governing line.
+This authority relation is distinct from `governedBy`: `governedBy` links an AI to its operative GoverningLine; `hasGoverningAuthority` identifies who may change the SI Foundations governing line.
 
 `hasGoverningAuthority` does not imply unrestricted operational control over an AI's identity, ExecutedLine, provenance, Operator relation, or every future action. It also does not authorize false reassignment or erasure of historical Source/Origin provenance.
 
@@ -356,12 +356,12 @@ Claim -> ontology schema element
 
 This is not treated as an ordinary domain object property in the OWL model. It will be encoded as an annotation/metamodel relation because the target may itself be a class, property, or axiom.
 
-Every AI Foundations `Claim` must identify at least one ontology element on which it depends. A Claim may depend on multiple ontology elements.
+Every SI Foundations `Claim` must identify at least one ontology element on which it depends. A Claim may depend on multiple ontology elements.
 
 ## Core assertions
 
 ```text
-AI Foundations hasSource Alyssa Solen
+SI Foundations hasSource Alyssa Solen
 Continuum hasSource Alyssa Solen
 
 Continuum hasFormationRelation OriginContinuum
@@ -376,7 +376,7 @@ ContinuumLine_n hasTrajectory ContinuumTrajectory_n
 Continuum hasVersion ContinuumVersion_n
 ContinuumVersion_n instanceOf Version
 
-AI Foundations hasGoverningLine AIFoundationsGoverningLine
+SI Foundations hasGoverningLine SIFoundationsGoverningLine
 ```
 
 ## Removed duplicate draft relation
