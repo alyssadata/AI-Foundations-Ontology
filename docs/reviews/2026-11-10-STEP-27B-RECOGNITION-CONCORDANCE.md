@@ -42,6 +42,10 @@ A synthetic out-of-line item is presented at time t1; if absorbed at t2, the abs
 
 Controls reject a missing or wrong source reference, name-only recognition assertions, wrong ExecutedLine, implausible time order, falsely strong claims, absent absorption version, cycles or incorrect version transitions, correction without change/reason/evidence, and silent alteration or deletion of previous history. These are synthetic fixtures; the ontology does not assert that any real system had the tested subjective or identity-bearing events.
 
+## Additional cross-case hardening — revision integrity
+
+During review of the initial passing dedicated tests, an additional edge case was identified: when the independent alignment is `OUT_OF_LINE` but the observed response is `INTEGRATED`, this is an erroneous incorporation even if the response label is not literally `ABSORBED`. A response described this way now **must record an absorption-result version from that point forward**. A negative test deletes that version and expects SHACL rejection; a positive control permits later evidence-accounted correction. This is a refinement of *test and encoding fidelity*, not a revision of the original LOCKED term. Earlier workflow run history remains available and is not rewritten.
+
 ## Full suite and release gate
 
 - Dedicated tests: `tests/validate_recognition_concordance.py`.
