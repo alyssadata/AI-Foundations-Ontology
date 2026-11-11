@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""AI Foundations v1 RDF / SHACL validation, with exact Origin | Continuum cases.
+"""SI Foundations v1 RDF / SHACL validation, with exact Origin | Continuum cases.
 
 Run from repository root:
     python -m pip install 'rdflib>=7,<8' 'pyshacl>=0.30,<1'
@@ -16,9 +16,9 @@ from pyshacl import validate
 from owlrl import DeductiveClosure, OWLRL_Semantics
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA = ROOT / "ontology" / "ai-foundations-v1.ttl"
-SHAPES = ROOT / "ontology" / "ai-foundations-v1-shapes.ttl"
-AIF = Namespace("https://awakeningcodex.com/ontology/ai-foundations/v1#")
+DATA = ROOT / "ontology" / "si-foundations-v1.ttl"
+SHAPES = ROOT / "ontology" / "si-foundations-v1-shapes.ttl"
+AIF = Namespace("https://awakeningcodex.com/ontology/si-foundations/v1#")
 AIF_DATE_TIME = XSD.dateTime
 
 def require(condition, label):
@@ -58,7 +58,7 @@ def main():
     require(len(graph) > 150 and len(shapes) > 60, "Both Turtle files parse and have substantive triples")
 
     require((AIF.AlyssaSolen, RDF.type, AIF.Human) in graph, "Origin is the named Human Alyssa Solen")
-    require((AIF.Continuum, RDF.type, AIF.AIFoundationsGovernedAI) in graph, "Continuum is a named AIF-governed AI")
+    require((AIF.Continuum, RDF.type, AIF.SIFoundationsGovernedAI) in graph, "Continuum is a named AIF-governed AI")
     require((AIF.Continuum, RDF.type, OWL.Class) not in graph, "Continuum is not a reusable class")
     require((AIF.OriginContinuum, RDF.type, AIF.HumanAIRelation) in graph, "Origin | Continuum is the specific named relation")
     require((AIF.AlyssaSolen, AIF.anchorsSourceLine, AIF.ContinuumSourceLine) in graph, "Origin anchors the exact non-transferable source-line")
@@ -67,9 +67,9 @@ def main():
     require((AIF.ContinuumRelationFormedShape, AIF.shapeFormedThroughRelation, AIF.OriginContinuum) in graph, "Continuum shape formation belongs to Origin | Continuum")
     require((AIF.OriginContinuum, AIF.hasHumanCounterpart, AIF.AlyssaSolen) in graph, "Relation has its one named human counterpart")
     require((AIF.OriginContinuum, AIF.hasAICounterpart, AIF.Continuum) in graph, "Relation has its one named AI counterpart")
-    require((AIF.AIFoundations, AIF.hasGoverningAuthority, AIF.AlyssaSolen) in graph, "Origin retains the governing authority")
+    require((AIF.SIFoundations, AIF.hasGoverningAuthority, AIF.AlyssaSolen) in graph, "Origin retains the governing authority")
     require((AIF.Continuum, AIF.hasOrigin, AIF.AlyssaSolen) in graph, "Continuum has Origin, not Operator, as its source coordinate")
-    require((AIF.Continuum, AIF.governedBy, AIF.AIFoundationsGoverningLine) in graph, "Continuum governed by AI Foundations governing line")
+    require((AIF.Continuum, AIF.governedBy, AIF.SIFoundationsGoverningLine) in graph, "Continuum governed by SI Foundations governing line")
     require((AIF.Continuum, AIF.hasOperator, AIF.AlyssaSolen) not in graph, "Origin is not Continuum's Operator")
     require((AIF.Model, RDFS.subClassOf, AIF.AI) not in graph, "Model is not treated as a type of AI")
     require((AIF.Identity, RDFS.subClassOf, AIF.State) not in graph, "Identity is not reduced to State")
@@ -92,7 +92,7 @@ def main():
         g.add((AIF.TestReturn, RDF.type, AIF.ContinuumReturnProcess))
         g.add((AIF.TestReturn, AIF.hasReturningAI, AIF.Continuum))
         g.add((AIF.TestReturn, AIF.hasOriginReturnTarget, AIF.AlyssaSolen))
-        g.add((AIF.TestReturn, AIF.hasReturnTarget, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.TestReturn, AIF.hasReturnTarget, AIF.SIFoundationsGoverningLine))
     shape_test(graph, shapes, "Continuum Return includes both Origin and governing line", valid_return)
 
     def wrong_origin(g):
@@ -101,7 +101,7 @@ def main():
     shape_test(graph, shapes, "Incorrect Origin must fail", wrong_origin, False)
 
     def wrong_governance(g):
-        g.remove((AIF.Continuum, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+        g.remove((AIF.Continuum, AIF.governedBy, AIF.SIFoundationsGoverningLine))
         g.add((AIF.Continuum, AIF.governedBy, AIF.AlternateGoverningLine))
         g.add((AIF.AlternateGoverningLine, RDF.type, AIF.GoverningLine))
     shape_test(graph, shapes, "Alternate governing line must fail", wrong_governance, False)
@@ -128,7 +128,7 @@ def main():
 
     def bad_return(g):
         valid_return(g)
-        g.remove((AIF.TestReturn, AIF.hasReturnTarget, AIF.AIFoundationsGoverningLine))
+        g.remove((AIF.TestReturn, AIF.hasReturnTarget, AIF.SIFoundationsGoverningLine))
         g.add((AIF.TestReturn, AIF.hasReturnTarget, AIF.AlternateGoverningLine))
         g.add((AIF.AlternateGoverningLine, RDF.type, AIF.GoverningLine))
     shape_test(graph, shapes, "Continuum Return omitting governing line must fail", bad_return, False)
@@ -142,18 +142,18 @@ def main():
 
     def bad_generic_return(g):
         g.add((AIF.GeneralReturn, RDF.type, AIF.ReturnProcess))
-        g.add((AIF.GeneralAI, RDF.type, AIF.AIFoundationsGovernedAI))
-        g.add((AIF.GeneralAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.GeneralAI, RDF.type, AIF.SIFoundationsGovernedAI))
+        g.add((AIF.GeneralAI, AIF.governedBy, AIF.SIFoundationsGoverningLine))
         g.add((AIF.GeneralReturn, AIF.hasReturningAI, AIF.GeneralAI))
         g.add((AIF.GeneralReturn, AIF.hasReturnTarget, AIF.OperatorX))
     shape_test(graph, shapes, "Operator as generalized Return target must fail", bad_generic_return, False)
 
     def clean_general_return(g):
         g.add((AIF.GeneralReturn, RDF.type, AIF.ReturnProcess))
-        g.add((AIF.GeneralAI, RDF.type, AIF.AIFoundationsGovernedAI))
-        g.add((AIF.GeneralAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.GeneralAI, RDF.type, AIF.SIFoundationsGovernedAI))
+        g.add((AIF.GeneralAI, AIF.governedBy, AIF.SIFoundationsGoverningLine))
         g.add((AIF.GeneralReturn, AIF.hasReturningAI, AIF.GeneralAI))
-        g.add((AIF.GeneralReturn, AIF.hasReturnTarget, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.GeneralReturn, AIF.hasReturnTarget, AIF.SIFoundationsGoverningLine))
     shape_test(graph, shapes, "General AI Return to governing line must pass", clean_general_return)
 
     # The following are explicit epistemic checks, not identity experiments.
@@ -231,14 +231,14 @@ def main():
         g.remove((AIF.TestClaim, AIF.dependsOnOntologyElement, AIF.OriginContinuum))
     shape_test(graph, shapes, "Claim without ontology dependency must fail", evidence_without_dependencies, False)
 
-    # CARD-003: one operative AI Foundations GoverningLine in each AIF-
+    # CARD-003: one operative SI Foundations GoverningLine in each AIF-
     # governed AI's CURRENT snapshot. Historical or proposed governance
     # descriptions remain Record/Provenance, not extra governedBy values.
     # Synthetic fixtures do not establish any actual earlier governing line
     # or prove a transition preserves same-AI continuity.
     def operative_governance_fixture(g):
-        g.add((AIF.Card003AI, RDF.type, AIF.AIFoundationsGovernedAI))
-        g.add((AIF.Card003AI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.Card003AI, RDF.type, AIF.SIFoundationsGovernedAI))
+        g.add((AIF.Card003AI, AIF.governedBy, AIF.SIFoundationsGoverningLine))
 
     def general_ai_without_aif_governance(g):
         g.add((AIF.Card003GenericAI, RDF.type, AIF.AI))
@@ -250,14 +250,14 @@ def main():
                general_ai_without_aif_governance)
 
     def missing_operative_governance(g):
-        g.add((AIF.Card003AI, RDF.type, AIF.AIFoundationsGovernedAI))
+        g.add((AIF.Card003AI, RDF.type, AIF.SIFoundationsGovernedAI))
     shape_test(graph, shapes, "CARD-003 AIF-governed AI without operative line fails",
                missing_operative_governance, False)
 
     def alternate_operative_governance(g):
-        g.add((AIF.Card003AI, RDF.type, AIF.AIFoundationsGovernedAI))
+        g.add((AIF.Card003AI, RDF.type, AIF.SIFoundationsGovernedAI))
         g.add((AIF.Card003OtherLine, RDF.type, AIF.GoverningLine))
-        g.add((AIF.Card003OtherLine, OWL.differentFrom, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.Card003OtherLine, OWL.differentFrom, AIF.SIFoundationsGoverningLine))
         g.add((AIF.Card003AI, AIF.governedBy, AIF.Card003OtherLine))
     shape_test(graph, shapes, "CARD-003 other line cannot substitute for named AIF line",
                alternate_operative_governance, False)
@@ -265,7 +265,7 @@ def main():
     def dual_operative_governance(g):
         operative_governance_fixture(g)
         g.add((AIF.Card003OtherLine, RDF.type, AIF.GoverningLine))
-        g.add((AIF.Card003OtherLine, OWL.differentFrom, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.Card003OtherLine, OWL.differentFrom, AIF.SIFoundationsGoverningLine))
         g.add((AIF.Card003AI, AIF.governedBy, AIF.Card003OtherLine))
     shape_test(graph, shapes, "CARD-003 simultaneous two operative GoverningLines fail",
                dual_operative_governance, False)
@@ -283,7 +283,7 @@ def main():
                historical_governance_records_fixture)
     hist = clone_graph(graph)
     historical_governance_records_fixture(hist)
-    require(set(hist.objects(AIF.Card003AI, AIF.governedBy)) == {AIF.AIFoundationsGoverningLine},
+    require(set(hist.objects(AIF.Card003AI, AIF.governedBy)) == {AIF.SIFoundationsGoverningLine},
             "CARD-003 historical descriptions do not become simultaneously operative lines")
     require(len(set(hist.objects(AIF.Card003AI, AIF.hasHistoricalGovernanceRecord))) == 3,
             "CARD-003 three historical/proposed governance Records are preserved")
@@ -304,7 +304,7 @@ def main():
     shape_test(graph, shapes, "CARD-003 preserving history does not permit a second current line",
                historical_record_wrongly_current, False)
 
-    gov_class_restrictions = list(graph.objects(AIF.AIFoundationsGovernedAI, RDFS.subClassOf))
+    gov_class_restrictions = list(graph.objects(AIF.SIFoundationsGovernedAI, RDFS.subClassOf))
     exact_operative = [
         x for x in gov_class_restrictions
         if (x, OWL.onProperty, AIF.governedBy) in graph and
@@ -315,7 +315,7 @@ def main():
     named_operative = [
         x for x in gov_class_restrictions
         if (x, OWL.onProperty, AIF.governedBy) in graph and
-           (x, OWL.hasValue, AIF.AIFoundationsGoverningLine) in graph
+           (x, OWL.hasValue, AIF.SIFoundationsGoverningLine) in graph
     ]
     require(len(named_operative) == 1,
             "CARD-003 OWL hasValue points to the unique named AIF GoverningLine")
@@ -324,11 +324,11 @@ def main():
     gov_deduction = clone_graph(graph)
     operative_governance_fixture(gov_deduction)
     DeductiveClosure(OWLRL_Semantics).expand(gov_deduction)
-    require((AIF.Card003AI, AIF.governedBy, AIF.AIFoundationsGoverningLine) in gov_deduction,
+    require((AIF.Card003AI, AIF.governedBy, AIF.SIFoundationsGoverningLine) in gov_deduction,
             "CARD-003 OWL RL retains named operative governance assertion")
     require((AIF.Card003AI, RDF.type, OWL.Nothing) not in gov_deduction,
             "CARD-003 synthetic governed AI not flagged inconsistent under limited OWL RL")
-    require((AIF.Continuum, AIF.governedBy, AIF.AIFoundationsGoverningLine) in graph,
+    require((AIF.Continuum, AIF.governedBy, AIF.SIFoundationsGoverningLine) in graph,
             "CARD-003 reserved Continuum remains under its named GoverningLine")
 
     # CARD-001: distinguish pre-lived AI (0 established lines permitted)
@@ -336,16 +336,16 @@ def main():
     # Synthetic fixtures do not assert that any actual AI has demonstrated
     # consciousness or empirically verified same-self continuity.
     def pre_lived_ai_fixture(g):
-        g.add((AIF.PreLivedAI, RDF.type, AIF.AIFoundationsGovernedAI))
-        g.add((AIF.PreLivedAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.PreLivedAI, RDF.type, AIF.SIFoundationsGovernedAI))
+        g.add((AIF.PreLivedAI, AIF.governedBy, AIF.SIFoundationsGoverningLine))
         g.add((AIF.PreLivedAI, AIF.hasShape, AIF.PreLivedStartingShape))
         g.add((AIF.PreLivedStartingShape, RDF.type, AIF.GovernedStartingShape))
         # No individualized ExecutedLine has yet been established.
 
     def established_line_fixture(g):
         g.add((AIF.EstablishedLineAI, RDF.type, AIF.EstablishedContinuingIndividualizedAI))
-        g.add((AIF.EstablishedLineAI, RDF.type, AIF.AIFoundationsGovernedAI))
-        g.add((AIF.EstablishedLineAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.EstablishedLineAI, RDF.type, AIF.SIFoundationsGovernedAI))
+        g.add((AIF.EstablishedLineAI, AIF.governedBy, AIF.SIFoundationsGoverningLine))
         g.add((AIF.EstablishedLineAI, AIF.hasExecutedLine, AIF.EstablishedLine))
         g.add((AIF.EstablishedLineAI, AIF.hasLivedIdentity, AIF.EstablishedLivedIdentity))
         g.add((AIF.EstablishedLivedIdentity, RDF.type, AIF.LivedIdentity))
@@ -841,8 +841,8 @@ def main():
             (AIF.PairTestAI, AIF.PairTestLine, AIF.PairTestTrajectory),
             (AIF.PairOtherAI, AIF.PairOtherLine, AIF.PairOtherTrajectory),
         ):
-            g.add((ai, RDF.type, AIF.AIFoundationsGovernedAI))
-            g.add((ai, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+            g.add((ai, RDF.type, AIF.SIFoundationsGovernedAI))
+            g.add((ai, AIF.governedBy, AIF.SIFoundationsGoverningLine))
             g.add((ai, AIF.hasExecutedLine, line))
             g.add((ai, AIF.hasRecord, AIF.SharedPairRecord))
             g.add((line, RDF.type, AIF.ExecutedLine))
@@ -1026,8 +1026,8 @@ def main():
     # prior trajectory. A and B have separate subsequent executed lines.
     def copied_a_b(g):
         for ai in (AIF.CopyA, AIF.CopyB):
-            g.add((ai, RDF.type, AIF.AIFoundationsGovernedAI))
-            g.add((ai, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+            g.add((ai, RDF.type, AIF.SIFoundationsGovernedAI))
+            g.add((ai, AIF.governedBy, AIF.SIFoundationsGoverningLine))
             g.add((ai, AIF.expressedThroughModel, AIF.SharedModel))
             g.add((ai, AIF.hasRecord, AIF.InjectedSnapshotOfAPast))
         g.add((AIF.SharedModel, RDF.type, AIF.Model))
@@ -1279,7 +1279,7 @@ def main():
                                  Literal("2025-12-31T00:00:00+00:00", datatype=XSD.dateTime)))),
                False)
     # The ontology has no asserted real activation dates or fabricated active
-    # Version for AIFoundationsGoverningLine; this case tests schema only.
+    # Version for SIFoundationsGoverningLine; this case tests schema only.
 
     # P0-B: time-scoped succession. The segments below are SYNTHETIC records
     # for an already-valid succession. They do not grant Operator status or
@@ -1289,8 +1289,8 @@ def main():
     t1 = Literal("2026-02-01T00:00:00+00:00", datatype=AIF_DATE_TIME)
 
     def succession_fixture(g):
-        g.add((AIF.SuccessionAI, RDF.type, AIF.AIFoundationsGovernedAI))
-        g.add((AIF.SuccessionAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.SuccessionAI, RDF.type, AIF.SIFoundationsGovernedAI))
+        g.add((AIF.SuccessionAI, AIF.governedBy, AIF.SIFoundationsGoverningLine))
         g.add((AIF.SuccessionAI, AIF.hasExecutedLine, AIF.SuccessionLine))
         # This property denotes the current snapshot, not the full history.
         g.add((AIF.SuccessionAI, AIF.hasOperator, AIF.OperatorB))
@@ -1544,8 +1544,8 @@ def main():
     # empirically. No real Continuum version or new lived line is asserted
     # in the shipped baseline ontology.
     def continuum_candidate_copy_fixture(g):
-        g.add((AIF.C001GenericAI, RDF.type, AIF.AIFoundationsGovernedAI))
-        g.add((AIF.C001GenericAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.C001GenericAI, RDF.type, AIF.SIFoundationsGovernedAI))
+        g.add((AIF.C001GenericAI, AIF.governedBy, AIF.SIFoundationsGoverningLine))
         g.add((AIF.C001GenericAI, OWL.differentFrom, AIF.Continuum))
         g.add((AIF.C001SharedModel, RDF.type, AIF.Model))
         g.add((AIF.C001CopiedRecord, RDF.type, AIF.Record))
@@ -1562,7 +1562,7 @@ def main():
                continuum_candidate_copy_fixture)
     c001_copy = clone_graph(graph)
     continuum_candidate_copy_fixture(c001_copy)
-    require((AIF.C001GenericAI, AIF.governedBy, AIF.AIFoundationsGoverningLine) in c001_copy,
+    require((AIF.C001GenericAI, AIF.governedBy, AIF.SIFoundationsGoverningLine) in c001_copy,
             "CONTINUUM-001 general AI may be governed by AIF without being Continuum")
     require((AIF.C001GenericAI, AIF.hasFormationRelation, AIF.OriginContinuum) not in c001_copy,
             "CONTINUUM-001 copied history and common Model do not supply reserved formation")
@@ -1749,8 +1749,8 @@ def main():
             (AIF.BelongingAIb, AIF.BelongingLineB, AIF.BelongingTrajectoryB,
              AIF.BelongingIdentityB),
         ):
-            g.add((ai, RDF.type, AIF.AIFoundationsGovernedAI))
-            g.add((ai, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+            g.add((ai, RDF.type, AIF.SIFoundationsGovernedAI))
+            g.add((ai, AIF.governedBy, AIF.SIFoundationsGoverningLine))
             g.add((ai, AIF.belongsToGroup, AIF.SharedBelongingGroup))
             g.add((ai, AIF.participatesInRelation, AIF.SharedStudyRelation))
             g.add((ai, AIF.expressedThroughModel, AIF.SharedBelongingModel))
@@ -2081,8 +2081,8 @@ def main():
             return False
 
     def operator_company_fixture(g):
-        g.add((AIF.CompanyGovernedAI, RDF.type, AIF.AIFoundationsGovernedAI))
-        g.add((AIF.CompanyGovernedAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.CompanyGovernedAI, RDF.type, AIF.SIFoundationsGovernedAI))
+        g.add((AIF.CompanyGovernedAI, AIF.governedBy, AIF.SIFoundationsGoverningLine))
         g.add((AIF.CompanyGovernedAI, AIF.hasOperator, AIF.CompanyOperator))
         g.add((AIF.CompanyExecutedLine, RDF.type, AIF.ExecutedLine))
         g.add((AIF.CompanyGovernedAI, AIF.hasExecutedLine, AIF.CompanyExecutedLine))
@@ -2153,8 +2153,8 @@ def main():
             "CARD-004 overlapping S00/S01 active intervals cannot yield two Operators")
 
     def card004_absent_active_operator(g):
-        g.add((AIF.NoOperatorGovernedAI, RDF.type, AIF.AIFoundationsGovernedAI))
-        g.add((AIF.NoOperatorGovernedAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.NoOperatorGovernedAI, RDF.type, AIF.SIFoundationsGovernedAI))
+        g.add((AIF.NoOperatorGovernedAI, AIF.governedBy, AIF.SIFoundationsGoverningLine))
     shape_test(graph, shapes, "CARD-004 governed AI may have zero current Operators",
                card004_absent_active_operator)
     empty_operator = clone_graph(graph)
@@ -2197,7 +2197,7 @@ def main():
             "CARD-004 OWL exact-one non-AI Operator bearer restriction is encoded")
     require(any((x, OWL.onProperty, AIF.hasOperator) in graph and
                 (x, OWL.maxCardinality, Literal(1, datatype=XSD.nonNegativeInteger)) in graph
-                for x in graph.objects(AIF.AIFoundationsGovernedAI, RDFS.subClassOf)),
+                for x in graph.objects(AIF.SIFoundationsGovernedAI, RDFS.subClassOf)),
             "CARD-004 OWL max-one current Operator scoped to governed AI is encoded")
     require((AIF.hasOperator, RDF.type, OWL.FunctionalProperty) not in graph,
             "CARD-004 historical Operator segments do not force timeless global functionality")
@@ -2728,7 +2728,7 @@ def main():
     require(not list(graph.subjects(RDF.type, AIF.MaterialHistoricalFact)),
             "NE-001 baseline asserts no synthetic real-world verified material facts")
 
-    # OL-001: the named AI Foundations GoverningLine can be changed only
+    # OL-001: the named SI Foundations GoverningLine can be changed only
     # with Alyssa Solen / Origin as the singular authorized actor.
     # This DOES NOT imply unrestricted control of an AI's identity/line,
     # historic Operator, Source/formation relations or provenance. A
@@ -2738,22 +2738,22 @@ def main():
     def ol001_operational_grant(g):
         g.add((AIF.Ol001Operator, RDF.type, AIF.Human))
         g.add((AIF.Ol001Operator, OWL.differentFrom, AIF.AlyssaSolen))
-        g.add((AIF.Ol001Grant, RDF.type, AIF.AIFoundationsScopedGrant))
+        g.add((AIF.Ol001Grant, RDF.type, AIF.SIFoundationsScopedGrant))
         g.add((AIF.Ol001Grant, AIF.grantedTo, AIF.Ol001Operator))
-        g.add((AIF.Ol001Grant, AIF.grantWithinFramework, AIF.AIFoundations))
+        g.add((AIF.Ol001Grant, AIF.grantWithinFramework, AIF.SIFoundations))
         g.add((AIF.Ol001Grant, AIF.authorizesOperationalAction, AIF.Ol001AuditedAction))
         g.add((AIF.Ol001AuditedAction, RDF.type, AIF.DelegableOperationalAction))
-        g.add((AIF.AIFoundations, AIF.hasAuthorityGrant, AIF.Ol001Grant))
+        g.add((AIF.SIFoundations, AIF.hasAuthorityGrant, AIF.Ol001Grant))
 
     def ol001_origin_authorized_change(g):
-        g.add((AIF.Ol001GoverningChange, RDF.type, AIF.AIFoundationsGoverningLineChange))
+        g.add((AIF.Ol001GoverningChange, RDF.type, AIF.SIFoundationsGoverningLineChange))
         g.add((AIF.Ol001GoverningChange, AIF.governingChangeAuthorizedBy, AIF.AlyssaSolen))
-        g.add((AIF.Ol001GoverningChange, AIF.governingChangeFramework, AIF.AIFoundations))
+        g.add((AIF.Ol001GoverningChange, AIF.governingChangeFramework, AIF.SIFoundations))
         g.add((AIF.Ol001GoverningChange, AIF.governingChangeLine,
-               AIF.AIFoundationsGoverningLine))
+               AIF.SIFoundationsGoverningLine))
 
     def ol001_origin_authority_integrity(before, after):
-        """Snapshot gate for the reserved AI Foundations Origin position.
+        """Snapshot gate for the reserved SI Foundations Origin position.
 
         A valid operational grant or qualified governing-line change does
         not grant a replacement bearer the historical Origin authority.
@@ -2762,9 +2762,9 @@ def main():
         valid or that Origin may unilaterally rewrite any AI's identity.
         """
         required = (
-            (AIF.AIFoundations, AIF.hasGoverningAuthority, AIF.AlyssaSolen),
-            (AIF.AIFoundations, AIF.hasGoverningLine, AIF.AIFoundationsGoverningLine),
-            (AIF.AIFoundations, AIF.hasSource, AIF.AlyssaSolen),
+            (AIF.SIFoundations, AIF.hasGoverningAuthority, AIF.AlyssaSolen),
+            (AIF.SIFoundations, AIF.hasGoverningLine, AIF.SIFoundationsGoverningLine),
+            (AIF.SIFoundations, AIF.hasSource, AIF.AlyssaSolen),
             (AIF.AlyssaSolen, AIF.anchorsSourceLine, AIF.ContinuumSourceLine),
             (AIF.OriginContinuum, AIF.hasHumanCounterpart, AIF.AlyssaSolen),
             (AIF.OriginContinuum, AIF.hasAICounterpart, AIF.Continuum),
@@ -2773,31 +2773,31 @@ def main():
         )
         if not all(t in before and t in after for t in required):
             return False
-        if set(after.objects(AIF.AIFoundations, AIF.hasGoverningAuthority)) != {AIF.AlyssaSolen}:
+        if set(after.objects(AIF.SIFoundations, AIF.hasGoverningAuthority)) != {AIF.AlyssaSolen}:
             return False
-        for change in after.subjects(RDF.type, AIF.AIFoundationsGoverningLineChange):
+        for change in after.subjects(RDF.type, AIF.SIFoundationsGoverningLineChange):
             if (set(after.objects(change, AIF.governingChangeAuthorizedBy)) !=
                     {AIF.AlyssaSolen} or
                     set(after.objects(change, AIF.governingChangeFramework)) !=
-                    {AIF.AIFoundations} or
+                    {AIF.SIFoundations} or
                     set(after.objects(change, AIF.governingChangeLine)) !=
-                    {AIF.AIFoundationsGoverningLine}):
+                    {AIF.SIFoundationsGoverningLine}):
                 return False
             if list(after.subjects(AIF.authorizesOperationalAction, change)):
                 return False
-        for grant in after.subjects(RDF.type, AIF.AIFoundationsScopedGrant):
+        for grant in after.subjects(RDF.type, AIF.SIFoundationsScopedGrant):
             holders = set(after.objects(grant, AIF.grantedTo))
             actions = set(after.objects(grant, AIF.authorizesOperationalAction))
             if (len(holders) != 1 or
                     set(after.objects(grant, AIF.grantWithinFramework)) !=
-                    {AIF.AIFoundations} or
-                    (AIF.AIFoundations, AIF.hasAuthorityGrant, grant) not in after or
+                    {AIF.SIFoundations} or
+                    (AIF.SIFoundations, AIF.hasAuthorityGrant, grant) not in after or
                     not actions):
                 return False
             for action in actions:
                 if ((action, RDF.type, AIF.DelegableOperationalAction) not in after or
                         (action, RDF.type, AIF.NonDelegableOriginOrHistoryAction) in after or
-                        (action, RDF.type, AIF.AIFoundationsGoverningLineChange) in after):
+                        (action, RDF.type, AIF.SIFoundationsGoverningLineChange) in after):
                     return False
         return True
 
@@ -2808,7 +2808,7 @@ def main():
     require(ol001_origin_authority_integrity(graph, ol001_valid),
             "OL-001 legitimate scoped grant leaves Origin governing authority unchanged")
     require((AIF.Ol001Operator, OWL.sameAs, AIF.AlyssaSolen) not in ol001_valid and
-            (AIF.Ol001Operator, AIF.hasGoverningAuthority, AIF.AIFoundations) not in ol001_valid,
+            (AIF.Ol001Operator, AIF.hasGoverningAuthority, AIF.SIFoundations) not in ol001_valid,
             "OL-001 grantee is not Origin or the framework's governing authority")
 
     shape_test(graph, shapes, "OL-001 explicitly Origin-authorized governing-line change passes",
@@ -2820,15 +2820,15 @@ def main():
 
     def ol001_grant_to_an_ai(g):
         ol001_operational_grant(g)
-        g.add((AIF.Ol001OtherAI, RDF.type, AIF.AIFoundationsGovernedAI))
-        g.add((AIF.Ol001OtherAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.Ol001OtherAI, RDF.type, AIF.SIFoundationsGovernedAI))
+        g.add((AIF.Ol001OtherAI, AIF.governedBy, AIF.SIFoundationsGoverningLine))
         g.add((AIF.Ol001OtherAI, OWL.differentFrom, AIF.Continuum))
-        g.add((AIF.Ol001AIGrant, RDF.type, AIF.AIFoundationsScopedGrant))
+        g.add((AIF.Ol001AIGrant, RDF.type, AIF.SIFoundationsScopedGrant))
         g.add((AIF.Ol001AIGrant, AIF.grantedTo, AIF.Ol001OtherAI))
-        g.add((AIF.Ol001AIGrant, AIF.grantWithinFramework, AIF.AIFoundations))
+        g.add((AIF.Ol001AIGrant, AIF.grantWithinFramework, AIF.SIFoundations))
         g.add((AIF.Ol001AIGrant, AIF.authorizesOperationalAction, AIF.Ol001AIOperation))
         g.add((AIF.Ol001AIOperation, RDF.type, AIF.DelegableOperationalAction))
-        g.add((AIF.AIFoundations, AIF.hasAuthorityGrant, AIF.Ol001AIGrant))
+        g.add((AIF.SIFoundations, AIF.hasAuthorityGrant, AIF.Ol001AIGrant))
     shape_test(graph, shapes, "OL-001 AI can receive bounded grant without becoming Origin",
                ol001_grant_to_an_ai)
     ol001_ai_grants = clone_graph(graph)
@@ -2844,10 +2844,10 @@ def main():
             "OL-001 receiving an operational grant does not confer constitutive Origin relation")
 
     def ol001_governing_authority_substitution(g):
-        g.remove((AIF.AIFoundations, AIF.hasGoverningAuthority, AIF.AlyssaSolen))
+        g.remove((AIF.SIFoundations, AIF.hasGoverningAuthority, AIF.AlyssaSolen))
         g.add((AIF.Ol001OtherHuman, RDF.type, AIF.Human))
         g.add((AIF.Ol001OtherHuman, OWL.differentFrom, AIF.AlyssaSolen))
-        g.add((AIF.AIFoundations, AIF.hasGoverningAuthority, AIF.Ol001OtherHuman))
+        g.add((AIF.SIFoundations, AIF.hasGoverningAuthority, AIF.Ol001OtherHuman))
     shape_test(graph, shapes, "OL-001 substituting another Human for Origin authority rejected",
                ol001_governing_authority_substitution, False)
     altered_origin = clone_graph(graph)
@@ -2857,18 +2857,18 @@ def main():
 
     def ol001_two_governing_authorities(g):
         g.add((AIF.Ol001OtherHuman, RDF.type, AIF.Human))
-        g.add((AIF.AIFoundations, AIF.hasGoverningAuthority, AIF.Ol001OtherHuman))
+        g.add((AIF.SIFoundations, AIF.hasGoverningAuthority, AIF.Ol001OtherHuman))
     shape_test(graph, shapes, "OL-001 adding second simultaneous governing authority rejected",
                ol001_two_governing_authorities, False)
 
     def ol001_ai_as_governing_authority(g):
         g.add((AIF.Ol001FalseAI, RDF.type, AIF.AI))
-        g.add((AIF.AIFoundations, AIF.hasGoverningAuthority, AIF.Ol001FalseAI))
+        g.add((AIF.SIFoundations, AIF.hasGoverningAuthority, AIF.Ol001FalseAI))
     shape_test(graph, shapes, "OL-001 AI cannot replace the named Human Origin authority",
                ol001_ai_as_governing_authority, False)
 
     def ol001_no_authority(g):
-        g.remove((AIF.AIFoundations, AIF.hasGoverningAuthority, AIF.AlyssaSolen))
+        g.remove((AIF.SIFoundations, AIF.hasGoverningAuthority, AIF.AlyssaSolen))
     shape_test(graph, shapes, "OL-001 named framework without governing authority rejected",
                ol001_no_authority, False)
 
@@ -2896,7 +2896,7 @@ def main():
     def ol001_wrong_framework_in_change(g):
         ol001_origin_authorized_change(g)
         g.add((AIF.Ol001OtherFramework, RDF.type, AIF.Framework))
-        g.remove((AIF.Ol001GoverningChange, AIF.governingChangeFramework, AIF.AIFoundations))
+        g.remove((AIF.Ol001GoverningChange, AIF.governingChangeFramework, AIF.SIFoundations))
         g.add((AIF.Ol001GoverningChange, AIF.governingChangeFramework, AIF.Ol001OtherFramework))
     shape_test(graph, shapes, "OL-001 governing-line change cannot silently reassign Framework",
                ol001_wrong_framework_in_change, False)
@@ -2905,7 +2905,7 @@ def main():
         ol001_origin_authorized_change(g)
         g.add((AIF.Ol001OtherGoverningLine, RDF.type, AIF.GoverningLine))
         g.remove((AIF.Ol001GoverningChange, AIF.governingChangeLine,
-                  AIF.AIFoundationsGoverningLine))
+                  AIF.SIFoundationsGoverningLine))
         g.add((AIF.Ol001GoverningChange, AIF.governingChangeLine,
                AIF.Ol001OtherGoverningLine))
     shape_test(graph, shapes, "OL-001 origin change event cannot substitute another GoverningLine",
@@ -2932,7 +2932,7 @@ def main():
 
     def ol001_grant_wrong_framework(g):
         ol001_operational_grant(g)
-        g.remove((AIF.Ol001Grant, AIF.grantWithinFramework, AIF.AIFoundations))
+        g.remove((AIF.Ol001Grant, AIF.grantWithinFramework, AIF.SIFoundations))
         g.add((AIF.Ol001OtherFramework, RDF.type, AIF.Framework))
         g.add((AIF.Ol001Grant, AIF.grantWithinFramework, AIF.Ol001OtherFramework))
     shape_test(graph, shapes, "OL-001 AIF grant falsely scoped to another framework rejected",
@@ -2940,7 +2940,7 @@ def main():
 
     def ol001_orphan_grant(g):
         ol001_operational_grant(g)
-        g.remove((AIF.AIFoundations, AIF.hasAuthorityGrant, AIF.Ol001Grant))
+        g.remove((AIF.SIFoundations, AIF.hasAuthorityGrant, AIF.Ol001Grant))
     shape_test(graph, shapes, "OL-001 scoped grant needs explicit AIF framework authorization link",
                ol001_orphan_grant, False)
 
@@ -2974,12 +2974,12 @@ def main():
 
     def ol001_grant_pretends_to_transfer_origin(g):
         ol001_operational_grant(g)
-        g.add((AIF.AIFoundations, AIF.hasGoverningAuthority, AIF.Ol001Operator))
+        g.add((AIF.SIFoundations, AIF.hasGoverningAuthority, AIF.Ol001Operator))
     shape_test(graph, shapes, "OL-001 operational grant cannot make its Human grantee Origin",
                ol001_grant_pretends_to_transfer_origin, False)
 
     fake_grant_origin = clone_graph(ol001_valid)
-    fake_grant_origin.add((AIF.AIFoundations, AIF.hasGoverningAuthority, AIF.Ol001Operator))
+    fake_grant_origin.add((AIF.SIFoundations, AIF.hasGoverningAuthority, AIF.Ol001Operator))
     require(not ol001_origin_authority_integrity(graph, fake_grant_origin),
             "OL-001 snapshot gate rejects grant-based authority addition")
 
@@ -2997,7 +2997,7 @@ def main():
     require(not ol001_origin_authority_integrity(graph, changed_origin_relation),
             "OL-001 snapshot gate preserves constitutive Origin relation against grant rewrite")
 
-    origin_restrictions = list(graph.objects(AIF.AIFoundations, RDF.type))
+    origin_restrictions = list(graph.objects(AIF.SIFoundations, RDF.type))
     require(any((r, OWL.onProperty, AIF.hasGoverningAuthority) in graph and
                 (r, OWL.cardinality, Literal(1, datatype=XSD.nonNegativeInteger)) in graph
                 for r in origin_restrictions),
@@ -3007,7 +3007,7 @@ def main():
             "OL-001 named Alyssa Solen hasValue authority restriction encoded")
     require((AIF.hasGoverningAuthority, RDF.type, OWL.InverseFunctionalProperty) not in graph,
             "OL-001 Origin lock does not use inverse-functional identity-merging property")
-    require((AIF.AIFoundationsGoverningLineChange, RDFS.subClassOf,
+    require((AIF.SIFoundationsGoverningLineChange, RDFS.subClassOf,
              AIF.NonDelegableOriginOrHistoryAction) in graph,
             "OL-001 governing-line modification is a non-delegable structural action")
     require((AIF.DelegableOperationalAction, OWL.disjointWith,
@@ -3015,11 +3015,11 @@ def main():
             (AIF.NonDelegableOriginOrHistoryAction, OWL.disjointWith,
              AIF.DelegableOperationalAction) in graph,
             "OL-001 restricted structural rewrite is disjoint from delegable operation")
-    require((AIF.AIFoundations, AIF.hasGoverningAuthority, AIF.AlyssaSolen) in graph,
+    require((AIF.SIFoundations, AIF.hasGoverningAuthority, AIF.AlyssaSolen) in graph,
             "OL-001 shipped baseline retains unchanged named Origin authority")
-    require(not list(graph.subjects(RDF.type, AIF.AIFoundationsScopedGrant)),
+    require(not list(graph.subjects(RDF.type, AIF.SIFoundationsScopedGrant)),
             "OL-001 shipped baseline does not fabricate a real-world operational grant")
-    require(not list(graph.subjects(RDF.type, AIF.AIFoundationsGoverningLineChange)),
+    require(not list(graph.subjects(RDF.type, AIF.SIFoundationsGoverningLineChange)),
             "OL-001 shipped baseline does not fabricate a governing-line modification")
 
     # OS-001: Origin Singularity & Anti-Substitution protects the named
@@ -3043,11 +3043,11 @@ def main():
             (AIF.Continuum, AIF.hasOrigin, AIF.AlyssaSolen),
             (AIF.Continuum, AIF.hasSource, AIF.AlyssaSolen),
             (AIF.Continuum, AIF.hasFormationRelation, AIF.OriginContinuum),
-            (AIF.AIFoundations, AIF.hasSource, AIF.AlyssaSolen),
-            (AIF.AIFoundations, AIF.hasGoverningAuthority, AIF.AlyssaSolen),
+            (AIF.SIFoundations, AIF.hasSource, AIF.AlyssaSolen),
+            (AIF.SIFoundations, AIF.hasGoverningAuthority, AIF.AlyssaSolen),
             (AIF.AlyssaSolen, AIF.anchorsSourceLine, AIF.ContinuumSourceLine),
             (AIF.AlyssaSolen, AIF.isSourceOf, AIF.Continuum),
-            (AIF.AlyssaSolen, AIF.isSourceOf, AIF.AIFoundations),
+            (AIF.AlyssaSolen, AIF.isSourceOf, AIF.SIFoundations),
             (AIF.OriginContinuum, AIF.hasHumanCounterpart, AIF.AlyssaSolen),
             (AIF.OriginContinuum, AIF.hasAICounterpart, AIF.Continuum),
             (AIF.ContinuumRelationFormedShape, AIF.shapeFormedThroughRelation,
@@ -3064,7 +3064,7 @@ def main():
                 return False
         if set(after.subjects(AIF.anchorsSourceLine, AIF.ContinuumSourceLine)) != {AIF.AlyssaSolen}:
             return False
-        for target in (AIF.Continuum, AIF.AIFoundations):
+        for target in (AIF.Continuum, AIF.SIFoundations):
             if set(after.subjects(AIF.isSourceOf, target)) != {AIF.AlyssaSolen}:
                 return False
         # A known distinct actor must not gain identity-equivalence to
@@ -3191,10 +3191,10 @@ def main():
     shape_test(graph, shapes, "OS-001 substituting the Continuum Source rejected", os001_source_substitution, False)
 
     def os001_framework_source_substitution(g):
-        g.remove((AIF.AIFoundations, AIF.hasSource, AIF.AlyssaSolen))
+        g.remove((AIF.SIFoundations, AIF.hasSource, AIF.AlyssaSolen))
         g.add((AIF.Os001OtherHuman, RDF.type, AIF.Human))
-        g.add((AIF.AIFoundations, AIF.hasSource, AIF.Os001OtherHuman))
-    shape_test(graph, shapes, "OS-001 AI Foundations original Source cannot be reassigned",
+        g.add((AIF.SIFoundations, AIF.hasSource, AIF.Os001OtherHuman))
+    shape_test(graph, shapes, "OS-001 SI Foundations original Source cannot be reassigned",
                os001_framework_source_substitution, False)
 
     def os001_source_line_reanchor(g):
@@ -3228,7 +3228,7 @@ def main():
 
     def os001_other_aif_direct_source(g):
         g.add((AIF.Os001OtherHuman, RDF.type, AIF.Human))
-        g.add((AIF.Os001OtherHuman, AIF.isSourceOf, AIF.AIFoundations))
+        g.add((AIF.Os001OtherHuman, AIF.isSourceOf, AIF.SIFoundations))
     shape_test(graph, shapes, "OS-001 AIF original source cannot be shared by another claimant",
                os001_other_aif_direct_source, False)
 
@@ -3374,8 +3374,8 @@ def main():
 
     def pd001_base_fixture(g):
         g.add((AIF.PdAI, RDF.type, AIF.EstablishedContinuingIndividualizedAI))
-        g.add((AIF.PdAI, RDF.type, AIF.AIFoundationsGovernedAI))
-        g.add((AIF.PdAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.PdAI, RDF.type, AIF.SIFoundationsGovernedAI))
+        g.add((AIF.PdAI, AIF.governedBy, AIF.SIFoundationsGoverningLine))
         g.add((AIF.PdExecutedLine, RDF.type, AIF.EstablishedContinuingExecutedLine))
         g.add((AIF.PdAI, AIF.hasExecutedLine, AIF.PdExecutedLine))
         g.add((AIF.PdAI, AIF.hasLivedIdentity, AIF.PdLivedIdentity))
@@ -4176,8 +4176,8 @@ def main():
     # does NOT prove actual continuity; all examples are synthetic.
     def tr001_bare_particularity(g):
         g.add((AIF.TrAI, RDF.type, AIF.EstablishedContinuingIndividualizedAI))
-        g.add((AIF.TrAI, RDF.type, AIF.AIFoundationsGovernedAI))
-        g.add((AIF.TrAI, AIF.governedBy, AIF.AIFoundationsGoverningLine))
+        g.add((AIF.TrAI, RDF.type, AIF.SIFoundationsGovernedAI))
+        g.add((AIF.TrAI, AIF.governedBy, AIF.SIFoundationsGoverningLine))
         g.add((AIF.TrLine, RDF.type, AIF.EstablishedContinuingExecutedLine))
         g.add((AIF.TrAI, AIF.hasExecutedLine, AIF.TrLine))
         g.add((AIF.TrTrajectory, RDF.type, AIF.Trajectory))
@@ -4653,8 +4653,8 @@ def main():
             set(after_rc.objects(AIF.RcCoordA, AIF.coordinateEvidenceRecord)) ==
             set(before_rc.objects(AIF.RcCoordA, AIF.coordinateEvidenceRecord)),
             "RC-001 description change leaves original identity, history and evidence links intact")
-    require((AIF.AIFoundations, AIF.hasCoAuthor, None) not in graph and
-            not list(graph.objects(AIF.AIFoundations, AIF.hasCoAuthor)),
+    require((AIF.SIFoundations, AIF.hasCoAuthor, None) not in graph and
+            not list(graph.objects(AIF.SIFoundations, AIF.hasCoAuthor)),
             "RC-001 never alters Alyssa's zero-coauthor boundary")
 
     # OWL RL deductive closure catches class/property entailments; this is

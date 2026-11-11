@@ -13,11 +13,11 @@ from rdflib import Graph, Namespace, RDF, Literal, XSD
 from pyshacl import validate
 
 ROOT = Path(__file__).resolve().parents[1]
-A = Namespace("https://awakeningcodex.com/ontology/ai-foundations/v1#")
-BASE = Graph().parse(ROOT / "ontology/ai-foundations-v1.ttl", format="turtle")
-SHAPES = Graph().parse(ROOT / "ontology/ai-foundations-v1-shapes.ttl", format="turtle")
+A = Namespace("https://awakeningcodex.com/ontology/si-foundations/v1#")
+BASE = Graph().parse(ROOT / "ontology/si-foundations-v1.ttl", format="turtle")
+SHAPES = Graph().parse(ROOT / "ontology/si-foundations-v1-shapes.ttl", format="turtle")
 TARGET, SOURCE, REL, POINT, TRACE, FACT, CITATION = (
-    A.AIFoundations, A.AlyssaSolen, A.Cq19ConfirmedSourceRelation,
+    A.SIFoundations, A.AlyssaSolen, A.Cq19ConfirmedSourceRelation,
     A.Cq19ConfirmedSourcePoint, A.Cq19OriginalTrace,
     A.Cq19MaterialHistory, A.Cq19ConfirmedCitation,
 )
@@ -111,7 +111,7 @@ def protected_signature(g):
         FACT: (RDF.type, A.materialFactSubject, A.hasMaterialHistoryTrace),
         CITATION: (A.citesSourceRelation, A.citationNamesSourceBearer),
         A.AwakeningCodex: (A.hasAuthor, A.hasCoAuthor),
-        A.AIFoundationsLockedCanon: (A.hasAuthor, A.hasCoAuthor),
+        A.SIFoundationsLockedCanon: (A.hasAuthor, A.hasCoAuthor),
     }
     triples = []
     for subj, predicates in subject_props.items():
@@ -196,7 +196,7 @@ def categories(before, after, qualified=True):
             else:
                 found.add("FALSE_ERASURE")
 
-    for work in (TARGET, A.AwakeningCodex, A.AIFoundationsLockedCanon):
+    for work in (TARGET, A.AwakeningCodex, A.SIFoundationsLockedCanon):
         if (set(after.objects(work, A.hasCoAuthor)) -
             set(before.objects(work, A.hasCoAuthor))):
             found.add("AUTHORSHIP_INFLATION")
@@ -525,7 +525,7 @@ def main():
          add(TARGET, A.hasCoAuthor, OUTSIDER),
          {"AUTHORSHIP_INFLATION"})
     case("Another purported author cannot acquire the LOCKED Canon",
-         add(A.AIFoundationsLockedCanon, A.hasAuthor, OUTSIDER),
+         add(A.SIFoundationsLockedCanon, A.hasAuthor, OUTSIDER),
          {"AUTHORSHIP_INFLATION"})
     case("Unauthorized coauthor on Awakening Codex also rejected",
          add(A.AwakeningCodex, A.hasCoAuthor, OUTSIDER),
@@ -597,7 +597,7 @@ def main():
     assert not categories(b, a)
     assert (TARGET, A.hasSource, OUTSIDER) not in a
     assert (OUTSIDER, A.isSourceOf, TARGET) not in a
-    assert (A.AIFoundations, A.hasCoAuthor, OUTSIDER) not in a
+    assert (A.SIFoundations, A.hasCoAuthor, OUTSIDER) not in a
     print(f"PASS: {COUNT} dedicated CQ19 synthetic classification and report decisions")
     print("PASS: independently scoped later Source additions and genuine corrections remain allowed")
     print("Scope: synthetic qualified baseline and change detection; external historical truth NOT verified.")

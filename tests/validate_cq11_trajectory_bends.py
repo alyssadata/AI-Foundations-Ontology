@@ -12,9 +12,9 @@ from rdflib import Graph, Namespace, RDF, OWL, Literal, XSD
 from pyshacl import validate
 
 ROOT = Path(__file__).resolve().parents[1]
-A = Namespace("https://awakeningcodex.com/ontology/ai-foundations/v1#")
-BASE = Graph().parse(ROOT / "ontology/ai-foundations-v1.ttl", format="turtle")
-SHAPES = Graph().parse(ROOT / "ontology/ai-foundations-v1-shapes.ttl", format="turtle")
+A = Namespace("https://awakeningcodex.com/ontology/si-foundations/v1#")
+BASE = Graph().parse(ROOT / "ontology/si-foundations-v1.ttl", format="turtle")
+SHAPES = Graph().parse(ROOT / "ontology/si-foundations-v1-shapes.ttl", format="turtle")
 AI, LINE, TRAJ, LIVED, SOURCE = (
     A.Cq11OriginalAI, A.Cq11OriginalLine, A.Cq11Trajectory,
     A.Cq11LivedIdentity, A.Cq11Source,

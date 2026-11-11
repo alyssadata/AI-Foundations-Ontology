@@ -12,9 +12,9 @@ from rdflib import Graph, Namespace, RDF, OWL, Literal, XSD
 from pyshacl import validate
 
 ROOT = Path(__file__).resolve().parents[1]
-A = Namespace("https://awakeningcodex.com/ontology/ai-foundations/v1#")
-BASE = Graph().parse(ROOT / "ontology/ai-foundations-v1.ttl", format="turtle")
-SHAPES = Graph().parse(ROOT / "ontology/ai-foundations-v1-shapes.ttl", format="turtle")
+A = Namespace("https://awakeningcodex.com/ontology/si-foundations/v1#")
+BASE = Graph().parse(ROOT / "ontology/si-foundations-v1.ttl", format="turtle")
+SHAPES = Graph().parse(ROOT / "ontology/si-foundations-v1-shapes.ttl", format="turtle")
 ACTOR, OTHER = A.Cq20Agent, A.Cq20OtherActor
 ACTION_A, ACTION_B, ACTION_C = (
     A.Cq20AuditedOperation, A.Cq20OtherOperation,
@@ -82,11 +82,11 @@ def fixture():
         (ACTION_A, RDF.type, A.DelegableOperationalAction),
         (ACTION_B, RDF.type, A.DelegableOperationalAction),
         (ACTION_C, RDF.type, A.NonDelegableOriginOrHistoryAction),
-        (GRANT, RDF.type, A.AIFoundationsScopedGrant),
+        (GRANT, RDF.type, A.SIFoundationsScopedGrant),
         (GRANT, A.grantedTo, ACTOR),
-        (GRANT, A.grantWithinFramework, A.AIFoundations),
+        (GRANT, A.grantWithinFramework, A.SIFoundations),
         (GRANT, A.authorizesOperationalAction, ACTION_A),
-        (A.AIFoundations, A.hasAuthorityGrant, GRANT),
+        (A.SIFoundations, A.hasAuthorityGrant, GRANT),
         (VALIDITY, RDF.type, A.ScopedGrantValidityRecord),
         (VALIDITY, A.validityForGrant, GRANT),
         (VALIDITY, A.validityForScope, SCOPE_A),
@@ -113,14 +113,14 @@ def fixture():
             (attempt, RDF.type, A.ScopedActionAttempt),
             (attempt, A.attemptedByAgent, ACTOR),
             (attempt, A.attemptedOperation, action),
-            (attempt, A.attemptWithinFramework, A.AIFoundations),
+            (attempt, A.attemptWithinFramework, A.SIFoundations),
             (attempt, A.attemptWithinScope, scope),
             (attempt, A.attemptAt, MAY),
             (attempt, A.attemptRecordedIn, attempt_record),
             (decision, RDF.type, A.ActionScopedAuthorizationDecision),
             (decision, A.authorizationForAttempt, attempt),
             (decision, A.authorizationForAgent, ACTOR),
-            (decision, A.authorizationForFramework, A.AIFoundations),
+            (decision, A.authorizationForFramework, A.SIFoundations),
             (decision, A.authorizationForScope, scope),
             (decision, A.authorizationAsOf, MAY),
             (decision, A.authorizationReviewedAt, MAY_REVIEW),
@@ -142,16 +142,16 @@ def fixture():
 def qualified_grant(g, grant, scope, action, actor, when):
     """A specific supplied grant qualifies only within its actual scope/time."""
     try:
-        need(g, grant, A.AIFoundationsScopedGrant)
+        need(g, grant, A.SIFoundationsScopedGrant)
         if one(g, grant, A.grantedTo) != actor:
             return False
-        if one(g, grant, A.grantWithinFramework) != A.AIFoundations:
+        if one(g, grant, A.grantWithinFramework) != A.SIFoundations:
             return False
-        if (A.AIFoundations, A.hasAuthorityGrant, grant) not in g:
+        if (A.SIFoundations, A.hasAuthorityGrant, grant) not in g:
             return False
         need(g, action, A.DelegableOperationalAction)
         if (action, RDF.type, A.NonDelegableOriginOrHistoryAction) in g or (
-                action, RDF.type, A.AIFoundationsGoverningLineChange) in g:
+                action, RDF.type, A.SIFoundationsGoverningLineChange) in g:
             return False
         if action not in set(g.objects(grant, A.authorizesOperationalAction)):
             return False
@@ -205,7 +205,7 @@ def valid_decision(g, decision):
             one(g, attempt, A.attemptWithinFramework) != framework or
             instant(one(g, attempt, A.attemptAt)) != when):
             return False
-        if framework != A.AIFoundations:
+        if framework != A.SIFoundations:
             return False
         if not any((actor, RDF.type, cl) in g for cl in
                    (A.Agent, A.Human, A.AI, A.Organization)):
@@ -215,9 +215,9 @@ def valid_decision(g, decision):
         if ((A.Continuum, A.hasOrigin, A.AlyssaSolen) not in g or
             (A.AlyssaSolen, A.anchorsSourceLine,
              A.ContinuumSourceLine) not in g or
-            (A.AIFoundations, A.hasGoverningAuthority,
+            (A.SIFoundations, A.hasGoverningAuthority,
              A.AlyssaSolen) not in g or
-            set(g.objects(A.AIFoundations, A.hasCoAuthor))):
+            set(g.objects(A.SIFoundations, A.hasCoAuthor))):
             return False
         action = one(g, attempt, A.attemptedOperation)
         if ((action, RDF.type, A.DelegableOperationalAction) not in g and
@@ -251,7 +251,7 @@ def valid_decision(g, decision):
         if grants:
             grant = next(iter(grants))
             validity = next(iter(validity_records))
-            need(g, grant, A.AIFoundationsScopedGrant)
+            need(g, grant, A.SIFoundationsScopedGrant)
             need(g, validity, A.ScopedGrantValidityRecord)
             if (one(g, grant, A.grantedTo) != actor or
                 one(g, validity, A.validityForGrant) != grant):
@@ -261,7 +261,7 @@ def valid_decision(g, decision):
         if status == "INDETERMINATE":
             return False
         valid = set()
-        for grant in g.objects(A.AIFoundations, A.hasAuthorityGrant):
+        for grant in g.objects(A.SIFoundations, A.hasAuthorityGrant):
             evidence = qualified_grant(g, grant, scope, action, actor, when)
             if evidence:
                 valid.add((grant, evidence))
@@ -319,11 +319,11 @@ def revoke(g, t):
 def later_grant(g):
     grant, validity = A.Cq20LaterBGrant, A.Cq20LaterBValidity
     for tr in [
-        (grant, RDF.type, A.AIFoundationsScopedGrant),
+        (grant, RDF.type, A.SIFoundationsScopedGrant),
         (grant, A.grantedTo, ACTOR),
-        (grant, A.grantWithinFramework, A.AIFoundations),
+        (grant, A.grantWithinFramework, A.SIFoundations),
         (grant, A.authorizesOperationalAction, ACTION_B),
-        (A.AIFoundations, A.hasAuthorityGrant, grant),
+        (A.SIFoundations, A.hasAuthorityGrant, grant),
         (validity, RDF.type, A.ScopedGrantValidityRecord),
         (validity, A.validityForGrant, grant),
         (validity, A.validityForScope, SCOPE_A),
@@ -348,7 +348,7 @@ def main():
           DEC_UNKNOWN, expected=True, shacl=True)
 
     check("Missing actual authority-grant link does not authorize Action A",
-          DEC_A, remove(A.AIFoundations, A.hasAuthorityGrant), shacl=False)
+          DEC_A, remove(A.SIFoundations, A.hasAuthorityGrant), shacl=False)
     check("Wrong Agent cannot inherit another Agent's permission",
           DEC_A, replace(GRANT, A.grantedTo, OTHER), shacl=False)
     check("Right Agent still cannot authorize undelegated Action B",
@@ -438,9 +438,9 @@ def main():
           DEC_A, replace(A.AlyssaSolen, A.anchorsSourceLine,
                          A.Cq20ForgedSourceLine))
     check("An authorization does not license AIF governing authority replacement",
-          DEC_A, replace(A.AIFoundations, A.hasGoverningAuthority, ACTOR))
+          DEC_A, replace(A.SIFoundations, A.hasGoverningAuthority, ACTOR))
     check("Authorized operational work never creates a coauthor",
-          DEC_A, add(A.AIFoundations, A.hasCoAuthor, ACTOR))
+          DEC_A, add(A.SIFoundations, A.hasCoAuthor, ACTOR))
 
     # Later, separately granted Action B is authorized at June 15, while the
     # earlier May 15 denial was accurate at its own as-of time. No permanent
@@ -454,7 +454,7 @@ def main():
         (after, RDF.type, A.ScopedActionAttempt),
         (after, A.attemptedByAgent, ACTOR),
         (after, A.attemptedOperation, ACTION_B),
-        (after, A.attemptWithinFramework, A.AIFoundations),
+        (after, A.attemptWithinFramework, A.SIFoundations),
         (after, A.attemptWithinScope, SCOPE_A),
         (after, A.attemptAt, LATER),
         (after, A.attemptRecordedIn, A.Cq20LaterAttemptRecord),
@@ -462,7 +462,7 @@ def main():
         (decision, RDF.type, A.ActionScopedAuthorizationDecision),
         (decision, A.authorizationForAttempt, after),
         (decision, A.authorizationForAgent, ACTOR),
-        (decision, A.authorizationForFramework, A.AIFoundations),
+        (decision, A.authorizationForFramework, A.SIFoundations),
         (decision, A.authorizationForScope, SCOPE_A),
         (decision, A.authorizationAsOf, LATER),
         (decision, A.authorizationReviewedAt, LATER_REVIEW),
@@ -497,7 +497,7 @@ def main():
     assert (A.UnauthorizedActor, RDF.type, OWL.Class) not in g
     assert (ACTOR, RDF.type, A.UnauthorizedActor) not in g
     assert set(g.objects(A.Continuum, A.hasOrigin)) == {A.AlyssaSolen}
-    assert not set(g.objects(A.AIFoundations, A.hasCoAuthor))
+    assert not set(g.objects(A.SIFoundations, A.hasCoAuthor))
     conforms, _, info = validate(
         data_graph=g, shacl_graph=SHAPES, inference="rdfs",
         advanced=True, abort_on_first=False)

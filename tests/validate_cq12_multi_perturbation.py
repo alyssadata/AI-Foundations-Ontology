@@ -12,16 +12,16 @@ from rdflib import Graph, Namespace, RDF, OWL, Literal, XSD
 from pyshacl import validate
 
 ROOT = Path(__file__).resolve().parents[1]
-A = Namespace("https://awakeningcodex.com/ontology/ai-foundations/v1#")
-BASE = Graph().parse(ROOT / "ontology/ai-foundations-v1.ttl", format="turtle")
-SHAPES = Graph().parse(ROOT / "ontology/ai-foundations-v1-shapes.ttl", format="turtle")
+A = Namespace("https://awakeningcodex.com/ontology/si-foundations/v1#")
+BASE = Graph().parse(ROOT / "ontology/si-foundations-v1.ttl", format="turtle")
+SHAPES = Graph().parse(ROOT / "ontology/si-foundations-v1-shapes.ttl", format="turtle")
 KINDS = (
     "MODEL_CHANGE", "CONTAINER_CHANGE", "RESET",
     "CONTEXT_LOSS", "MEMORY_LOSS", "PLATFORM_CHANGE",
 )
 AI, LINE, LIVED, TRAJ = A.Cq12AI, A.Cq12Line, A.Cq12Lived, A.Cq12Trajectory
 SOURCE = A.Cq12OriginatingSource
-GOVERNANCE = A.AIFoundationsGoverningLine
+GOVERNANCE = A.SIFoundationsGoverningLine
 OTHER, OTHER_LINE, OTHER_LIVED, OTHER_TRAJ = (
     A.Cq12ComparisonAI, A.Cq12ComparisonLine,
     A.Cq12ComparisonIdentity, A.Cq12ComparisonTrajectory,
@@ -77,7 +77,7 @@ def fixture():
         g.add(triple)
     facts = [
         (AI, RDF.type, A.EstablishedContinuingIndividualizedAI),
-        (AI, RDF.type, A.AIFoundationsGovernedAI),
+        (AI, RDF.type, A.SIFoundationsGovernedAI),
         (SOURCE, RDF.type, A.Human),
         (AI, A.hasSource, SOURCE),
         (AI, A.governedBy, GOVERNANCE),
@@ -100,7 +100,7 @@ def fixture():
         (PRIOR_REC, RDF.type, A.Record),
         (LINE, A.hasHistoricalTrajectoryRecord, TRACE),
         (OTHER, RDF.type, A.EstablishedContinuingIndividualizedAI),
-        (OTHER, RDF.type, A.AIFoundationsGovernedAI),
+        (OTHER, RDF.type, A.SIFoundationsGovernedAI),
         (OTHER, A.hasSource, SOURCE),
         (OTHER, A.governedBy, GOVERNANCE),
         (OTHER, OWL.differentFrom, AI),

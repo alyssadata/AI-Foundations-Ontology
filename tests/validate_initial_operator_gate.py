@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Step 23: synthetic closed-world initial S00 mutual Operator admission.
 
-Conceptual source: Alyssa Solen / AI Foundations. Tests and formal assistance: AI-assisted.
+Conceptual source: Alyssa Solen / SI Foundations. Tests and formal assistance: AI-assisted.
 An initial Operator proposal alone cannot create the mutual lived relation.
 The tests validate records and chronology; they do not prove empirical AI assent.
 """

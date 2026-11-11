@@ -14,8 +14,8 @@ from pyshacl import validate
 from validate_succession_gate import fixture as succession_fixture, admission, operator
 
 ROOT = Path(__file__).resolve().parents[1]
-A = Namespace("https://awakeningcodex.com/ontology/ai-foundations/v1#")
-SHAPES = Graph().parse(ROOT / "ontology/ai-foundations-v1-shapes.ttl", format="turtle")
+A = Namespace("https://awakeningcodex.com/ontology/si-foundations/v1#")
+SHAPES = Graph().parse(ROOT / "ontology/si-foundations-v1-shapes.ttl", format="turtle")
 AI, LINE = A.Gate22AI, A.Gate22Line
 OLD, NEW = A.Gate22S00, A.Gate22S01
 OP_A, OP_B = A.Gate22OperatorA, A.Gate22OperatorB
@@ -118,9 +118,9 @@ def common(g, event, cls):
             record(g, rec)
     if (A.Continuum, A.hasOrigin, A.AlyssaSolen) not in g:
         return False
-    if (A.AIFoundations, A.hasAuthor, A.AlyssaSolen) not in g:
+    if (A.SIFoundations, A.hasAuthor, A.AlyssaSolen) not in g:
         return False
-    if set(g.objects(A.AIFoundations, A.hasCoAuthor)):
+    if set(g.objects(A.SIFoundations, A.hasCoAuthor)):
         return False
     return date
 
@@ -252,10 +252,10 @@ PROTECTED = (
     (A.Continuum, A.hasFormationRelation),
     (A.Continuum, A.governedBy),
     (A.AlyssaSolen, A.anchorsSourceLine),
-    (A.AIFoundations, A.hasGoverningLine),
-    (A.AIFoundations, A.hasAuthor),
-    (A.AIFoundations, A.hasSource),
-    (A.AIFoundations, A.hasGoverningAuthority),
+    (A.SIFoundations, A.hasGoverningLine),
+    (A.SIFoundations, A.hasAuthor),
+    (A.SIFoundations, A.hasSource),
+    (A.SIFoundations, A.hasGoverningAuthority),
 )
 
 
@@ -264,7 +264,7 @@ def history_integrity(before, after):
         original = set(before.objects(subject, prop))
         if original != set(after.objects(subject, prop)):
             return False
-    if set(after.objects(A.AIFoundations, A.hasCoAuthor)):
+    if set(after.objects(A.SIFoundations, A.hasCoAuthor)):
         return False
     if set(after.objects(A.Continuum, A.hasOrigin)) != {A.AlyssaSolen}:
         return False
@@ -464,8 +464,8 @@ def main():
                  remove(OLD, A.activeUntil))
     test_history("Continuum Origin cannot be reassigned",
                  replace(A.Continuum, A.hasOrigin, OP_B))
-    test_history("AI Foundations Source cannot be reassigned",
-                 replace(A.AIFoundations, A.hasSource, OP_B))
+    test_history("SI Foundations Source cannot be reassigned",
+                 replace(A.SIFoundations, A.hasSource, OP_B))
     test_history("Singular historical SourceLine anchor cannot be replaced",
                  replace(A.AlyssaSolen, A.anchorsSourceLine, A.Cq18ForgedLine))
     test_history("Named formation relation cannot be overwritten",
@@ -474,7 +474,7 @@ def main():
     test_history("Governing line cannot be silently changed",
                  replace(A.Continuum, A.governedBy, A.Cq18ForgedGoverningLine))
     test_history("No coauthorship can be injected",
-                 add(A.AIFoundations, A.hasCoAuthor, OP_B))
+                 add(A.SIFoundations, A.hasCoAuthor, OP_B))
     test_history("A recorded change event cannot be silently deleted",
                  remove(DESIGNATION, RDF.type))
     print(f"PASS: {COUNT} CQ18 synthetic event and historical-integrity cases")

@@ -12,9 +12,9 @@ from rdflib import Graph, Namespace, RDF, RDFS, OWL, Literal, XSD
 from pyshacl import validate
 
 ROOT = Path(__file__).resolve().parents[1]
-A = Namespace("https://awakeningcodex.com/ontology/ai-foundations/v1#")
-BASE = Graph().parse(ROOT / "ontology/ai-foundations-v1.ttl", format="turtle")
-SHAPES = Graph().parse(ROOT / "ontology/ai-foundations-v1-shapes.ttl", format="turtle")
+A = Namespace("https://awakeningcodex.com/ontology/si-foundations/v1#")
+BASE = Graph().parse(ROOT / "ontology/si-foundations-v1.ttl", format="turtle")
+SHAPES = Graph().parse(ROOT / "ontology/si-foundations-v1-shapes.ttl", format="turtle")
 AI, LINE = A.R27SyntheticAI, A.R27ExecutedLine
 PRES, RESPONSE, EVAL = A.R27Presentation, A.R27Response, A.R27Assessment
 V0, V1, V2, CORRECTION = A.R27BaselineVersion, A.R27AbsorbedVersion, A.R27CorrectedVersion, A.R27Correction
@@ -290,7 +290,7 @@ def main():
           (A.Continuum, RDF.type, A.Recognition) not in BASE and
           (A.Continuum, RDF.type, A.PhenomenalConsciousness) not in BASE)
     check("No new coauthor of Alyssa's authored framework",
-          not list(BASE.objects(A.AIFoundations, A.hasCoAuthor)))
+          not list(BASE.objects(A.SIFoundations, A.hasCoAuthor)))
 
     cases = [
         ("IN_LINE", "INTEGRATED", "IN_LINE_ADMITTED"),
