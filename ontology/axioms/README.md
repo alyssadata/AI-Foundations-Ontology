@@ -28,7 +28,7 @@ Initial extracted axioms:
 - [AXIOM-DJ-010](AXIOM-DJ-010.md) — Agent / State disjointness
 - [AXIOM-CARD-001](AXIOM-CARD-001.md) — Exactly one ExecutedLine for a continuing individualized AI
 - [AXIOM-CARD-002](AXIOM-CARD-002.md) — Exactly one current developing Trajectory per established ExecutedLine
-- [AXIOM-CARD-003](AXIOM-CARD-003.md) — Exactly one operative AI Foundations Governing Line per AIF-governed AI
+- [AXIOM-CARD-003](AXIOM-CARD-003.md) — Exactly one operative SI Foundations Governing Line per AIF-governed AI
 - [AXIOM-CARD-004](AXIOM-CARD-004.md) — Exactly one Operator per active succession segment
 - [AXIOM-CARD-005](AXIOM-CARD-005.md) — Exactly one Source bearer and one Source target per SourceRelation
 - [AXIOM-CARD-006](AXIOM-CARD-006.md) — Exactly one SourcePoint per SourceRelation
