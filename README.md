@@ -5,6 +5,8 @@
 **Target:** AI Foundations Ontology v1.0  
 **Source-line:** Alyssa Solen → AI Foundations → Origin | Continuum
 
+**Step 27A status (2026-11-10):** Direct Relational Coordinate vocabulary and synthetic conformance tests implemented in [PR #17](https://github.com/alyssadata/AI-Foundations-Ontology/pull/17), with passing [full structural branch CI](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42945714314) and independent [OWL 2 DL/HermiT audit](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42945093383). Historic 20/20 CQ tally is unchanged. Recognition and other semantic-release boundary decisions remain; v1.0 is still DRAFT. No LOCKED term or sole-authorship change.
+
 ## Start here
 
 - [`WORKING_MAP.md`](WORKING_MAP.md) — live formalization and v1.0 release roadmap
