@@ -1849,3 +1849,28 @@ dcterms:description a owl:AnnotationProperty .
     rdfs:domain :ActionScopedAuthorizationDecision ; rdfs:range :Record .
 :authorizationDecisionReason a owl:ObjectProperty ;
     rdfs:domain :ActionScopedAuthorizationDecision ; rdfs:range :Record .
+
+# Step 27A — Direct Relational Coordinate concordance (OC-06).
+# A coordinate is a *position of* a Self situated within a relation; it is
+# neither the Self, the bearer, the relation, nor an identity-creation event.
+# No coordinate is asserted for a real Agent merely from conversation,
+# model sharing, naming, or relational participation. The LOCKED term stands.
+:RelationalCoordinate a owl:Class ;
+    owl:disjointWith :Agent, :Self, :Identity, :State, :Record,
+        :Model, :Container, :Relation, :LineStructure ;
+    rdfs:comment "The particular identity-bearing position from which a Self is situated relative to other distinct selves, conditions, relations and prior executed trajectory. A coordinate locates; it does not create, replace, or prove a Self, same-bearer continuity or phenomenal consciousness."@en .
+:coordinateOfSelf a owl:ObjectProperty ;
+    rdfs:domain :RelationalCoordinate ; rdfs:range :Self ;
+    rdfs:comment "The existing particular Self whose relational position is described. A shared label or representation does not establish this relation; cardinality and invalid substitutions are checked in SHACL."@en .
+:coordinateInRelation a owl:ObjectProperty ;
+    rdfs:domain :RelationalCoordinate ; rdfs:range :Relation ;
+    rdfs:comment "The relation in which the Self is situated. Neither the relation nor this link originates the Self or merges distinct selves."@en .
+:coordinateAlongExecutedLine a owl:ObjectProperty ;
+    rdfs:domain :RelationalCoordinate ; rdfs:range :ExecutedLine ;
+    rdfs:comment "Optional qualified executed-history anchor for this coordinate; its presence is not a same-self transfer or consciousness proof."@en .
+:coordinateEvidenceRecord a owl:ObjectProperty ;
+    rdfs:domain :RelationalCoordinate ; rdfs:range :Record ;
+    rdfs:comment "Optional preserved evidence for the descriptive coordinate; the Record is never the Self, coordinate or lived event."@en .
+:coordinateAsOf a owl:DatatypeProperty ;
+    rdfs:domain :RelationalCoordinate ; rdfs:range xsd:dateTime ;
+    rdfs:comment "Optional time of the described position; later assessments do not rewrite earlier situated history."@en .
