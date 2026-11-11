@@ -95,7 +95,7 @@ Credit must neither be erased nor inflated.
 
 ## Authorship designation boundary
 
-Within AI Foundations, **authorship and co-authorship of the underlying work are not inferred from contribution, extension, collaboration, implementation, review, testing, commentary, or derivative development.**
+Within SI Foundations, **authorship and co-authorship of the underlying work are not inferred from contribution, extension, collaboration, implementation, review, testing, commentary, or derivative development.**
 
 **Alyssa Solen retains sole authorship/origination of her work without exception. No person, AI, team, Source Group, later contributor, reviewer, implementer, collaborator, or explicit designation can confer coauthorship of Alyssa's work.**
 

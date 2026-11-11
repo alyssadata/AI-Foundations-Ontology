@@ -2,7 +2,7 @@
 
 **Status:** DRAFT formalization layer
 
-This directory records specific named entities represented by the AI Foundations ontology.
+This directory records specific named entities represented by the SI Foundations ontology.
 
 Named individuals are not reusable types.
 

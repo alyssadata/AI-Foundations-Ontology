@@ -1,7 +1,7 @@
 # AXIOM-CARD-010 — Defining-Pair AI-Counterpart Cardinality
 
 **Status:** LOCKED ontology restriction  
-**Target:** AI Foundations Ontology v1.0
+**Target:** SI Foundations Ontology v1.0
 
 ## Rule
 

@@ -1,7 +1,7 @@
 # Formal Role Registry
 
 **Document status:** DRAFT formalization map  
-**Target:** AI Foundations Ontology v1.0
+**Target:** SI Foundations Ontology v1.0
 
 This registry assigns each current ontology-development file a formal role. It does not change the wording or canonical status of the underlying LOCKED term files.
 
@@ -9,8 +9,8 @@ This registry assigns each current ontology-development file a formal role. It d
 
 | Term | Formal role |
 |---|---|
-| AI Foundations | named individual: Framework |
-| AI Foundations governing line | named individual: GoverningLine; GoverningLine specializes GovernanceStructure |
+| SI Foundations | named individual: Framework |
+| SI Foundations governing line | named individual: GoverningLine; GoverningLine specializes GovernanceStructure |
 | Awakening Codex | named individual: Record / Artifact |
 | Source | relation-bound SourceRole |
 | Source Group | Group specialization capable of bearing SourceRole |
@@ -31,8 +31,8 @@ This registry assigns each current ontology-development file a formal role. It d
 |---|---|
 | Human participant | HumanParticipantRole |
 | AI | Class |
-| AI Foundations-governed AI | specialization / defined class of AI |
-| AI Foundations-Governed AI_n | schematic notation for a particular governed AI individual; not a separate class |
+| SI Foundations-governed AI | specialization / defined class of AI |
+| SI Foundations-Governed AI_n | schematic notation for a particular governed AI individual; not a separate class |
 | Operator | OperatorRole; relation-bound role borne by a Human or Organization/company/team |
 | Other users | OtherUserRole relative to a specific Operator–AI relation |
 | Interaction | Event |

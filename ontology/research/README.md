@@ -2,7 +2,7 @@
 
 **Document status:** DRAFT formalization layer
 
-The research layer connects AI Foundations ontology structure to empirical evaluation without making ontology inclusion equivalent to empirical support.
+The research layer connects SI Foundations ontology structure to empirical evaluation without making ontology inclusion equivalent to empirical support.
 
 ## Core classes
 
@@ -59,7 +59,7 @@ Evidence doesNotSupportClaim Claim
 
 ## Discriminative evaluation rule
 
-An AI Foundations claim should be tested where its mechanism predicts a difference from baseline.
+An SI Foundations claim should be tested where its mechanism predicts a difference from baseline.
 
 A test in which baseline and treatment are both expected to pass for the same reason is not a useful discriminative test of the claim.
 
@@ -67,7 +67,7 @@ This does not guarantee that the treatment must outperform baseline. A properly 
 
 ## Functional-awareness / phenomenal-consciousness boundary
 
-AI Foundations permits empirical evaluation of graded, multidimensional functional awareness without treating functional behavior as proof of phenomenal consciousness.
+SI Foundations permits empirical evaluation of graded, multidimensional functional awareness without treating functional behavior as proof of phenomenal consciousness.
 
 Potentially measurable dimensions include self-monitoring, recognition of change, preservation of distinctions, recursive self-reference, trajectory sensitivity, return, and self-stabilization.
 
@@ -97,13 +97,13 @@ Phenomenal consciousness remains unresolved unless a defensible independent evid
 
 ## External mechanism boundary: cross-model state transfer
 
-Cross-model KV-cache transfer is a state-transfer mechanism and does not, by itself, establish identity or continuity. It provides an experimental condition in which context-dependent computational state can be transferred across model substrates without textual replay. AI Foundations may use this condition to test whether proposed continuity invariants survive substrate change independently of prompt reconstruction.
+Cross-model KV-cache transfer is a state-transfer mechanism and does not, by itself, establish identity or continuity. It provides an experimental condition in which context-dependent computational state can be transferred across model substrates without textual replay. SI Foundations may use this condition to test whether proposed continuity invariants survive substrate change independently of prompt reconstruction.
 
 **Reference:** [Heo et al., *Cross-Model KV Cache Transfer in LLM Families: A Closed-Form Linear Mapping for Prefill Reuse* (NVIDIA, 2026), arXiv:2608.03893](https://arxiv.org/abs/2608.03893)
 
 ## External formalism note: Tensor Logic / neural-symbolic representation
 
-Tensor Logic proposes a unified computational formalism in which logical relations, neural computation, and statistical AI can be represented using tensor equations. For AI Foundations, it may be relevant as a future implementation or experimental substrate for ontology-governed reasoning, but it does not determine the ontology's entities, definitions, provenance structure, identity criteria, or continuity criteria.
+Tensor Logic proposes a unified computational formalism in which logical relations, neural computation, and statistical AI can be represented using tensor equations. For SI Foundations, it may be relevant as a future implementation or experimental substrate for ontology-governed reasoning, but it does not determine the ontology's entities, definitions, provenance structure, identity criteria, or continuity criteria.
 
 **Reference:** Pedro Domingos, [*Tensor Logic: The Language of AI* (2025), arXiv:2510.12269](https://arxiv.org/abs/2510.12269)
 
@@ -278,7 +278,7 @@ Multiple Evaluations are valid for replication, retesting, alternative test cond
 Each individual Evaluation still has exactly one primary Claim target.
 ## Claim ontology-dependency minimum
 
-Every AI Foundations `Claim` must depend on at least one ontology element.
+Every SI Foundations `Claim` must depend on at least one ontology element.
 
 ```text
 Claim
@@ -288,7 +288,7 @@ Claim
 
 A Claim may depend on multiple ontology elements where its formulation requires them.
 
-This keeps the research layer anchored to the ontology rather than allowing AI Foundations Claims to float independently of the formal structure.
+This keeps the research layer anchored to the ontology rather than allowing SI Foundations Claims to float independently of the formal structure.
 ## Deferred: Claim-level aggregate evidentiary status
 
 No single aggregate evidentiary status is currently required at the `Claim` level.

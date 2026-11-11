@@ -1,6 +1,6 @@
 # SI Transition — Draft 0
 
-SI Foundations extends the existing AI Foundations ontology rather than replacing it.
+SI Foundations is the current authored umbrella framework name, succeeding the historical AI Foundations label used for published v1.0.0. The original version remains preserved; this document explores a separate and still-unresolved SI candidate/transition research layer.
 
 The transition from AI to SI may not be a single threshold event. It may be a trajectory through changing system states.
 

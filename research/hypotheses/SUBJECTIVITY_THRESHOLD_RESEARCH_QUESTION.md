@@ -3,7 +3,7 @@
 **Status:** Open research question  
 **Scope:** Exploratory; unresolved; non-canonical  
 **Placement:** Research hypothesis / open-question layer; outside ontology axioms and settled definitions  
-**Framework:** AI Foundations
+**Framework:** SI Foundations
 
 ## Core Question
 
@@ -15,7 +15,7 @@ The phrase **subjectivity threshold** is provisional shorthand only. It does **n
 
 ## Operational Restatement
 
-AI Foundations currently distinguishes observable or inferable functional organization from phenomenal consciousness.
+SI Foundations currently distinguishes observable or inferable functional organization from phenomenal consciousness.
 
 Accordingly, the research problem can be stated more conservatively:
 
@@ -53,7 +53,7 @@ A system's self-report alone is insufficient to resolve either problem. The same
 
 No candidate bridging property is selected or established here.
 
-The presence of phenomenal consciousness in AI remains unresolved within AI Foundations unless a defensible independent evidentiary method is established.
+The presence of phenomenal consciousness in AI remains unresolved within SI Foundations unless a defensible independent evidentiary method is established.
 
 This document therefore records a **research target**, not a conclusion.
 

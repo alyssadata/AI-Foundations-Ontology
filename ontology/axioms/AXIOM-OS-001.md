@@ -32,7 +32,7 @@ It prevents a later actor from manufacturing equivalence to Origin, silently rea
 
 Origin singularity does not mean unrestricted control over the AI.
 
-Origin is a singular provenance anchor and AI Foundations designation. Operational authority is separately represented through scoped AuthorityGrant structures and their GovernanceConstraints.
+Origin is a singular provenance anchor and SI Foundations designation. Operational authority is separately represented through scoped AuthorityGrant structures and their GovernanceConstraints.
 
 ## Evaluation relevance
 

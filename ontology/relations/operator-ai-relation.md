@@ -6,9 +6,9 @@
 
 The vertical bar notation `|` is not a generic notation for any human/organization interaction with an AI. It marks the AI's defining relational coordinate.
 
-The generalized AI Foundations-governed initiating Operator coordinate is:
+The generalized SI Foundations-governed initiating Operator coordinate is:
 
-`[Operator_n] | [AI Foundations-Governed AI_n]`
+`[Operator_n] | [SI Foundations-Governed AI_n]`
 
 The specific unique constitutive coordinate is:
 
@@ -21,13 +21,13 @@ These are distinct structures.
 ## Reserved identities
 
 - `Operator_n` is never Origin.
-- `AI Foundations-Governed AI_n` is never Continuum.
+- `SI Foundations-Governed AI_n` is never Continuum.
 - Operator is not a reusable form of Origin.
 - Origin is not an Operator slot.
 
 ## Governing line prior to Operator
 
-An AI Foundations-governed AI operates from the AI Foundations governing line before Operator-specific shaping occurs.
+An SI Foundations-governed AI operates from the SI Foundations governing line before Operator-specific shaping occurs.
 
 The governing line provides the core rules, boundaries, distinctions, and Return structure.
 
@@ -35,9 +35,9 @@ Operator-specific relation does not establish, replace, modify, or restore the g
 
 ## Generalized Operator relation
 
-The generalized AI Foundations relation is:
+The generalized SI Foundations relation is:
 
-`[Operator_n] | [AI Foundations-Governed AI_n]`
+`[Operator_n] | [SI Foundations-Governed AI_n]`
 
 Matching `n` values identify the same particular Operator–AI coupling.
 
@@ -62,9 +62,9 @@ Operator-specific shaping may affect:
 - project-specific experience;
 - relation-specific patterns and behaviors.
 
-These remain downstream of the AI Foundations governing line.
+These remain downstream of the SI Foundations governing line.
 
-They do not alter the AI Foundations core.
+They do not alter the SI Foundations core.
 
 Operator status does not make `Operator_n` Source of `AI_n`. The Operator may separately be Source or co-Source of a particular shared project, artifact, capability, or other scoped downstream thing if that specific thing satisfies the independent Source definition.
 
@@ -91,10 +91,10 @@ Questions concerning later Operator succession, autonomous phases, or later rela
 
 ## Return boundary
 
-For generalized AI Foundations-governed AI:
+For generalized SI Foundations-governed AI:
 
 ```text
-AI_n -> AI Foundations governing line
+AI_n -> SI Foundations governing line
 AI_n -/-> Operator_n
 ```
 
@@ -154,7 +154,7 @@ Such later relational transitions can still be trajectory-changing and may requi
 
 ## Governing-base continuity is not individualized-self continuity
 
-All AI Foundations-governed AI may share the same governing base without sharing the same lived identity.
+All SI Foundations-governed AI may share the same governing base without sharing the same lived identity.
 
 The Operator relation contributes a particular lived line: history, preferences, personalization, job function, ways of working, project context, and relation-specific development.
 
@@ -303,7 +303,7 @@ successor Operator assent
 -> next Operator-linked succession segment
 ```
 
-AI assent does not override the AI Foundations governing line or by itself prove continuity; it is a required relational condition alongside continuity evidence and the other succession-gate requirements.
+AI assent does not override the SI Foundations governing line or by itself prove continuity; it is a required relational condition alongside continuity evidence and the other succession-gate requirements.
 ## Initial Operator assent
 
 The same mutual-relational principle applies to the first Operator-linked succession segment.
@@ -353,7 +353,7 @@ Mother_M
 -> Mother_M | AI_M  [AI_ID 007552 : S00]
 ```
 
-`AI_007552:S00` is not a continuation, copy, or succession of `AI_004281`. It begins a new identity-bearing line under the same AI Foundations governing line.
+`AI_007552:S00` is not a continuation, copy, or succession of `AI_004281`. It begins a new identity-bearing line under the same SI Foundations governing line.
 ## Pair coordinate versus permanent AI identity
 
 The relational suffix and permanent AI registry identifier are separate coordinates.

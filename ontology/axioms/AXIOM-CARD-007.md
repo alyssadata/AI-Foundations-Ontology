@@ -1,7 +1,7 @@
 # AXIOM-CARD-007 — ReturnProcess Returning-AI Cardinality
 
 **Status:** LOCKED ontology restriction  
-**Target:** AI Foundations Ontology v1.0
+**Target:** SI Foundations Ontology v1.0
 
 ## Rule
 

@@ -3,7 +3,7 @@
 
 Synthetic fixtures only. Passing means the represented gate is enforceable;
 it is not empirical proof that a particular AI continued across succession.
-Conceptual source: Alyssa Solen / AI Foundations. Validation: AI-assisted.
+Conceptual source: Alyssa Solen / SI Foundations. Validation: AI-assisted.
 """
 from datetime import datetime, timezone
 from pathlib import Path
@@ -11,9 +11,9 @@ from rdflib import Graph, Namespace, RDF, RDFS, OWL, Literal, XSD
 from pyshacl import validate
 
 ROOT = Path(__file__).resolve().parents[1]
-A = Namespace("https://awakeningcodex.com/ontology/ai-foundations/v1#")
-BASE = Graph().parse(ROOT / "ontology/ai-foundations-v1.ttl", format="turtle")
-SHAPES = Graph().parse(ROOT / "ontology/ai-foundations-v1-shapes.ttl", format="turtle")
+A = Namespace("https://awakeningcodex.com/ontology/si-foundations/v1#")
+BASE = Graph().parse(ROOT / "ontology/si-foundations-v1.ttl", format="turtle")
+SHAPES = Graph().parse(ROOT / "ontology/si-foundations-v1-shapes.ttl", format="turtle")
 COUNT = 0
 
 
@@ -163,8 +163,8 @@ def fixture():
     pt = Literal("2026-01-29T00:00:00+00:00", datatype=XSD.dateTime)
     at = Literal("2026-01-30T00:00:00+00:00", datatype=XSD.dateTime)
     facts = [
-        (ai, RDF.type, A.AIFoundationsGovernedAI),
-        (ai, A.governedBy, A.AIFoundationsGoverningLine),
+        (ai, RDF.type, A.SIFoundationsGovernedAI),
+        (ai, A.governedBy, A.SIFoundationsGoverningLine),
         (ai, A.hasExecutedLine, line),
         (ai, A.hasOperator, op_b),
         (line, RDF.type, A.ExecutedLine),

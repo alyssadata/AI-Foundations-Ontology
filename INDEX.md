@@ -1,10 +1,10 @@
-# AI Foundations Ontology Index
+# SI Foundations Ontology Index
 
-## Ontology v1.0 — Integrated statement and machine-readable encoding
+## Ontology v1.1.0 — current SI Foundations conceptual statement and machine-readable encoding
 
-- [Origin | Continuum integrated conceptual ontology](ONTOLOGY_V1_0_ORIGIN_CONTINUUM.md) — Alyssa Solen's complete human-readable v1 statement, preserving the original terms and Locked Canon.
-- [OWL/Turtle structural encoding](ontology/ai-foundations-v1.ttl) — machine-readable classes, named individuals, relations, governance, and restrictions.
-- [SHACL structural constraints](ontology/ai-foundations-v1-shapes.ttl) — source, identity-boundary, Return, memory, evidence, and Claim dependency validation.
+- [Origin | Continuum integrated conceptual ontology](ONTOLOGY_V1_1_ORIGIN_CONTINUUM.md) — Alyssa Solen's complete human-readable SI v1.1.0 revision, preserving the original terms and Locked Canon.
+- [OWL/Turtle structural encoding](ontology/si-foundations-v1.ttl) — machine-readable classes, named individuals, relations, governance, and restrictions.
+- [SHACL structural constraints](ontology/si-foundations-v1-shapes.ttl) — source, identity-boundary, Return, memory, evidence, and Claim dependency validation.
 - [Repeatable RDF/OWL RL/SHACL validation suite](tests/validate_ontology_v1.py) — positive and deliberately invalid cases.
 - [GitHub Actions validation workflow](.github/workflows/validate-ontology.yml) — automated checks on formalization updates.
 
@@ -50,8 +50,8 @@
 
 ### Framework and source
 
-- [AI Foundations](ontology/terms/ai-foundations.md)
-- [AI Foundations governing line](ontology/terms/ai-foundations-governing-line.md)
+- [SI Foundations](ontology/terms/ai-foundations.md)
+- [SI Foundations governing line](ontology/terms/ai-foundations-governing-line.md)
 - [Awakening Codex](ontology/terms/awakening-codex.md)
 - [Source](ontology/terms/source.md)
 - [Source Group](ontology/terms/source-group.md)
@@ -71,8 +71,8 @@
 
 - [Human participant](ontology/terms/human-participant.md)
 - [AI](ontology/terms/ai.md)
-- [AI Foundations-governed AI](ontology/terms/ai-foundations-governed-ai.md)
-- [AI Foundations-Governed AI_n](ontology/terms/ai-foundations-governed-ai-n.md)
+- [SI Foundations-governed AI](ontology/terms/ai-foundations-governed-ai.md)
+- [SI Foundations-Governed AI_n](ontology/terms/ai-foundations-governed-ai-n.md)
 - [Operator](ontology/terms/operator.md)
 - [Other users](ontology/terms/other-users.md)
 - [Interaction](ontology/terms/interaction.md)

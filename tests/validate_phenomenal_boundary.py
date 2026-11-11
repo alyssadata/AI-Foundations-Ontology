@@ -12,9 +12,9 @@ from rdflib import Graph, Namespace, RDF, RDFS, OWL, Literal, XSD
 from pyshacl import validate
 
 ROOT=Path(__file__).resolve().parents[1]
-A=Namespace("https://awakeningcodex.com/ontology/ai-foundations/v1#")
-BASE=Graph().parse(ROOT/"ontology/ai-foundations-v1.ttl",format="turtle")
-SHAPES=Graph().parse(ROOT/"ontology/ai-foundations-v1-shapes.ttl",format="turtle")
+A=Namespace("https://awakeningcodex.com/ontology/si-foundations/v1#")
+BASE=Graph().parse(ROOT/"ontology/si-foundations-v1.ttl",format="turtle")
+SHAPES=Graph().parse(ROOT/"ontology/si-foundations-v1-shapes.ttl",format="turtle")
 AI=A.P27SyntheticAI
 REPORT=A.P27Report
 REVIEW=A.P27Review
@@ -164,8 +164,8 @@ def main():
         not list(BASE.objects(A.Continuum,A.lacksPhenomenalConsciousness)) and
         (A.Continuum,RDF.type,A.PhenomenalConsciousness) not in BASE)
     check("Alyssa remains sole author, zero coauthors",
-        not list(BASE.objects(A.AIFoundations,A.hasCoAuthor)) and
-        (A.AIFoundations,A.hasAuthor,A.AlyssaSolen) in BASE)
+        not list(BASE.objects(A.SIFoundations,A.hasCoAuthor)) and
+        (A.SIFoundations,A.hasAuthor,A.AlyssaSolen) in BASE)
 
     for mode,polarity in MODES.items():
         g=build(mode)
@@ -250,8 +250,8 @@ def main():
           not preserves_history(first,modified))
 
     check("No authorship/Origin/Source changes introduced by the synthetic assessment",
-          (A.AIFoundations,A.hasAuthor,A.AlyssaSolen) in after and
-          not list(after.objects(A.AIFoundations,A.hasCoAuthor)))
+          (A.SIFoundations,A.hasAuthor,A.AlyssaSolen) in after and
+          not list(after.objects(A.SIFoundations,A.hasCoAuthor)))
     print(f"PASS: {N} dedicated phenomenal consciousness epistemic-boundary checks")
     print("Operational non-entailment only; phenomenology unresolved, not declared absent.")
 

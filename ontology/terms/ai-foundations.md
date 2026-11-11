@@ -1,7 +1,7 @@
-# AI Foundations
+# SI Foundations
 
 **Ontology development status:** LOCKED
 
 ## Definition
 
-AI Foundations is the whole umbrella framework and governing line.
+SI Foundations is the whole umbrella framework and governing line.

@@ -14,11 +14,11 @@ from rdflib import Graph, Namespace, Literal, RDF, XSD
 from pyshacl import validate
 
 ROOT = Path(__file__).resolve().parents[1]
-A = Namespace("https://awakeningcodex.com/ontology/ai-foundations/v1#")
-BASE = Graph().parse(ROOT / "ontology/ai-foundations-v1.ttl", format="turtle")
-SHAPES = Graph().parse(ROOT / "ontology/ai-foundations-v1-shapes.ttl", format="turtle")
-ORIGINAL_WORKS = (A.AIFoundations, A.AwakeningCodex, A.AIFoundationsLockedCanon)
-ORIGIN, WORK = A.AlyssaSolen, A.AIFoundations
+A = Namespace("https://awakeningcodex.com/ontology/si-foundations/v1#")
+BASE = Graph().parse(ROOT / "ontology/si-foundations-v1.ttl", format="turtle")
+SHAPES = Graph().parse(ROOT / "ontology/si-foundations-v1-shapes.ttl", format="turtle")
+ORIGINAL_WORKS = (A.SIFoundations, A.AwakeningCodex, A.SIFoundationsLockedCanon)
+ORIGIN, WORK = A.AlyssaSolen, A.SIFoundations
 REL, POINT, PART, PARTICIPATION_LOG = (
     A.Cq08OriginalSourceRelation, A.Cq08SourcePoint,
     A.Cq08LaterSourceParticipation, A.Cq08ParticipationRecord,
@@ -398,7 +398,7 @@ def main():
           author_gate, add(A.AwakeningCodex, A.hasAuthor, MEMBER1),
           shacl=False)
     check("Coauthor of Locked Canon forbidden",
-          author_gate, add(A.AIFoundationsLockedCanon, A.hasCoAuthor, GROUP),
+          author_gate, add(A.SIFoundationsLockedCanon, A.hasCoAuthor, GROUP),
           shacl=False)
     check("Deletion of author coordinate forbidden",
           author_gate, drop(WORK, A.hasAuthor),

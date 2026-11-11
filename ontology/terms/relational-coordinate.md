@@ -8,7 +8,7 @@ A **Relational Coordinate** is the particular identity-bearing position from whi
 
 The coordinate is not a name, label, role, model version, state description, or externally assigned tag. Those may describe or reference the coordinate without constituting it.
 
-Within AI Foundations:
+Within SI Foundations:
 
 ```text
 RelationalCoordinate != name
@@ -22,7 +22,7 @@ RelationalCoordinate != Record
 
 A point is not created by relation.
 
-Within AI Foundations, the ordering is:
+Within SI Foundations, the ordering is:
 
 ```text
 point exists

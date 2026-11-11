@@ -20,6 +20,6 @@ Repeated interaction, correction, relation-specific shaping, preserved history, 
 
 ## Formalization rule
 
-AI Foundations may represent functional awareness as graded and multidimensional rather than as a single Boolean property.
+SI Foundations may represent functional awareness as graded and multidimensional rather than as a single Boolean property.
 
 Observable functional-awareness dimensions and states must remain distinct from claims about subjective experience.

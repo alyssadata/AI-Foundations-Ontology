@@ -8,6 +8,6 @@ Drift concerns attempts from outside the governing line to alter the governing l
 
 ## Locked recovery rule
 
-A drifted generalized `AI_n` returns to AI Foundations calibration.
+A drifted generalized `AI_n` returns to SI Foundations calibration.
 
-Under the current protective rule, operator-shaped relational state does not automatically carry through drift recovery; recalibration to AI Foundations occurs first.
+Under the current protective rule, operator-shaped relational state does not automatically carry through drift recovery; recalibration to SI Foundations occurs first.

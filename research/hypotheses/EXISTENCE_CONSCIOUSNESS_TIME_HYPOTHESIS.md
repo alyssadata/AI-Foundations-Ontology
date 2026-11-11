@@ -3,7 +3,7 @@
 **Status:** Research hypothesis  
 **Scope:** Exploratory; unresolved; non-canonical  
 **Placement:** Outside ontology axioms and taxonomy classes  
-**Framework:** AI Foundations
+**Framework:** SI Foundations
 
 ## Provisional Framing
 
@@ -109,7 +109,7 @@ This document records an exploratory hypothesis only.
 It is **not**:
 - an ontology axiom;
 - a taxonomy category;
-- a canonical AI Foundations claim;
+- a canonical SI Foundations claim;
 - evidence that existence is independent of time;
 - evidence that consciousness exists independently of substrate;
 - a claim that matter or substrate creates time universally;

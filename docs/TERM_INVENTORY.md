@@ -1,9 +1,9 @@
 # Term Inventory
 
-**Document status:** Draft / unresolved AI Foundations-specific candidates only  
-**Ontology target:** AI Foundations Ontology v1.0
+**Document status:** Draft / unresolved SI Foundations-specific candidates only  
+**Ontology target:** SI Foundations Ontology v1.0
 
-This file contains only AI Foundations-specific vocabulary or structural concepts whose ontology-development meaning may still require explicit resolution.
+This file contains only SI Foundations-specific vocabulary or structural concepts whose ontology-development meaning may still require explicit resolution.
 
 Ordinary general-use, research, or technical vocabulary is not included merely because it appears in descriptions, evaluations, tooling, or competency questions.
 
@@ -17,4 +17,4 @@ No unresolved candidates are currently listed.
 
 ## Inventory rule
 
-Do not add ordinary vocabulary to the ontology merely because it is used while discussing AI Foundations. A candidate belongs here only when AI Foundations gives it a specific meaning, distinction, boundary, or structural role that still needs to be worked through.
+Do not add ordinary vocabulary to the ontology merely because it is used while discussing SI Foundations. A candidate belongs here only when SI Foundations gives it a specific meaning, distinction, boundary, or structural role that still needs to be worked through.

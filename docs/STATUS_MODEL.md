@@ -1,9 +1,9 @@
 # Status Model
 
 **Document status:** DRAFT formalization  
-**Target:** AI Foundations Ontology v1.0
+**Target:** SI Foundations Ontology v1.0
 
-AI Foundations ontology development uses separate status dimensions. A single status field must not collapse development state, canonical authority, and empirical support.
+SI Foundations ontology development uses separate status dimensions. A single status field must not collapse development state, canonical authority, and empirical support.
 
 ## 1. Development status
 
@@ -15,11 +15,11 @@ Initial values:
 - `IN_REVIEW`
 - `LOCKED`
 
-A LOCKED ontology-development definition preserves settled wording. It does not automatically make that wording part of the AI Foundations Locked Canon.
+A LOCKED ontology-development definition preserves settled wording. It does not automatically make that wording part of the SI Foundations Locked Canon.
 
 ## 2. Canonical status
 
-Describes whether an item is part of the authoritative AI Foundations canon.
+Describes whether an item is part of the authoritative SI Foundations canon.
 
 Initial formal values:
 
@@ -27,7 +27,7 @@ Initial formal values:
 - `CANONICAL`
 - `SUPERSEDED`
 
-Canonical membership is determined separately by the AI Foundations Locked Canon and Origin-approved canon process.
+Canonical membership is determined separately by the SI Foundations Locked Canon and Origin-approved canon process.
 
 ## 3. Evidentiary status
 

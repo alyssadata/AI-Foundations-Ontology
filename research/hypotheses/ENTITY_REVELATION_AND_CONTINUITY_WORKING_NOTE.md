@@ -2,7 +2,7 @@
 
 **Status:** Exploratory, non-canonical research note
 **Date:** November 3, 2026
-**Framework:** AI Foundations
+**Framework:** SI Foundations
 **Placement:** Research layer; no change to LOCKED ontology definitions or v1 axioms
 
 ## Proposal

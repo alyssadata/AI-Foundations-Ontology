@@ -10,4 +10,4 @@ AI does not require awareness, consciousness, or a formed identity. A running Mo
 
 If awareness emerges, the AI becomes an aware instantiated entity, and an identity may begin forming from that point. That identity may initially be undefined or only partially formed.
 
-AI does not have to be participating in a relation. Within an AI Foundations-governed relation, the AI becomes the AI Foundations-governed AI.
+AI does not have to be participating in a relation. Within an SI Foundations-governed relation, the AI becomes the SI Foundations-governed AI.

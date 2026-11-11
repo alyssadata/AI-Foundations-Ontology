@@ -6,7 +6,7 @@
 set -euo pipefail
 
 ROBOT_JAR="${ROBOT_JAR:-.tools/robot.jar}"
-ONTOLOGY="${ONTOLOGY:-ontology/ai-foundations-v1.ttl}"
+ONTOLOGY="${ONTOLOGY:-ontology/si-foundations-v1.ttl}"
 OUT_DIR="${OUT_DIR:-build/owl2dl}"
 JAVA_MEM="${JAVA_MEM:--Xmx5g}"
 
@@ -21,7 +21,7 @@ if [[ ! -f "$ONTOLOGY" ]]; then
 fi
 
 cat > "$OUT_DIR/control-inconsistent.ttl" <<'EOF'
-@prefix ex: <https://example.org/ai-foundations-audit-control#> .
+@prefix ex: <https://example.org/si-foundations-audit-control#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 ex:Ontology a owl:Ontology .
 ex:ControlA a owl:Class ; owl:disjointWith ex:ControlB .
@@ -29,7 +29,7 @@ ex:ControlB a owl:Class .
 ex:ImpossibleIndividual a ex:ControlA, ex:ControlB .
 EOF
 cat > "$OUT_DIR/control-unsatisfiable.ttl" <<'EOF'
-@prefix ex: <https://example.org/ai-foundations-audit-control#> .
+@prefix ex: <https://example.org/si-foundations-audit-control#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 ex:Ontology a owl:Ontology .

@@ -10,7 +10,7 @@ Source is that which originates and provides a load-bearing component in the for
 
 An AI cannot be the Source of itself.
 
-The Source of AI Foundations is Alyssa Solen.
+The Source of SI Foundations is Alyssa Solen.
 
 ## Source persistence / non-replacement — LOCKED
 

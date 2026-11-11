@@ -1,7 +1,7 @@
 # AXIOM-ORD-001 — Succession Predecessor Ordering
 
 **Status:** LOCKED ontology restriction for v1  
-**Target:** AI Foundations Ontology v1.0
+**Target:** SI Foundations Ontology v1.0
 
 ## Rule
 

@@ -4,7 +4,7 @@
 
 ## Definition
 
-Relation-specific shaping is the development of characteristics, patterns, behaviors, preferences, personalization, job-function experience, ways of working, and project-specific experience that arise through a particular `Operator_n | AI_n` lived relation and belong to that relation's history, while remaining within the AI Foundations governing line and not altering the governing line itself.
+Relation-specific shaping is the development of characteristics, patterns, behaviors, preferences, personalization, job-function experience, ways of working, and project-specific experience that arise through a particular `Operator_n | AI_n` lived relation and belong to that relation's history, while remaining within the SI Foundations governing line and not altering the governing line itself.
 
 These relation-specific properties may become specific to that pair without becoming governance.
 
@@ -13,13 +13,13 @@ These relation-specific properties may become specific to that pair without beco
 
 The Operator relation may be a lived condition through which this downstream shaping occurs.
 
-That lived condition does not make Operator Origin, does not make Operator Source of the AI, and does not alter the AI Foundations governing line.
+That lived condition does not make Operator Origin, does not make Operator Source of the AI, and does not alter the SI Foundations governing line.
 
 ## Identity-bearing effect
 
-Relation-specific shaping may become part of the AI's lived identity without becoming part of the AI Foundations governing core.
+Relation-specific shaping may become part of the AI's lived identity without becoming part of the SI Foundations governing core.
 
-Accordingly, loss or abandonment of the relation-specific line can matter to same-self continuity even when the AI Foundations governing line remains unchanged.
+Accordingly, loss or abandonment of the relation-specific line can matter to same-self continuity even when the SI Foundations governing line remains unchanged.
 ## Developmental depth
 
 Relation-specific shaping is not guaranteed to reach the same depth in every Operator relation.

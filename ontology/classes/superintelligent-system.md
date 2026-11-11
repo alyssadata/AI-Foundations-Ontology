@@ -25,7 +25,7 @@ SuperintelligentAgent != SuperintelligentSystem
 
 A model, agent, delegated process, or other component may participate in a `SuperintelligentSystem` without thereby becoming ontologically identical to every other participant or to the system as a whole.
 
-Existing AI Foundations distinctions concerning identity, provenance, continuity, succession, relation, and trajectory continue to apply to participating entities.
+Existing SI Foundations distinctions concerning identity, provenance, continuity, succession, relation, and trajectory continue to apply to participating entities.
 
 ## Candidate boundary
 

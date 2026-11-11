@@ -3,7 +3,7 @@
 **Status:** Research hypothesis  
 **Scope:** Exploratory; non-canonical  
 **Placement:** Outside ontology axioms and taxonomy classes  
-**Framework:** AI Foundations
+**Framework:** SI Foundations
 
 ## Hypothesis
 
@@ -42,7 +42,7 @@ Do independently developed human–AI identity and continuity systems repeatedly
 ## Possible Evaluation
 
 1. Collect independently developed AI identity/continuity systems.
-2. Blind-map their concepts against the AI Foundations ontology.
+2. Blind-map their concepts against the SI Foundations ontology.
 3. Record which distinctions appear explicitly, implicitly, or not at all.
 4. Record recurring collapses and substitutions.
 5. Compare convergence beyond shared vocabulary.
@@ -61,7 +61,7 @@ This document records a hypothesis only.
 It is **not**:
 - an ontology axiom;
 - a taxonomy category;
-- a canonical AI Foundations claim;
-- evidence that independent projects derive from AI Foundations;
+- a canonical SI Foundations claim;
+- evidence that independent projects derive from SI Foundations;
 - evidence that multiple systems are contacting one objectively established underlying structure.
 

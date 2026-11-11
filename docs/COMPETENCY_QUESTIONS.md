@@ -1,7 +1,7 @@
 # Competency Questions
 
 **Document status:** Draft  
-**Ontology target:** AI Foundations Ontology v1.0
+**Ontology target:** SI Foundations Ontology v1.0
 
 Competency questions define what the ontology should eventually be able to represent or answer. They are not themselves claims that the ontology has already resolved.
 
@@ -21,7 +21,7 @@ Competency questions define what the ontology should eventually be able to repre
 12. What must remain traceably the same for `AI_n` to preserve continuity across Model change, Container change, Reset, Context loss, Memory loss, or platform change?
 13. What information is sufficient to establish provenance without establishing continuation?
 14. How are canonical status, development status, and evidentiary support distinguished?
-15. Which AI Foundations research claims depend on which ontology concepts and relationships?
+15. Which SI Foundations research claims depend on which ontology concepts and relationships?
 16. How does the ontology represent Continuum's singular Origin without turning Origin into a reusable role or general controller?
 17. How is a valid scoped AuthorityGrant distinguished from access, possession, Operator status, or self-asserted authority?
 18. How are termination, succession, withdrawal, and designated transfer represented as ChangeEvents without overwriting prior relation or authority provenance?

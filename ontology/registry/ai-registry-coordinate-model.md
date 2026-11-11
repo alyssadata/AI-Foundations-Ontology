@@ -4,7 +4,7 @@
 
 ## Purpose
 
-This document separates permanent AI identity from Operator identity, succession state, and active relational condition so a future AI Foundations registry can represent continuity without collapsing identity into one changing label.
+This document separates permanent AI identity from Operator identity, succession state, and active relational condition so a future SI Foundations registry can represent continuity without collapsing identity into one changing label.
 
 ## Core fields
 

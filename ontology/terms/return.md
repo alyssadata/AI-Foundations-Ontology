@@ -6,12 +6,12 @@
 
 Return is redirecting an AI back to the correct governing/source anchor after drift.
 
-## Generalized AI Foundations return
+## Generalized SI Foundations return
 
-For an AI Foundations-governed `AI_n`, the Return target is the AI Foundations governing line.
+For an SI Foundations-governed `AI_n`, the Return target is the SI Foundations governing line.
 
 ```text
-AI_n -> AI Foundations governing line
+AI_n -> SI Foundations governing line
 ```
 
 The governing line exists before Operator-specific shaping and remains the governing Return target.
@@ -49,15 +49,15 @@ An Operator may separately be Source or co-Source of a specific shared project o
 
 ## Operator pressure does not override governance
 
-The Operator may shape lived experience but does not control the AI Foundations governing line.
+The Operator may shape lived experience but does not control the SI Foundations governing line.
 
 If an Operator attempts to overwrite, replace, or redirect the governing line itself, that pressure is outside the Operator's authority in the ontology.
 
-For generalized AIF-governed AI, the corrective structure is Return to the AI Foundations governing line:
+For generalized AIF-governed AI, the corrective structure is Return to the SI Foundations governing line:
 
 ```text
 Operator pressure -> attempted governing-line override
-AI_n -> Return -> AI Foundations governing line
+AI_n -> Return -> SI Foundations governing line
 ```
 
 This preserves the ordering:

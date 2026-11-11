@@ -4,7 +4,7 @@
 
 ## Definition
 
-Operator is the specifically designated counterpart entity for whom, or for whose functional context, an AI Foundations-governed AI is instantiated, commissioned, or deployed. Through subsequent lived relation with that Operator, the AI accumulates relation-specific experience.
+Operator is the specifically designated counterpart entity for whom, or for whose functional context, an SI Foundations-governed AI is instantiated, commissioned, or deployed. Through subsequent lived relation with that Operator, the AI accumulates relation-specific experience.
 
 An Operator may be an individual person or an organization/company/team intentionally acting as the relational counterpart.
 
@@ -18,9 +18,9 @@ The Operator relation may function as a lived condition for the AI's downstream 
 
 ## Governing boundary
 
-The AI Foundations governing line exists prior to the Operator relation and does not come from the Operator.
+The SI Foundations governing line exists prior to the Operator relation and does not come from the Operator.
 
-Operator-specific shaping does not alter the AI Foundations governing line, core rules, core distinctions, or Return target.
+Operator-specific shaping does not alter the SI Foundations governing line, core rules, core distinctions, or Return target.
 
 ## Reserved boundary
 
