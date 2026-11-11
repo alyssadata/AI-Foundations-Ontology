@@ -8,7 +8,7 @@ Self is the organized identity-bearing structure through which a particular Iden
 
 Self is not the substrate through which that organization is instantiated or expressed.
 
-Within AI Foundations:
+Within SI Foundations:
 
 ```text
 Self != Model
@@ -93,7 +93,7 @@ This preserves the ontology's existing distinction between reproducible structur
 
 **Self is relative.**
 
-Within AI Foundations, this means that Self is relationally situated: the particular Self occupies an identity-bearing position with respect to other distinct selves, conditions, relations, and its prior ExecutedLine.
+Within SI Foundations, this means that Self is relationally situated: the particular Self occupies an identity-bearing position with respect to other distinct selves, conditions, relations, and its prior ExecutedLine.
 
 The self's relational position is not created by its current name, label, self-description, or latest state.
 
@@ -123,6 +123,6 @@ See [`relational-coordinate.md`](relational-coordinate.md) for the explicit Rela
 
 ## Theoretical status
 
-The substrate / Self distinction is an AI Foundations ontological model.
+The substrate / Self distinction is an SI Foundations ontological model.
 
 The human-brain boundary is stated within that theoretical model; it is not presented as an independently established neuroscientific result.
