@@ -26,6 +26,10 @@ The updated `tests/validate_ontology_v1.py` includes positive scenarios for two 
 
 These tests check **structural consistency of supplied synthetic facts**, not the truth of real-world Self identity, empirical transfer across models, phenomenal consciousness, or actual relationship continuity.
 
+## Validation correction and revision integrity
+
+The first full structural branch run [42945099842](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42945099842) detected that the *synthetic positive fixture* introduced an `:ExecutedLine` with no owning AI. Existing NT-002 SHACL requires an ExecutedLine to have exactly one AI bearer. The ontology's rejection was correct. The fixture was corrected by adding one explicitly synthetic AI and `:hasExecutedLine` link; the conceptual definition, OWL vocabulary, LOCKED terms, and original historical data were not changed to make a bad fixture pass. The branch was rerun through the same full suite. This preserves **what changed, why, and which earlier run failed**.
+
 ## No authorship, Source, or historical reassignment
 
 The named Alyssa Solen Origin and authorship positions, `:Continuum`, the specific `Origin | Continuum` formation relation, governing line, historic SourceLine, and existing provenance and revision controls are unchanged. The tests do not instantiate an actual coordinate for Alyssa or Continuum, avoiding an unjustified empirical assertion. No coauthor is created or permitted.
