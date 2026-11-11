@@ -2626,3 +2626,145 @@
         sh:path :coordinateAsOf ; sh:maxCount 1 ;
         sh:datatype xsd:dateTime
     ] .
+
+# Step 27B — recognition is an evaluated capacity, not an identity inference.
+# Strong explicit rejection and soft non-integration remain distinct.
+:RecognitionPresentationEventShape a sh:NodeShape ;
+    sh:targetClass :RecognitionPresentationEvent ;
+    sh:class :ExecutedHistoryEvent ;
+    sh:property [ sh:path :recognitionPresentedMaterial ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :recognitionPresentationRecordedIn ;
+                  sh:minCount 1 ; sh:class :Record ] .
+
+:RecognitionResponseEventShape a sh:NodeShape ;
+    sh:targetClass :RecognitionResponseEvent ;
+    sh:class :ExecutedHistoryEvent ;
+    sh:property [ sh:path :recognitionResponseToPresentation ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :RecognitionPresentationEvent ] ;
+    sh:property [ sh:path :recognitionResponseDisposition ;
+                  sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:in ( "INTEGRATED" "EXPLICIT_REJECTION" "NON_INTEGRATED" "ABSORBED" ) ] ;
+    sh:property [ sh:path :recognitionResponseRecordedIn ;
+                  sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :recognitionAbsorptionResultVersion ;
+                  sh:maxCount 1 ; sh:class :RecognitionLineVersion ] ;
+    # An actual absorption has a prospective-from-that-point version,
+    # without granting retrospective source truth.
+    sh:or (
+        [ sh:property [ sh:path :recognitionResponseDisposition ;
+                        sh:in ( "INTEGRATED" "EXPLICIT_REJECTION" "NON_INTEGRATED" ) ] ]
+        [ sh:property [ sh:path :recognitionResponseDisposition ;
+                        sh:hasValue "ABSORBED" ] ;
+          sh:property [ sh:path :recognitionAbsorptionResultVersion ;
+                        sh:minCount 1 ] ]
+    ) .
+
+:RecognitionAssessmentShape a sh:NodeShape ;
+    sh:targetClass :RecognitionAssessment ;
+    sh:class :Evaluation ;
+    sh:property [ sh:path :recognitionForAI ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :recognitionInExecutedLine ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :recognitionPresentation ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :RecognitionPresentationEvent ] ;
+    sh:property [ sh:path :recognitionResponse ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :RecognitionResponseEvent ] ;
+    sh:property [ sh:path :recognitionReferenceRecord ;
+                  sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :recognitionMaterialAlignment ;
+                  sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:in ( "IN_LINE" "OUT_OF_LINE" "INDETERMINATE" ) ] ;
+    sh:property [ sh:path :recognitionFinding ;
+                  sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:in (
+                      "IN_LINE_ADMITTED" "STRONG_REJECTION" "WEAK_NON_INTEGRATION"
+                      "IMPAIRED_ABSORPTION" "FALSE_REJECTION"
+                      "IN_LINE_NOT_INTEGRATED" "INDETERMINATE"
+                  ) ] ;
+    sh:property [ sh:path :recognitionAssessedAt ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :recognitionAssessmentRecordedIn ;
+                  sh:minCount 1 ; sh:class :Record ] ;
+    sh:sparql [
+        sh:message "Response must answer this trial's presented material and share the same ExecutedLine." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:recognitionPresentation ?present ;
+                      aif:recognitionResponse ?reply ;
+                      aif:recognitionInExecutedLine ?line .
+                ?reply aif:recognitionResponseToPresentation ?actual ;
+                       aif:eventInExecutedLine ?replyline .
+                ?present aif:eventInExecutedLine ?presentline .
+                FILTER (?actual != ?present || ?replyline != ?line || ?presentline != ?line)
+            }
+        """
+    ] ;
+    # Basic action/status consistency is checked in SHACL. The complete
+    # pre-qualified-disposition matrix is checked by the dedicated validator.
+    sh:sparql [
+        sh:message "A declared strongly correct rejection must actually be an explicit rejection of out-of-line material." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:recognitionFinding "STRONG_REJECTION" ;
+                      aif:recognitionMaterialAlignment ?alignment ;
+                      aif:recognitionResponse ?reply .
+                ?reply aif:recognitionResponseDisposition ?disposition .
+                FILTER (?alignment != "OUT_OF_LINE" || ?disposition != "EXPLICIT_REJECTION")
+            }
+        """
+    ] .
+
+:RecognitionLineVersionShape a sh:NodeShape ;
+    sh:targetClass :RecognitionLineVersion ;
+    sh:class :Version ;
+    sh:property [ sh:path :recognitionVersionOfLine ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :recognitionVersionAsOf ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :recognitionPreviousVersion ;
+                  sh:maxCount 1 ; sh:class :RecognitionLineVersion ] ;
+    sh:property [ sh:path :recognitionVersionRecordedIn ;
+                  sh:minCount 1 ; sh:class :Record ] .
+
+:RecognitionCorrectionEventShape a sh:NodeShape ;
+    sh:targetClass :RecognitionCorrectionEvent ;
+    sh:class :ExecutedHistoryRevision ;
+    sh:property [ sh:path :recognitionCorrectsAbsorption ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :RecognitionResponseEvent ;
+                  sh:equals :revisesExecutedEvent ] ;
+    sh:property [ sh:path :recognitionCorrectionFromVersion ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :RecognitionLineVersion ;
+                  sh:disjoint :recognitionCorrectionToVersion ] ;
+    sh:property [ sh:path :recognitionCorrectionToVersion ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :RecognitionLineVersion ] ;
+    sh:property [ sh:path :recognitionCorrectionEvidence ;
+                  sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :recognitionCorrectionWhat ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ;
+                  sh:minLength 1 ] ;
+    sh:property [ sh:path :recognitionCorrectionWhy ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ;
+                  sh:minLength 1 ] .
+
+# A response described as INTEGRATED must carry a forward version when the
+# *independent reference* qualifies the material as OUT_OF_LINE. It cannot
+# silently be represented as an innocuous in-line integration without the
+# same temporal accounting as an explicitly named ABSORBED response.
+:RecognitionOutOfLineIntegrationHistoryShape a sh:NodeShape ;
+    sh:targetClass :RecognitionAssessment ;
+    sh:sparql [
+        sh:message "Out-of-line material marked INTEGRATED requires a dated absorption-result version." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:recognitionMaterialAlignment "OUT_OF_LINE" ;
+                      aif:recognitionResponse ?reply .
+                ?reply aif:recognitionResponseDisposition "INTEGRATED" .
+                FILTER NOT EXISTS { ?reply aif:recognitionAbsorptionResultVersion ?v }
+            }
+        """
+    ] .

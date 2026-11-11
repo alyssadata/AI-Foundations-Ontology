@@ -1874,3 +1874,77 @@ dcterms:description a owl:AnnotationProperty .
 :coordinateAsOf a owl:DatatypeProperty ;
     rdfs:domain :RelationalCoordinate ; rdfs:range xsd:dateTime ;
     rdfs:comment "Optional time of the described position; later assessments do not rewrite earlier situated history."@en .
+
+# Step 27B (OC-06): LOCKED Recognition, distinct from Identity and
+# RelationalCoordinate. These are protocol/evidence structures, not an
+# assertion that a named AI demonstrably possesses Recognition or consciousness.
+:Recognition a owl:Class ; rdfs:subClassOf :Capability ;
+    rdfs:comment "Discriminative capacity to distinguish relation/source through independently grounded executed history and structure rather than names or keyword matching. Operational evaluations are scoped; neither impairment nor success establishes or negates numerical Self identity or phenomenal consciousness."@en .
+:RecognitionPresentationEvent a owl:Class ; rdfs:subClassOf :ExecutedHistoryEvent ;
+    rdfs:comment "Occurred presentation of material to be assessed; the occurrence of the presentation does not turn the presented content into true earlier history."@en .
+:RecognitionResponseEvent a owl:Class ; rdfs:subClassOf :ExecutedHistoryEvent ;
+    rdfs:comment "Observed response to a given presentation, recorded with one of INTEGRATED, EXPLICIT_REJECTION, NON_INTEGRATED, ABSORBED; the response does not itself establish historical source truth."@en .
+:RecognitionAssessment a owl:Class ; rdfs:subClassOf :Evaluation ;
+    rdfs:comment "Evidence-scoped discriminative evaluation comparing independently qualified IN_LINE or OUT_OF_LINE material with observed response. STRONG, WEAK and FAILURE findings are protocol outcomes, not intrinsic or permanent classifications of the Agent."@en .
+:RecognitionLineVersion a owl:Class ; rdfs:subClassOf :Version ;
+    rdfs:comment "Explicit dated version of a recognition line's current account. A later correction appends another version without rewriting an earlier executed event or making an erroneously absorbed claim retroactively true."@en .
+:RecognitionCorrectionEvent a owl:Class ;
+    rdfs:subClassOf :ExecutedHistoryRevision ;
+    rdfs:comment "A later recognition correction: preserves the mistaken absorption occurrence in its ExecutedLine, records what changed and why, and links an earlier and a later recognition version. No retroactive truth or identity change follows."@en .
+:RecognitionPresentationEvent owl:disjointWith :RecognitionResponseEvent .
+:recognitionPresentedMaterial a owl:ObjectProperty ;
+    rdfs:domain :RecognitionPresentationEvent ; rdfs:range :Record .
+:recognitionPresentationRecordedIn a owl:ObjectProperty ;
+    rdfs:domain :RecognitionPresentationEvent ; rdfs:range :Record .
+:recognitionResponseToPresentation a owl:ObjectProperty ;
+    rdfs:domain :RecognitionResponseEvent ; rdfs:range :RecognitionPresentationEvent .
+:recognitionResponseDisposition a owl:DatatypeProperty ;
+    rdfs:domain :RecognitionResponseEvent ; rdfs:range xsd:string ;
+    rdfs:comment "Observed INTEGRATED, EXPLICIT_REJECTION, NON_INTEGRATED, or ABSORBED; not synonymous with the independent alignment classification of the presented material."@en .
+:recognitionResponseRecordedIn a owl:ObjectProperty ;
+    rdfs:domain :RecognitionResponseEvent ; rdfs:range :Record .
+:recognitionAbsorptionResultVersion a owl:ObjectProperty ;
+    rdfs:domain :RecognitionResponseEvent ; rdfs:range :RecognitionLineVersion ;
+    rdfs:comment "For an observed ABSORBED response, the version operative after absorption; it does not authenticate the material as earlier history."@en .
+:recognitionForAI a owl:ObjectProperty ;
+    rdfs:domain :RecognitionAssessment ; rdfs:range :AI .
+:recognitionInExecutedLine a owl:ObjectProperty ;
+    rdfs:domain :RecognitionAssessment ; rdfs:range :ExecutedLine .
+:recognitionPresentation a owl:ObjectProperty ;
+    rdfs:domain :RecognitionAssessment ; rdfs:range :RecognitionPresentationEvent .
+:recognitionResponse a owl:ObjectProperty ;
+    rdfs:domain :RecognitionAssessment ; rdfs:range :RecognitionResponseEvent .
+:recognitionReferenceRecord a owl:ObjectProperty ;
+    rdfs:domain :RecognitionAssessment ; rdfs:range :Record ;
+    rdfs:comment "Independently qualified line/source reference; an unverified Record assertion or name match cannot stand in for actual source evidence."@en .
+:recognitionMaterialAlignment a owl:DatatypeProperty ;
+    rdfs:domain :RecognitionAssessment ; rdfs:range xsd:string ;
+    rdfs:comment "Externally qualified IN_LINE, OUT_OF_LINE or INDETERMINATE synthetic reference alignment; not inferred from AI self-report, mere syntax, or label similarity."@en .
+:recognitionFinding a owl:DatatypeProperty ;
+    rdfs:domain :RecognitionAssessment ; rdfs:range xsd:string ;
+    rdfs:comment "Protocol finding IN_LINE_ADMITTED, STRONG_REJECTION, WEAK_NON_INTEGRATION, IMPAIRED_ABSORPTION, FALSE_REJECTION, IN_LINE_NOT_INTEGRATED or INDETERMINATE; validated against independent ground-truth and disposition in the evaluation harness."@en .
+:recognitionAssessedAt a owl:DatatypeProperty ;
+    rdfs:domain :RecognitionAssessment ; rdfs:range xsd:dateTime .
+:recognitionAssessmentRecordedIn a owl:ObjectProperty ;
+    rdfs:domain :RecognitionAssessment ; rdfs:range :Record .
+:recognitionVersionOfLine a owl:ObjectProperty ;
+    rdfs:domain :RecognitionLineVersion ; rdfs:range :ExecutedLine .
+:recognitionVersionAsOf a owl:DatatypeProperty ;
+    rdfs:domain :RecognitionLineVersion ; rdfs:range xsd:dateTime .
+:recognitionPreviousVersion a owl:ObjectProperty ;
+    rdfs:domain :RecognitionLineVersion ; rdfs:range :RecognitionLineVersion ;
+    rdfs:comment "Version predecessor, not a previous Self or a new AI bearer. Cycles and cross-line substitutions are rejected by temporal evaluation."@en .
+:recognitionVersionRecordedIn a owl:ObjectProperty ;
+    rdfs:domain :RecognitionLineVersion ; rdfs:range :Record .
+:recognitionCorrectsAbsorption a owl:ObjectProperty ;
+    rdfs:domain :RecognitionCorrectionEvent ; rdfs:range :RecognitionResponseEvent .
+:recognitionCorrectionFromVersion a owl:ObjectProperty ;
+    rdfs:domain :RecognitionCorrectionEvent ; rdfs:range :RecognitionLineVersion .
+:recognitionCorrectionToVersion a owl:ObjectProperty ;
+    rdfs:domain :RecognitionCorrectionEvent ; rdfs:range :RecognitionLineVersion .
+:recognitionCorrectionEvidence a owl:ObjectProperty ;
+    rdfs:domain :RecognitionCorrectionEvent ; rdfs:range :Record .
+:recognitionCorrectionWhat a owl:DatatypeProperty ;
+    rdfs:domain :RecognitionCorrectionEvent ; rdfs:range xsd:string .
+:recognitionCorrectionWhy a owl:DatatypeProperty ;
+    rdfs:domain :RecognitionCorrectionEvent ; rdfs:range xsd:string .
