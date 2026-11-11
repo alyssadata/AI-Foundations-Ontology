@@ -7,6 +7,8 @@
 
 **Step 27A status (2026-11-10):** Direct Relational Coordinate vocabulary and synthetic conformance tests implemented in [PR #17](https://github.com/alyssadata/AI-Foundations-Ontology/pull/17), with passing [full structural branch CI](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42945714314) and independent [OWL 2 DL/HermiT audit](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42945093383). Historic 20/20 CQ tally is unchanged. Recognition and other semantic-release boundary decisions remain; v1.0 is still DRAFT. No LOCKED term or sole-authorship change.
 
+**Step 27B (2026-11-10):** Direct discriminative Recognition vocabulary, synthetic in-line/out-of-line assessments, and append-only versioned correction are under review in [PR #18](https://github.com/alyssadata/AI-Foundations-Ontology/pull/18), with [documented test scope](docs/reviews/2026-11-10-STEP-27B-RECOGNITION-CONCORDANCE.md). The dedicated tests and OWL 2 DL/HermiT branch reasoner checks have passed; full latest-branch and post-merge checks are required for formal closeout. No empirical self/awareness or v1.0 release is inferred. Alyssa Solen remains the sole author, with no coauthors and no exceptions.
+
 ## Start here
 
 - [`WORKING_MAP.md`](WORKING_MAP.md) — live formalization and v1.0 release roadmap
