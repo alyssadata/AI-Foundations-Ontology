@@ -4545,6 +4545,8 @@ def main():
             (AIF.RcRelation, RDF.type, AIF.Relation),
             (AIF.RcOtherRelation, RDF.type, AIF.Relation),
             (AIF.RcLine, RDF.type, AIF.ExecutedLine),
+            (AIF.RcSyntheticAI, RDF.type, AIF.AI),
+            (AIF.RcSyntheticAI, AIF.hasExecutedLine, AIF.RcLine),
             (AIF.RcEvidence, RDF.type, AIF.Record),
             (AIF.RcCoordA, RDF.type, AIF.RelationalCoordinate),
             (AIF.RcCoordA, AIF.coordinateOfSelf, AIF.RcSelfA),
