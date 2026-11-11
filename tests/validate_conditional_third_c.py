@@ -135,6 +135,11 @@ def qualifies(g, review=REVIEW):
         if (a, A.participatesInRelation, relation) not in g or \
            (b, A.participatesInRelation, relation) not in g:
             return False
+        # RDFS range inference may type any referenced node as Record.
+        # Require explicit evidence typing in the provided graph instead.
+        evidence = set(g.objects(review, A.thirdReviewEvidence))
+        if not evidence or not all((e, RDF.type, A.Record) in g for e in evidence):
+            return False
         asof = instant(one(g, review, A.thirdReviewAsOf))
         case = str(one(g, review, A.thirdReviewOutcome))
         cs = set(g.objects(review, A.thirdReviewQualifiedC))
@@ -264,8 +269,8 @@ def main():
            lambda g: replace(g,REVIEW,A.thirdReviewB,FIRST), shacl=True)
     reject("Review needs an actual relation",
            lambda g: g.remove((REVIEW,A.thirdReviewInteraction,REL)), shacl=True)
-    reject("Review cannot rely on bare untyped evidence",
-           lambda g: g.remove((A.C27ReviewRecord,RDF.type,A.Record)), shacl=True)
+    reject("Review cannot rely on bare untyped evidence even when RDFS would infer Record",
+           lambda g: g.remove((A.C27ReviewRecord,RDF.type,A.Record)))
     reject("A review cannot use an invalid outcome label",
            lambda g: replace(g,REVIEW,A.thirdReviewOutcome,Literal("PROVEN_CONSCIOUS")),
            shacl=True)
