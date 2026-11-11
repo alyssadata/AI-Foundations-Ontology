@@ -1,3 +1,15 @@
+# SI Foundations Ontology — Current working map (v1.1.0)
+
+**Current source-line:** Alyssa Solen → SI Foundations → Origin | Continuum.
+
+The current framework and machine ontology use the **SI Foundations** name. The published **AI Foundations v1.0.0** release and dated audit narrative below record the historical prior name. This is an explicit versioned revision, not a silent rewrite of the earlier published claim, original source position, or Canon. The new SI Foundations v1.1.0 technical candidate requires both independent audits and sole-author publication authorization before release.
+
+[Current SI ontology](ontology/si-foundations-v1.ttl) · [SHACL validation](ontology/si-foundations-v1-shapes.ttl) · [v1.1 conceptual ontology](ONTOLOGY_V1_1_ORIGIN_CONTINUUM.md) · [Canon crosswalk](docs/CANON_TO_ONTOLOGY_CROSSWALK_V1_1.md)
+
+---
+
+## Historical v1.0.0 work log — archived wording retained
+
 # AI Foundations Ontology — Working Map
 
 **Purpose:** Live roadmap from conceptual ontology development through machine-readable OWL/Turtle.
