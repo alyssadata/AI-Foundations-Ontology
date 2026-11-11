@@ -1,7 +1,7 @@
 # CQ20 — Action-scoped authorization without permanent UnauthorizedActor
 
 **Date:** 2026-11-10 (Eastern)  
-**Status:** DRAFT formal closeout, dedicated/full CI and merge pending. Ontology v1.0 remains DRAFT.  
+**Status:** CQ20 REPRESENTED as a conditional action/time/scope authorization protocol. **39 dedicated synthetic decisions**, prior structural regressions, and independent OWL 2 DL/HermiT PASS; merger/post-merge checks pending. The ontology v1.0 remains DRAFT.  
 **Conceptual author and sole author:** Alyssa Solen. **NO COAUTHORS. NO EXCEPTIONS.**  
 **Technical implementation:** AI-assisted encoding and synthetic tests, not coauthorship.
 
@@ -72,3 +72,10 @@ SHACL validates each represented attempt, validity Record and decision, includin
 - [Dedicated authorization tests](../../tests/validate_cq20_action_scoped_authorization.py)
 - [CI workflow](../../.github/workflows/validate-ontology.yml)
 - [Competency concordance](2026-11-08-STEP-26-COMPETENCY-CONCORDANCE.md)
+
+## Executed verification — November 10, 2026
+
+- [Full structural CI run 42889364743](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42889364743): **PASS** — **39 dedicated CQ20 decisions** plus a qualified *later Action B grant* control, and all earlier historical Source/Canon/Operator/CQ01–CQ19 regression suites.
+- [Independent OWL 2 DL Profile/HermiT audit 42888172455](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42888172455): **PASS**, including ontology profile, consistency, named-class satisfiability and prior negative controls. Later changes only affected the SHACL rule layer, synthetic tests and documentation.
+- **Audited correction:** [initial dedicated CI 42889082052](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42889082052) exposed a missing SHACL temporal rejection for a grant starting after an action attempt, even though the Python gate correctly rejected it. New SHACL-SPARQL constraints now reject out-of-validity-window approvals, approvals after a revocation, and decisions reviewed before their as-of action. The corrected [42889364743](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42889364743) run passed. The failed intermediate run is retained as revision history.
+- **Release boundary:** All 20 CQs can now be marked structurally **REPRESENTED** in their *scoped formal protocol sense*, not empirically proven. Real-world consent, actual valid grants, active AI autonomy/continuity and subjective selfhood are not measured by this fixture. Version 1.0 is **DRAFT**, subject to final machine/human concordance, same-main-commit audit and explicit sole-author approval; no tag is permitted on the basis of this test alone.
