@@ -1,6 +1,7 @@
 # AI Foundations Ontology
 
 **Status:** Draft development repository  
+**Current readiness:** All 20 original competency questions represented in scoped formal structures/protocols; [post-CQ20 semantic concordance audit](docs/reviews/2026-11-10-POST-CQ20-SEMANTIC-CONCORDANCE.md) identifies further direct-vocabulary/release review items. Machine release NOT YET CLEARED; no v1.0 tag. Sole author Alyssa Solen; no coauthors, no exceptions.  
 **Target:** AI Foundations Ontology v1.0  
 **Source-line:** Alyssa Solen → AI Foundations → Origin | Continuum
 
