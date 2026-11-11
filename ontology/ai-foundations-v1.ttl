@@ -1800,3 +1800,52 @@ dcterms:description a owl:AnnotationProperty .
 # comparable content field, not an assertion that every Record is storage.
 :provenanceTraceContent a owl:DatatypeProperty ;
     rdfs:domain :Record ; rdfs:range xsd:string .
+
+# CQ20 — authorization is a time-, action- and scope-specific *decision*,
+# never an intrinsic or permanent :UnauthorizedActor type. Absence of a
+# permission triple in OWL's open world does not prove lack of authority:
+# an explicit closed-world as-of grant inventory is needed for negative
+# decisions. Independent Origin-only acts are not delegable by a grant.
+:ScopedActionAttempt a owl:Class ; rdfs:subClassOf :Event ;
+    rdfs:comment "One attempted/proposed operation by a particular Agent in a named framework, target scope and time; the proposal alone is not an ExecutedHistoryEvent or proof of successful execution."@en .
+:ScopedGrantValidityRecord a owl:Class ; rdfs:subClassOf :Record ;
+    rdfs:comment "Preserved time/scope validity declaration for one externally qualified AIF scoped grant, with independent evidence and optional revocation. An RDF grant assertion is not itself proof of legal/actual authorization."@en .
+:ActionScopedAuthorizationDecision a owl:Class ; rdfs:subClassOf :Evaluation ;
+    rdfs:comment "Decision about one Agent's one action under one Framework, scope and as-of time; same Agent may receive different results for other actions or times. Unqualified/incomplete-scope data remain INDETERMINATE."@en .
+:attemptedByAgent a owl:ObjectProperty ; rdfs:domain :ScopedActionAttempt ; rdfs:range :Agent .
+:attemptedOperation a owl:ObjectProperty ; rdfs:domain :ScopedActionAttempt ; rdfs:range :ChangeEvent .
+:attemptWithinFramework a owl:ObjectProperty ; rdfs:domain :ScopedActionAttempt ; rdfs:range :Framework .
+:attemptWithinScope a owl:ObjectProperty ; rdfs:domain :ScopedActionAttempt .
+:attemptAt a owl:DatatypeProperty ; rdfs:domain :ScopedActionAttempt ; rdfs:range xsd:dateTime .
+:attemptRecordedIn a owl:ObjectProperty ; rdfs:domain :ScopedActionAttempt ; rdfs:range :Record .
+:validityForGrant a owl:ObjectProperty ; rdfs:domain :ScopedGrantValidityRecord ; rdfs:range :AIFoundationsScopedGrant .
+:validityForScope a owl:ObjectProperty ; rdfs:domain :ScopedGrantValidityRecord .
+:validityFrom a owl:DatatypeProperty ; rdfs:domain :ScopedGrantValidityRecord ; rdfs:range xsd:dateTime .
+:validityUntil a owl:DatatypeProperty ; rdfs:domain :ScopedGrantValidityRecord ; rdfs:range xsd:dateTime .
+:validityEvidenceRecord a owl:ObjectProperty ; rdfs:domain :ScopedGrantValidityRecord ; rdfs:range :Record .
+:validityRevokedAt a owl:DatatypeProperty ; rdfs:domain :ScopedGrantValidityRecord ; rdfs:range xsd:dateTime .
+:validityRevocationRecord a owl:ObjectProperty ; rdfs:domain :ScopedGrantValidityRecord ; rdfs:range :Record .
+:authorizationForAttempt a owl:ObjectProperty ;
+    rdfs:domain :ActionScopedAuthorizationDecision ; rdfs:range :ScopedActionAttempt .
+:authorizationForAgent a owl:ObjectProperty ;
+    rdfs:domain :ActionScopedAuthorizationDecision ; rdfs:range :Agent .
+:authorizationForFramework a owl:ObjectProperty ;
+    rdfs:domain :ActionScopedAuthorizationDecision ; rdfs:range :Framework .
+:authorizationForScope a owl:ObjectProperty ;
+    rdfs:domain :ActionScopedAuthorizationDecision .
+:authorizationAsOf a owl:DatatypeProperty ;
+    rdfs:domain :ActionScopedAuthorizationDecision ; rdfs:range xsd:dateTime .
+:authorizationReviewedAt a owl:DatatypeProperty ;
+    rdfs:domain :ActionScopedAuthorizationDecision ; rdfs:range xsd:dateTime .
+:authorizationDisposition a owl:DatatypeProperty ;
+    rdfs:domain :ActionScopedAuthorizationDecision ; rdfs:range xsd:string .
+:authorizationAssessedGrant a owl:ObjectProperty ;
+    rdfs:domain :ActionScopedAuthorizationDecision ; rdfs:range :AIFoundationsScopedGrant .
+:authorizationGrantValidity a owl:ObjectProperty ;
+    rdfs:domain :ActionScopedAuthorizationDecision ; rdfs:range :ScopedGrantValidityRecord .
+:authorizationScopeInventoryComplete a owl:DatatypeProperty ;
+    rdfs:domain :ActionScopedAuthorizationDecision ; rdfs:range xsd:boolean .
+:authorizationScopeInventoryRecord a owl:ObjectProperty ;
+    rdfs:domain :ActionScopedAuthorizationDecision ; rdfs:range :Record .
+:authorizationDecisionReason a owl:ObjectProperty ;
+    rdfs:domain :ActionScopedAuthorizationDecision ; rdfs:range :Record .

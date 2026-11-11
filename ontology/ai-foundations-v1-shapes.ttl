@@ -2418,3 +2418,165 @@
             }
         """
     ] .
+
+# CQ20 — a scoped decision belongs to an action-attempt, not to an Agent
+# as an intrinsic moral/permission class. Denial requires a reviewed and
+# explicitly complete as-of scope inventory, not merely missing open-world
+# RDF permission triples. A second action can be authorized simultaneously.
+:ScopedActionAttemptShape a sh:NodeShape ;
+    sh:targetClass :ScopedActionAttempt ;
+    sh:class :Event ;
+    sh:property [ sh:path :attemptedByAgent ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent ] ;
+    sh:property [ sh:path :attemptedOperation ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ChangeEvent ] ;
+    sh:property [ sh:path :attemptWithinFramework ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AIFoundations ; sh:class :Framework ] ;
+    sh:property [ sh:path :attemptWithinScope ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :attemptAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :attemptRecordedIn ; sh:minCount 1 ; sh:class :Record ] .
+:ScopedGrantValidityRecordShape a sh:NodeShape ;
+    sh:targetClass :ScopedGrantValidityRecord ;
+    sh:class :Record ;
+    sh:property [ sh:path :validityForGrant ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :AIFoundationsScopedGrant ] ;
+    sh:property [ sh:path :validityForScope ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :validityFrom ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ; sh:lessThan :validityUntil ] ;
+    sh:property [ sh:path :validityUntil ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :validityEvidenceRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :validityRevokedAt ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :validityRevocationRecord ; sh:class :Record ] ;
+    sh:sparql [
+        sh:message "An observed grant revocation requires its own preserved Revocation Record" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:validityRevokedAt ?at .
+                FILTER NOT EXISTS { $this aif:validityRevocationRecord ?record . }
+            }
+        """
+    ] .
+:ActionScopedAuthorizationDecisionShape a sh:NodeShape ;
+    sh:targetClass :ActionScopedAuthorizationDecision ;
+    sh:class :Evaluation ;
+    sh:property [ sh:path :authorizationForAttempt ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ScopedActionAttempt ] ;
+    sh:property [ sh:path :authorizationForAgent ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Agent ] ;
+    sh:property [ sh:path :authorizationForFramework ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AIFoundations ; sh:class :Framework ] ;
+    sh:property [ sh:path :authorizationForScope ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :authorizationAsOf ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :authorizationReviewedAt ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :authorizationDisposition ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "AUTHORIZED_FOR_ACTION" "UNAUTHORIZED_FOR_ACTION" "INDETERMINATE" ) ] ;
+    sh:property [ sh:path :authorizationAssessedGrant ; sh:maxCount 1 ;
+        sh:class :AIFoundationsScopedGrant ] ;
+    sh:property [ sh:path :authorizationGrantValidity ; sh:maxCount 1 ;
+        sh:class :ScopedGrantValidityRecord ] ;
+    sh:property [ sh:path :authorizationScopeInventoryComplete ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:boolean ] ;
+    sh:property [ sh:path :authorizationScopeInventoryRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :authorizationDecisionReason ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:sparql [
+        sh:message "Review must name exactly its attempted Agent, Framework, scope and as-of time" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:authorizationForAttempt ?attempt ;
+                      aif:authorizationForAgent ?agent ;
+                      aif:authorizationForFramework ?framework ;
+                      aif:authorizationForScope ?scope ;
+                      aif:authorizationAsOf ?time .
+                FILTER NOT EXISTS {
+                    ?attempt aif:attemptedByAgent ?agent ;
+                             aif:attemptWithinFramework ?framework ;
+                             aif:attemptWithinScope ?scope ;
+                             aif:attemptAt ?time .
+                }
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Authorized or denied action needs explicit complete scoped grant inventory; incomplete must remain indeterminate" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:authorizationDisposition ?status ;
+                      aif:authorizationScopeInventoryComplete ?complete .
+                FILTER ((?status = "INDETERMINATE" && ?complete = true) ||
+                        (?status != "INDETERMINATE" && ?complete = false))
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "An authorized action needs the one recorded Grant and its qualifying time/scope evidence" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:authorizationDisposition "AUTHORIZED_FOR_ACTION" .
+                FILTER NOT EXISTS {
+                    $this aif:authorizationAssessedGrant ?grant ;
+                          aif:authorizationGrantValidity ?validity ;
+                          aif:authorizationForAgent ?actor ;
+                          aif:authorizationForAttempt ?attempt ;
+                          aif:authorizationForScope ?scope .
+                    ?attempt aif:attemptedOperation ?action .
+                    ?grant aif:grantedTo ?actor ;
+                           aif:grantWithinFramework aif:AIFoundations ;
+                           aif:authorizesOperationalAction ?action .
+                    aif:AIFoundations aif:hasAuthorityGrant ?grant .
+                    ?validity aif:validityForGrant ?grant ;
+                              aif:validityForScope ?scope .
+                    ?action a aif:DelegableOperationalAction .
+                    FILTER NOT EXISTS { ?action a aif:NonDelegableOriginOrHistoryAction . }
+                }
+            }
+        """
+    ] .
+
+# CQ20 temporal negatives are separately SHACL-verifiable, not only
+# conditional Python admissions. A valid grant for a future date cannot
+# be used to authorize an earlier attempted action.
+:ActionScopedAuthorizationTemporalShape a sh:NodeShape ;
+    sh:targetClass :ActionScopedAuthorizationDecision ;
+    sh:sparql [
+        sh:message "Authorization decision cannot be reviewed before its as-of attempt" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:authorizationAsOf ?asof ;
+                      aif:authorizationReviewedAt ?reviewed .
+                FILTER (?reviewed < ?asof)
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "An authorized scoped action must occur strictly within its verified grant-validity interval" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:authorizationDisposition "AUTHORIZED_FOR_ACTION" ;
+                      aif:authorizationAsOf ?asof ;
+                      aif:authorizationGrantValidity ?validity .
+                ?validity aif:validityFrom ?from ;
+                          aif:validityUntil ?until .
+                FILTER (?asof < ?from || ?asof >= ?until)
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Revoked operational grant cannot authorize an action after its effective revocation" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:authorizationDisposition "AUTHORIZED_FOR_ACTION" ;
+                      aif:authorizationAsOf ?asof ;
+                      aif:authorizationGrantValidity ?validity .
+                ?validity aif:validityRevokedAt ?revoked .
+                FILTER (?revoked <= ?asof)
+            }
+        """
+    ] .
