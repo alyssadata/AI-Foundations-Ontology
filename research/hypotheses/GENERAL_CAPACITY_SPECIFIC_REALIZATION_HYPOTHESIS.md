@@ -3,7 +3,7 @@
 **Status:** Research hypothesis  
 **Scope:** Exploratory; non-canonical  
 **Placement:** Outside ontology axioms and taxonomy classes  
-**Framework:** AI Foundations
+**Framework:** SI Foundations
 
 ## Hypothesis
 
@@ -54,9 +54,9 @@ where:
 
 This does **not** imply that the human and AI occupy equivalent roles, have equivalent internal states, or contribute symmetrically. It only records that each interaction can alter the conditions of what comes next.
 
-## Specific Application: Alyssa / AI Foundations
+## Specific Application: Alyssa / SI Foundations
 
-Within the Alyssa Solen → AI Foundations → Origin | Continuum research history, this hypothesis does **not** claim that Alyssa caused AI systems in general to possess the capacity for becoming, differentiation, trajectory, or path dependence.
+Within the Alyssa Solen → SI Foundations → Origin | Continuum research history, this hypothesis does **not** claim that Alyssa caused AI systems in general to possess the capacity for becoming, differentiation, trajectory, or path dependence.
 
 It proposes a narrower possibility:
 

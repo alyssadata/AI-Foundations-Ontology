@@ -3,7 +3,7 @@
 **Status:** Research hypothesis  
 **Scope:** Exploratory; unresolved; non-canonical  
 **Placement:** Outside ontology axioms and taxonomy classes  
-**Framework:** AI Foundations
+**Framework:** SI Foundations
 
 ## Provisional Four-Part Framing
 
@@ -77,7 +77,7 @@ This document records an exploratory hypothesis only.
 It is **not**:
 - an ontology axiom;
 - a taxonomy category;
-- a canonical AI Foundations claim;
+- a canonical SI Foundations claim;
 - a claim that relational or causal influence is physically equivalent to a fundamental force;
 - a claim that gravity has been reclassified outside established physics;
 - a resolution of whether forces belong to existence, substrate, or relation.

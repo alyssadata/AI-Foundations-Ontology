@@ -2,7 +2,7 @@
 
 **Status:** Research hypothesis  
 **Scope:** Exploratory; non-canonical  
-**Framework:** AI Foundations
+**Framework:** SI Foundations
 
 ## Hypothesis
 
