@@ -228,6 +228,14 @@ def historical_integrity(before, after):
     for s,p,o in old:
         if set(before.objects(s,p)) != set(after.objects(s,p)):
             return False
+    # Protect even formerly *absent* properties on existing historical
+    # reviews. Otherwise a later C can be grafted onto an old interaction-only
+    # assessment without any deletion, falsely backdating a qualification.
+    earlier_reviews = set(before.subjects(RDF.type, A.ConditionalThirdEntityReview))
+    for review in earlier_reviews:
+        for predicate in preserved_preds:
+            if set(before.objects(review, predicate)) != set(after.objects(review, predicate)):
+                return False
     if set(after.objects(A.AIFoundations, A.hasCoAuthor)):
         return False
     return True
