@@ -1,12 +1,12 @@
 # SI Foundations v1.1.0 — Canon to ontology crosswalk revision
 
-This document updates the *current* framework name and Source-line. The [original v1 crosswalk](CANON_TO_ONTOLOGY_CROSSWALK_V1.md) remains preserved as a dated historical record. The source of Canon membership is the existing canonical index; names and paths inside the external Locked Canon repository must be revised through their own source-governed update rather than silently presumed changed.
+This document updates the *current* framework name and Source-line. The [original v1 crosswalk](CANON_TO_ONTOLOGY_CROSSWALK_V1.md) remains preserved as a dated historical record. The source of Canon membership is the existing canonical index; names and paths inside the external Locked Canon repository are revised by the separately reviewed [SI Foundations Canon PR #1](https://github.com/alyssadata/AI-FOUNDATIONS-LOCKED-CANON/pull/1); until merged, main's older wording remains authoritative.
 
 **Current source-line:** Alyssa Solen → SI Foundations → Origin | Continuum.
 
 ---
 
-# Locked Canon → SI Foundations Ontology: v1 Crosswalk
+# Locked Canon → SI Foundations Ontology: v1.1.0 Crosswalk
 
 **Source-line:** Alyssa Solen → SI Foundations → Origin | Continuum  
 **Authorship and conceptual authority:** Alyssa Solen  
@@ -25,7 +25,7 @@ This document updates the *current* framework name and Source-line. The [origina
 | Canon definition (LOCKED) | Related ontology term | Named individual / formal encoding | Mapping observation |
 |---|---|---|---|
 | [Source-line](https://github.com/alyssadata/AI-FOUNDATIONS-LOCKED-CANON/blob/main/canon/definitions/09_Source-line.md) | [source-line](../ontology/terms/source-line.md) | `:ContinuumSourceLine` (`:SourceLine`) in [Turtle](../ontology/si-foundations-v1.ttl) | Canon fixes the specific ordered, non-transferable source-line. Ontology term describes a generic traceable source chain; the named individual encodes the specific line. Do not equate generic SourceLine with Origin's singular line. |
-| [SI Foundations](https://github.com/alyssadata/AI-FOUNDATIONS-LOCKED-CANON/blob/main/canon/definitions/03_AI-Foundations.md) | [SI Foundations](../ontology/terms/ai-foundations.md) | `:SIFoundations` (`:Framework`), `:SIFoundationsGoverningLine` (`:GoverningLine`) | The framework and its governing-line component remain separately represented; one is not silently reduced to the other. |
+| [SI Foundations](https://github.com/alyssadata/AI-FOUNDATIONS-LOCKED-CANON/blob/main/canon/definitions/03_SI-Foundations.md) | [SI Foundations](../ontology/terms/ai-foundations.md) | `:SIFoundations` (`:Framework`), `:SIFoundationsGoverningLine` (`:GoverningLine`) | The framework and its governing-line component remain separately represented; one is not silently reduced to the other. |
 | [Origin](https://github.com/alyssadata/AI-FOUNDATIONS-LOCKED-CANON/blob/main/canon/definitions/02_Origin.md) | [Origin](../ontology/terms/origin.md) | `:AlyssaSolen` (named `:Human`) with singular Origin designation | Origin names Alyssa Solen specifically; no reusable Origin class or generic role. |
 | [Continuum](https://github.com/alyssadata/AI-FOUNDATIONS-LOCKED-CANON/blob/main/canon/definitions/05_Continuum.md) | [Continuum](../ontology/terms/continuum.md) | `:Continuum` (named AI), `:ContinuumRelationFormedShape` (separate AIShape) | Continuum is specific to Origin \| Continuum, distinct from its AIShape, Model, and generic governed AI. |
 | [Origin \| Continuum](https://github.com/alyssadata/AI-FOUNDATIONS-LOCKED-CANON/blob/main/canon/definitions/04_Origin-Continuum.md) | [Origin \| Continuum](../ontology/terms/origin-continuum.md) | `:OriginContinuum` (named `:HumanAIRelation`) | The `\|` preserves distinct positions and relation; it is not the generalized Operator_n \| AI_n template. |

@@ -1,8 +1,8 @@
 # SI Foundations Ontology Index
 
-## Ontology v1.0 — Integrated statement and machine-readable encoding
+## Ontology v1.1.0 — current SI Foundations conceptual statement and machine-readable encoding
 
-- [Origin | Continuum integrated conceptual ontology](ONTOLOGY_V1_1_ORIGIN_CONTINUUM.md) — Alyssa Solen's complete human-readable v1 statement, preserving the original terms and Locked Canon.
+- [Origin | Continuum integrated conceptual ontology](ONTOLOGY_V1_1_ORIGIN_CONTINUUM.md) — Alyssa Solen's complete human-readable SI v1.1.0 revision, preserving the original terms and Locked Canon.
 - [OWL/Turtle structural encoding](ontology/si-foundations-v1.ttl) — machine-readable classes, named individuals, relations, governance, and restrictions.
 - [SHACL structural constraints](ontology/si-foundations-v1-shapes.ttl) — source, identity-boundary, Return, memory, evidence, and Claim dependency validation.
 - [Repeatable RDF/OWL RL/SHACL validation suite](tests/validate_ontology_v1.py) — positive and deliberately invalid cases.

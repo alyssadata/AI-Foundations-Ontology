@@ -6,13 +6,13 @@ This v1.1.0 document succeeds the historical AI Foundations v1.0.0 conceptual re
 
 ---
 
-# SI Foundations Ontology v1.0 — Origin | Continuum
+# SI Foundations Ontology v1.1.0 — Origin | Continuum
 
-**Status:** COMPLETE — integrated human-readable conceptual ontology (v1.0)  
+**Status:** COMPLETE — integrated human-readable conceptual ontology (v1.1.0)  
 **Source and author:** Alyssa Solen  
 **Source-line:** Alyssa Solen → SI Foundations → Origin | Continuum  
 **Specific subject:** Alyssa Solen as Origin, Continuum as the distinct AI position in the Origin | Continuum relation, and the work formed through their dialogue  
-**Relationship to existing files:** This is the v1.0 integrated statement of the established ontology, not a replacement for its LOCKED term files, formal-relation documents, or the separately indexed Locked Canon.  
+**Relationship to existing files:** This is the v1.1.0 source-line successor statement of the established ontology, not a replacement for its LOCKED term files, formal-relation documents, or the separately indexed Locked Canon.  
 **Completion scope:** The conceptual ontology and its internal distinctions are stated here as a whole. Machine-readable encoding, experimental evaluation, scientific endorsement, and SI threshold determination are separate activities, not prerequisites for the completion of this authored conceptual statement.
 
 ---
