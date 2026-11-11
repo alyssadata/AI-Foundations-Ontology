@@ -1,0 +1,39 @@
+name: Move v1.0.0 release author notice to footer
+on:
+  push:
+    branches:
+      - publish-v1-0-0-sole-author-approved-2026-11-10
+    paths:
+      - '.github/workflows/reorder-v1-release-author-footer.yml'
+permissions:
+  contents: write
+jobs:
+  reorder:
+    if: github.repository == 'alyssadata/AI-Foundations-Ontology'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Reorder release note only, preserving tag and original text
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api "repos/${GITHUB_REPOSITORY}/releases/tags/v1.0.0" > /tmp/release.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          j=json.loads(Path('/tmp/release.json').read_text())
+          body=j['body']
+          tag=j['tag_name']
+          assert tag=='v1.0.0' and j['draft'] is False
+          top='**Sole author and conceptual source: Alyssa Solen. No coauthors, no exceptions.**'
+          footer='Sole author and conceptual source: Alyssa Solen. No coauthors, no exceptions.'
+          if body.rstrip().endswith(footer):
+              Path('/tmp/reordered-notes.md').write_text(body)
+          else:
+              assert body.count(top)==1, 'Expected a single original author notice'
+              body=body.replace('\n'+top+'\n','\n',1).rstrip()
+              Path('/tmp/reordered-notes.md').write_text(body+'\n\n---\n\n'+footer+'\n')
+          PY
+          gh release edit v1.0.0 --notes-file /tmp/reordered-notes.md
+          gh api "repos/${GITHUB_REPOSITORY}/releases/tags/v1.0.0" --jq '{tag_name, draft, html_url}'
