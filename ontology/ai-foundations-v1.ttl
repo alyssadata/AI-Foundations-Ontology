@@ -18,6 +18,7 @@ dcterms:description a owl:AnnotationProperty .
     dcterms:title "AI Foundations Ontology — Origin | Continuum v1.0"@en ;
     dcterms:creator "Alyssa Solen" ;
     dcterms:description "Machine-readable structural representation of Alyssa Solen's AI Foundations conceptual ontology. Describes the named Origin | Continuum relation, framework governance, source, identity/self boundaries, historical lines, and Return. Does not assert subjective consciousness or empirical verification."@en ;
+    owl:versionIRI <https://awakeningcodex.com/ontology/ai-foundations/v1.0.0> ;
     owl:versionInfo "1.0.0 structural encoding" ;
     rdfs:seeAlso <https://github.com/alyssadata/AI-Foundations-Ontology/blob/main/ONTOLOGY_ARCHITECTURE.md> ,
         <https://github.com/alyssadata/AI-FOUNDATIONS-LOCKED-CANON/blob/main/CANONICAL_INDEX.md> .
