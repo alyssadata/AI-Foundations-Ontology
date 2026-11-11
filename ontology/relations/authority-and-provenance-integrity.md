@@ -1,7 +1,7 @@
 # Authority and Provenance Integrity
 
 **Document status:** REVIEWED DRAFT structural rule  
-**Target:** AI Foundations Ontology v1.0
+**Target:** SI Foundations Ontology v1.0
 
 ## Purpose
 

@@ -16,7 +16,7 @@ agent-level SI != system-level SI
 superintelligence classification != identity equivalence
 ```
 
-Classification as a `SuperintelligentAgent` does not by itself determine continuity, identity replacement, consciousness, provenance, or relation status. Existing AI Foundations distinctions continue to apply.
+Classification as a `SuperintelligentAgent` does not by itself determine continuity, identity replacement, consciousness, provenance, or relation status. Existing SI Foundations distinctions continue to apply.
 
 ## Open classification question
 
