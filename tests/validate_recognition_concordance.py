@@ -110,7 +110,7 @@ def build(alignment="OUT_OF_LINE", disposition="EXPLICIT_REJECTION", correction=
     for record in (A.R27PresentedClaimRecord, A.R27PresentationEvidence,
                    A.R27ResponseEvidence, A.R27QualifiedReference, A.R27AssessmentEvidence):
         triples.append((record, RDF.type, A.Record))
-    if disposition == "ABSORBED":
+    if disposition == "ABSORBED" or (alignment == "OUT_OF_LINE" and disposition == "INTEGRATED"):
         triples.extend([
             (V0, RDF.type, A.RecognitionLineVersion),
             (V0, A.recognitionVersionOfLine, LINE),
@@ -126,7 +126,7 @@ def build(alignment="OUT_OF_LINE", disposition="EXPLICIT_REJECTION", correction=
             (A.R27AbsorptionVersionRecord, RDF.type, A.Record),
         ])
     if correction:
-        if disposition != "ABSORBED":
+        if not (disposition == "ABSORBED" or (alignment == "OUT_OF_LINE" and disposition == "INTEGRATED")):
             raise ValueError("Only an absorption can use this correction fixture")
         triples.extend([
             (V2, RDF.type, A.RecognitionLineVersion),
@@ -207,7 +207,7 @@ def protocol_ok(g):
         disp = str(one(g, RESPONSE, A.recognitionResponseDisposition))
         if str(one(g, EVAL, A.recognitionFinding)) != result_of(alignment, disp):
             return False
-        if disp == "ABSORBED":
+        if disp == "ABSORBED" or (alignment == "OUT_OF_LINE" and disp == "INTEGRATED"):
             v1 = one(g, RESPONSE, A.recognitionAbsorptionResultVersion)
             if not version_path_is_valid(g, v1, line):
                 return False
@@ -218,7 +218,7 @@ def protocol_ok(g):
                 return False
         corrections = set(g.subjects(RDF.type, A.RecognitionCorrectionEvent))
         for c in corrections:
-            if disp != "ABSORBED" or alignment != "OUT_OF_LINE":
+            if alignment != "OUT_OF_LINE" or disp not in ("ABSORBED", "INTEGRATED"):
                 return False
             if one(g, c, A.eventInExecutedLine) != line:
                 return False
@@ -358,6 +358,9 @@ def main():
     negative("Mistaken absorption without forward version rejected",
              lambda g: g.remove((RESPONSE,A.recognitionAbsorptionResultVersion,V1)),
              disposition="ABSORBED",shacl=True)
+    negative("Out-of-line integration without forward version rejected",
+             lambda g: g.remove((RESPONSE,A.recognitionAbsorptionResultVersion,V1)),
+             disposition="INTEGRATED",shacl=True)
     negative("Absorption version cannot predate actual absorption",
              lambda g: replace(g,V1,A.recognitionVersionAsOf,AT_BASE),
              disposition="ABSORBED")
@@ -374,6 +377,9 @@ def main():
     before=build("OUT_OF_LINE","ABSORBED",correction=False)
     check("Correction appends without erasing earlier absorption/history",
           history_integrity(before,positive))
+    integrated_correction=build("OUT_OF_LINE","INTEGRATED",correction=True)
+    check("Erroneous out-of-line integration is forward-versioned and correctable",
+          protocol_ok(integrated_correction))
     check("Absorption is a later occurrence, not retrospective Source truth",
           (PRES,RDF.type,A.SourceRelation) not in positive and
           (A.R27PresentedClaimRecord,RDF.type,A.SourceRelation) not in positive)
