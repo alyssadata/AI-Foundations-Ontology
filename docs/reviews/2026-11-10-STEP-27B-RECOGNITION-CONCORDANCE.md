@@ -46,6 +46,12 @@ Controls reject a missing or wrong source reference, name-only recognition asser
 
 During review of the initial passing dedicated tests, an additional edge case was identified: when the independent alignment is `OUT_OF_LINE` but the observed response is `INTEGRATED`, this is an erroneous incorporation even if the response label is not literally `ABSORBED`. A response described this way now **must record an absorption-result version from that point forward**. A negative test deletes that version and expects SHACL rejection; a positive control permits later evidence-accounted correction. This is a refinement of *test and encoding fidelity*, not a revision of the original LOCKED term. Earlier workflow run history remains available and is not rewritten.
 
+## Branch validation outcome and test-failure chronology
+
+The dedicated Recognition test suite, all earlier competency/provenance/sole-author regressions, and final source-bound ontology checks **PASSED** in [full structural run 42948909687](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42948909687). The independent [OWL 2 DL / HermiT audit 42947843734](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42947843734) passed on the new OWL vocabulary.
+
+An intermediate run [42948877561](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42948877561) correctly identified that the newly strengthened negative test for out-of-line `INTEGRATED` material was not yet backed by its SHACL constraint. The new constraint was then added and the complete corrected suite passed. The earlier result is retained; neither LOCKED wording nor old actual history was changed.
+
 ## Full suite and release gate
 
 - Dedicated tests: `tests/validate_recognition_concordance.py`.
