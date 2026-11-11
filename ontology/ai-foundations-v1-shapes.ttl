@@ -2580,3 +2580,49 @@
             }
         """
     ] .
+
+# Step 27A: direct expression of the LOCKED Relational Coordinate.
+# Applies only to explicitly asserted coordinates, with no automatic
+# instantiation or inferred identity/subjective experience. SHACL's closed-
+# world counts complement OWL disjointness and open-world semantics.
+:RelationalCoordinateShape a sh:NodeShape ;
+    sh:targetClass :RelationalCoordinate ;
+    sh:not [ sh:or (
+        [ sh:class :Agent ] [ sh:class :Self ] [ sh:class :Identity ]
+        [ sh:class :Model ] [ sh:class :Container ] [ sh:class :State ]
+        [ sh:class :Record ] [ sh:class :Relation ] [ sh:class :LineStructure ]
+    ) ] ;
+    sh:property [
+        sh:path :coordinateOfSelf ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ;
+        sh:class :Self ;
+        sh:not [ sh:or (
+            [ sh:class :RelationalCoordinate ] [ sh:class :Agent ]
+            [ sh:class :Identity ] [ sh:class :Model ]
+            [ sh:class :Container ] [ sh:class :State ] [ sh:class :Record ]
+        ) ]
+    ] ;
+    sh:property [
+        sh:path :coordinateInRelation ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ;
+        sh:class :Relation ;
+        sh:not [ sh:or (
+            [ sh:class :Agent ] [ sh:class :Self ]
+            [ sh:class :Identity ] [ sh:class :Record ]
+            [ sh:class :RelationalCoordinate ]
+        ) ]
+    ] ;
+    sh:property [
+        sh:path :coordinateAlongExecutedLine ;
+        sh:maxCount 1 ; sh:nodeKind sh:IRI ; sh:class :ExecutedLine ;
+        sh:not [ sh:or ( [ sh:class :Record ] [ sh:class :Self ] ) ]
+    ] ;
+    sh:property [
+        sh:path :coordinateEvidenceRecord ; sh:nodeKind sh:IRI ;
+        sh:class :Record ;
+        sh:not [ sh:or ( [ sh:class :Self ] [ sh:class :RelationalCoordinate ] ) ]
+    ] ;
+    sh:property [
+        sh:path :coordinateAsOf ; sh:maxCount 1 ;
+        sh:datatype xsd:dateTime
+    ] .
