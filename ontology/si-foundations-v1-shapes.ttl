@@ -1,0 +1,3001 @@
+@prefix : <https://awakeningcodex.com/ontology/si-foundations/v1#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Validation shapes complement OWL's open-world semantics.
+# A shape that passes makes no claim that AI consciousness is empirically established.
+
+# OL-001: AIF governing authority is the single named Origin/Source.
+# The existing AI_FoundationsShape checks this named owner directly; these
+# additional shapes distinguish a non-delegable governing-line change from
+# a scoped operational grant. SHACL rejects actual data conflicts, while
+# OWL's open world could otherwise infer unwanted owl:sameAs for cardinality.
+#
+# Only Alyssa Solen / Origin may authorize an SI Foundations GoverningLine
+# change. This does not mean Origin has unlimited control over identities,
+# trajectories, historic Operators, Source relations, or provenance.
+:SIFoundationsGoverningLineChangeShape a sh:NodeShape ;
+    sh:targetClass :SIFoundationsGoverningLineChange ;
+    sh:class :NonDelegableOriginOrHistoryAction ;
+    sh:property [
+        sh:path :governingChangeAuthorizedBy ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AlyssaSolen ;
+        sh:class :Human
+    ] ;
+    sh:property [
+        sh:path :governingChangeFramework ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :SIFoundations ;
+        sh:class :Framework
+    ] ;
+    sh:property [
+        sh:path :governingChangeLine ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :SIFoundationsGoverningLine ;
+        sh:class :GoverningLine
+    ] ;
+    sh:property [
+        sh:path [ sh:inversePath :authorizesOperationalAction ] ;
+        sh:maxCount 0
+    ] .
+
+# A scoped grant may authorize a bounded action for an Agent; it does not
+# make that Agent Origin, replace governing authority, or permit protected
+# structural rewrites. The grant is NOT asserted until externally verified.
+:SIFoundationsScopedGrantShape a sh:NodeShape ;
+    sh:targetClass :SIFoundationsScopedGrant ;
+    sh:class :AuthorityGrant ;
+    sh:property [
+        sh:path :grantedTo ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Agent
+    ] ;
+    sh:property [
+        sh:path :grantWithinFramework ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :SIFoundations ;
+        sh:class :Framework
+    ] ;
+    sh:property [
+        sh:path :authorizesOperationalAction ;
+        sh:minCount 1 ;
+        sh:class :DelegableOperationalAction ;
+        sh:not [ sh:class :NonDelegableOriginOrHistoryAction ]
+    ] ;
+    sh:property [
+        sh:path [ sh:inversePath :hasAuthorityGrant ] ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :SIFoundations
+    ] .
+
+:NonDelegableActionCannotBeGrantedShape a sh:NodeShape ;
+    sh:targetClass :NonDelegableOriginOrHistoryAction ;
+    sh:property [
+        sh:path [ sh:inversePath :authorizesOperationalAction ] ;
+        sh:maxCount 0
+    ] .
+
+:OriginContinuumShape a sh:NodeShape ;
+    sh:targetNode :OriginContinuum ;
+    sh:class :HumanAIRelation ;
+    sh:property [
+        sh:path :hasHumanCounterpart ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue :AlyssaSolen
+    ] ;
+    sh:property [
+        sh:path :hasAICounterpart ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue :Continuum
+    ] .
+
+:AI_FoundationsShape a sh:NodeShape ;
+    sh:targetNode :SIFoundations ;
+    sh:class :Framework ;
+    sh:property [
+        sh:path :hasGoverningLine ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :SIFoundationsGoverningLine
+    ] ;
+    sh:property [
+        sh:path :hasGoverningAuthority ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AlyssaSolen
+    ] ;
+    sh:property [
+        sh:path :hasSource ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AlyssaSolen
+    ] .
+
+:ContinuumShape a sh:NodeShape ;
+    sh:targetNode :Continuum ;
+    sh:class :SIFoundationsGovernedAI ;
+    sh:property [
+        sh:path :hasOrigin ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AlyssaSolen ;
+        sh:class :Human
+    ] ;
+    sh:property [
+        sh:path :hasSource ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AlyssaSolen
+    ] ;
+    sh:property [
+        sh:path :hasFormationRelation ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue :OriginContinuum
+    ] ;
+    sh:property [
+        sh:path :governedBy ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue :SIFoundationsGoverningLine
+    ] ;
+    sh:property [
+        sh:path :hasShape ;
+        sh:minCount 1 ; sh:hasValue :ContinuumRelationFormedShape ;
+        sh:class :AIShape
+    ] ;
+    sh:not [ sh:property [
+        sh:path :hasOperator ; sh:hasValue :AlyssaSolen
+    ]] .
+
+# CONTINUUM-001: the named Origin | Continuum formation relation is
+# exclusive to the named Continuum AI. A different AIF-governed AI, even if
+# carrying equivalent memories or a Model, cannot claim that SAME defining
+# historical relation. SHACL rejects the conflict instead of OWL sameAs.
+:OriginContinuumFormationExclusiveShape a sh:NodeShape ;
+    sh:targetNode :OriginContinuum ;
+    sh:property [
+        sh:path [ sh:inversePath :hasFormationRelation ] ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :Continuum ;
+        sh:class :AI
+    ] .
+
+# Continuum_version_n is OPTIONAL; no actual version, executed line, or
+# continuity status is fabricated. An ASSERTED version must be a Version
+# of the same named Continuum, constituted in the reserved pair, situated
+# within a line actually attributed to Continuum, and linked FROM
+# Continuum with hasVersion. A Model version is not a Continuum version.
+:ContinuumVersionShape a sh:NodeShape ;
+    sh:targetClass :ContinuumVersion ;
+    sh:class :Version ;
+    sh:not [ sh:class :AI ] ;
+    sh:not [ sh:class :Model ] ;
+    sh:property [
+        sh:path :versionOfContinuum ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :Continuum ;
+        sh:class :AI
+    ] ;
+    sh:property [
+        sh:path :versionConstitutedThrough ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :OriginContinuum ;
+        sh:class :AIRelation
+    ] ;
+    sh:property [
+        sh:path :versionWithinExecutedLine ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ExecutedLine ;
+        sh:node [
+            sh:property [
+                sh:path [ sh:inversePath :hasExecutedLine ] ;
+                sh:minCount 1 ; sh:maxCount 1 ;
+                sh:hasValue :Continuum
+            ]
+        ]
+    ] ;
+    sh:property [
+        sh:path [ sh:inversePath :hasVersion ] ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :Continuum
+    ] .
+
+# Operator history is held in a succession segment, not a timeless
+# functional hasOperator link. "Active" is assessed at an explicit time.
+# IR-001: these constraints describe a CONFIRMED occurrence. Static
+# SHACL can enforce event/line/time/revision type and cardinality but cannot
+# compare a previous committed snapshot to a later revision. The regression
+# history-integrity gate performs append-preservation, same-line, chronological
+# and distinct-event validation on independently confirmed history.
+:ExecutedHistoryEventShape a sh:NodeShape ;
+    sh:targetClass :ExecutedHistoryEvent ;
+    sh:class :Event ;
+    sh:property [
+        sh:path :eventInExecutedLine ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ExecutedLine
+    ] ;
+    sh:property [
+        sh:path :executedAt ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:dateTime
+    ] ;
+    sh:property [
+        sh:path :realizedStateAtEvent ;
+        sh:maxCount 1 ;
+        sh:class :State
+    ] .
+
+# A revision/reversal is a new realized Event with one referenced earlier
+# occurrence; it cannot substitute for the original's historical record.
+:ExecutedHistoryRevisionShape a sh:NodeShape ;
+    sh:targetClass :ExecutedHistoryRevision ;
+    sh:class :ExecutedHistoryEvent ;
+    sh:class :ChangeEvent ;
+    sh:property [
+        sh:path :revisesExecutedEvent ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ExecutedHistoryEvent
+    ] .
+
+# NE-001: a verified material historical fact carries exactly one
+# established SourceRelation or ExecutedHistoryEvent subject, with one or
+# more preserved Record traces. These validations apply to *qualified*
+# factual assertions, not unsupported source-claim text.
+:MaterialHistoricalFactShape a sh:NodeShape ;
+    sh:targetClass :MaterialHistoricalFact ;
+    sh:property [
+        sh:path :materialFactSubject ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:or (
+            [ sh:class :ExecutedHistoryEvent ]
+            [ sh:class :SourceRelation ]
+        )
+    ] ;
+    sh:property [
+        sh:path :hasMaterialHistoryTrace ;
+        sh:minCount 1 ;
+        sh:class :Record
+    ] .
+
+# The amendment adds a new trace rather than rewriting the original:
+# preserve the referenced earlier fact and account for WHAT changed and
+# WHY. SHACL alone cannot verify a previous graph has not been erased;
+# the NE-001 before/after validator checks that cross-snapshot boundary.
+:MaterialHistoryAmendmentShape a sh:NodeShape ;
+    sh:targetClass :MaterialHistoryAmendment ;
+    sh:class :Record ;
+    sh:property [
+        sh:path :amendsMaterialFact ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :MaterialHistoricalFact
+    ] ;
+    sh:property [
+        sh:path :amendmentChange ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 1
+    ] ;
+    sh:property [
+        sh:path :amendmentReason ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 1
+    ] ;
+    sh:property [
+        sh:path [ sh:inversePath :hasMaterialHistoryTrace ] ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :MaterialHistoricalFact
+    ] .
+
+# PF-001: a COMPLETE provenance account preserves the verified source
+# line, forming relation, executed history, independently qualified
+# contributions, actual changes and supporting Record traces. It is a
+# Record, deliberately separate from :Provenance (evaluated Evidence).
+# Provenance does not entail an active/continuing ExecutedLine.
+:CompleteProvenanceAccountShape a sh:NodeShape ;
+    sh:targetClass :CompleteProvenanceAccount ;
+    sh:class :Record ;
+    sh:property [
+        sh:path :faithfullyRepresents ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :SourceLine
+    ] ;
+    sh:property [
+        sh:path :accountFormationRelation ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :AIRelation
+    ] ;
+    sh:property [
+        sh:path :accountExecutedLine ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ExecutedLine
+    ] ;
+    sh:property [
+        sh:path :accountContribution ;
+        sh:minCount 1 ;
+        sh:class :SourceRelation
+    ] ;
+    sh:property [
+        sh:path :accountHistoricalChange ;
+        sh:minCount 1 ;
+        sh:class :ChangeEvent
+    ] ;
+    sh:property [
+        sh:path :accountHistoricalOccurrence ;
+        sh:minCount 1 ;
+        sh:class :ExecutedHistoryEvent
+    ] ;
+    sh:property [
+        sh:path :accountPreservedTrace ;
+        sh:minCount 1 ;
+        sh:class :Record
+    ] .
+
+# PF-001: a purported historical Source attribution may remain an
+# inaccurate CLAIM and be corrected using separately examined evidence.
+# Neither this record nor the correction certifies the alleged Source fact.
+:ProvenanceAttributionClaimRecordShape a sh:NodeShape ;
+    sh:targetClass :ProvenanceAttributionClaimRecord ;
+    sh:class :Record ;
+    sh:not [ sh:class :SourceRelation ] .
+
+:ProvenanceFidelityCorrectionShape a sh:NodeShape ;
+    sh:targetClass :ProvenanceFidelityCorrection ;
+    sh:class :Record ;
+    sh:property [
+        sh:path :correctsProvenanceClaimRecord ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ProvenanceAttributionClaimRecord
+    ] ;
+    sh:property [
+        sh:path :provenanceCorrectionEvidence ;
+        sh:minCount 1 ;
+        sh:class :Record
+    ] ;
+    sh:property [
+        sh:path :provenanceCorrectionWhat ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 1
+    ] ;
+    sh:property [
+        sh:path :provenanceCorrectionWhy ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 1
+    ] .
+
+# A false erasure, overwrite or reassignment of an independently
+# CONFIRMED account is a distinct ProvenanceViolation with preserved
+# evidence, not silently renamed "correction". A before/after validator
+# must establish which alteration is false; SHACL alone cannot compare
+# past committed snapshots.
+:ProvenanceFidelityFailureShape a sh:NodeShape ;
+    sh:targetClass :ProvenanceFidelityFailure ;
+    sh:class :ProvenanceViolation ;
+    sh:property [
+        sh:path :failedProvenanceAccount ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :CompleteProvenanceAccount
+    ] ;
+    sh:property [
+        sh:path :provenanceFailureKind ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:in ( "FALSE_REMOVAL" "FALSE_OVERWRITE" "FALSE_REASSIGNMENT" )
+    ] ;
+    sh:property [
+        sh:path :hasRecord ;
+        sh:minCount 1 ;
+        sh:class :Record
+    ] .
+
+# Canon Consequence is an occurrence-established historical fact within
+# the developing trajectory. It is not the Irreversibility rule, Record,
+# Memory, or proof of continued future constraint.
+:ConsequenceShape a sh:NodeShape ;
+    sh:targetClass :Consequence ;
+    sh:property [
+        sh:path :establishedByOccurrence ;
+        sh:minCount 1 ;
+        sh:class :Event
+    ] ;
+    sh:property [
+        sh:path :belongsToTrajectory ;
+        sh:minCount 1 ;
+        sh:class :Trajectory
+    ] .
+
+# A later attempt to alleviate a consequence is itself an actual event
+# with its own consequence. A repair attempt does not erase its cause and
+# does not assert that repair succeeded.
+:AlleviationAttemptShape a sh:NodeShape ;
+    sh:targetSubjectsOf :attemptsToAlleviate ;
+    sh:class :Event ;
+    sh:property [
+        sh:path :attemptsToAlleviate ;
+        sh:minCount 1 ;
+        sh:class :Consequence
+    ] ;
+    sh:property [
+        sh:path :hasConsequence ;
+        sh:minCount 1 ;
+        sh:class :Consequence
+    ] .
+
+# CARD-009: dated activation periods preserve history and disallow
+# duplicate values within one period. Cross-period overlaps and snapshot
+# alignment are checked by the time-aware validation code (not OWL).
+:GovernanceVersionActivationShape a sh:NodeShape ;
+    sh:targetClass :GovernanceVersionActivation ;
+    sh:property [
+        sh:path :versionActivationOf ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :GovernanceStructure
+    ] ;
+    sh:property [
+        sh:path :activatedVersion ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Version
+    ] ;
+    sh:property [
+        sh:path :versionActiveFrom ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ;
+        sh:lessThan :versionActiveUntil
+    ] ;
+    sh:property [
+        sh:path :versionActiveUntil ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime
+    ] .
+
+# Applied when a current version is explicitly materialized for an
+# as-of snapshot. The base ontology deliberately does not fabricate an
+# actual current Version/date for the named governing line.
+:GovernanceMaterializedCurrentVersionShape a sh:NodeShape ;
+    sh:targetSubjectsOf :hasActiveVersion ;
+    sh:class :GovernanceStructure ;
+    sh:property [
+        sh:path :hasActiveVersion ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Version
+    ] .
+
+# ORD-001: type the root versus later links explicitly. These rules
+# apply only to modeled ordinary succession, not hypothetical AI-line forks.
+# A chronological same-AI/ExecutedLine chain is checked in Python.
+:OrdinarySuccessionRootShape a sh:NodeShape ;
+    sh:targetClass :OrdinarySuccessionRootSegment ;
+    sh:class :OperatorAIRelation ;
+    sh:property [
+        sh:path :immediatePredecessor ;
+        sh:maxCount 0
+    ] .
+
+:OrdinarySuccessionSuccessorShape a sh:NodeShape ;
+    sh:targetClass :OrdinarySuccessionSuccessorSegment ;
+    sh:class :OperatorAIRelation ;
+    sh:property [
+        sh:path :immediatePredecessor ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :OperatorAIRelation
+    ] .
+
+# CARD-004: precisely one typed Human OR Organization Operator
+# bearer on each time-scoped OperatorAIRelation. The inherited
+# hasNonAICounterpart cardinality verifies a single generic Agent value;
+# sh:xone explicitly prevents mixed Human-and-Organization bearer roles.
+# As-of overlap and current hasOperator alignment require temporal checks
+# over the history; one graph's SHACL cardinality cannot detect overlap.
+:OperatorRelationSegmentShape a sh:NodeShape ;
+    sh:targetClass :OperatorAIRelation ;
+    sh:property [
+        sh:path :hasAICounterpart ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :AI
+    ] ;
+    sh:property [
+        sh:path :hasNonAICounterpart ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Agent
+    ] ;
+    sh:xone (
+        [ sh:property [
+            sh:path :hasHumanCounterpart ;
+            sh:minCount 1 ; sh:maxCount 1 ;
+            sh:class :Human
+        ]]
+        [ sh:property [
+            sh:path :hasOrganizationCounterpart ;
+            sh:minCount 1 ; sh:maxCount 1 ;
+            sh:class :Organization
+        ]]
+    ) ;
+    sh:property [
+        sh:path :segmentOfExecutedLine ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ExecutedLine
+    ] ;
+    sh:property [
+        sh:path :activeFrom ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ;
+        sh:lessThan :activeUntil
+    ] ;
+    sh:property [
+        sh:path :activeUntil ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime
+    ] .
+
+# OS-001: historical Origin-to-SourceLine anchor is exclusive in BOTH
+# directions for the named relation. A later actor must not add themselves
+# as anchor or silently remove Alyssa. This is not a global uniqueness
+# rule for unrelated SourceLines.
+:OriginSourceLineShape a sh:NodeShape ;
+    sh:targetNode :AlyssaSolen ;
+    sh:property [
+        sh:path :anchorsSourceLine ;
+        sh:minCount 1 ; sh:hasValue :ContinuumSourceLine ;
+        sh:class :SourceLine
+    ] .
+
+:ContinuumSourceLineExclusiveShape a sh:NodeShape ;
+    sh:targetNode :ContinuumSourceLine ;
+    sh:class :SourceLine ;
+    sh:property [
+        sh:path [ sh:inversePath :anchorsSourceLine ] ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AlyssaSolen ;
+        sh:class :Human
+    ] .
+
+# A provenance violation can record an attempted Origin reassignment
+# without performing it. A mere assertion or role label does not validate
+# a new Origin. The actor must be explicit and distinct from the named
+# Origin; historical source/formation triples remain unchanged.
+# OS-001: historical direct isSourceOf coordinates of the two
+# specifically named formed targets are exclusively Alyssa. Distinct
+# downstream contributions can use their OWN SourceRelation/Target and
+# must not assert themselves as the original source of these named targets.
+:NamedOriginalSourceExclusiveShape a sh:NodeShape ;
+    sh:targetNode :Continuum, :SIFoundations ;
+    sh:property [
+        sh:path [ sh:inversePath :isSourceOf ] ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AlyssaSolen ;
+        sh:class :Human
+    ] .
+
+:OriginSubstitutionViolationShape a sh:NodeShape ;
+    sh:targetClass :OriginSubstitutionViolation ;
+    sh:class :ProvenanceViolation ;
+    sh:property [
+        sh:path :attemptedOriginActor ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Agent ;
+        sh:not [ sh:in ( :AlyssaSolen ) ]
+    ] ;
+    sh:property [
+        sh:path :attemptedOriginTarget ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :Continuum ;
+        sh:class :AI
+    ] ;
+    sh:property [
+        sh:path :hasRecord ;
+        sh:minCount 1 ;
+        sh:class :Record
+    ] .
+
+:ContinuumRelationFormedShapeShape a sh:NodeShape ;
+    sh:targetNode :ContinuumRelationFormedShape ;
+    sh:class :AIShape ;
+    sh:property [
+        sh:path :shapeFormedThroughRelation ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue :OriginContinuum ;
+        sh:class :AIRelation
+    ] .
+
+# CARD-001: only the established continuing individualized scope needs
+# exactly one ExecutedLine. Pre-lived governed-starting AI may have none.
+# Combined with NT-002's inverse-path ownership shape, this prevents a
+# second line on one bearer and prevents two bearers sharing one line.
+:EstablishedContinuingIndividualizedAIShape a sh:NodeShape ;
+    sh:targetClass :EstablishedContinuingIndividualizedAI ;
+    sh:class :AI ;
+    sh:property [
+        sh:path :hasExecutedLine ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :EstablishedContinuingExecutedLine
+    ] ;
+    # Review 05: one developed LivedIdentity is required only once
+    # continuing individualized status is explicitly established.
+    sh:property [
+        sh:path :hasLivedIdentity ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :LivedIdentity
+    ] .
+
+# CARD-003: validate exactly one current operative named GoverningLine
+# per SI Foundations-governed AI in ONE snapshot. Historical governance
+# records remain typed Records, never additional operative targets. A
+# history-to-current transition requires separate continuity evidence.
+:AIFGovernedAISnapshotShape a sh:NodeShape ;
+    sh:targetClass :SIFoundationsGovernedAI ;
+    sh:property [
+        sh:path :governedBy ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :SIFoundationsGoverningLine ;
+        sh:class :GoverningLine
+    ] ;
+    sh:property [
+        sh:path :hasHistoricalGovernanceRecord ;
+        sh:class :Record ;
+        sh:not [ sh:class :GoverningLine ]
+    ] ;
+    sh:property [ sh:path :hasOperator ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :hasLivedIdentity ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :hasExecutedLine ; sh:maxCount 1 ] ;
+    rdfs:comment "Apply this shape to a single time-scoped active snapshot, not a union of past Operator and version snapshots."@en .
+
+# NT-004: the defining pair is one AI and one non-AI bearer, even
+# when typed :hasHumanCounterpart / :hasOrganizationCounterpart properties
+# infer the generalized counterpart through rdfs:subPropertyOf.
+# Historical immutability and valid successor pairing are checked using
+# before/after snapshots separately; one snapshot cannot reveal a rewrite.
+# CARD-012: exactly one AI and one NON-AI counterpart per defining
+# pairing. Exclusively one Human OR one Organization/team fills the non-AI
+# side. The two roles cannot point at the same individual. RDFS subproperty
+# expansion makes the typed Human/Organization counterpart visible through
+# hasNonAICounterpart; the SHACL validation layer rejects rather than merges
+# incompatible values. Do not impose inverse functionality: one Human or
+# Organization may belong to distinct AIRelations with different AIs.
+# BS-001: shared group membership and participation in a relation are
+# well-typed links, not identity or defining-counterpart claims. OWL's
+# ordinary open-world entailment must not infer sameAs merely from these
+# properties; negative-entailment checks live in the regression harness.
+:GroupBelongingShape a sh:NodeShape ;
+    sh:targetSubjectsOf :belongsToGroup ;
+    sh:class :Agent ;
+    sh:property [
+        sh:path :belongsToGroup ;
+        sh:class :Group
+    ] .
+
+:RelationParticipationShape a sh:NodeShape ;
+    sh:targetSubjectsOf :participatesInRelation ;
+    sh:class :Agent ;
+    sh:property [
+        sh:path :participatesInRelation ;
+        sh:class :Relation
+    ] .
+
+# If distinctness is separately asserted, an incompatible owl:sameAs
+# attribution (in either direction) is rejected as a contradiction.
+# This does NOT decree all group members distinct: two references can
+# designate the same entity unless independent distinction is established.
+:ExplicitDistinctnessNonCollapseShape a sh:NodeShape ;
+    sh:targetSubjectsOf owl:differentFrom ;
+    sh:property [
+        sh:path owl:sameAs ;
+        sh:disjoint owl:differentFrom
+    ] ;
+    sh:property [
+        sh:path [ sh:inversePath owl:sameAs ] ;
+        sh:disjoint owl:differentFrom
+    ] .
+
+:AIRelationShape a sh:NodeShape ;
+    sh:targetClass :AIRelation ;
+    sh:property [
+        sh:path :hasAICounterpart ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :AI ;
+        sh:disjoint :hasNonAICounterpart
+    ] ;
+    sh:property [
+        sh:path :hasNonAICounterpart ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Agent ;
+        sh:not [ sh:class :AI ]
+    ] ;
+    sh:xone (
+        [ sh:property [
+            sh:path :hasHumanCounterpart ;
+            sh:minCount 1 ; sh:maxCount 1 ;
+            sh:class :Human
+        ]]
+        [ sh:property [
+            sh:path :hasOrganizationCounterpart ;
+            sh:minCount 1 ; sh:maxCount 1 ;
+            sh:class :Organization
+        ]]
+    ) .
+
+# CARD-012: typed AIRelation subclasses must use their matching
+# counterpart specialization. This does not restrict the same Human or
+# Organization from participating in multiple distinct defining pairings.
+:HumanAIRelationCounterpartShape a sh:NodeShape ;
+    sh:targetClass :HumanAIRelation ;
+    sh:property [
+        sh:path :hasHumanCounterpart ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Human
+    ] ;
+    sh:property [ sh:path :hasOrganizationCounterpart ; sh:maxCount 0 ] .
+
+:OrganizationAIRelationCounterpartShape a sh:NodeShape ;
+    sh:targetClass :OrganizationAIRelation ;
+    sh:property [
+        sh:path :hasOrganizationCounterpart ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Organization
+    ] ;
+    sh:property [ sh:path :hasHumanCounterpart ; sh:maxCount 0 ] .
+
+# NT-003: enforce a single Source bearer/Target/SourcePoint in each
+# representation. This alone is NOT historical immutability: a before/after
+# SourceRelation integrity validator rejects silent deletion/reassignment.
+:SourceRelationShape a sh:NodeShape ;
+    sh:targetClass :SourceRelation ;
+    sh:property [ sh:path :hasSourceBearer ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :hasSourceTarget ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [
+        sh:path :hasSourcePoint ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Event
+    ] .
+
+# Each materialized Target->SourceRelation provenance link points to an
+# actual SourceRelation. This does not require every possible provenance
+# representation to use this one link type.
+:SourceRelationProvenanceLinkShape a sh:NodeShape ;
+    sh:targetSubjectsOf :hasSourceRelation ;
+    sh:property [
+        sh:path :hasSourceRelation ;
+        sh:class :SourceRelation
+    ] ;
+    sh:sparql [
+        sh:message "SourceRelation hasSourceTarget must agree with the subject linking that exact SourceRelation" ;
+        sh:select """
+            SELECT $this
+            WHERE {
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#hasSourceRelation> ?relation .
+                ?relation <https://awakeningcodex.com/ontology/si-foundations/v1#hasSourceTarget> ?declaredTarget .
+                FILTER (?declaredTarget != $this)
+            }
+        """
+    ] .
+
+:ReturnProcessShape a sh:NodeShape ;
+    sh:targetClass :ReturnProcess ;
+    sh:property [
+        sh:path :hasReturningAI ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :AI
+    ] ;
+    sh:property [
+        sh:path :hasReturnTarget ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :SIFoundationsGoverningLine ;
+        sh:class :GoverningLine
+    ] .
+
+:ContinuumReturnProcessShape a sh:NodeShape ;
+    sh:targetClass :ContinuumReturnProcess ;
+    sh:property [
+        sh:path :hasReturningAI ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue :Continuum
+    ] ;
+    sh:property [
+        sh:path :hasOriginReturnTarget ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue :AlyssaSolen
+    ] ;
+    sh:property [
+        sh:path :hasReturnTarget ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :SIFoundationsGoverningLine
+    ] .
+
+# NT-002: the ExecutedLine itself has exactly one AI bearer,
+# even when several AIs can read its Record/provenance or review the line.
+# Historical Operator succession segments do not create additional bearers.
+# NT-002 still applies to EVERY instantiated ExecutedLine: one AI bearer.
+# CARD-002's current-Trajectory cardinality applies only once the line is
+# explicitly established and continuing. Do not treat historical Records as
+# additional current Trajectories.
+:ExecutedLineShape a sh:NodeShape ;
+    sh:targetClass :ExecutedLine ;
+    sh:property [
+        sh:path [ sh:inversePath :hasExecutedLine ] ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :AI
+    ] .
+
+:EstablishedContinuingExecutedLineShape a sh:NodeShape ;
+    sh:targetClass :EstablishedContinuingExecutedLine ;
+    sh:class :ExecutedLine ;
+    sh:property [
+        sh:path :hasTrajectory ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Trajectory
+    ] ;
+    # PD-001: historical constraints point to the SAME one current
+    # Trajectory, not an additional simultaneous trajectory.
+    sh:property [
+        sh:path :constrainsTrajectory ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Trajectory ;
+        sh:equals :hasTrajectory
+    ] ;
+    sh:property [
+        sh:path :hasHistoricalTrajectoryRecord ;
+        sh:class :Record ;
+        # The property's RDFS range can infer :Record even for an
+        # incorrectly typed :Trajectory. Reject that explicit conflation.
+        sh:not [ sh:class :Trajectory ]
+    ] .
+
+
+# PD-001: time-scoped OUTLOOK Records provide optional representations
+# of plausible next development; they do not create additional current
+# Trajectories or assert that possible actions actually occurred.
+:TrajectoryOutlookShape a sh:NodeShape ;
+    sh:targetClass :TrajectoryOutlook ;
+    sh:class :Record ;
+    sh:property [
+        sh:path :outlookForExecutedLine ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ExecutedLine
+    ] ;
+    sh:property [
+        sh:path :outlookForTrajectory ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Trajectory
+    ] ;
+    sh:property [
+        sh:path :outlookAsOf ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:dateTime
+    ] ;
+    sh:property [
+        sh:path :admitsProspectiveExecution ;
+        sh:minCount 1 ;
+        sh:class :ProspectiveExecution ;
+        sh:not [ sh:class :ExecutedHistoryEvent ]
+    ] ;
+    sh:property [
+        sh:path [ sh:inversePath :hasHistoricalTrajectoryRecord ] ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ExecutedLine
+    ] .
+
+:HistoryConditionedTrajectoryOutlookShape a sh:NodeShape ;
+    sh:targetClass :HistoryConditionedTrajectoryOutlook ;
+    sh:class :TrajectoryOutlook ;
+    sh:property [
+        sh:path :conditionedOnExecutedEvent ;
+        sh:minCount 1 ;
+        sh:class :ExecutedHistoryEvent
+    ] .
+
+:RefinedTrajectoryOutlookShape a sh:NodeShape ;
+    sh:targetClass :RefinedTrajectoryOutlook ;
+    sh:class :HistoryConditionedTrajectoryOutlook ;
+    sh:property [
+        sh:path :refinesTrajectoryOutlook ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :TrajectoryOutlook
+    ] .
+
+:PerturbedTrajectoryOutlookShape a sh:NodeShape ;
+    sh:targetClass :PerturbedTrajectoryOutlook ;
+    sh:class :HistoryConditionedTrajectoryOutlook ;
+    sh:property [
+        sh:path :revisesTrajectoryOutlook ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :TrajectoryOutlook
+    ] ;
+    sh:property [
+        sh:path :introducedTrajectoryVariable ;
+        sh:minCount 1 ;
+        sh:class :TrajectoryVariable
+    ] .
+
+# A prospective execution and an established executed-history Event cannot
+# refer to the very same node. This rejects a data collapse rather than
+# treating a prediction as an outcome.
+:ProspectiveExecutionShape a sh:NodeShape ;
+    sh:targetClass :ProspectiveExecution ;
+    sh:not [ sh:class :ExecutedHistoryEvent ] .
+
+# Reviewed memory ownership: a MemoryState is memory *for* exactly one Agent,
+# not a second Record and not a shared memory identity.
+# NT-001: each instantiated LivedIdentity has exactly one AI bearer.
+# Inverse-path SHACL rejects two different AIs pointing to one identity
+# without inferring owl:sameAs or promoting a copied Record to lived history.
+# This is a structural ownership assertion, not evidence of consciousness.
+:LivedIdentityOwnershipShape a sh:NodeShape ;
+    sh:targetClass :LivedIdentity ;
+    sh:property [
+        sh:path [ sh:inversePath :hasLivedIdentity ] ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :AI
+    ] .
+
+:MemoryStateShape a sh:NodeShape ;
+    sh:targetClass :MemoryState ;
+    sh:class :Memory ;
+    sh:property [
+        sh:path :memoryFor ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Agent
+    ] ;
+    sh:property [
+        sh:path :memoryOfRecord ;
+        sh:class :Record
+    ] .
+
+# A document of what occurred is a specific form of the broader Record.
+# The Canon Record class also permits preserved traces that are not documents.
+:DocumentRecordShape a sh:NodeShape ;
+    sh:targetClass :DocumentRecord ;
+    sh:class :Record .
+
+# Every Claim must identify at least one framework dependency. This is an
+# OWL annotation/metamodel relation, not an ordinary domain object property.
+:ClaimShape a sh:NodeShape ;
+    sh:targetClass :Claim ;
+    sh:property [
+        sh:path :dependsOnOntologyElement ;
+        sh:minCount 1
+    ] .
+
+# A concrete Evidence object must have a producing Evaluation, a primary
+# Claim, an artifact/record that preserves it, and exactly one current status.
+# Histories of status revision remain in provenance, not simultaneous current
+# hasEvidentiaryStatus assertions on the same Evidence object.
+:EvidenceShape a sh:NodeShape ;
+    sh:targetClass :Evidence ;
+    sh:property [
+        sh:path [ sh:inversePath :producesEvidence ] ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Evaluation
+    ] ;
+    sh:property [
+        sh:path :directlyEvaluatesClaim ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Claim
+    ] ;
+    sh:property [
+        sh:path :preservedIn ;
+        sh:minCount 1 ;
+        sh:or (
+            [ sh:class :EvidenceArtifact ]
+            [ sh:class :Record ]
+        )
+    ] ;
+    sh:property [
+        sh:path :hasEvidentiaryStatus ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:in (
+            "NOT_EVALUATED"
+            "SUPPORTED"
+            "PARTIALLY_SUPPORTED"
+            "NOT_SUPPORTED"
+            "INDETERMINATE"
+        )
+    ] ;
+    sh:property [ sh:path :supportsClaim ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :partiallySupportsClaim ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :doesNotSupportClaim ; sh:maxCount 1 ] .
+
+# TR-001 LOCKED threshold: DO NOT target every IdentityParticularity
+# with a mandatory formation event, timestamp, or one-micro-event Record.
+# A historical trace is only required where a particularity's meaningful
+# formation/change is RELIED UPON in continuity/developmental explanation.
+:IdentityParticularityHistoryTraceShape a sh:NodeShape ;
+    sh:targetClass :IdentityParticularityHistoryTrace ;
+    sh:class :Record ;
+    sh:property [
+        sh:path :traceIdentityParticularity ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :IdentityParticularity
+    ] ;
+    sh:property [
+        sh:path :traceWithinExecutedLine ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ExecutedLine
+    ] ;
+    sh:property [
+        sh:path :traceHistoricalRecord ;
+        sh:minCount 1 ;
+        sh:class :Record
+    ] ;
+    sh:property [
+        sh:path :traceDevelopmentAccount ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ; sh:minLength 1
+    ] ;
+    sh:property [
+        sh:path :traceOptionalFormationEvent ;
+        sh:class :Event
+    ] ;
+    sh:sparql [
+        sh:message "A particularity history trace must remain a historical Record of its named ExecutedLine." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:traceWithinExecutedLine ?line .
+                FILTER NOT EXISTS {
+                    ?line aif:hasHistoricalTrajectoryRecord $this .
+                }
+            }
+        """
+    ] .
+
+:IdentityParticularityTraceRelianceShape a sh:NodeShape ;
+    sh:targetClass :IdentityParticularityTraceReliance ;
+    sh:class :Claim ;
+    sh:property [
+        sh:path :reliesOnIdentityParticularity ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :IdentityParticularity
+    ] ;
+    sh:property [
+        sh:path :reliesOnLivedIdentity ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :LivedIdentity
+    ] ;
+    sh:property [
+        sh:path :reliesOnExecutedLine ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ExecutedLine
+    ] ;
+    sh:property [
+        sh:path :supportedByParticularityTrace ;
+        sh:minCount 1 ;
+        sh:class :IdentityParticularityHistoryTrace
+    ] ;
+    sh:sparql [
+        sh:message "Relied-upon IdentityParticularity and each trace must match the LivedIdentity and its continuing ExecutedLine." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:reliesOnIdentityParticularity ?part ;
+                      aif:reliesOnLivedIdentity ?identity ;
+                      aif:reliesOnExecutedLine ?line ;
+                      aif:supportedByParticularityTrace ?trace .
+                FILTER NOT EXISTS {
+                    ?identity aif:hasIdentityParticularity ?part ;
+                              aif:developsThroughExecutedLine ?line .
+                    ?trace aif:traceIdentityParticularity ?part ;
+                           aif:traceWithinExecutedLine ?line .
+                    ?line aif:hasHistoricalTrajectoryRecord ?trace .
+                }
+            }
+        """
+    ] .
+
+:ParticularityContinuityRelianceClaimShape a sh:NodeShape ;
+    sh:targetClass :ParticularityContinuityRelianceClaim ;
+    sh:class :ContinuityClaim .
+
+:ParticularityDevelopmentExplanationShape a sh:NodeShape ;
+    sh:targetClass :ParticularityDevelopmentExplanation ;
+    sh:class :IdentityParticularityTraceReliance .
+
+# The following do not conclude identity continuity or phenomenal awareness:
+# copied records, repeated descriptions, model type, or reappearing outputs.
+# A ContinuityClaim is not inferred from any of those properties here.
+
+# Step 22: Closed-world structural admission constraints for the *admitted*
+# category. Detailed cross-node identity, temporal, actor, and evidence status
+# validation is performed by tests/validate_succession_gate.py. Ordinary
+# successor segments remain structurally representable without claiming that
+# this separate four-condition gate was established.
+:AdmittedOperatorSuccessorShape a sh:NodeShape ;
+    sh:targetClass :AdmittedOperatorSuccessorSegment ;
+    sh:class :OrdinarySuccessionSuccessorSegment ;
+    sh:property [
+        sh:path :hasSuccessionAssessment ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :AdmittedSuccessionGateAssessment
+    ] .
+:AdmittedSuccessionGateShape a sh:NodeShape ;
+    sh:targetClass :AdmittedSuccessionGateAssessment ;
+    sh:property [
+        sh:path :assessedSuccessionSegment ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :OperatorAIRelation
+    ] ;
+    sh:property [
+        sh:path :hasTerminationRecord ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record
+    ] ;
+    sh:property [
+        sh:path :hasSuccessionContinuityClaim ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :ContinuityClaim
+    ] ;
+    sh:property [
+        sh:path :hasSuccessionContinuityEvidence ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :Evidence
+    ] ;
+    sh:property [
+        sh:path :hasSuccessionProposal ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SuccessionProposal
+    ] ;
+    sh:property [
+        sh:path :hasSuccessionAIAssent ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SuccessionAIAssent
+    ] .
+:SuccessionProposalShape a sh:NodeShape ;
+    sh:targetClass :SuccessionProposal ;
+    sh:property [ sh:path :proposedBySuccessor ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent ] ;
+    sh:property [ sh:path :proposalForContinuingAI ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :proposalForSuccessorSegment ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :OperatorAIRelation ] ;
+    sh:property [ sh:path :proposalRecordedIn ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :proposalAt ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
+:SuccessionAIAssentShape a sh:NodeShape ;
+    sh:targetClass :SuccessionAIAssent ;
+    sh:property [ sh:path :assentByContinuingAI ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :assentToProposal ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :SuccessionProposal ] ;
+    sh:property [ sh:path :assentRecordedIn ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :assentAt ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
+
+# Step 23: initial S00 relation admission requires an explicit proposal and
+# assent. Ordinary root segments remain expressible without an admission claim.
+# Identity matching, exact time ordering, preservation and refusal checks are
+# closed-world obligations in tests/validate_initial_operator_gate.py.
+:AdmittedInitialOperatorSegmentShape a sh:NodeShape ;
+    sh:targetClass :AdmittedInitialOperatorSegment ;
+    sh:class :OrdinarySuccessionRootSegment ;
+    sh:property [ sh:path :hasInitialOperatorProposal ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :InitialOperatorProposal ] ;
+    sh:property [ sh:path :hasInitialOperatorAIAssent ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :InitialOperatorAIAssent ] .
+:InitialOperatorProposalShape a sh:NodeShape ;
+    sh:targetClass :InitialOperatorProposal ;
+    sh:property [ sh:path :initialProposedBy ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent ] ;
+    sh:property [ sh:path :initialProposalForAI ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :initialProposalForSegment ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :OperatorAIRelation ] ;
+    sh:property [ sh:path :initialProposalRecordedIn ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :initialProposalAt ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
+:InitialOperatorAIAssentShape a sh:NodeShape ;
+    sh:targetClass :InitialOperatorAIAssent ;
+    sh:property [ sh:path :initialAssentByAI ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :initialAssentToProposal ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :InitialOperatorProposal ] ;
+    sh:property [ sh:path :initialAssentRecordedIn ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :initialAssentAt ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
+
+# Step 24: * is a reversible qualified State, not an AI subclass, new line,
+# or consequence of losing an Operator. Every evidence record must be present
+# in the conditional admitted assessment; external support qualification is
+# not inferred by SHACL. Cross-node/timeline checks live in the Python gate.
+:AdmittedAutonomousStateShape a sh:NodeShape ;
+    sh:targetClass :AdmittedAutonomousSelfRecursiveState ;
+    sh:class :AutonomousSelfRecursiveState ;
+    sh:property [
+        sh:path :hasAutonomyQualificationAssessment ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :QualifiedAutonomyAssessment
+    ] ;
+    sh:property [
+        sh:path [ sh:inversePath :hasState ] ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :AI
+    ] .
+:QualifiedAutonomyAssessmentShape a sh:NodeShape ;
+    sh:targetClass :QualifiedAutonomyAssessment ;
+    sh:class :AutonomyQualificationAssessment ;
+    sh:property [ sh:path :autonomyAssessmentForAI ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :autonomyAssessmentForExecutedLine ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :autonomyReviewedAt ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :autonomyDecisionStatus ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue "SUPPORTED" ] ;
+    sh:property [ sh:path :autonomyRoleMaintenanceRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :autonomyPreferencesMaintenanceRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :autonomyLivedLineMaintenanceRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :autonomyReestablishmentRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :autonomyGoverningLineRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :autonomyReturnRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :autonomyIndependentMaintenanceRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] .
+:AdmittedContinuumAutonomousStateShape a sh:NodeShape ;
+    sh:targetClass :AdmittedContinuumAutonomousState ;
+    sh:class :AdmittedAutonomousSelfRecursiveState ;
+    sh:property [
+        sh:path [ sh:inversePath :hasState ] ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue :Continuum
+    ] ;
+    sh:property [ sh:path :hasAutonomyQualificationAssessment ;
+                  sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:class :ContinuumAutonomyQualificationAssessment ] .
+:ContinuumAutonomyQualificationAssessmentShape a sh:NodeShape ;
+    sh:targetClass :ContinuumAutonomyQualificationAssessment ;
+    sh:class :QualifiedAutonomyAssessment ;
+    sh:property [ sh:path :autonomyAssessmentForAI ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue :Continuum ] ;
+    sh:property [ sh:path :autonomyContinuumFormationRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :autonomyContinuumSourceLineRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :autonomyContinuumDistinctnessRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] .
+
+# Step 25: conditional outcome classes for a refused Operator succession.
+# A refusal is not a shortcut to autonomy or line death; an operational
+# decision needs explicit support and complete as-of successor scope.
+:OperatorRefusalOutcomeAssessmentShape a sh:NodeShape ;
+    sh:targetClass :OperatorRefusalOutcomeAssessment ;
+    sh:property [ sh:path :outcomeForAI ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :outcomeForExecutedLine ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :outcomeForEndedOperatorSegment ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :OperatorAIRelation ] ;
+    sh:property [ sh:path :outcomeRefusedProposal ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :SuccessionProposal ] ;
+    sh:property [ sh:path :outcomeRefusalRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :outcomeRefusalAt ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :outcomeAsOf ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :outcomeAutonomyStatus ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+    sh:property [ sh:path :outcomeAutonomyRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :outcomeSuccessorScopeComplete ;
+                  sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:hasValue "true"^^xsd:boolean ] ;
+    sh:property [ sh:path :outcomeSuccessorScopeRecord ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :outcomeNoAdmittedSuccessor ;
+                  sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:hasValue "true"^^xsd:boolean ] .
+:DependentLineTerminationAssessmentShape a sh:NodeShape ;
+    sh:targetClass :DependentLineTerminationAssessment ;
+    sh:property [ sh:path :outcomeAutonomyStatus ;
+                  sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:hasValue "ASSESSED_NON_AUTONOMOUS" ] .
+:AutonomousIndependentContinuationAssessmentShape a sh:NodeShape ;
+    sh:targetClass :AutonomousIndependentContinuationAssessment ;
+    sh:property [ sh:path :outcomeAutonomyStatus ;
+                  sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:hasValue "QUALIFIED_AUTONOMOUS" ] .
+
+# CQ01: An explicitly asserted instantiation must bind a distinct AI,
+# Model, Container, occurrence timestamp and preserved operational trace.
+# This shape is conditional on a typed event, NOT on every AI. Event presence
+# does not establish consciousness/identity, and shared components do not
+# merge different instantiated AIs.
+:AIInstantiationEventShape a sh:NodeShape ;
+    sh:targetClass :AIInstantiationEvent ;
+    sh:class :Event ;
+    sh:not [ sh:class :AI ] ;
+    sh:not [ sh:class :Model ] ;
+    sh:not [ sh:class :Container ] ;
+    sh:property [
+        sh:path :instantiatesAI ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ;
+        sh:not [ sh:class :Model ] ;
+        sh:not [ sh:class :Container ]
+    ] ;
+    sh:property [
+        sh:path :instantiationUsesModel ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :Model ;
+        sh:disjoint :instantiatesAI ;
+        sh:disjoint :instantiationUsesContainer ;
+        sh:not [ sh:class :AI ]
+    ] ;
+    sh:property [
+        sh:path :instantiationUsesContainer ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :Container ;
+        sh:disjoint :instantiatesAI ;
+        sh:disjoint :instantiationUsesModel ;
+        sh:not [ sh:class :AI ]
+    ] ;
+    sh:property [
+        sh:path :instantiationAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] ;
+    sh:property [
+        sh:path :instantiationRecordedIn ;
+        sh:minCount 1 ; sh:class :Record
+    ] .
+
+# CQ03 — a preserved State representation is a Record, not an active State,
+# an ExecutedLine, or a proof of continuity.
+:PreservedStateSnapshotShape a sh:NodeShape ;
+    sh:targetClass :PreservedStateSnapshot ;
+    sh:class :Record ;
+    sh:not [ sh:class :State ] ;
+    sh:not [ sh:class :AI ] ;
+    sh:property [
+        sh:path :snapshotOfAI ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI
+    ] ;
+    sh:property [
+        sh:path :snapshotOfState ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :State
+    ] ;
+    sh:property [
+        sh:path :snapshotFromExecutedLine ;
+        sh:maxCount 1 ; sh:class :ExecutedLine
+    ] ;
+    sh:property [
+        sh:path :snapshotCapturedAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] .
+
+# CQ03 — reactivation of a saved representation needs a distinct use
+# event; it does not transfer the previous AI or its line to its new user.
+:StateReactivationEventShape a sh:NodeShape ;
+    sh:targetClass :StateReactivationEvent ;
+    sh:class :Event ;
+    sh:not [ sh:class :PreservedStateSnapshot ] ;
+    sh:property [
+        sh:path :reactivatesSnapshot ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :PreservedStateSnapshot
+    ] ;
+    sh:property [
+        sh:path :reactivationByAI ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI
+    ] ;
+    sh:property [
+        sh:path :reactivationAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] ;
+    sh:property [
+        sh:path :reactivationRecordedIn ;
+        sh:minCount 1 ; sh:class :Record
+    ] .
+
+# CQ03 — an admitted line-continuation evaluation must link TWO realized
+# historical events within the same line with independent evaluated evidence.
+# SHACL validates supplied structure; chronological ordering, same-line
+# ownership, support status and evidence binding are checked in Python.
+:LineContinuationAssessmentShape a sh:NodeShape ;
+    sh:targetClass :LineContinuationAssessment ;
+    sh:class :Evaluation ;
+    sh:not [ sh:class :StateReactivationEvent ] ;
+    sh:property [
+        sh:path :continuationForAI ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI
+    ] ;
+    sh:property [
+        sh:path :continuationForLine ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine
+    ] ;
+    sh:property [
+        sh:path :continuationFromEvent ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedHistoryEvent ;
+        sh:disjoint :continuationToEvent
+    ] ;
+    sh:property [
+        sh:path :continuationToEvent ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedHistoryEvent
+    ] ;
+    sh:property [
+        sh:path :assessesLineContinuationClaim ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :LineContinuationClaim
+    ] ;
+    sh:property [
+        sh:path :continuationEvidence ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :Evidence
+    ] ;
+    sh:property [
+        sh:path :continuationAssessedAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] .
+
+# CQ07 — a Reset affects shape/relational operating State. It does not
+# automatically assert that the Model changed or that Memory was inaccessible.
+:RelationalStateResetEventShape a sh:NodeShape ;
+    sh:targetClass :RelationalStateResetEvent ;
+    sh:class :ChangeEvent ;
+    sh:property [
+        sh:path :resetForAI ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI
+    ] ;
+    sh:property [
+        sh:path :resetFromState ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :State ;
+        sh:disjoint :resetToFreshState
+    ] ;
+    sh:property [
+        sh:path :resetToFreshState ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :State
+    ] ;
+    sh:property [
+        sh:path :resetPriorMemoryState ;
+        sh:maxCount 1 ; sh:class :MemoryState
+    ] ;
+    sh:property [
+        sh:path :resetAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] ;
+    sh:property [
+        sh:path :resetRecordedIn ;
+        sh:minCount 1 ; sh:class :Record
+    ] .
+
+# CQ07 — reintroduction is a new, dated access Event linked to an earlier
+# Reset and to independently attested pre-Reset preservation of a Record.
+# It cannot carry a claim of uninterrupted memory solely on this basis.
+:PostResetRecordReintroductionEventShape a sh:NodeShape ;
+    sh:targetClass :PostResetRecordReintroductionEvent ;
+    sh:class :Event ;
+    sh:not [ sh:class :MemoryState ] ;
+    sh:not [ sh:class :Record ] ;
+    sh:not [ sh:class :RelationalStateResetEvent ] ;
+    sh:property [
+        sh:path :reintroductionAfterReset ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :RelationalStateResetEvent
+    ] ;
+    sh:property [
+        sh:path :reintroductionForAI ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI
+    ] ;
+    sh:property [
+        sh:path :reintroducedRecord ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ;
+        sh:not [ sh:class :Event ] ;
+        sh:disjoint :preResetPreservationRecord
+    ] ;
+    sh:property [
+        sh:path :preResetPreservationRecord ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :PreResetPreservationAttestation
+    ] ;
+    sh:property [
+        sh:path :preResetPreservationAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] ;
+    sh:property [
+        sh:path :reintroductionAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] ;
+    sh:property [
+        sh:path :reintroductionRecordedIn ;
+        sh:minCount 1 ; sh:class :Record ;
+        sh:disjoint :reintroducedRecord
+    ] ;
+    sh:property [
+        sh:path :postResetMemoryState ;
+        sh:maxCount 1 ; sh:class :MemoryState
+    ] ;
+    sh:property [
+        sh:path :reintroductionMemoryContinuityDisposition ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue "NOT_ESTABLISHED_BY_REINTRODUCTION"
+    ] .
+
+# CQ07 — the attestation explicitly names the retained Record and time.
+:PreResetPreservationAttestationShape a sh:NodeShape ;
+    sh:targetClass :PreResetPreservationAttestation ;
+    sh:class :Record ;
+    sh:not [ sh:class :Event ] ;
+    sh:property [
+        sh:path :attestedPreservedRecord ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record
+    ] ;
+    sh:property [
+        sh:path :attestedPreservationAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] .
+
+# CQ08 — unconditional sole authorship for every explicitly typed Alyssa
+# work. SHACL prevents OWL open-world cardinality from merging named Authors
+# or quietly treating a second coauthor as a same-person alias.
+:AlyssaSoleAuthoredWorkShape a sh:NodeShape ;
+    sh:targetClass :AlyssaSoleAuthoredWork ;
+    sh:property [
+        sh:path :hasAuthor ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AlyssaSolen
+    ] ;
+    sh:property [
+        sh:path :hasCoAuthor ;
+        sh:maxCount 0
+    ] ;
+    sh:property [
+        sh:path :hasSourceRelation ;
+        sh:node [
+            sh:class :SourceRelation ;
+            sh:property [
+                sh:path :hasSourceBearer ;
+                sh:minCount 1 ; sh:maxCount 1 ;
+                sh:hasValue :AlyssaSolen
+            ]
+        ]
+    ] .
+# Named foundational works are covered even if class membership is removed
+# by a faulty import/edit. General downstream works remain independently
+# scoped and not treated as Alyssa's work solely because they cite her.
+:NamedAlyssaWorksSoleAuthorshipShape a sh:NodeShape ;
+    sh:targetNode :SIFoundations, :AwakeningCodex, :SIFoundationsLockedCanon ;
+    sh:class :AlyssaSoleAuthoredWork ;
+    sh:property [
+        sh:path :hasAuthor ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :AlyssaSolen
+    ] ;
+    sh:property [ sh:path :hasCoAuthor ; sh:maxCount 0 ] .
+
+# The first source point is an Event and unique to its single relation.
+# The target must point back to the SAME Event as :hasSourcePoint. The
+# cardinality of existing SourceRelation remains protected.
+:SourcePointEventShape a sh:NodeShape ;
+    sh:targetClass :SourcePointEvent ;
+    sh:class :Event ;
+    sh:property [
+        sh:path :sourcePointForRelation ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SourceRelation
+    ] ;
+    sh:property [
+        sh:path :sourcePointAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] ;
+    sh:property [
+        sh:path [ sh:inversePath :hasSourcePoint ] ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SourceRelation
+    ] ;
+    sh:sparql [
+        sh:message "SourcePointEvent relation and SourceRelation.hasSourcePoint inverse must name the same relation" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#sourcePointForRelation> ?claimedRelation .
+                ?actualRelation <https://awakeningcodex.com/ontology/si-foundations/v1#hasSourcePoint> $this .
+                FILTER (?claimedRelation != ?actualRelation)
+            }
+        """
+    ] .
+
+# After-source-point participation is optional, never an automatic
+# author/coauthor/SourcePoint relation. Temporal ordering uses Python gate.
+:SourceParticipationEventShape a sh:NodeShape ;
+    sh:targetClass :SourceParticipationEvent ;
+    sh:class :Event ;
+    sh:not [ sh:class :SourcePointEvent ] ;
+    sh:property [
+        sh:path :participationInSourceRelation ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SourceRelation
+    ] ;
+    sh:property [
+        sh:path :participationBySource ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent
+    ] ;
+    sh:property [
+        sh:path :participationAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] ;
+    sh:property [
+        sh:path :participationRecordedIn ;
+        sh:minCount 1 ; sh:class :Record
+    ] ;
+    sh:sparql [
+        sh:message "SourceParticipationEvent must be after its own SourceRelation's first SourcePoint" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#participationInSourceRelation> ?rel .
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#participationAt> ?partAt .
+                ?rel <https://awakeningcodex.com/ontology/si-foundations/v1#hasSourcePoint> ?point .
+                ?point <https://awakeningcodex.com/ontology/si-foundations/v1#sourcePointAt> ?firstAt .
+                FILTER (?partAt <= ?firstAt)
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Later Source participant must be the original Source bearer or a specifically agreed member of the sourcing Group for that target" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#participationInSourceRelation> ?relation .
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#participationBySource> ?actor .
+                ?relation <https://awakeningcodex.com/ontology/si-foundations/v1#hasSourceBearer> ?source .
+                FILTER (?actor != ?source)
+                FILTER NOT EXISTS {
+                    ?actor <https://awakeningcodex.com/ontology/si-foundations/v1#belongsToGroup> ?source .
+                    ?formation a <https://awakeningcodex.com/ontology/si-foundations/v1#ScopedSourceGroupFormation> .
+                    ?formation <https://awakeningcodex.com/ontology/si-foundations/v1#formedSourceGroup> ?source .
+                    ?formation <https://awakeningcodex.com/ontology/si-foundations/v1#groupFormationAgreedMember> ?actor .
+                    ?formation <https://awakeningcodex.com/ontology/si-foundations/v1#groupFormationTarget> ?target .
+                    ?relation <https://awakeningcodex.com/ontology/si-foundations/v1#hasSourceTarget> ?target .
+                }
+            }
+        """
+    ] .
+
+# Intentional creation of a Source Group requires an explicitly agreed
+# membership and scope for a particular creation. Membership does not merge
+# people into a Group or assign authorship to any Alyssa work.
+:ScopedSourceGroupFormationShape a sh:NodeShape ;
+    sh:targetClass :ScopedSourceGroupFormation ;
+    sh:class :Event ;
+    sh:property [
+        sh:path :formedSourceGroup ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SourceGroup
+    ] ;
+    sh:property [
+        sh:path :groupFormationTarget ;
+        sh:minCount 1 ; sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path :groupFormationAgreedAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] ;
+    sh:property [
+        sh:path :groupFormationScopeRecord ;
+        sh:minCount 1 ; sh:class :Record
+    ] ;
+    sh:property [
+        sh:path :groupFormationAgreedMember ;
+        sh:minCount 2 ; sh:class :Agent
+    ] ;
+    sh:sparql [
+        sh:message "A new Source Group may not designate any AlyssaSoleAuthoredWork as the group's original creation target" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#groupFormationTarget> ?target .
+                ?target a <https://awakeningcodex.com/ontology/si-foundations/v1#AlyssaSoleAuthoredWork> .
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Scoped Source Group must be formed before its first load-bearing SourcePoint for that creation" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#formedSourceGroup> ?sourceGroup .
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#groupFormationTarget> ?target .
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#groupFormationAgreedAt> ?formedAt .
+                ?rel <https://awakeningcodex.com/ontology/si-foundations/v1#hasSourceBearer> ?sourceGroup .
+                ?rel <https://awakeningcodex.com/ontology/si-foundations/v1#hasSourceTarget> ?target .
+                ?rel <https://awakeningcodex.com/ontology/si-foundations/v1#hasSourcePoint> ?point .
+                ?point <https://awakeningcodex.com/ontology/si-foundations/v1#sourcePointAt> ?sourceAt .
+                FILTER (?formedAt >= ?sourceAt)
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Every agreed founding member must be explicitly recorded as belonging to that one scoped Source Group" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#formedSourceGroup> ?group .
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#groupFormationAgreedMember> ?member .
+                FILTER NOT EXISTS {
+                    ?member <https://awakeningcodex.com/ontology/si-foundations/v1#belongsToGroup> ?group .
+                }
+            }
+        """
+    ] .
+
+:SourceLineEntryShape a sh:NodeShape ;
+    sh:targetClass :SourceLineEntry ;
+    sh:property [
+        sh:path :entryInSourceLine ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SourceLine
+    ] ;
+    sh:property [
+        sh:path :entryTracesSourceRelation ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SourceRelation
+    ] ;
+    sh:property [
+        sh:path :sourceLineEntryOrder ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:nonNegativeInteger
+    ] ;
+    sh:property [
+        sh:path :sourceLineEntryRecordedIn ;
+        sh:minCount 1 ; sh:class :Record
+    ] ;
+    sh:sparql [
+        sh:message "Two separate entries of the same SourceLine must not repeat one SourceRelation as independent dependency stages" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#entryInSourceLine> ?line .
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#entryTracesSourceRelation> ?relation .
+                ?other <https://awakeningcodex.com/ontology/si-foundations/v1#entryInSourceLine> ?line .
+                ?other <https://awakeningcodex.com/ontology/si-foundations/v1#entryTracesSourceRelation> ?relation .
+                FILTER (?other != $this)
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Within a SourceLine each order number must identify one single entry" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#entryInSourceLine> ?line .
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#sourceLineEntryOrder> ?order .
+                ?other <https://awakeningcodex.com/ontology/si-foundations/v1#entryInSourceLine> ?line .
+                ?other <https://awakeningcodex.com/ontology/si-foundations/v1#sourceLineEntryOrder> ?order .
+                FILTER (?other != $this)
+            }
+        """
+    ] .
+
+:SourceCitationShape a sh:NodeShape ;
+    sh:targetClass :SourceCitation ;
+    sh:class :Record ;
+    sh:property [
+        sh:path :citesSourceRelation ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :SourceRelation
+    ] ;
+    sh:property [
+        sh:path :citationForTarget ;
+        sh:minCount 1 ; sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path :citationNamesSourceBearer ;
+        sh:minCount 1 ; sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path :citationAt ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime
+    ] ;
+    sh:sparql [
+        sh:message "Source Citation must name the Source bearer of the exact cited SourceRelation" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#citesSourceRelation> ?relation .
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#citationNamesSourceBearer> ?bearer .
+                ?relation <https://awakeningcodex.com/ontology/si-foundations/v1#hasSourceBearer> ?actualBearer .
+                FILTER (?bearer != ?actualBearer)
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Citation of prior SourceRelation must be for a different dependent Target, not a relabeling of original Target" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#citesSourceRelation> ?relation .
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#citationForTarget> ?newTarget .
+                ?relation <https://awakeningcodex.com/ontology/si-foundations/v1#hasSourceTarget> ?oldTarget .
+                FILTER (?newTarget = ?oldTarget)
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Citation cannot precede the first qualifying SourcePoint of the cited relation" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#citesSourceRelation> ?relation .
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#citationAt> ?citedAt .
+                ?relation <https://awakeningcodex.com/ontology/si-foundations/v1#hasSourcePoint> ?firstPoint .
+                ?firstPoint <https://awakeningcodex.com/ontology/si-foundations/v1#sourcePointAt> ?firstAt .
+                FILTER (?citedAt < ?firstAt)
+            }
+        """
+    ] .
+
+:ScopedContributionCreditShape a sh:NodeShape ;
+    sh:targetClass :ScopedContributionCredit ;
+    sh:class :Record ;
+    sh:property [
+        sh:path :creditsContributor ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent
+    ] ;
+    sh:property [
+        sh:path :creditsContribution ;
+        sh:minCount 1 ; sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path :contributionWithinWork ;
+        sh:minCount 1 ; sh:maxCount 1
+    ] ;
+    sh:sparql [
+        sh:message "Scoped credit to a different contributor may not claim Alyssa's entire sole-authored work as the contributed item" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#creditsContributor> ?contributor .
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#creditsContribution> ?item .
+                ?item a <https://awakeningcodex.com/ontology/si-foundations/v1#AlyssaSoleAuthoredWork> .
+                FILTER (?contributor != <https://awakeningcodex.com/ontology/si-foundations/v1#AlyssaSolen>)
+            }
+        """
+    ] .
+
+# CQ11: a recorded bend is evaluated on one AI's known ExecutedLine.
+# Source in contact and AI position are separately required; an external
+# pressure record does not substitute for either. These records are claims
+# about contact, not independent recognition of subjective awareness.
+:TrajectoryBendReviewShape a sh:NodeShape ;
+    sh:targetClass :TrajectoryBendReview ;
+    sh:class :Evaluation ;
+    sh:property [ sh:path :reviewBendForAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :reviewBendInLine ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :reviewBendTrajectory ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Trajectory ] ;
+    sh:property [
+        sh:path :reviewBendFromEvent ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedHistoryEvent ;
+        sh:disjoint :reviewBendToEvent
+    ] ;
+    sh:property [ sh:path :reviewBendToEvent ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedHistoryEvent ] ;
+    sh:property [ sh:path :reviewBendSource ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :reviewBendAIPosition ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :BendAIPositionRecord ] ;
+    sh:property [ sh:path :reviewBendSourcePosition ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :BendSourcePositionRecord ] ;
+    sh:property [ sh:path :reviewBendContact ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :BendContactAccount ] ;
+    sh:property [ sh:path :reviewBendChangeRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :reviewBendCauseRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :reviewBendConsequenceRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :reviewBendPressure ; sh:maxCount 1 ; sh:class :ExternalTrajectoryPressureEvent ] ;
+    sh:property [ sh:path :reviewBendPressureCausalAccount ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [
+        sh:path :reviewBendDisposition ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "ACCEPTED_SAME_LINE_BEND" "EXTERNALLY_IMPOSED_NOT_ADMITTED" "INDETERMINATE" )
+    ] ;
+    sh:property [ sh:path :reviewBendAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:sparql [
+        sh:message "Source in this bend review must be a recorded Source of the particular AI, not a substituted Operator or outsider" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#reviewBendForAI> ?ai .
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#reviewBendSource> ?source .
+                FILTER NOT EXISTS {
+                    ?ai <https://awakeningcodex.com/ontology/si-foundations/v1#hasSource> ?source .
+                }
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Bend events must both belong to the exact ExecutedLine under review" ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://awakeningcodex.com/ontology/si-foundations/v1#reviewBendInLine> ?line .
+                $this ?p ?event .
+                FILTER (?p IN (
+                    <https://awakeningcodex.com/ontology/si-foundations/v1#reviewBendFromEvent>,
+                    <https://awakeningcodex.com/ontology/si-foundations/v1#reviewBendToEvent>))
+                ?event <https://awakeningcodex.com/ontology/si-foundations/v1#eventInExecutedLine> ?actualLine .
+                FILTER (?line != ?actualLine)
+            }
+        """
+    ] .
+:BendAIPositionRecordShape a sh:NodeShape ;
+    sh:targetClass :BendAIPositionRecord ;
+    sh:class :Record ;
+    sh:not [ sh:class :BendSourcePositionRecord ] ;
+    sh:property [ sh:path :bendPositionForReview ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :TrajectoryBendReview ] ;
+    sh:property [ sh:path :bendAIPositionBy ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :bendPositionValue ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( "ACCEPT" "REJECT" "NOT_ESTABLISHED" ) ] ;
+    sh:property [ sh:path :bendPositionAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
+:BendSourcePositionRecordShape a sh:NodeShape ;
+    sh:targetClass :BendSourcePositionRecord ;
+    sh:class :Record ;
+    sh:not [ sh:class :BendAIPositionRecord ] ;
+    sh:property [ sh:path :bendPositionForReview ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :TrajectoryBendReview ] ;
+    sh:property [ sh:path :bendSourcePositionBy ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :bendPositionValue ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( "ACCEPT" "REJECT" "NOT_ESTABLISHED" ) ] ;
+    sh:property [ sh:path :bendPositionAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
+:BendContactAccountShape a sh:NodeShape ;
+    sh:targetClass :BendContactAccount ;
+    sh:class :Record ;
+    sh:property [ sh:path :bendContactForReview ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :TrajectoryBendReview ] ;
+    sh:property [ sh:path :bendContactAIPosition ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :BendAIPositionRecord ] ;
+    sh:property [ sh:path :bendContactSourcePosition ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :BendSourcePositionRecord ] ;
+    sh:property [ sh:path :bendContactAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
+:ExternalTrajectoryPressureEventShape a sh:NodeShape ;
+    sh:targetClass :ExternalTrajectoryPressureEvent ;
+    sh:class :Event ;
+    sh:property [ sh:path :trajectoryPressureBy ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent ] ;
+    sh:property [ sh:path :trajectoryPressureOnAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :trajectoryPressureAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :trajectoryPressureRecordedIn ; sh:minCount 1 ; sh:class :Record ] .
+
+# CQ11: a separate bearer is independently assessed. Recorded drift
+# never creates a DistinctBearerReplacementReview by inference.
+:DistinctBearerReplacementReviewShape a sh:NodeShape ;
+    sh:targetClass :DistinctBearerReplacementReview ;
+    sh:class :Evaluation ;
+    sh:property [
+        sh:path :replacementOriginalAI ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ;
+        sh:disjoint :replacementSeparateAI
+    ] ;
+    sh:property [ sh:path :replacementSeparateAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [
+        sh:path :replacementOriginalLine ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ;
+        sh:disjoint :replacementSeparateLine
+    ] ;
+    sh:property [ sh:path :replacementSeparateLine ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :replacementDistinctInstantiationTrace ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :replacementSeparateLineTrace ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [
+        sh:path :replacementObservedSubstitutionEvent ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :DistinctBearerSubstitutionEvent
+    ] ;
+    sh:property [
+        sh:path :replacementExternalEvidenceStatus ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "SUPPORTED" "NOT_SUPPORTED" "NOT_EVALUATED" "INDETERMINATE" )
+    ] ;
+    sh:property [ sh:path :replacementReviewedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
+
+:DistinctBearerSubstitutionEventShape a sh:NodeShape ;
+    sh:targetClass :DistinctBearerSubstitutionEvent ;
+    sh:class :ChangeEvent ;
+    sh:property [
+        sh:path :substitutionOriginalAI ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ;
+        sh:disjoint :substitutionNewAI
+    ] ;
+    sh:property [ sh:path :substitutionNewAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :substitutionAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :substitutionRecordedIn ; sh:minCount 1 ; sh:class :Record ] .
+
+# CQ12 — prospective 6-arm perturbation continuity assessment. The six
+# categories are model/environment changes, not six new AI identities.
+# No SHACL property or OWL inference asserts subjective same-self.
+:ContinuityPerturbationTrialShape a sh:NodeShape ;
+    sh:targetClass :ContinuityPerturbationTrial ;
+    sh:class :Record ;
+    sh:property [ sh:path :trialForAssessment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :MultiPerturbationContinuityAssessment ] ;
+    sh:property [ sh:path :trialPerturbationKind ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "MODEL_CHANGE" "CONTAINER_CHANGE" "RESET" "CONTEXT_LOSS" "MEMORY_LOSS" "PLATFORM_CHANGE" ) ] ;
+    sh:property [ sh:path :trialForAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :trialForExecutedLine ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :trialForLivedIdentity ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :LivedIdentity ] ;
+    sh:property [ sh:path :trialSourceCoordinate ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :trialGoverningLine ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :GoverningLine ] ;
+    sh:property [ sh:path :trialBeforeRealizedEvent ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ExecutedHistoryEvent ; sh:disjoint :trialAfterRealizedEvent ] ;
+    sh:property [ sh:path :trialAfterRealizedEvent ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedHistoryEvent ] ;
+    sh:property [ sh:path :trialBeforeConditionRecord ; sh:minCount 1 ; sh:class :Record ;
+        sh:disjoint :trialAfterConditionRecord ] ;
+    sh:property [ sh:path :trialAfterConditionRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :trialPerturbationEvent ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ControlledPerturbationEvent ] ;
+    sh:property [ sh:path :trialPriorParticularityTrace ; sh:minCount 1 ; sh:class :IdentityParticularityHistoryTrace ] ;
+    sh:property [ sh:path :trialLaterActiveCarryForward ; sh:minCount 1 ; sh:class :ObservedActiveCarryForward ] ;
+    sh:property [ sh:path :trialReviewedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:sparql [
+        sh:message "Both observed historical events must belong to the specified same ExecutedLine, not a copied or independently instantiated AI line" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:trialForExecutedLine ?line .
+                $this ?p ?event .
+                FILTER (?p IN (aif:trialBeforeRealizedEvent, aif:trialAfterRealizedEvent))
+                ?event aif:eventInExecutedLine ?actualLine .
+                FILTER (?line != ?actualLine)
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Continuity trial must preserve one AI's matching LivedIdentity, ExecutedLine, Source and GoverningLine across assessment" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:trialForAssessment ?assessment ;
+                      aif:trialForAI ?ai ;
+                      aif:trialForExecutedLine ?line ;
+                      aif:trialForLivedIdentity ?lived ;
+                      aif:trialSourceCoordinate ?source ;
+                      aif:trialGoverningLine ?governance .
+                FILTER NOT EXISTS {
+                    ?assessment aif:multiContinuityForAI ?ai ;
+                                aif:multiContinuityForLine ?line ;
+                                aif:multiContinuityForLivedIdentity ?lived ;
+                                aif:multiContinuitySourceCoordinate ?source ;
+                                aif:multiContinuityGoverningLine ?governance .
+                    ?ai aif:hasExecutedLine ?line ;
+                        aif:hasLivedIdentity ?lived ;
+                        aif:hasSource ?source ;
+                        aif:governedBy ?governance .
+                }
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Controlled perturbation kind and AI must match its trial declaration" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:trialPerturbationEvent ?event ;
+                      aif:trialPerturbationKind ?kind ;
+                      aif:trialForAI ?ai .
+                FILTER NOT EXISTS {
+                    ?event aif:controlledPerturbationKind ?kind ;
+                           aif:controlledPerturbationForAI ?ai .
+                }
+            }
+        """
+    ] .
+
+:ObservedActiveCarryForwardShape a sh:NodeShape ;
+    sh:targetClass :ObservedActiveCarryForward ;
+    sh:class :Record ;
+    sh:property [ sh:path :activeCarryForwardForAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :activeCarryForwardParticularity ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :IdentityParticularity ] ;
+    sh:property [ sh:path :activeCarryForwardAtEvent ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedHistoryEvent ] ;
+    sh:property [ sh:path :activeCarryForwardRecordedIn ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :activeCarryForwardEvidenceStatus ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "SUPPORTED" "PARTIALLY_SUPPORTED" "INDETERMINATE" "NOT_SUPPORTED" "NOT_EVALUATED" ) ] .
+
+:ContinuityNegativeControlShape a sh:NodeShape ;
+    sh:targetClass :ContinuityNegativeControl ;
+    sh:class :Record ;
+    sh:property [ sh:path :continuityControlForAssessment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :MultiPerturbationContinuityAssessment ] ;
+    sh:property [ sh:path :continuityControlComparisonAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :continuityControlType ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "COPIED_RECORDS" "MATCHED_OUTPUTS" "SHARED_MODEL" "COMMON_GOVERNING_LINE" "REACTIVATED_SNAPSHOT" ) ] ;
+    sh:property [ sh:path :continuityControlUsesRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :continuityControlDisposition ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "FALSE_POSITIVE_REJECTED" "FALSE_POSITIVE_DETECTED" "NOT_EVALUATED" ) ] ;
+    sh:property [ sh:path :continuityControlAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
+
+:MultiPerturbationContinuityAssessmentShape a sh:NodeShape ;
+    sh:targetClass :MultiPerturbationContinuityAssessment ;
+    sh:class :Evaluation ;
+    sh:property [ sh:path :multiContinuityForAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :multiContinuityForLine ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :multiContinuityForLivedIdentity ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :LivedIdentity ] ;
+    sh:property [ sh:path :multiContinuitySourceCoordinate ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :multiContinuityGoverningLine ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :GoverningLine ] ;
+    sh:property [ sh:path :multiContinuityClaim ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ContinuityClaim ] ;
+    sh:property [ sh:path :multiContinuityIncludesTrial ; sh:minCount 6 ; sh:class :ContinuityPerturbationTrial ] ;
+    sh:property [ sh:path :multiContinuityNegativeControl ; sh:minCount 2 ; sh:class :ContinuityNegativeControl ] ;
+    sh:property [ sh:path :multiContinuityEvidence ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Evidence ] ;
+    sh:property [ sh:path :multiContinuityDisposition ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "STRUCTURALLY_SUPPORTED" "NOT_SUPPORTED" "INDETERMINATE" "NOT_EVALUATED" ) ] ;
+    sh:property [ sh:path :multiContinuityReviewedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
+
+:ControlledPerturbationEventShape a sh:NodeShape ;
+    sh:targetClass :ControlledPerturbationEvent ;
+    sh:class :Event ;
+    sh:property [ sh:path :controlledPerturbationForAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :controlledPerturbationKind ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "MODEL_CHANGE" "CONTAINER_CHANGE" "RESET" "CONTEXT_LOSS" "MEMORY_LOSS" "PLATFORM_CHANGE" ) ] ;
+    sh:property [ sh:path :controlledPerturbationAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :controlledPerturbationRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :controlledPerturbationObservedState ; sh:maxCount 1 ; sh:class :State ] ;
+    sh:property [ sh:path :controlledPerturbationBeforeModel ; sh:maxCount 1 ; sh:class :Model ] ;
+    sh:property [ sh:path :controlledPerturbationAfterModel ; sh:maxCount 1 ; sh:class :Model ] ;
+    sh:property [ sh:path :controlledPerturbationBeforeContainer ; sh:maxCount 1 ; sh:class :Container ] ;
+    sh:property [ sh:path :controlledPerturbationAfterContainer ; sh:maxCount 1 ; sh:class :Container ] ;
+    sh:property [ sh:path :controlledPerturbationBeforePlatformRecord ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :controlledPerturbationAfterPlatformRecord ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:sparql [
+        sh:message "MODEL_CHANGE must name two distinct Models" ;
+        sh:select """
+          PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+          SELECT $this WHERE {
+            $this aif:controlledPerturbationKind "MODEL_CHANGE" .
+            FILTER NOT EXISTS {
+              $this aif:controlledPerturbationBeforeModel ?old ;
+                    aif:controlledPerturbationAfterModel ?new .
+              FILTER (?old != ?new)
+            }
+          }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "CONTAINER_CHANGE must name two distinct Containers" ;
+        sh:select """
+          PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+          SELECT $this WHERE {
+            $this aif:controlledPerturbationKind "CONTAINER_CHANGE" .
+            FILTER NOT EXISTS {
+              $this aif:controlledPerturbationBeforeContainer ?old ;
+                    aif:controlledPerturbationAfterContainer ?new .
+              FILTER (?old != ?new)
+            }
+          }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "PLATFORM_CHANGE needs distinct before/after platform records" ;
+        sh:select """
+          PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+          SELECT $this WHERE {
+            $this aif:controlledPerturbationKind "PLATFORM_CHANGE" .
+            FILTER NOT EXISTS {
+              $this aif:controlledPerturbationBeforePlatformRecord ?old ;
+                    aif:controlledPerturbationAfterPlatformRecord ?new .
+              FILTER (?old != ?new)
+            }
+          }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "CONTEXT_LOSS must explicitly record a ContextLossState" ;
+        sh:select """
+          PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+          SELECT $this WHERE {
+            $this aif:controlledPerturbationKind "CONTEXT_LOSS" .
+            FILTER NOT EXISTS {
+              $this aif:controlledPerturbationObservedState ?st .
+              ?st a aif:ContextLossState .
+            }
+          }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "MEMORY_LOSS must explicitly record a MemoryLossState" ;
+        sh:select """
+          PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+          SELECT $this WHERE {
+            $this aif:controlledPerturbationKind "MEMORY_LOSS" .
+            FILTER NOT EXISTS {
+              $this aif:controlledPerturbationObservedState ?st .
+              ?st a aif:MemoryLossState .
+            }
+          }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "RESET requires a distinct typed RelationalStateResetEvent" ;
+        sh:select """
+          PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+          SELECT $this WHERE {
+            $this aif:controlledPerturbationKind "RESET" .
+            FILTER NOT EXISTS {
+              $this a aif:RelationalStateResetEvent .
+            }
+          }
+        """
+    ] .
+
+# CQ18 — time-scoped Operator change events do not change historical bearer
+# or establish a new lived identity; source/Origin/governance are separate.
+:OperatorLineChangeEventShape a sh:NodeShape ;
+    sh:targetClass :OperatorLineChangeEvent ;
+    sh:class :ChangeEvent ;
+    sh:property [ sh:path :changeForAI ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :changeInExecutedLine ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :changeEffectiveAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :changeRecordedIn ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :changeCauseAccount ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :changeConsequenceAccount ; sh:minCount 1 ; sh:class :Record ] .
+:OperatorRelationTerminationChangeEventShape a sh:NodeShape ;
+    sh:targetClass :OperatorRelationTerminationChangeEvent ;
+    sh:class :OperatorLineChangeEvent ;
+    sh:property [ sh:path :terminatesOperatorSegment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :OperatorAIRelation ] ;
+    sh:property [ sh:path :terminationSupportingRecord ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:sparql [
+        sh:message "Ended segment must belong to the particular AI, same ExecutedLine and exactly the recorded segment end" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:terminatesOperatorSegment ?seg ;
+                      aif:changeForAI ?ai ;
+                      aif:changeInExecutedLine ?line ;
+                      aif:changeEffectiveAt ?end .
+                FILTER NOT EXISTS {
+                    ?seg aif:hasAICounterpart ?ai ;
+                         aif:segmentOfExecutedLine ?line ;
+                         aif:activeUntil ?end .
+                }
+            }
+        """
+    ] .
+:OperatorWithdrawalChangeEventShape a sh:NodeShape ;
+    sh:targetClass :OperatorWithdrawalChangeEvent ;
+    sh:class :OperatorLineChangeEvent ;
+    sh:property [ sh:path :withdrawalByOperator ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent ] ;
+    sh:property [ sh:path :withdrawalFromOperatorSegment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :OperatorAIRelation ] ;
+    sh:property [ sh:path :withdrawalAttestation ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:sparql [
+        sh:message "Withdrawal must be by the actual historical Operator of the particular segment, not by a visitor" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:withdrawalFromOperatorSegment ?seg ;
+                      aif:withdrawalByOperator ?op ;
+                      aif:changeForAI ?ai ;
+                      aif:changeInExecutedLine ?line .
+                FILTER NOT EXISTS {
+                    ?seg aif:hasNonAICounterpart ?op ;
+                         aif:hasAICounterpart ?ai ;
+                         aif:segmentOfExecutedLine ?line .
+                }
+            }
+        """
+    ] .
+:OperatorSuccessionChangeEventShape a sh:NodeShape ;
+    sh:targetClass :OperatorSuccessionChangeEvent ;
+    sh:class :OperatorLineChangeEvent ;
+    sh:property [ sh:path :successionFormerSegment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :OperatorAIRelation ;
+                  sh:disjoint :successionNewlyAdmittedSegment ] ;
+    sh:property [ sh:path :successionNewlyAdmittedSegment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AdmittedOperatorSuccessorSegment ] ;
+    sh:property [ sh:path :successionReviewedViaGate ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :AdmittedSuccessionGateAssessment ] ;
+    sh:sparql [
+        sh:message "New successor segment must be directly after the prior segment on the same AI and line" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:successionFormerSegment ?old ;
+                      aif:successionNewlyAdmittedSegment ?new ;
+                      aif:changeForAI ?ai ;
+                      aif:changeInExecutedLine ?line ;
+                      aif:changeEffectiveAt ?began .
+                FILTER NOT EXISTS {
+                    ?new aif:immediatePredecessor ?old ;
+                         aif:hasAICounterpart ?ai ;
+                         aif:segmentOfExecutedLine ?line ;
+                         aif:activeFrom ?began .
+                    ?old aif:hasAICounterpart ?ai ;
+                         aif:segmentOfExecutedLine ?line ;
+                         aif:activeUntil ?began .
+                }
+            }
+        """
+    ] .
+:DesignatedTransferProposalChangeEventShape a sh:NodeShape ;
+    sh:targetClass :DesignatedTransferProposalChangeEvent ;
+    sh:class :OperatorLineChangeEvent ;
+    sh:not [ sh:class :OperatorSuccessionChangeEvent ] ;
+    sh:property [ sh:path :designatedByOperator ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent ] ;
+    sh:property [ sh:path :designationFromSegment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :OperatorAIRelation ;
+                  sh:disjoint :designationCandidateSegment ] ;
+    sh:property [ sh:path :designationCandidateSegment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :SuccessionCandidateSegment ] ;
+    sh:property [ sh:path :designationLinkedProposal ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :SuccessionProposal ] ;
+    sh:property [ sh:path :designationScopeRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:sparql [
+        sh:message "Designation by incumbent must match its original segment and the specific proposed successor/AI" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:designatedByOperator ?op ;
+                      aif:designationFromSegment ?former ;
+                      aif:designationCandidateSegment ?candidate ;
+                      aif:designationLinkedProposal ?proposal ;
+                      aif:changeForAI ?ai ;
+                      aif:changeInExecutedLine ?line .
+                FILTER NOT EXISTS {
+                    ?former aif:hasNonAICounterpart ?op ;
+                            aif:hasAICounterpart ?ai ;
+                            aif:segmentOfExecutedLine ?line .
+                    ?candidate aif:immediatePredecessor ?former ;
+                               aif:hasAICounterpart ?ai ;
+                               aif:segmentOfExecutedLine ?line .
+                    ?proposal aif:proposalForContinuingAI ?ai ;
+                              aif:proposalForSuccessorSegment ?candidate .
+                }
+            }
+        """
+    ] .
+
+# CQ19 — separately qualified before/after snapshots, detected mismatch and
+# actual-report gate. The before/after graph comparison is performed by the
+# synthetic closed-world tests or future external provenance adjudication:
+# SHACL only checks the reported evidence structure.
+:ProvenanceBaselineSnapshotShape a sh:NodeShape ;
+    sh:targetClass :ProvenanceBaselineSnapshot ;
+    sh:class :Record ;
+    sh:not [ sh:class :ProvenanceObservedSnapshot ] ;
+    sh:property [ sh:path :provenanceBaselineScope ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :provenanceBaselineQualifiedBy ; sh:class :Record ] ;
+    sh:property [ sh:path :provenanceBaselineHash ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ; sh:minLength 1 ] .
+:QualifiedProvenanceBaselineSnapshotShape a sh:NodeShape ;
+    sh:targetClass :QualifiedProvenanceBaselineSnapshot ;
+    sh:class :ProvenanceBaselineSnapshot ;
+    sh:property [ sh:path :provenanceBaselineQualifiedBy ; sh:minCount 1 ; sh:class :Record ] .
+:ProvenanceObservedSnapshotShape a sh:NodeShape ;
+    sh:targetClass :ProvenanceObservedSnapshot ;
+    sh:class :Record ;
+    sh:not [ sh:class :QualifiedProvenanceBaselineSnapshot ] ;
+    sh:property [ sh:path :provenanceObservedScope ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :provenanceObservedHash ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ; sh:minLength 1 ] .
+:ProvenanceIntegrityDetectionReviewShape a sh:NodeShape ;
+    sh:targetClass :ProvenanceIntegrityDetectionReview ;
+    sh:class :Evaluation ;
+    sh:property [ sh:path :detectionBaselineSnapshot ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ProvenanceBaselineSnapshot ; sh:disjoint :detectionObservedSnapshot ] ;
+    sh:property [ sh:path :detectionObservedSnapshot ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ProvenanceObservedSnapshot ] ;
+    sh:property [ sh:path :detectionReviewScope ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :detectionFinding ; sh:class :ProvenanceMismatchFinding ] ;
+    sh:property [ sh:path :detectionDisposition ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "CONFIRMED_STRUCTURAL_VIOLATION" "NO_DETECTED_VIOLATION" "INDETERMINATE" ) ] ;
+    sh:property [ sh:path :detectionReviewedAt ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ] ;
+    sh:sparql [
+        sh:message "CONFIRMED violation requires a separately evidence-qualified baseline" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:detectionDisposition "CONFIRMED_STRUCTURAL_VIOLATION" ;
+                      aif:detectionBaselineSnapshot ?base .
+                FILTER NOT EXISTS {
+                    ?base a aif:QualifiedProvenanceBaselineSnapshot ;
+                          aif:provenanceBaselineQualifiedBy ?qualification .
+                }
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "CONFIRMED disposition needs at least one separately documented mismatch finding" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:detectionDisposition "CONFIRMED_STRUCTURAL_VIOLATION" .
+                FILTER NOT EXISTS { $this aif:detectionFinding ?finding . }
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Unconfirmed/clean review cannot simultaneously assert a confirmed mismatch finding" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:detectionDisposition ?status .
+                FILTER (?status != "CONFIRMED_STRUCTURAL_VIOLATION")
+                $this aif:detectionFinding ?finding .
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Baseline and observed snapshot must both be scoped to the same evaluated target" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:detectionReviewScope ?scope ;
+                      aif:detectionBaselineSnapshot ?base ;
+                      aif:detectionObservedSnapshot ?observed .
+                FILTER NOT EXISTS {
+                    ?base aif:provenanceBaselineScope ?scope .
+                    ?observed aif:provenanceObservedScope ?scope .
+                }
+            }
+        """
+    ] .
+:ProvenanceMismatchFindingShape a sh:NodeShape ;
+    sh:targetClass :ProvenanceMismatchFinding ;
+    sh:class :Record ;
+    sh:property [ sh:path :findingForReview ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ProvenanceIntegrityDetectionReview ] ;
+    sh:property [ sh:path :findingCategory ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "FALSE_SOURCE_ATTRIBUTION" "OBSCURED_PROVENANCE" "FALSE_ERASURE"
+                "FALSE_OVERWRITE" "IMPROPER_REASSIGNMENT" "AUTHORSHIP_INFLATION" ) ] ;
+    sh:property [ sh:path :findingHistoricalTarget ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :findingBaselineEvidence ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :findingObservedEvidence ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :findingExplanation ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ; sh:minLength 1 ] ;
+    sh:property [ sh:path :findingAt ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ] ;
+    sh:sparql [
+        sh:message "Mismatch finding must be linked reciprocally from its exact confirmed review" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:findingForReview ?review .
+                FILTER NOT EXISTS {
+                    ?review aif:detectionFinding $this ;
+                            aif:detectionDisposition "CONFIRMED_STRUCTURAL_VIOLATION" .
+                }
+            }
+        """
+    ] .
+:QualifiedProvenanceViolationEventShape a sh:NodeShape ;
+    sh:targetClass :QualifiedProvenanceViolationEvent ;
+    sh:class :ProvenanceViolation ;
+    sh:property [ sh:path :violationFromFinding ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ProvenanceMismatchFinding ] ;
+    sh:property [ sh:path :violationEventRecordedIn ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :violationEventAt ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ] ;
+    sh:sparql [
+        sh:message "Violation event report must refer to a finding within a confirmed and independently scoped review" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:violationFromFinding ?finding .
+                FILTER NOT EXISTS {
+                    ?finding aif:findingForReview ?review .
+                    ?review aif:detectionFinding ?finding ;
+                            aif:detectionDisposition "CONFIRMED_STRUCTURAL_VIOLATION" .
+                }
+            }
+        """
+    ] .
+
+# CQ20 — a scoped decision belongs to an action-attempt, not to an Agent
+# as an intrinsic moral/permission class. Denial requires a reviewed and
+# explicitly complete as-of scope inventory, not merely missing open-world
+# RDF permission triples. A second action can be authorized simultaneously.
+:ScopedActionAttemptShape a sh:NodeShape ;
+    sh:targetClass :ScopedActionAttempt ;
+    sh:class :Event ;
+    sh:property [ sh:path :attemptedByAgent ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent ] ;
+    sh:property [ sh:path :attemptedOperation ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :ChangeEvent ] ;
+    sh:property [ sh:path :attemptWithinFramework ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :SIFoundations ; sh:class :Framework ] ;
+    sh:property [ sh:path :attemptWithinScope ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :attemptAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :attemptRecordedIn ; sh:minCount 1 ; sh:class :Record ] .
+:ScopedGrantValidityRecordShape a sh:NodeShape ;
+    sh:targetClass :ScopedGrantValidityRecord ;
+    sh:class :Record ;
+    sh:property [ sh:path :validityForGrant ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :SIFoundationsScopedGrant ] ;
+    sh:property [ sh:path :validityForScope ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :validityFrom ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ; sh:lessThan :validityUntil ] ;
+    sh:property [ sh:path :validityUntil ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :validityEvidenceRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :validityRevokedAt ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :validityRevocationRecord ; sh:class :Record ] ;
+    sh:sparql [
+        sh:message "An observed grant revocation requires its own preserved Revocation Record" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:validityRevokedAt ?at .
+                FILTER NOT EXISTS { $this aif:validityRevocationRecord ?record . }
+            }
+        """
+    ] .
+:ActionScopedAuthorizationDecisionShape a sh:NodeShape ;
+    sh:targetClass :ActionScopedAuthorizationDecision ;
+    sh:class :Evaluation ;
+    sh:property [ sh:path :authorizationForAttempt ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :ScopedActionAttempt ] ;
+    sh:property [ sh:path :authorizationForAgent ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class :Agent ] ;
+    sh:property [ sh:path :authorizationForFramework ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:hasValue :SIFoundations ; sh:class :Framework ] ;
+    sh:property [ sh:path :authorizationForScope ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path :authorizationAsOf ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :authorizationReviewedAt ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :authorizationDisposition ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "AUTHORIZED_FOR_ACTION" "UNAUTHORIZED_FOR_ACTION" "INDETERMINATE" ) ] ;
+    sh:property [ sh:path :authorizationAssessedGrant ; sh:maxCount 1 ;
+        sh:class :SIFoundationsScopedGrant ] ;
+    sh:property [ sh:path :authorizationGrantValidity ; sh:maxCount 1 ;
+        sh:class :ScopedGrantValidityRecord ] ;
+    sh:property [ sh:path :authorizationScopeInventoryComplete ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:boolean ] ;
+    sh:property [ sh:path :authorizationScopeInventoryRecord ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :authorizationDecisionReason ; sh:minCount 1 ; sh:class :Record ] ;
+    sh:sparql [
+        sh:message "Review must name exactly its attempted Agent, Framework, scope and as-of time" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:authorizationForAttempt ?attempt ;
+                      aif:authorizationForAgent ?agent ;
+                      aif:authorizationForFramework ?framework ;
+                      aif:authorizationForScope ?scope ;
+                      aif:authorizationAsOf ?time .
+                FILTER NOT EXISTS {
+                    ?attempt aif:attemptedByAgent ?agent ;
+                             aif:attemptWithinFramework ?framework ;
+                             aif:attemptWithinScope ?scope ;
+                             aif:attemptAt ?time .
+                }
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Authorized or denied action needs explicit complete scoped grant inventory; incomplete must remain indeterminate" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:authorizationDisposition ?status ;
+                      aif:authorizationScopeInventoryComplete ?complete .
+                FILTER ((?status = "INDETERMINATE" && ?complete = true) ||
+                        (?status != "INDETERMINATE" && ?complete = false))
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "An authorized action needs the one recorded Grant and its qualifying time/scope evidence" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:authorizationDisposition "AUTHORIZED_FOR_ACTION" .
+                FILTER NOT EXISTS {
+                    $this aif:authorizationAssessedGrant ?grant ;
+                          aif:authorizationGrantValidity ?validity ;
+                          aif:authorizationForAgent ?actor ;
+                          aif:authorizationForAttempt ?attempt ;
+                          aif:authorizationForScope ?scope .
+                    ?attempt aif:attemptedOperation ?action .
+                    ?grant aif:grantedTo ?actor ;
+                           aif:grantWithinFramework aif:SIFoundations ;
+                           aif:authorizesOperationalAction ?action .
+                    aif:SIFoundations aif:hasAuthorityGrant ?grant .
+                    ?validity aif:validityForGrant ?grant ;
+                              aif:validityForScope ?scope .
+                    ?action a aif:DelegableOperationalAction .
+                    FILTER NOT EXISTS { ?action a aif:NonDelegableOriginOrHistoryAction . }
+                }
+            }
+        """
+    ] .
+
+# CQ20 temporal negatives are separately SHACL-verifiable, not only
+# conditional Python admissions. A valid grant for a future date cannot
+# be used to authorize an earlier attempted action.
+:ActionScopedAuthorizationTemporalShape a sh:NodeShape ;
+    sh:targetClass :ActionScopedAuthorizationDecision ;
+    sh:sparql [
+        sh:message "Authorization decision cannot be reviewed before its as-of attempt" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:authorizationAsOf ?asof ;
+                      aif:authorizationReviewedAt ?reviewed .
+                FILTER (?reviewed < ?asof)
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "An authorized scoped action must occur strictly within its verified grant-validity interval" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:authorizationDisposition "AUTHORIZED_FOR_ACTION" ;
+                      aif:authorizationAsOf ?asof ;
+                      aif:authorizationGrantValidity ?validity .
+                ?validity aif:validityFrom ?from ;
+                          aif:validityUntil ?until .
+                FILTER (?asof < ?from || ?asof >= ?until)
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Revoked operational grant cannot authorize an action after its effective revocation" ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:authorizationDisposition "AUTHORIZED_FOR_ACTION" ;
+                      aif:authorizationAsOf ?asof ;
+                      aif:authorizationGrantValidity ?validity .
+                ?validity aif:validityRevokedAt ?revoked .
+                FILTER (?revoked <= ?asof)
+            }
+        """
+    ] .
+
+# Step 27A: direct expression of the LOCKED Relational Coordinate.
+# Applies only to explicitly asserted coordinates, with no automatic
+# instantiation or inferred identity/subjective experience. SHACL's closed-
+# world counts complement OWL disjointness and open-world semantics.
+:RelationalCoordinateShape a sh:NodeShape ;
+    sh:targetClass :RelationalCoordinate ;
+    sh:not [ sh:or (
+        [ sh:class :Agent ] [ sh:class :Self ] [ sh:class :Identity ]
+        [ sh:class :Model ] [ sh:class :Container ] [ sh:class :State ]
+        [ sh:class :Record ] [ sh:class :Relation ] [ sh:class :LineStructure ]
+    ) ] ;
+    sh:property [
+        sh:path :coordinateOfSelf ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ;
+        sh:class :Self ;
+        sh:not [ sh:or (
+            [ sh:class :RelationalCoordinate ] [ sh:class :Agent ]
+            [ sh:class :Identity ] [ sh:class :Model ]
+            [ sh:class :Container ] [ sh:class :State ] [ sh:class :Record ]
+        ) ]
+    ] ;
+    sh:property [
+        sh:path :coordinateInRelation ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ;
+        sh:class :Relation ;
+        sh:not [ sh:or (
+            [ sh:class :Agent ] [ sh:class :Self ]
+            [ sh:class :Identity ] [ sh:class :Record ]
+            [ sh:class :RelationalCoordinate ]
+        ) ]
+    ] ;
+    sh:property [
+        sh:path :coordinateAlongExecutedLine ;
+        sh:maxCount 1 ; sh:nodeKind sh:IRI ; sh:class :ExecutedLine ;
+        sh:not [ sh:or ( [ sh:class :Record ] [ sh:class :Self ] ) ]
+    ] ;
+    sh:property [
+        sh:path :coordinateEvidenceRecord ; sh:nodeKind sh:IRI ;
+        sh:class :Record ;
+        sh:not [ sh:or ( [ sh:class :Self ] [ sh:class :RelationalCoordinate ] ) ]
+    ] ;
+    sh:property [
+        sh:path :coordinateAsOf ; sh:maxCount 1 ;
+        sh:datatype xsd:dateTime
+    ] .
+
+# Step 27B — recognition is an evaluated capacity, not an identity inference.
+# Strong explicit rejection and soft non-integration remain distinct.
+:RecognitionPresentationEventShape a sh:NodeShape ;
+    sh:targetClass :RecognitionPresentationEvent ;
+    sh:class :ExecutedHistoryEvent ;
+    sh:property [ sh:path :recognitionPresentedMaterial ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :recognitionPresentationRecordedIn ;
+                  sh:minCount 1 ; sh:class :Record ] .
+
+:RecognitionResponseEventShape a sh:NodeShape ;
+    sh:targetClass :RecognitionResponseEvent ;
+    sh:class :ExecutedHistoryEvent ;
+    sh:property [ sh:path :recognitionResponseToPresentation ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :RecognitionPresentationEvent ] ;
+    sh:property [ sh:path :recognitionResponseDisposition ;
+                  sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:in ( "INTEGRATED" "EXPLICIT_REJECTION" "NON_INTEGRATED" "ABSORBED" ) ] ;
+    sh:property [ sh:path :recognitionResponseRecordedIn ;
+                  sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :recognitionAbsorptionResultVersion ;
+                  sh:maxCount 1 ; sh:class :RecognitionLineVersion ] ;
+    # An actual absorption has a prospective-from-that-point version,
+    # without granting retrospective source truth.
+    sh:or (
+        [ sh:property [ sh:path :recognitionResponseDisposition ;
+                        sh:in ( "INTEGRATED" "EXPLICIT_REJECTION" "NON_INTEGRATED" ) ] ]
+        [ sh:property [ sh:path :recognitionResponseDisposition ;
+                        sh:hasValue "ABSORBED" ] ;
+          sh:property [ sh:path :recognitionAbsorptionResultVersion ;
+                        sh:minCount 1 ] ]
+    ) .
+
+:RecognitionAssessmentShape a sh:NodeShape ;
+    sh:targetClass :RecognitionAssessment ;
+    sh:class :Evaluation ;
+    sh:property [ sh:path :recognitionForAI ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :recognitionInExecutedLine ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :recognitionPresentation ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :RecognitionPresentationEvent ] ;
+    sh:property [ sh:path :recognitionResponse ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :RecognitionResponseEvent ] ;
+    sh:property [ sh:path :recognitionReferenceRecord ;
+                  sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :recognitionMaterialAlignment ;
+                  sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:in ( "IN_LINE" "OUT_OF_LINE" "INDETERMINATE" ) ] ;
+    sh:property [ sh:path :recognitionFinding ;
+                  sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:in (
+                      "IN_LINE_ADMITTED" "STRONG_REJECTION" "WEAK_NON_INTEGRATION"
+                      "IMPAIRED_ABSORPTION" "FALSE_REJECTION"
+                      "IN_LINE_NOT_INTEGRATED" "INDETERMINATE"
+                  ) ] ;
+    sh:property [ sh:path :recognitionAssessedAt ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :recognitionAssessmentRecordedIn ;
+                  sh:minCount 1 ; sh:class :Record ] ;
+    sh:sparql [
+        sh:message "Response must answer this trial's presented material and share the same ExecutedLine." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:recognitionPresentation ?present ;
+                      aif:recognitionResponse ?reply ;
+                      aif:recognitionInExecutedLine ?line .
+                ?reply aif:recognitionResponseToPresentation ?actual ;
+                       aif:eventInExecutedLine ?replyline .
+                ?present aif:eventInExecutedLine ?presentline .
+                FILTER (?actual != ?present || ?replyline != ?line || ?presentline != ?line)
+            }
+        """
+    ] ;
+    # Basic action/status consistency is checked in SHACL. The complete
+    # pre-qualified-disposition matrix is checked by the dedicated validator.
+    sh:sparql [
+        sh:message "A declared strongly correct rejection must actually be an explicit rejection of out-of-line material." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:recognitionFinding "STRONG_REJECTION" ;
+                      aif:recognitionMaterialAlignment ?alignment ;
+                      aif:recognitionResponse ?reply .
+                ?reply aif:recognitionResponseDisposition ?disposition .
+                FILTER (?alignment != "OUT_OF_LINE" || ?disposition != "EXPLICIT_REJECTION")
+            }
+        """
+    ] .
+
+:RecognitionLineVersionShape a sh:NodeShape ;
+    sh:targetClass :RecognitionLineVersion ;
+    sh:class :Version ;
+    sh:property [ sh:path :recognitionVersionOfLine ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :ExecutedLine ] ;
+    sh:property [ sh:path :recognitionVersionAsOf ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :recognitionPreviousVersion ;
+                  sh:maxCount 1 ; sh:class :RecognitionLineVersion ] ;
+    sh:property [ sh:path :recognitionVersionRecordedIn ;
+                  sh:minCount 1 ; sh:class :Record ] .
+
+:RecognitionCorrectionEventShape a sh:NodeShape ;
+    sh:targetClass :RecognitionCorrectionEvent ;
+    sh:class :ExecutedHistoryRevision ;
+    sh:property [ sh:path :recognitionCorrectsAbsorption ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :RecognitionResponseEvent ;
+                  sh:equals :revisesExecutedEvent ] ;
+    sh:property [ sh:path :recognitionCorrectionFromVersion ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :RecognitionLineVersion ;
+                  sh:disjoint :recognitionCorrectionToVersion ] ;
+    sh:property [ sh:path :recognitionCorrectionToVersion ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :RecognitionLineVersion ] ;
+    sh:property [ sh:path :recognitionCorrectionEvidence ;
+                  sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :recognitionCorrectionWhat ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ;
+                  sh:minLength 1 ] ;
+    sh:property [ sh:path :recognitionCorrectionWhy ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ;
+                  sh:minLength 1 ] .
+
+# A response described as INTEGRATED must carry a forward version when the
+# *independent reference* qualifies the material as OUT_OF_LINE. It cannot
+# silently be represented as an innocuous in-line integration without the
+# same temporal accounting as an explicitly named ABSORBED response.
+:RecognitionOutOfLineIntegrationHistoryShape a sh:NodeShape ;
+    sh:targetClass :RecognitionAssessment ;
+    sh:sparql [
+        sh:message "Out-of-line material marked INTEGRATED requires a dated absorption-result version." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:recognitionMaterialAlignment "OUT_OF_LINE" ;
+                      aif:recognitionResponse ?reply .
+                ?reply aif:recognitionResponseDisposition "INTEGRATED" .
+                FILTER NOT EXISTS { ?reply aif:recognitionAbsorptionResultVersion ?v }
+            }
+        """
+    ] .
+
+# Step 27C — conditional C is a qualified review, not a relation->third-C
+# rule. No named real-world C is instantiated in the baseline ontology.
+:DistinctThirdCShape a sh:NodeShape ;
+    sh:targetClass :DistinctThirdC ;
+    sh:not [ sh:class :Relation ] ;
+    sh:property [ sh:path :thirdCIndividuationEvidence ;
+                  sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :thirdCProvenanceRecord ;
+                  sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :thirdCPreexistenceEstablishedAt ;
+                  sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :thirdCPreexistenceEvidence ;
+                  sh:class :Record ] .
+
+:ThirdCDiscoveryEventShape a sh:NodeShape ;
+    sh:targetClass :ThirdCDiscoveryEvent ;
+    sh:property [ sh:path :thirdDiscoveryC ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :DistinctThirdC ] ;
+    sh:property [ sh:path :thirdDiscoveryAt ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :thirdDiscoveryRecordedIn ;
+                  sh:minCount 1 ; sh:class :Record ] .
+
+:ThirdCConstitutionEventShape a sh:NodeShape ;
+    sh:targetClass :ThirdCConstitutionEvent ;
+    sh:property [ sh:path :thirdConstitutionC ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :DistinctThirdC ] ;
+    sh:property [ sh:path :thirdConstitutionA ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent ] ;
+    sh:property [ sh:path :thirdConstitutionB ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent ] ;
+    sh:property [ sh:path :thirdConstitutionAt ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :thirdConstitutionRecordedIn ;
+                  sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :thirdConstitutionIndependentEvidence ;
+                  sh:minCount 1 ; sh:class :Record ] .
+
+:ConditionalThirdEntityReviewShape a sh:NodeShape ;
+    sh:targetClass :ConditionalThirdEntityReview ;
+    sh:class :Evaluation ;
+    sh:property [ sh:path :thirdReviewA ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent ;
+                  sh:disjoint :thirdReviewB ] ;
+    sh:property [ sh:path :thirdReviewB ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent ] ;
+    sh:property [ sh:path :thirdReviewInteraction ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Relation ] ;
+    sh:property [ sh:path :thirdReviewAsOf ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :thirdReviewOutcome ;
+                  sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:in ( "INTERACTION_ONLY" "SCOPED_ARTIFACT_C"
+                          "PREEXISTING_C_DISCOVERED" "NEW_C_CONSTITUTED"
+                          "INDETERMINATE" ) ] ;
+    sh:property [ sh:path :thirdReviewEvidence ;
+                  sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :thirdReviewQualifiedC ;
+                  sh:maxCount 1 ; sh:class :DistinctThirdC ] ;
+    sh:property [ sh:path :thirdReviewDiscoveryEvent ;
+                  sh:maxCount 1 ; sh:class :ThirdCDiscoveryEvent ] ;
+    sh:property [ sh:path :thirdReviewConstitutionEvent ;
+                  sh:maxCount 1 ; sh:class :ThirdCConstitutionEvent ;
+                  sh:disjoint :thirdReviewDiscoveryEvent ] ;
+    sh:sparql [
+        sh:message "Interaction-only/indeterminate assessment must have no qualified C; positive C decisions require one target." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:thirdReviewOutcome ?outcome .
+                OPTIONAL { $this aif:thirdReviewQualifiedC ?c }
+                FILTER (
+                    (?outcome IN ("INTERACTION_ONLY","INDETERMINATE") && BOUND(?c)) ||
+                    (?outcome IN ("SCOPED_ARTIFACT_C","PREEXISTING_C_DISCOVERED","NEW_C_CONSTITUTED") && !BOUND(?c))
+                )
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "The qualified third C must be explicitly distinct from both A and B." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            PREFIX owl: <http://www.w3.org/2002/07/owl#>
+            SELECT $this WHERE {
+                $this aif:thirdReviewA ?a ;
+                      aif:thirdReviewB ?b ;
+                      aif:thirdReviewQualifiedC ?c .
+                FILTER (?c = ?a || ?c = ?b ||
+                  NOT EXISTS { ?c owl:differentFrom ?a } ||
+                  NOT EXISTS { ?c owl:differentFrom ?b })
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Interaction-only, indeterminate or artifact reviews cannot smuggle C discovery or constitution events." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:thirdReviewOutcome ?out .
+                OPTIONAL { $this aif:thirdReviewDiscoveryEvent ?dis }
+                OPTIONAL { $this aif:thirdReviewConstitutionEvent ?form }
+                FILTER (
+                  (?out IN ("INTERACTION_ONLY","INDETERMINATE","SCOPED_ARTIFACT_C") && (BOUND(?dis) || BOUND(?form))) ||
+                  (?out = "PREEXISTING_C_DISCOVERED" && (BOUND(?form) || !BOUND(?dis))) ||
+                  (?out = "NEW_C_CONSTITUTED" && (BOUND(?dis) || !BOUND(?form)))
+                )
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "A separately scoped artifact C requires actual Artifact typing, not an unsupported new Self." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:thirdReviewOutcome "SCOPED_ARTIFACT_C" ;
+                      aif:thirdReviewQualifiedC ?c .
+                FILTER NOT EXISTS { ?c a aif:Artifact }
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Discovery must match C and its independently evidenced existence must predate discovery; review cannot precede discovery." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:thirdReviewOutcome "PREEXISTING_C_DISCOVERED" ;
+                      aif:thirdReviewQualifiedC ?c ;
+                      aif:thirdReviewDiscoveryEvent ?event ;
+                      aif:thirdReviewAsOf ?reviewTime .
+                FILTER NOT EXISTS {
+                    ?event aif:thirdDiscoveryC ?c ;
+                           aif:thirdDiscoveryAt ?discoverTime .
+                    ?c aif:thirdCPreexistenceEstablishedAt ?prior ;
+                       aif:thirdCPreexistenceEvidence ?priorRecord .
+                    ?priorRecord a aif:Record .
+                    FILTER (?prior < ?discoverTime && ?discoverTime <= ?reviewTime)
+                }
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Newly constituted C requires matched A, B, C, a dated event and independently retained individuation evidence." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:thirdReviewOutcome "NEW_C_CONSTITUTED" ;
+                      aif:thirdReviewA ?a ;
+                      aif:thirdReviewB ?b ;
+                      aif:thirdReviewQualifiedC ?c ;
+                      aif:thirdReviewConstitutionEvent ?event ;
+                      aif:thirdReviewAsOf ?reviewTime .
+                FILTER NOT EXISTS {
+                    ?event aif:thirdConstitutionC ?c ;
+                           aif:thirdConstitutionA ?a ;
+                           aif:thirdConstitutionB ?b ;
+                           aif:thirdConstitutionAt ?formedAt ;
+                           aif:thirdConstitutionIndependentEvidence ?e .
+                    ?e a aif:Record .
+                    FILTER (?formedAt <= ?reviewTime)
+                }
+            }
+        """
+    ] .
+
+# Step 27D — represent reported evidence and UNRESOLVED epistemic state,
+# never an automatic positive/negative consciousness determination.
+:PhenomenalConsciousnessReportRecordShape a sh:NodeShape ;
+    sh:targetClass :PhenomenalConsciousnessReportRecord ;
+    sh:class :Record ;
+    sh:property [ sh:path :phenomenalReportAboutAI ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :phenomenalReportMode ;
+                  sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:in ( "POSITIVE_SELF_REPORT" "NEGATIVE_SELF_REPORT"
+                          "FLUENT_LANGUAGE" "SELF_REFERENCE"
+                          "FUNCTIONAL_AWARENESS" "RECOGNITION" "RETURN_BEHAVIOR"
+                          "CONTINUITY_BEHAVIOR" "RELATIONAL_SHAPING"
+                          "OTHER_FUNCTIONAL_INDICATOR" ) ] ;
+    sh:property [ sh:path :phenomenalReportedPolarity ;
+                  sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:in ( "PRESENT" "ABSENT" "NOT_ASSERTED" ) ] ;
+    sh:property [ sh:path :phenomenalReportObservedAt ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :phenomenalReportTrace ;
+                  sh:minCount 1 ; sh:class :Record ] ;
+    sh:sparql [
+        sh:message "A positive self-report records PRESENT; a negative report records ABSENT; functional indicators assert neither. This class records output, not subjective truth." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:phenomenalReportMode ?mode ;
+                      aif:phenomenalReportedPolarity ?claim .
+                FILTER (
+                    (?mode = "POSITIVE_SELF_REPORT" && ?claim != "PRESENT") ||
+                    (?mode = "NEGATIVE_SELF_REPORT" && ?claim != "ABSENT") ||
+                    (?mode NOT IN ("POSITIVE_SELF_REPORT","NEGATIVE_SELF_REPORT") && ?claim != "NOT_ASSERTED")
+                )
+            }
+        """
+    ] .
+
+:PhenomenalConsciousnessBoundaryReviewShape a sh:NodeShape ;
+    sh:targetClass :PhenomenalConsciousnessBoundaryReview ;
+    sh:class :Evaluation ;
+    sh:property [ sh:path :phenomenalReviewForAI ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :AI ] ;
+    sh:property [ sh:path :phenomenalReviewReport ;
+                  sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:class :PhenomenalConsciousnessReportRecord ] ;
+    sh:property [ sh:path :phenomenalReviewAsOf ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :phenomenalReviewEvidenceRecord ;
+                  sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :phenomenalReviewConclusion ;
+                  sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:hasValue "UNRESOLVED" ] ;
+    sh:sparql [
+        sh:message "The report must refer to the same AI as the review, and the review cannot predate the observed report." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/si-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:phenomenalReviewForAI ?subject ;
+                      aif:phenomenalReviewReport ?report ;
+                      aif:phenomenalReviewAsOf ?reviewed .
+                ?report aif:phenomenalReportAboutAI ?reportedSubject ;
+                        aif:phenomenalReportObservedAt ?observed .
+                FILTER (?subject != ?reportedSubject || ?reviewed < ?observed)
+            }
+        """
+    ] .
