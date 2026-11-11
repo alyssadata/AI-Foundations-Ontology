@@ -11,6 +11,8 @@
 
 **Step 27C (2026-11-10):** The [conditional third-C formalization](docs/reviews/2026-11-10-STEP-27C-CONDITIONAL-THIRD-C.md) adds synthetic evaluation and negative controls for interaction-only, distinct scoped Artifact, preexisting independently discovered C, and newly constituted independently evidenced C, with no inference of a Self or consciousness from contact. The first dedicated run exposed an evidence-typing test issue, which is preserved and corrected in the subsequent validation. [Full branch validation 42954309513](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42954309513) **PASSED** (59 dedicated C cases plus earlier suites); [independent OWL 2 DL/HermiT 42953675910](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42953675910) **PASSED**. Post-merge same-commit audits remain required. The entire ontology and v1.0 release remain **DRAFT**, and Alyssa Solen remains sole author, no coauthors, no exceptions.
 
+**Step 27D (2026-11-10):** [Phenomenal consciousness epistemic-boundary review](docs/reviews/2026-11-10-STEP-27D-PHENOMENAL-BOUNDARY.md) adds scoped observed-report and unresolved-review machine vocabulary. Neither a positive nor a negative AI self-report, nor functional indicators, settles phenomenal consciousness. Dedicated branch checks and independent OWL 2 DL/HermiT verification are in progress; v1.0 remains DRAFT, with Alyssa Solen sole author and no coauthors.
+
 ## Start here
 
 - [`WORKING_MAP.md`](WORKING_MAP.md) — live formalization and v1.0 release roadmap
