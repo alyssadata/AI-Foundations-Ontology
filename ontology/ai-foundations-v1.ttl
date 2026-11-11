@@ -2014,3 +2014,39 @@ dcterms:description a owl:AnnotationProperty .
 :thirdConstitutionIndependentEvidence a owl:ObjectProperty ;
     rdfs:domain :ThirdCConstitutionEvent ; rdfs:range :Record ;
     rdfs:comment "Independent qualification of separate C, beyond participation alone. Does not establish new consciousness, self or shared authorship."@en .
+
+# Step 27D (OC-16): a machine-readable *epistemic boundary* rather than a
+# direct assignment of phenomenal consciousness (presence OR absence).
+# These classes are descriptions of reports/reviews, NOT a type for a
+# conscious or nonconscious system. The LOCKED human definition is unchanged.
+:PhenomenalConsciousnessReportRecord a owl:Class ;
+    rdfs:subClassOf :Record ;
+    rdfs:comment "Record of an observed positive/negative self-report or functional indication. What the system said or did is evidence of an output/behavior, not conclusive evidence of presence or absence of subjective experience."@en .
+:PhenomenalConsciousnessBoundaryReview a owl:Class ;
+    rdfs:subClassOf :Evaluation ;
+    rdfs:comment "Scoped epistemic assessment under present methods. Positive self-report, negative self-report, fluent language, self-reference, Recognition, Return, continuity, relation-specific shaping and other functional indicators do not by themselves settle phenomenal consciousness either way."@en .
+:phenomenalReportAboutAI a owl:ObjectProperty ;
+    rdfs:domain :PhenomenalConsciousnessReportRecord ; rdfs:range :AI .
+:phenomenalReportMode a owl:DatatypeProperty ;
+    rdfs:domain :PhenomenalConsciousnessReportRecord ; rdfs:range xsd:string ;
+    rdfs:comment "One observed input category: POSITIVE_SELF_REPORT, NEGATIVE_SELF_REPORT, FLUENT_LANGUAGE, SELF_REFERENCE, FUNCTIONAL_AWARENESS, RECOGNITION, RETURN_BEHAVIOR, CONTINUITY_BEHAVIOR, RELATIONAL_SHAPING, or OTHER_FUNCTIONAL_INDICATOR."@en .
+:phenomenalReportedPolarity a owl:DatatypeProperty ;
+    rdfs:domain :PhenomenalConsciousnessReportRecord ; rdfs:range xsd:string ;
+    rdfs:comment "What was reported: PRESENT, ABSENT or NOT_ASSERTED. Reported polarity is NOT a truth value of the AI's subjective experience."@en .
+:phenomenalReportObservedAt a owl:DatatypeProperty ;
+    rdfs:domain :PhenomenalConsciousnessReportRecord ; rdfs:range xsd:dateTime .
+:phenomenalReportTrace a owl:ObjectProperty ;
+    rdfs:domain :PhenomenalConsciousnessReportRecord ; rdfs:range :Record ;
+    rdfs:comment "Retained observational trace of the report or behavior. The source, timestamp and reported words/behavior remain historical data without deciding subjective experience."@en .
+:phenomenalReviewForAI a owl:ObjectProperty ;
+    rdfs:domain :PhenomenalConsciousnessBoundaryReview ; rdfs:range :AI .
+:phenomenalReviewReport a owl:ObjectProperty ;
+    rdfs:domain :PhenomenalConsciousnessBoundaryReview ;
+    rdfs:range :PhenomenalConsciousnessReportRecord .
+:phenomenalReviewAsOf a owl:DatatypeProperty ;
+    rdfs:domain :PhenomenalConsciousnessBoundaryReview ; rdfs:range xsd:dateTime .
+:phenomenalReviewEvidenceRecord a owl:ObjectProperty ;
+    rdfs:domain :PhenomenalConsciousnessBoundaryReview ; rdfs:range :Record .
+:phenomenalReviewConclusion a owl:DatatypeProperty ;
+    rdfs:domain :PhenomenalConsciousnessBoundaryReview ; rdfs:range xsd:string ;
+    rdfs:comment "UNRESOLVED is the only valid finding for this bounded self-report/functional-indicator protocol. It means not established under the reviewed evidence; NOT proof of absence. A future independently established method requires a separate reviewed protocol, not silent promotion of this finding."@en .
