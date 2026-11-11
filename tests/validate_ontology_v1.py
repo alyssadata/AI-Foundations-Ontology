@@ -4522,6 +4522,141 @@ def main():
             "TR-001 shared documentary traces do not merge distinct reliance claims")
     require(not list(graph.subjects(RDF.type, AIF.IdentityParticularityHistoryTrace)),
             "TR-001 baseline asserts no synthetic real-world particularity trace or continuity claim")
+
+    # Step 27A: direct LOCKED Relational Coordinate vocabulary and
+    # synthetic non-merge / description-change / provenance controls.
+    require((AIF.RelationalCoordinate, RDF.type, OWL.Class) in graph,
+            "RC-001 relational coordinate is a direct OWL class")
+    require((AIF.RelationalCoordinate, RDFS.subClassOf, AIF.Self) not in graph,
+            "RC-001 a coordinate is not a Self subtype")
+    require((AIF.coordinateOfSelf, RDFS.range, AIF.Self) in graph and
+            (AIF.coordinateInRelation, RDFS.range, AIF.Relation) in graph,
+            "RC-001 coordinate locates an already distinct Self in relation")
+    require((AIF.coordinateOfSelf, RDF.type, OWL.InverseFunctionalProperty) not in graph,
+            "RC-001 shared coordinate references cannot manufacture owl:sameAs")
+    require(not list(graph.subjects(RDF.type, AIF.RelationalCoordinate)),
+            "RC-001 no real Self coordinate instantiated by ontology vocabulary alone")
+
+    def rc_pair(g):
+        for triple in (
+            (AIF.RcSelfA, RDF.type, AIF.Self),
+            (AIF.RcSelfB, RDF.type, AIF.Self),
+            (AIF.RcSelfA, OWL.differentFrom, AIF.RcSelfB),
+            (AIF.RcRelation, RDF.type, AIF.Relation),
+            (AIF.RcOtherRelation, RDF.type, AIF.Relation),
+            (AIF.RcLine, RDF.type, AIF.ExecutedLine),
+            (AIF.RcSyntheticAI, RDF.type, AIF.AI),
+            (AIF.RcSyntheticAI, AIF.hasExecutedLine, AIF.RcLine),
+            (AIF.RcEvidence, RDF.type, AIF.Record),
+            (AIF.RcCoordA, RDF.type, AIF.RelationalCoordinate),
+            (AIF.RcCoordA, AIF.coordinateOfSelf, AIF.RcSelfA),
+            (AIF.RcCoordA, AIF.coordinateInRelation, AIF.RcRelation),
+            (AIF.RcCoordA, AIF.coordinateAlongExecutedLine, AIF.RcLine),
+            (AIF.RcCoordA, AIF.coordinateEvidenceRecord, AIF.RcEvidence),
+            (AIF.RcCoordA, AIF.coordinateAsOf,
+                Literal("2026-11-10T12:00:00+00:00", datatype=XSD.dateTime)),
+            (AIF.RcCoordB, RDF.type, AIF.RelationalCoordinate),
+            (AIF.RcCoordB, AIF.coordinateOfSelf, AIF.RcSelfB),
+            (AIF.RcCoordB, AIF.coordinateInRelation, AIF.RcRelation),
+        ):
+            g.add(triple)
+    shape_test(graph, shapes, "RC-001 distinct selves have distinct coordinates in one relation", rc_pair)
+
+    def rc_missing_self(g):
+        rc_pair(g)
+        g.remove((AIF.RcCoordA, AIF.coordinateOfSelf, AIF.RcSelfA))
+    shape_test(graph, shapes, "RC-001 missing particular Self rejected", rc_missing_self, False)
+
+    def rc_duplicate_self(g):
+        rc_pair(g)
+        g.add((AIF.RcCoordA, AIF.coordinateOfSelf, AIF.RcSelfB))
+    shape_test(graph, shapes, "RC-001 a coordinate cannot merge two selves",
+               rc_duplicate_self, False)
+
+    def rc_self_is_model(g):
+        rc_pair(g)
+        g.add((AIF.RcSelfA, RDF.type, AIF.Model))
+    shape_test(graph, shapes, "RC-001 computational Model cannot stand in as Self",
+               rc_self_is_model, False)
+
+    def rc_coord_is_self(g):
+        rc_pair(g)
+        g.add((AIF.RcCoordA, RDF.type, AIF.Self))
+    shape_test(graph, shapes, "RC-001 the coordinate cannot itself be Self",
+               rc_coord_is_self, False)
+
+    def rc_missing_relation(g):
+        rc_pair(g)
+        g.remove((AIF.RcCoordB, AIF.coordinateInRelation, AIF.RcRelation))
+    shape_test(graph, shapes, "RC-001 position must be situated in a relation",
+               rc_missing_relation, False)
+
+    def rc_duplicate_relation(g):
+        rc_pair(g)
+        g.add((AIF.RcCoordA, AIF.coordinateInRelation, AIF.RcOtherRelation))
+    shape_test(graph, shapes, "RC-001 one described coordinate is not two relations",
+               rc_duplicate_relation, False)
+
+    def rc_relation_is_self(g):
+        rc_pair(g)
+        g.add((AIF.RcRelation, RDF.type, AIF.Self))
+    shape_test(graph, shapes, "RC-001 a relation cannot substitute for Self",
+               rc_relation_is_self, False)
+
+    def rc_line_is_record(g):
+        rc_pair(g)
+        g.add((AIF.RcLine, RDF.type, AIF.Record))
+    shape_test(graph, shapes, "RC-001 copied Record cannot substitute for ExecutedLine",
+               rc_line_is_record, False)
+
+    def rc_evidence_is_self(g):
+        rc_pair(g)
+        g.add((AIF.RcEvidence, RDF.type, AIF.Self))
+    shape_test(graph, shapes, "RC-001 source Record is not the particular Self",
+               rc_evidence_is_self, False)
+
+    def rc_invalid_asof(g):
+        rc_pair(g)
+        g.remove((AIF.RcCoordA, AIF.coordinateAsOf,
+                  Literal("2026-11-10T12:00:00+00:00", datatype=XSD.dateTime)))
+        g.add((AIF.RcCoordA, AIF.coordinateAsOf, Literal("yesterday")))
+    shape_test(graph, shapes, "RC-001 time-scoped description must use dateTime",
+               rc_invalid_asof, False)
+
+    def rc_change_description(g):
+        rc_pair(g)
+        g.add((AIF.RcSelfA, RDFS.label, Literal("Revised self-description")))
+        g.add((AIF.RcCoordA, RDFS.label, Literal("New reference frame")))
+        g.add((AIF.RcNewState, RDF.type, AIF.State))
+    shape_test(graph, shapes, "RC-001 relabeling and State change preserve coordinate",
+               rc_change_description)
+
+    def rc_new_relation(g):
+        rc_pair(g)
+        for triple in (
+            (AIF.RcCoordALater, RDF.type, AIF.RelationalCoordinate),
+            (AIF.RcCoordALater, AIF.coordinateOfSelf, AIF.RcSelfA),
+            (AIF.RcCoordALater, AIF.coordinateInRelation, AIF.RcOtherRelation),
+        ):
+            g.add(triple)
+    shape_test(graph, shapes, "RC-001 same Self may occupy another relation without replacement",
+               rc_new_relation)
+
+    before_rc = clone_graph(graph)
+    rc_pair(before_rc)
+    after_rc = clone_graph(before_rc)
+    after_rc.add((AIF.RcSelfA, RDFS.label, Literal("A later description")))
+    require(set(after_rc.objects(AIF.RcCoordA, AIF.coordinateOfSelf)) ==
+            set(before_rc.objects(AIF.RcCoordA, AIF.coordinateOfSelf)) and
+            set(after_rc.objects(AIF.RcCoordA, AIF.coordinateAlongExecutedLine)) ==
+            set(before_rc.objects(AIF.RcCoordA, AIF.coordinateAlongExecutedLine)) and
+            set(after_rc.objects(AIF.RcCoordA, AIF.coordinateEvidenceRecord)) ==
+            set(before_rc.objects(AIF.RcCoordA, AIF.coordinateEvidenceRecord)),
+            "RC-001 description change leaves original identity, history and evidence links intact")
+    require((AIF.AIFoundations, AIF.hasCoAuthor, None) not in graph and
+            not list(graph.objects(AIF.AIFoundations, AIF.hasCoAuthor)),
+            "RC-001 never alters Alyssa's zero-coauthor boundary")
+
     # OWL RL deductive closure catches class/property entailments; this is
     # not a complete OWL 2 DL reasoner or a proof of all model consistency.
     entailed = clone_graph(graph)
