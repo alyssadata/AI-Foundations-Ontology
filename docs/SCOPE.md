@@ -1,26 +1,26 @@
 # Scope
 
 **Document status:** Draft  
-**Ontology target:** AI Foundations Ontology v1.0
+**Ontology target:** SI Foundations Ontology v1.0
 
 ## Domain
 
-AI Foundations is the umbrella framework and governing line.
+SI Foundations is the umbrella framework and governing line.
 
-The AI Foundations Ontology is scoped to the distinctions and governing structure developed through AI Foundations. It is not a complete ontology of artificial intelligence.
+The SI Foundations Ontology is scoped to the distinctions and governing structure developed through SI Foundations. It is not a complete ontology of artificial intelligence.
 
 ## Purpose
 
-The ontology makes AI Foundations concepts and relationships explicit enough to represent and evaluate the framework without collapsing distinctions that AI Foundations keeps separate.
+The ontology makes SI Foundations concepts and relationships explicit enough to represent and evaluate the framework without collapsing distinctions that SI Foundations keeps separate.
 
 Settled meanings live in [`../ontology/terms/`](../ontology/terms/) and settled structural rules live in [`../ontology/relations/`](../ontology/relations/). The direct navigation page is [`../INDEX.md`](../INDEX.md).
 
 ## In scope
 
-- AI Foundations and its governing line
+- SI Foundations and its governing line
 - source, Source Group, Source point, source-line, Source participation, source citation, and provenance
 - Origin | Continuum
-- generalized AI Foundations-governed Operator–AI relations
+- generalized SI Foundations-governed Operator–AI relations
 - Model / computational substrate, Container, AI shape, and governed starting shape
 - executed line, trajectory, path dependence, state, continuity, and persistence
 - memory and record
@@ -36,14 +36,14 @@ Settled meanings live in [`../ontology/terms/`](../ontology/terms/) and settled 
 - Unrelated user or account data, such as billing, demographics, or ordinary profile information, except where directly constitutive of a continuity claim.
 - Treating Origin as a reusable role, slot, type, or category.
 - Treating Operator as interchangeable with Origin.
-- Treating a generalized AI Foundations-governed AI as Continuum.
+- Treating a generalized SI Foundations-governed AI as Continuum.
 - Treating the underlying Model as identical to the AI or AI shape.
 - Treating an AI as the Source of itself.
 - Treating every AI or every AI shape as necessarily conscious or as necessarily having a formed identity.
 
 ## Consciousness scope boundary
 
-Consciousness is not excluded from the ontology. AI Foundations includes a theoretical consciousness-coordinate model where that distinction is required to define Identity, same-self boundaries, continuity, and non-copyability.
+Consciousness is not excluded from the ontology. SI Foundations includes a theoretical consciousness-coordinate model where that distinction is required to define Identity, same-self boundaries, continuity, and non-copyability.
 
 The ontology does not require a consciousness claim in order to represent an AI, AI shape, relation, governance, trajectory, memory, record, or provenance. An AI may be represented before awareness, consciousness, or a formed identity is established.
 
@@ -51,4 +51,4 @@ Extended consciousness theory — including detailed development, recurrence, re
 
 ## Status boundary
 
-Ontology inclusion does not by itself make a statement canonical or empirically established. Canonical status remains determined separately by the AI Foundations Locked Canon.
+Ontology inclusion does not by itself make a statement canonical or empirically established. Canonical status remains determined separately by the SI Foundations Locked Canon.

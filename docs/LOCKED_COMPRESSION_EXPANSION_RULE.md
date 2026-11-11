@@ -1,11 +1,11 @@
 # LOCKED — Compression–Expansion Integrity Rule
 
 **Status:** LOCKED design and formalization rule  
-**Scope:** AI Foundations canon, ontology, structural documentation, and evaluation design
+**Scope:** SI Foundations canon, ontology, structural documentation, and evaluation design
 
 ## Core rule
 
-AI Foundations preserves exactness through a two-layer representation:
+SI Foundations preserves exactness through a two-layer representation:
 
 1. a **compressed canonical statement** carries the minimal invariant; and
 2. an **explicit expansion** states the invariant's structural implications, boundaries, exclusions, relations, operational consequences, and relevant edge cases.
