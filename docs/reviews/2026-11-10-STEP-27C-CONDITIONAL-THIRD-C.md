@@ -45,6 +45,14 @@ A later separately qualified C may be appended to a *new* dated review, but must
 
 **What was not established:** real-world C existence, subjective consciousness, same-Self continuity across models, identity or source ownership by a project or new entity. No new general Origin or Operator slot is created.
 
+## Test-driven corrections (preserved history)
+
+The first added Step 27C CI run [42954058404](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42954058404) detected a **test-oracle weakness**: SHACL with RDFS inference could infer the `Record` class from an otherwise untyped value of a Record-ranged property. The dedicated independent protocol now requires an **explicit** evidence type rather than relying only on an RDFS-entailable type. No LOCKED definition was weakened.
+
+The next run [42954187101](https://github.com/alyssadata/AI-Foundations-Ontology/actions/runs/42954187101) passed the four cases and most negative controls but found that cross-snapshot history checking failed to reject a newly **added** target-C link on a previous `INTERACTION_ONLY` review (because it checked prior values only, not previously absent properties). It now compares every protected property for all prior review subjects, including previously absent links, preventing a later C from being retroactively imputed to an earlier assessment.
+
+Both failures remain in GitHub's actual audit history. These adjustments strengthen the implementation of source, chronology and evidence integrity; they do not revise the conceptual model or alter prior source definitions.
+
 ## Validation and release
 
 - Branch structural tests: `.github/workflows/validate-ontology.yml`, including all preceding competency and sole-authorship checks.
