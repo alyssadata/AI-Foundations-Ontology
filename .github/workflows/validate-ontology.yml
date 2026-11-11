@@ -1,10 +1,10 @@
-name: Validate AI Foundations Ontology v1
+name: Validate SI Foundations Ontology v1
 
 on:
   push:
     paths:
-      - 'ontology/ai-foundations-v1.ttl'
-      - 'ontology/ai-foundations-v1-shapes.ttl'
+      - 'ontology/si-foundations-v1.ttl'
+      - 'ontology/si-foundations-v1-shapes.ttl'
       - 'tests/validate_ontology_v1.py'
       - 'tests/validate_succession_gate.py'
       - 'tests/validate_initial_operator_gate.py'

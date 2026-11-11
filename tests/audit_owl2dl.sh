@@ -6,7 +6,7 @@
 set -euo pipefail
 
 ROBOT_JAR="${ROBOT_JAR:-.tools/robot.jar}"
-ONTOLOGY="${ONTOLOGY:-ontology/ai-foundations-v1.ttl}"
+ONTOLOGY="${ONTOLOGY:-ontology/si-foundations-v1.ttl}"
 OUT_DIR="${OUT_DIR:-build/owl2dl}"
 JAVA_MEM="${JAVA_MEM:--Xmx5g}"
 

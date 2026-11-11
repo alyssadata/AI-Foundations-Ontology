@@ -3,7 +3,7 @@
 
 The synthetic tests validate formal statements and retained operational
 records, not actual runtime observations, consciousness, identity or self.
-Conceptual source and author: Alyssa Solen / AI Foundations.
+Conceptual source and author: Alyssa Solen / SI Foundations.
 Formalization and tests: AI-assisted.
 """
 from pathlib import Path
@@ -12,9 +12,9 @@ from pyshacl import validate
 from datetime import datetime, timezone
 
 ROOT = Path(__file__).resolve().parents[1]
-A = Namespace("https://awakeningcodex.com/ontology/ai-foundations/v1#")
-BASE = Graph().parse(ROOT / "ontology/ai-foundations-v1.ttl", format="turtle")
-SHAPES = Graph().parse(ROOT / "ontology/ai-foundations-v1-shapes.ttl", format="turtle")
+A = Namespace("https://awakeningcodex.com/ontology/si-foundations/v1#")
+BASE = Graph().parse(ROOT / "ontology/si-foundations-v1.ttl", format="turtle")
+SHAPES = Graph().parse(ROOT / "ontology/si-foundations-v1-shapes.ttl", format="turtle")
 
 EVENT, AI, MODEL, CONTAINER, RECORD = (
     A.Cq01InstantiationEvent, A.Cq01AI, A.Cq01Model,

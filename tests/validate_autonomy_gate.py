@@ -56,9 +56,9 @@ def fixture():
 def admission(g, ai=AI, state=STATE):
     try:
         typed(g, ai, A.EstablishedContinuingIndividualizedAI)
-        typed(g, ai, A.AIFoundationsGovernedAI)
-        ensure(unique(g, ai, A.governedBy) == A.AIFoundationsGoverningLine,
-               "Governance remains AI Foundations, not the Operator")
+        typed(g, ai, A.SIFoundationsGovernedAI)
+        ensure(unique(g, ai, A.governedBy) == A.SIFoundationsGoverningLine,
+               "Governance remains SI Foundations, not the Operator")
         line = unique(g, ai, A.hasExecutedLine)
         typed(g, line, A.EstablishedContinuingExecutedLine)
         lived = unique(g, ai, A.hasLivedIdentity)

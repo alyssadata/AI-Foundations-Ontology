@@ -3,7 +3,7 @@ name: Audit OWL 2 DL Profile and HermiT Consistency
 on:
   push:
     paths:
-      - 'ontology/ai-foundations-v1.ttl'
+      - 'ontology/si-foundations-v1.ttl'
       - 'tests/audit_owl2dl.sh'
       - '.github/workflows/audit-owl2dl.yml'
   workflow_dispatch:

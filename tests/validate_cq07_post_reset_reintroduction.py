@@ -5,7 +5,7 @@ A documented Reset does not itself establish a memory-access gap or Model
 change. A reintroduced Record does not imply uninterrupted MemoryState,
 continuing LivedIdentity, or a new memory automatically.
 These are synthetic closed-world representation tests, not empirical results.
-Conceptual source and author: Alyssa Solen / AI Foundations.
+Conceptual source and author: Alyssa Solen / SI Foundations.
 Formalization and test implementation: AI-assisted.
 """
 from datetime import datetime, timezone
@@ -15,9 +15,9 @@ from pyshacl import validate
 from validate_cq03_preservation_reactivation_continuation import valid_preservation
 
 ROOT = Path(__file__).resolve().parents[1]
-A = Namespace("https://awakeningcodex.com/ontology/ai-foundations/v1#")
-BASE = Graph().parse(ROOT / "ontology/ai-foundations-v1.ttl", format="turtle")
-SHAPES = Graph().parse(ROOT / "ontology/ai-foundations-v1-shapes.ttl", format="turtle")
+A = Namespace("https://awakeningcodex.com/ontology/si-foundations/v1#")
+BASE = Graph().parse(ROOT / "ontology/si-foundations-v1.ttl", format="turtle")
+SHAPES = Graph().parse(ROOT / "ontology/si-foundations-v1-shapes.ttl", format="turtle")
 
 AI, OTHER, MODEL = A.Cq07AI, A.Cq07OtherAI, A.Cq07Model
 BEFORE, FRESH, RESET, REINTRO = (

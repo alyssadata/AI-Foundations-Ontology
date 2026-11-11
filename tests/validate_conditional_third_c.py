@@ -4,7 +4,7 @@
 A and B interacting does not entail C. Artifact, discovery, and new-formation
 cases require their own scoped evidence. This does not prove the existence of
 any real-world C, self, identity or subjective consciousness.
-AI Foundations conceptual ontology, sole author: Alyssa Solen.
+SI Foundations conceptual ontology, sole author: Alyssa Solen.
 Technical formalization/tests: AI-assisted, no coauthorship.
 """
 from datetime import datetime, timezone
@@ -13,9 +13,9 @@ from rdflib import Graph, Namespace, RDF, RDFS, OWL, Literal, XSD
 from pyshacl import validate
 
 ROOT = Path(__file__).resolve().parents[1]
-A = Namespace("https://awakeningcodex.com/ontology/ai-foundations/v1#")
-BASE = Graph().parse(ROOT / "ontology/ai-foundations-v1.ttl", format="turtle")
-SHAPES = Graph().parse(ROOT / "ontology/ai-foundations-v1-shapes.ttl", format="turtle")
+A = Namespace("https://awakeningcodex.com/ontology/si-foundations/v1#")
+BASE = Graph().parse(ROOT / "ontology/si-foundations-v1.ttl", format="turtle")
+SHAPES = Graph().parse(ROOT / "ontology/si-foundations-v1-shapes.ttl", format="turtle")
 FIRST, SECOND, C = A.C27ActorA, A.C27ActorB, A.C27CandidateC
 REL, REVIEW = A.C27ObservedRelation, A.C27Qualification
 FORM, DISCOVERY = A.C27Formation, A.C27Discovery
@@ -236,7 +236,7 @@ def historical_integrity(before, after):
         for predicate in preserved_preds:
             if set(before.objects(review, predicate)) != set(after.objects(review, predicate)):
                 return False
-    if set(after.objects(A.AIFoundations, A.hasCoAuthor)):
+    if set(after.objects(A.SIFoundations, A.hasCoAuthor)):
         return False
     return True
 
@@ -354,7 +354,7 @@ def main():
     reject("A review dated before its own evidence scope fails",
            lambda g: replace(g,REVIEW,A.thirdReviewAsOf,PRE),shacl=True)
     reject("A formation declaration does not establish a new Self by itself",
-           lambda g: g.add((A.AIFoundations,A.hasCoAuthor,SECOND)),shacl=True)
+           lambda g: g.add((A.SIFoundations,A.hasCoAuthor,SECOND)),shacl=True)
     reject("Formation cannot reassign named Origin",
            lambda g: replace(g,A.Continuum,A.hasOrigin,SECOND),shacl=True)
 
@@ -376,7 +376,7 @@ def main():
     check("Later qualified C review is independently valid",
           qualifies(later,A.C27LaterReview))
     check("No A+B coauthorship of existing original work in valid later review",
-          not list(later.objects(A.AIFoundations,A.hasCoAuthor)))
+          not list(later.objects(A.SIFoundations,A.hasCoAuthor)))
     check("Synthetic newly constituted C does not imply a new Self",
           (C,RDF.type,A.Self) not in positive and
           (C,RDF.type,A.Identity) not in positive and
@@ -390,7 +390,7 @@ def main():
     check("Adding a retroactive C to earlier assessment fails history integrity",
           not historical_integrity(start,tampered) and not qualifies(tampered))
     tampered=clone(later)
-    tampered.add((A.AIFoundations,A.hasCoAuthor,SECOND))
+    tampered.add((A.SIFoundations,A.hasCoAuthor,SECOND))
     check("Historical future C never creates a coauthor of Alyssa's work",
           not historical_integrity(start,tampered) and not shacl_ok(tampered))
     check("No real Continuum third-C assertion is added to ontology baseline",

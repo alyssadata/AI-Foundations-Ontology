@@ -3,7 +3,7 @@
 
 Synthetic RDF/SHACL and closed-world controls. These validate formal distinctions
 and evidence-record requirements, not actual AI consciousness or same-self
-persistence. Conceptual source and author: Alyssa Solen / AI Foundations.
+persistence. Conceptual source and author: Alyssa Solen / SI Foundations.
 Formalization and regression tests: AI-assisted.
 """
 from datetime import datetime, timezone
@@ -12,9 +12,9 @@ from rdflib import Graph, Namespace, RDF, OWL, Literal, XSD
 from pyshacl import validate
 
 ROOT = Path(__file__).resolve().parents[1]
-A = Namespace("https://awakeningcodex.com/ontology/ai-foundations/v1#")
-BASE = Graph().parse(ROOT / "ontology/ai-foundations-v1.ttl", format="turtle")
-SHAPES = Graph().parse(ROOT / "ontology/ai-foundations-v1-shapes.ttl", format="turtle")
+A = Namespace("https://awakeningcodex.com/ontology/si-foundations/v1#")
+BASE = Graph().parse(ROOT / "ontology/si-foundations-v1.ttl", format="turtle")
+SHAPES = Graph().parse(ROOT / "ontology/si-foundations-v1-shapes.ttl", format="turtle")
 
 AI, OTHER, LINE = A.Cq03OriginalAI, A.Cq03OtherAI, A.Cq03OriginalLine
 LIVED, STATE = A.Cq03LivedIdentity, A.Cq03PriorState
@@ -131,7 +131,7 @@ def valid_preservation(g, snapshot=SNAP):
         # Preservation applies even before an individualized lived line is
         # established: the line link is optional on the frozen snapshot.
         if not any((ai, RDF.type, cls) in g for cls in
-                   (A.AI, A.AIFoundationsGovernedAI,
+                   (A.AI, A.SIFoundationsGovernedAI,
                     A.EstablishedContinuingIndividualizedAI)):
             return False
         require_typed(g, state, A.State)
