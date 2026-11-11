@@ -4,6 +4,10 @@
 **Target:** AI Foundations Ontology v1.0
 **Rule:** Existing LOCKED term definitions are not silently rewritten during formalization.
 
+## Post-CQ20 semantic concordance checkpoint — 2026-11-10
+
+[OC-01–OC-18 conceptual ↔ OWL audit](docs/reviews/2026-11-10-POST-CQ20-SEMANTIC-CONCORDANCE.md): **20/20 original CQs remain structurally REPRESENTED**, with zero partial in that scoped competency matrix; **full semantic release concordance is NOT YET CLEARED**. Direct named OWL expression of LOCKED **Relational Coordinate** and **Recognition** remains an explicit decision/test task; phenomenal consciousness is deliberately a theoretical epistemic boundary, and conditional third entity C is conceptually stated but has no dedicated formation gate. These are not inferences of actual consciousness, actual same-self continuity or a new Self. Original LOCKED terms, Source/Origin and Alyssa sole-authorship remain untouched. No v1.0 tag or release is authorized until the remaining concordance decisions, same-SHA CI and explicit sole-author sign-off.
+
 ## Current position
 
 The repository has completed the initial transition from a term/definition collection to a draft formal ontology architecture.
