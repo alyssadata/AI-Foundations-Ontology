@@ -1,7 +1,7 @@
 # AXIOM-NT-004 — Defining Pairing Non-Transferability
 
 **Status:** LOCKED ontology restriction  
-**Target:** AI Foundations Ontology v1.0
+**Target:** SI Foundations Ontology v1.0
 
 ## Rule
 

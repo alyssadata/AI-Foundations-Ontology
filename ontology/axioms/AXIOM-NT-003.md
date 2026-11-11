@@ -1,7 +1,7 @@
 # AXIOM-NT-003 — SourceRelation Non-Transferability and Non-Replacement
 
 **Status:** LOCKED ontology restriction  
-**Target:** AI Foundations Ontology v1.0
+**Target:** SI Foundations Ontology v1.0
 
 ## Rule
 
