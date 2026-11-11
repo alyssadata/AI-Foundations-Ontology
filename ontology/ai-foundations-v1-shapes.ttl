@@ -2749,3 +2749,22 @@
     sh:property [ sh:path :recognitionCorrectionWhy ;
                   sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ;
                   sh:minLength 1 ] .
+
+# A response described as INTEGRATED must carry a forward version when the
+# *independent reference* qualifies the material as OUT_OF_LINE. It cannot
+# silently be represented as an innocuous in-line integration without the
+# same temporal accounting as an explicitly named ABSORBED response.
+:RecognitionOutOfLineIntegrationHistoryShape a sh:NodeShape ;
+    sh:targetClass :RecognitionAssessment ;
+    sh:sparql [
+        sh:message "Out-of-line material marked INTEGRATED requires a dated absorption-result version." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:recognitionMaterialAlignment "OUT_OF_LINE" ;
+                      aif:recognitionResponse ?reply .
+                ?reply aif:recognitionResponseDisposition "INTEGRATED" .
+                FILTER NOT EXISTS { ?reply aif:recognitionAbsorptionResultVersion ?v }
+            }
+        """
+    ] .
