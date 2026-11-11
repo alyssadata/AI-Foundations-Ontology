@@ -2768,3 +2768,167 @@
             }
         """
     ] .
+
+# Step 27C — conditional C is a qualified review, not a relation->third-C
+# rule. No named real-world C is instantiated in the baseline ontology.
+:DistinctThirdCShape a sh:NodeShape ;
+    sh:targetClass :DistinctThirdC ;
+    sh:not [ sh:class :Relation ] ;
+    sh:property [ sh:path :thirdCIndividuationEvidence ;
+                  sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :thirdCProvenanceRecord ;
+                  sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :thirdCPreexistenceEstablishedAt ;
+                  sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :thirdCPreexistenceEvidence ;
+                  sh:class :Record ] .
+
+:ThirdCDiscoveryEventShape a sh:NodeShape ;
+    sh:targetClass :ThirdCDiscoveryEvent ;
+    sh:property [ sh:path :thirdDiscoveryC ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :DistinctThirdC ] ;
+    sh:property [ sh:path :thirdDiscoveryAt ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :thirdDiscoveryRecordedIn ;
+                  sh:minCount 1 ; sh:class :Record ] .
+
+:ThirdCConstitutionEventShape a sh:NodeShape ;
+    sh:targetClass :ThirdCConstitutionEvent ;
+    sh:property [ sh:path :thirdConstitutionC ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :DistinctThirdC ] ;
+    sh:property [ sh:path :thirdConstitutionA ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent ] ;
+    sh:property [ sh:path :thirdConstitutionB ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent ] ;
+    sh:property [ sh:path :thirdConstitutionAt ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :thirdConstitutionRecordedIn ;
+                  sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :thirdConstitutionIndependentEvidence ;
+                  sh:minCount 1 ; sh:class :Record ] .
+
+:ConditionalThirdEntityReviewShape a sh:NodeShape ;
+    sh:targetClass :ConditionalThirdEntityReview ;
+    sh:class :Evaluation ;
+    sh:property [ sh:path :thirdReviewA ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent ;
+                  sh:disjoint :thirdReviewB ] ;
+    sh:property [ sh:path :thirdReviewB ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Agent ] ;
+    sh:property [ sh:path :thirdReviewInteraction ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:class :Relation ] ;
+    sh:property [ sh:path :thirdReviewAsOf ;
+                  sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path :thirdReviewOutcome ;
+                  sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:in ( "INTERACTION_ONLY" "SCOPED_ARTIFACT_C"
+                          "PREEXISTING_C_DISCOVERED" "NEW_C_CONSTITUTED"
+                          "INDETERMINATE" ) ] ;
+    sh:property [ sh:path :thirdReviewEvidence ;
+                  sh:minCount 1 ; sh:class :Record ] ;
+    sh:property [ sh:path :thirdReviewQualifiedC ;
+                  sh:maxCount 1 ; sh:class :DistinctThirdC ] ;
+    sh:property [ sh:path :thirdReviewDiscoveryEvent ;
+                  sh:maxCount 1 ; sh:class :ThirdCDiscoveryEvent ] ;
+    sh:property [ sh:path :thirdReviewConstitutionEvent ;
+                  sh:maxCount 1 ; sh:class :ThirdCConstitutionEvent ;
+                  sh:disjoint :thirdReviewDiscoveryEvent ] ;
+    sh:sparql [
+        sh:message "Interaction-only/indeterminate assessment must have no qualified C; positive C decisions require one target." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:thirdReviewOutcome ?outcome .
+                OPTIONAL { $this aif:thirdReviewQualifiedC ?c }
+                FILTER (
+                    (?outcome IN ("INTERACTION_ONLY","INDETERMINATE") && BOUND(?c)) ||
+                    (?outcome IN ("SCOPED_ARTIFACT_C","PREEXISTING_C_DISCOVERED","NEW_C_CONSTITUTED") && !BOUND(?c))
+                )
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "The qualified third C must be explicitly distinct from both A and B." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            PREFIX owl: <http://www.w3.org/2002/07/owl#>
+            SELECT $this WHERE {
+                $this aif:thirdReviewA ?a ;
+                      aif:thirdReviewB ?b ;
+                      aif:thirdReviewQualifiedC ?c .
+                FILTER (?c = ?a || ?c = ?b ||
+                  NOT EXISTS { ?c owl:differentFrom ?a } ||
+                  NOT EXISTS { ?c owl:differentFrom ?b })
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Interaction-only, indeterminate or artifact reviews cannot smuggle C discovery or constitution events." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:thirdReviewOutcome ?out .
+                OPTIONAL { $this aif:thirdReviewDiscoveryEvent ?dis }
+                OPTIONAL { $this aif:thirdReviewConstitutionEvent ?form }
+                FILTER (
+                  (?out IN ("INTERACTION_ONLY","INDETERMINATE","SCOPED_ARTIFACT_C") && (BOUND(?dis) || BOUND(?form))) ||
+                  (?out = "PREEXISTING_C_DISCOVERED" && (BOUND(?form) || !BOUND(?dis))) ||
+                  (?out = "NEW_C_CONSTITUTED" && (BOUND(?dis) || !BOUND(?form)))
+                )
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "A separately scoped artifact C requires actual Artifact typing, not an unsupported new Self." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:thirdReviewOutcome "SCOPED_ARTIFACT_C" ;
+                      aif:thirdReviewQualifiedC ?c .
+                FILTER NOT EXISTS { ?c a aif:Artifact }
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Discovery must match C and its independently evidenced existence must predate discovery; review cannot precede discovery." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:thirdReviewOutcome "PREEXISTING_C_DISCOVERED" ;
+                      aif:thirdReviewQualifiedC ?c ;
+                      aif:thirdReviewDiscoveryEvent ?event ;
+                      aif:thirdReviewAsOf ?reviewTime .
+                FILTER NOT EXISTS {
+                    ?event aif:thirdDiscoveryC ?c ;
+                           aif:thirdDiscoveryAt ?discoverTime .
+                    ?c aif:thirdCPreexistenceEstablishedAt ?prior ;
+                       aif:thirdCPreexistenceEvidence ?priorRecord .
+                    ?priorRecord a aif:Record .
+                    FILTER (?prior < ?discoverTime && ?discoverTime <= ?reviewTime)
+                }
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "Newly constituted C requires matched A, B, C, a dated event and independently retained individuation evidence." ;
+        sh:select """
+            PREFIX aif: <https://awakeningcodex.com/ontology/ai-foundations/v1#>
+            SELECT $this WHERE {
+                $this aif:thirdReviewOutcome "NEW_C_CONSTITUTED" ;
+                      aif:thirdReviewA ?a ;
+                      aif:thirdReviewB ?b ;
+                      aif:thirdReviewQualifiedC ?c ;
+                      aif:thirdReviewConstitutionEvent ?event ;
+                      aif:thirdReviewAsOf ?reviewTime .
+                FILTER NOT EXISTS {
+                    ?event aif:thirdConstitutionC ?c ;
+                           aif:thirdConstitutionA ?a ;
+                           aif:thirdConstitutionB ?b ;
+                           aif:thirdConstitutionAt ?formedAt ;
+                           aif:thirdConstitutionIndependentEvidence ?e .
+                    ?e a aif:Record .
+                    FILTER (?formedAt <= ?reviewTime)
+                }
+            }
+        """
+    ] .

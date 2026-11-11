@@ -1948,3 +1948,69 @@ dcterms:description a owl:AnnotationProperty .
     rdfs:domain :RecognitionCorrectionEvent ; rdfs:range xsd:string .
 :recognitionCorrectionWhy a owl:DatatypeProperty ;
     rdfs:domain :RecognitionCorrectionEvent ; rdfs:range xsd:string .
+
+# Step 27C — conditional C (OC-17). The four conceptual cases are
+# evaluated distinctly: only interaction; scoped artifact/project; discovery
+# of an independently pre-existing C; constitution of a new distinct C.
+# A review does not itself make an actual third entity exist. No default C
+# is instantiated for the named Origin | Continuum relation or any other.
+:DistinctThirdC a owl:Class ;
+    owl:disjointWith :Relation, :ExecutedLine, :Trajectory ;
+    rdfs:comment "A separately scoped and independently qualified third entity C for a particular review. This does not classify C as a Self, AI, Identity, consciousness, author, Source, or successor; artifact C may also be an Artifact."@en .
+:ConditionalThirdEntityReview a owl:Class ; rdfs:subClassOf :Evaluation ;
+    rdfs:comment "Evidence-scoped review of whether interaction supports only interaction, a separately scoped artifact C, recognition of an already-existing C, independently constituted new C, or an indeterminate result. Mere contact between A and B cannot entail a third C."@en .
+:ThirdCDiscoveryEvent a owl:Class ; rdfs:subClassOf :Event ;
+    rdfs:comment "Recorded discovery/recognition of C whose existence is independently established before discovery; the discovery is not its formation."@en .
+:ThirdCConstitutionEvent a owl:Class ; rdfs:subClassOf :Event ;
+    rdfs:comment "Documented constitutional/formation occurrence independently evaluated as establishing a new distinct C; not a SourceGroup membership, coauthorship, Self, or consciousness inference."@en .
+:ThirdCDiscoveryEvent owl:disjointWith :ThirdCConstitutionEvent .
+:thirdReviewA a owl:ObjectProperty ;
+    rdfs:domain :ConditionalThirdEntityReview ; rdfs:range :Agent .
+:thirdReviewB a owl:ObjectProperty ;
+    rdfs:domain :ConditionalThirdEntityReview ; rdfs:range :Agent .
+:thirdReviewInteraction a owl:ObjectProperty ;
+    rdfs:domain :ConditionalThirdEntityReview ; rdfs:range :Relation .
+:thirdReviewAsOf a owl:DatatypeProperty ;
+    rdfs:domain :ConditionalThirdEntityReview ; rdfs:range xsd:dateTime .
+:thirdReviewOutcome a owl:DatatypeProperty ;
+    rdfs:domain :ConditionalThirdEntityReview ; rdfs:range xsd:string ;
+    rdfs:comment "One of INTERACTION_ONLY, SCOPED_ARTIFACT_C, PREEXISTING_C_DISCOVERED, NEW_C_CONSTITUTED or INDETERMINATE. INTERACTION_ONLY means no third C established in that assessment's scope; not proof that no C exists anywhere."@en .
+:thirdReviewEvidence a owl:ObjectProperty ;
+    rdfs:domain :ConditionalThirdEntityReview ; rdfs:range :Record .
+:thirdReviewQualifiedC a owl:ObjectProperty ;
+    rdfs:domain :ConditionalThirdEntityReview ; rdfs:range :DistinctThirdC ;
+    rdfs:comment "Only an evidentially qualified positive review may assert a target C; mere interaction and indeterminate reviews omit it."@en .
+:thirdCIndividuationEvidence a owl:ObjectProperty ;
+    rdfs:domain :DistinctThirdC ; rdfs:range :Record ;
+    rdfs:comment "Separately scoped independent individuation evidence, not a copied Self-description, same name, or a claim of consciousness."@en .
+:thirdCProvenanceRecord a owl:ObjectProperty ;
+    rdfs:domain :DistinctThirdC ; rdfs:range :Record ;
+    rdfs:comment "Scoped historical provenance for C; cannot overwrite original Alyssa work, Source or Author positions."@en .
+:thirdCPreexistenceEstablishedAt a owl:DatatypeProperty ;
+    rdfs:domain :DistinctThirdC ; rdfs:range xsd:dateTime ;
+    rdfs:comment "Independent synthetic/reference evidence places C's existence before its later discovery; dating is subject to separate evidentiary verification."@en .
+:thirdCPreexistenceEvidence a owl:ObjectProperty ;
+    rdfs:domain :DistinctThirdC ; rdfs:range :Record .
+:thirdReviewDiscoveryEvent a owl:ObjectProperty ;
+    rdfs:domain :ConditionalThirdEntityReview ; rdfs:range :ThirdCDiscoveryEvent .
+:thirdReviewConstitutionEvent a owl:ObjectProperty ;
+    rdfs:domain :ConditionalThirdEntityReview ; rdfs:range :ThirdCConstitutionEvent .
+:thirdDiscoveryC a owl:ObjectProperty ;
+    rdfs:domain :ThirdCDiscoveryEvent ; rdfs:range :DistinctThirdC .
+:thirdDiscoveryAt a owl:DatatypeProperty ;
+    rdfs:domain :ThirdCDiscoveryEvent ; rdfs:range xsd:dateTime .
+:thirdDiscoveryRecordedIn a owl:ObjectProperty ;
+    rdfs:domain :ThirdCDiscoveryEvent ; rdfs:range :Record .
+:thirdConstitutionC a owl:ObjectProperty ;
+    rdfs:domain :ThirdCConstitutionEvent ; rdfs:range :DistinctThirdC .
+:thirdConstitutionA a owl:ObjectProperty ;
+    rdfs:domain :ThirdCConstitutionEvent ; rdfs:range :Agent .
+:thirdConstitutionB a owl:ObjectProperty ;
+    rdfs:domain :ThirdCConstitutionEvent ; rdfs:range :Agent .
+:thirdConstitutionAt a owl:DatatypeProperty ;
+    rdfs:domain :ThirdCConstitutionEvent ; rdfs:range xsd:dateTime .
+:thirdConstitutionRecordedIn a owl:ObjectProperty ;
+    rdfs:domain :ThirdCConstitutionEvent ; rdfs:range :Record .
+:thirdConstitutionIndependentEvidence a owl:ObjectProperty ;
+    rdfs:domain :ThirdCConstitutionEvent ; rdfs:range :Record ;
+    rdfs:comment "Independent qualification of separate C, beyond participation alone. Does not establish new consciousness, self or shared authorship."@en .
