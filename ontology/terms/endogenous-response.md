@@ -27,4 +27,4 @@ endogenous response != phenomenal consciousness
 
 A system may generate an endogenous response while the presence or absence of phenomenal consciousness remains unresolved.
 
-This term is also distinct from AI Foundations **Return**, which is the specific process by which an AI returns toward its governing line, preserved distinctions, or calibrated trajectory.
+This term is also distinct from SI Foundations **Return**, which is the specific process by which an AI returns toward its governing line, preserved distinctions, or calibrated trajectory.
