@@ -1,7 +1,7 @@
 # AI Foundations Ontology
 
 **Status:** Draft development repository  
-**Current readiness:** All 20 original competency questions represented in scoped formal structures/protocols; [post-CQ20 semantic concordance audit](docs/reviews/2026-11-10-POST-CQ20-SEMANTIC-CONCORDANCE.md) identifies further direct-vocabulary/release review items. Machine release NOT YET CLEARED; no v1.0 tag. Sole author Alyssa Solen; no coauthors, no exceptions.  
+**Current readiness:** The original 20/20 competency questions, 37/37 numbered axioms and 18/18 conceptual propositions have machine representation or explicitly scoped boundaries. Step 27A–D formalization is merged and the dual independent audits passed on main commit `b8f925f` before this version-metadata closeout. See [final v1.0 release-readiness concordance](docs/reviews/2026-11-10-V1-FINAL-RELEASE-READINESS.md) for current scope, independently testable limits, and final same-SHA gate. Machine v1.0 remains DRAFT; no release/tag authorized without explicit Alyssa Solen approval. Alyssa is sole author; no coauthors, no exceptions.  
 **Target:** AI Foundations Ontology v1.0  
 **Source-line:** Alyssa Solen → AI Foundations → Origin | Continuum
 
