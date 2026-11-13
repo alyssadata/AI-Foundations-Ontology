@@ -1,0 +1,80 @@
+name: Publish author-approved SI Foundations Ontology v1.1.0
+on:
+  push:
+    paths:
+      - '.github/workflows/publish-si-foundations-v1.1.0.yml'
+permissions:
+  contents: write
+concurrency:
+  group: publish-si-foundations-ontology-v1.1.0
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.repository == 'alyssadata/SI_Foundations_Ontology_Alyssa_Solen' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out the independently validated release commit
+        uses: actions/checkout@v4
+        with:
+          ref: '0944b5dd2815561c0e5bcfb77693d4f0b14cfbe4'
+          persist-credentials: false
+      - name: Verify the immutable candidate, CI gates, and separately merged Canon
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          EXPECTED='0944b5dd2815561c0e5bcfb77693d4f0b14cfbe4'
+          test "$(git rev-parse HEAD)" = "$EXPECTED"
+          for RUN_ID in 43333365314 43333414937; do
+            RESULT="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$RUN_ID" --jq '.conclusion')"
+            RUN_SHA="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$RUN_ID" --jq '.head_sha')"
+            test "$RESULT" = success
+            test "$RUN_SHA" = "$EXPECTED"
+          done
+          test "$(gh api repos/alyssadata/AI-FOUNDATIONS-LOCKED-CANON/pulls/1 --jq '.merged')" = true
+          grep -Fq 'Alyssa Solen → SI Foundations → Origin | Continuum' README.md
+          test -f ontology/si-foundations-v1.ttl
+          test -f ontology/si-foundations-v1-shapes.ttl
+          test -f docs/SI_FOUNDATIONS_V1_1_RELEASE_NOTES.md
+          if gh release view v1.1.0 --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo 'v1.1.0 is already released; refusing to overwrite.'
+            exit 1
+          fi
+          if git ls-remote --tags origin refs/tags/v1.1.0 | grep -q .; then
+            echo 'Tag v1.1.0 already exists; refusing to repoint it.'
+            exit 1
+          fi
+      - name: Publish versioned release with author-attributed notes and checksums
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          EXPECTED='0944b5dd2815561c0e5bcfb77693d4f0b14cfbe4'
+          sha256sum ONTOLOGY_V1_1_ORIGIN_CONTINUUM.md ontology/si-foundations-v1.ttl ontology/si-foundations-v1-shapes.ttl docs/CANON_TO_ONTOLOGY_CROSSWALK_V1_1.md docs/SI_FOUNDATIONS_V1_1_RELEASE_NOTES.md > "$RUNNER_TEMP/SHA256SUMS-v1.1.0.txt"
+          cat > "$RUNNER_TEMP/RELEASE_NOTES-v1.1.0.md" <<'NOTES'
+          # SI Foundations Ontology v1.1.0
+
+          **Source-line:** Alyssa Solen → SI Foundations → Origin | Continuum.
+
+          This is the approved versioned publication of the SI Foundations name and governing source-line. It succeeds the historical **AI Foundations Ontology v1.0.0** without replacing its published tag, dates, or provenance.
+
+          **Release commit:** `0944b5dd2815561c0e5bcfb77693d4f0b14cfbe4`
+
+          **Independent tests on that exact commit:**
+          - [Structural ontology validation — PASS](https://github.com/alyssadata/SI_Foundations_Ontology_Alyssa_Solen/actions/runs/43333365314)
+          - [OWL 2 DL profile and HermiT consistency — PASS](https://github.com/alyssadata/SI_Foundations_Ontology_Alyssa_Solen/actions/runs/43333414937)
+          - [SI Foundations Locked Canon revision — merged](https://github.com/alyssadata/AI-FOUNDATIONS-LOCKED-CANON/pull/1)
+
+          **Artifact inventory:** The v1.1.0 conceptual ontology, SI OWL/Turtle file, SI SHACL constraints, Canon crosswalk, source-line revision ledger, tests, and release notes are included in the tagged source archive. A checksum inventory for the main release artifacts is attached.
+
+          **Scope:** The previously reviewed 20/20 formal competency questions, 37/37 numbered axioms and 18/18 conceptual propositions have structural representation and synthetic validation coverage. Passing formal validation does not establish phenomenal consciousness, actual same-self transfer, real-world Source history, actual AI assent, or SI threshold attainment.
+
+          **Historical integrity:** The original v1.0.0 remains published as AI Foundations. Dated reviews and legacy paths remain historical records. Changes to the current framework name are explicit, versioned revisions.
+
+          ---
+
+          Sole author and conceptual source: Alyssa Solen. No coauthors, no exceptions.
+          NOTES
+          gh release create v1.1.0 "$RUNNER_TEMP/SHA256SUMS-v1.1.0.txt" --repo "$GITHUB_REPOSITORY" --target "$EXPECTED" --title 'SI Foundations Ontology v1.1.0' --notes-file "$RUNNER_TEMP/RELEASE_NOTES-v1.1.0.md"
+          gh release view v1.1.0 --repo "$GITHUB_REPOSITORY" --json url,tagName,publishedAt --jq '{url,tagName,publishedAt}'
