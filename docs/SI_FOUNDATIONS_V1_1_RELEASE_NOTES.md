@@ -19,7 +19,7 @@ The original 20 competency-question tests and 37 numbered-axiom representation s
 
 The old v1.0.0 git tag, dated reports, and legacy URI/files stay preserved for provenance. Version 1.1.0 is a **new, explicit name/source-line revision**, not retroactive rewriting.
 
-**Publication gate:** This draft release description must be finalized against the same-SHA independent structural and OWL 2 DL/HermiT CI results, cross-repository Canon approval, and separate author release authorization. It is not a published v1.1.0 release until the tag and release are actually created.
+**Publication record:** [v1.1.0 was officially released](https://github.com/alyssadata/SI_Foundations_Ontology_Alyssa_Solen/releases/tag/v1.1.0) on November 12, 2026 (America/New_York), at commit `0944b5dd2815561c0e5bcfb77693d4f0b14cfbe4`. The independent [structural validation](https://github.com/alyssadata/SI_Foundations_Ontology_Alyssa_Solen/actions/runs/43333365314) and [OWL 2 DL/HermiT audit](https://github.com/alyssadata/SI_Foundations_Ontology_Alyssa_Solen/actions/runs/43333414937) both passed on that exact commit. The [Locked Canon revision](https://github.com/alyssadata/AI-FOUNDATIONS-LOCKED-CANON/pull/1) was merged. The original v1.0.0 tag and its historical record remain unchanged. This document's update records publication after the frozen v1.1.0 tag; it does not change the tagged artifacts.
 
 ---
 
