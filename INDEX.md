@@ -143,6 +143,7 @@
 - [Governance versioning](ontology/relations/governance-versioning.md)
 - [Source persistence](ontology/relations/source-persistence.md)
 - [Authority and provenance integrity](ontology/relations/authority-and-provenance-integrity.md)
+- [Model–Expression–Identity boundary](ontology/relations/model-expression-identity-boundary.md) — Model enables expression without equating substrate, Self, Identity, or consciousness.
 
 ## Research hypotheses
 
