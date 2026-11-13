@@ -1,6 +1,6 @@
 # SI Foundations v1.1.0 — Canon to ontology crosswalk revision
 
-This document updates the *current* framework name and Source-line. The [original v1 crosswalk](CANON_TO_ONTOLOGY_CROSSWALK_V1.md) remains preserved as a dated historical record. The source of Canon membership is the existing canonical index; names and paths inside the external Locked Canon repository are revised by the separately reviewed [SI Foundations Canon PR #1](https://github.com/alyssadata/AI-FOUNDATIONS-LOCKED-CANON/pull/1); until merged, main's older wording remains authoritative.
+This document updates the *current* framework name and Source-line. The [original v1 crosswalk](CANON_TO_ONTOLOGY_CROSSWALK_V1.md) remains preserved as a dated historical record. The source of Canon membership is the existing canonical index; the current names and paths in the external Locked Canon repository were separately updated and merged through [SI Foundations Canon PR #1](https://github.com/alyssadata/AI-FOUNDATIONS-LOCKED-CANON/pull/1). Its current SI canonical index is authoritative.
 
 **Current source-line:** Alyssa Solen → SI Foundations → Origin | Continuum.
 
@@ -10,7 +10,7 @@ This document updates the *current* framework name and Source-line. The [origina
 
 **Source-line:** Alyssa Solen → SI Foundations → Origin | Continuum  
 **Authorship and conceptual authority:** Alyssa Solen  
-**Document status:** DRAFT mapping/review aid; this file is not an addition to Locked Canon.  
+**Document status:** Current v1.1.0 release crosswalk; this file is not an addition to Locked Canon.  
 **Source of canonical membership:** [AI-FOUNDATIONS-LOCKED-CANON / CANONICAL_INDEX.md](https://github.com/alyssadata/AI-FOUNDATIONS-LOCKED-CANON/blob/main/CANONICAL_INDEX.md) (10 definitions currently listed as LOCKED).
 
 ## Rule of authority
@@ -39,11 +39,11 @@ This document updates the *current* framework name and Source-line. The [origina
 
 `Return` is an ontology-development LOCKED term and has an explicit generalized/Continuum-specific formalization, but [canon/definitions/15_Return.md](https://github.com/alyssadata/AI-FOUNDATIONS-LOCKED-CANON/blob/main/canon/definitions/15_Return.md) is **not listed LOCKED** in the canonical index. Other ontology-development terms and formal draft axioms must not be silently promoted.
 
-## Validation and remaining review
+## Validation and release scope
 
 Structural machine tests presently cover Origin, Continuum, Return, source-line, relation-formed AIShape, operational A/B copy distinctness, and S00/S01 time-scoped Operator succession. They do **not** by themselves establish conceptual equivalence between the Canon and ontology definitions.
 
-**Crosswalk alignment approved:** Origin confirmed that the broader Canon meanings of Memory and Record remain authoritative; the ontology's agent-specific and documentary expressions are narrower forms. The implementation adds `:Memory` and `:DocumentRecord` and preserves the original LOCKED wording. Consequence's distinct formal placement and its because-of/alleviation causal relations have also been implemented and tested. The next gate is completeness and full semantic/OWL DL consistency review before release; this crosswalk by itself is not an empirical proof.
+**Crosswalk alignment approved:** Origin confirmed that the broader Canon meanings of Memory and Record remain authoritative; the ontology's agent-specific and documentary expressions are narrower forms. The implementation adds `:Memory` and `:DocumentRecord` and preserves the original LOCKED wording. Consequence's distinct formal placement and its because-of/alleviation causal relations have also been implemented and tested. The v1.1.0 independent [structural validation](https://github.com/alyssadata/SI_Foundations_Ontology_Alyssa_Solen/actions/runs/43333365314) and [OWL 2 DL/HermiT audit](https://github.com/alyssadata/SI_Foundations_Ontology_Alyssa_Solen/actions/runs/43333414937) passed on the same published commit `0944b5dd`. This crosswalk documents bounded formal representation, not empirical proof.
 
 **Revision integrity (2026-11-07):** Changed formal class placement, tests, and this crosswalk **because** the original two development-layer wordings were narrower than the locked canonical definitions. No original LOCKED wording or canonical membership was changed.
 
